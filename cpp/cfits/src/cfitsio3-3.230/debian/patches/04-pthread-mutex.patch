@@ -1,0 +1,11 @@
+--- a/cfileio.c
++++ b/cfileio.c
+@@ -70,7 +70,7 @@
+     /* Init the main fitsio lock here since we need a a recursive lock */
+ 
+     assert(!pthread_mutexattr_init(&mutex_init));
+-#ifdef linux
++#ifdef __GLIBC__
+     assert(!pthread_mutexattr_settype(&mutex_init,
+ 				     PTHREAD_MUTEX_RECURSIVE_NP));
+ #else

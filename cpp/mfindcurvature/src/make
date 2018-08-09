@@ -1,0 +1,7 @@
+make delete
+make ../bin/findcurvature
+chmod a+x ../bin/findcurvature
+rm ~/bin/findcurvature
+cp -p ../bin/findcurvature ~/bin/
+rm ~/stella/bin/findcurvature
+ln -s ~/bin/findcurvature ~/stella/bin/

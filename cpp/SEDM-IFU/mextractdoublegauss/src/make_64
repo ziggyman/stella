@@ -1,0 +1,4 @@
+g++ -s -O2 -fpermissive -lm -lgsl -lmgl -lfityk -lgslcblas -I/usr/local/include -lm -lcfitsio -static-libgcc -L. -o ../bin/extractdoublegauss_64 ../../../cfits/src/CAny.cpp ../../../cfits/src/CString.cpp ../../../cfits/src/CFits.cpp MExtractDoubleGauss.cpp ../../../cfits/src/kriging/vario_model.h ../../../cfits/src/kriging/geostat.h ../../../cfits/src/kriging/geostat.cpp ../../../cfits/src/kriging/matrix_ex.h ../../../cfits/src/kriging/matrix_ex.cpp ../../../cfits/src/kriging/model_sph.h ../../../cfits/src/kriging/model_sph.cpp ../../../cfits/src/kriging/model_stable.h ../../../cfits/src/kriging/model_stable.cpp ../../../cfits/src/kriging/variogram.h ../../../cfits/src/kriging/variogram.cpp
+cp ../bin/extractdoublegauss_64 /home/azuri/stella/bin/
+rm /home/azuri/bin/sedm_extractdoublegauss
+ln -s /home/azuri/stella/bin/extractdoublegauss_64 /home/azuri/bin/sedm_extractdoublegauss

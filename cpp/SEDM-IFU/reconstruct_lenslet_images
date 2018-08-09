@@ -1,0 +1,9 @@
+# $1: input file list of object exposures without the .list file extension
+# $2: database filename
+# $3: aperture-definition image without the .fits file extension
+setapwidth $3.fits $2 -4. 4. $2_-4_4
+replacestringinlistwith $1.list $1r.list '.fits' 'r.fits'
+replacestringinlistwith $1.list $1r_bot.list '.fits' 'r_bot.fits'
+imrotate @$1.list 90 @$1r.list
+subtractoverscanandtrim @$1r.list @$1r_bot.list [0,2047,0,3] [0,2047,4,2047]
+preparecollapsedimage_no_scatter @$1r_bot.list $2_-4_4 identified_coeffs.list 1.78 4000. 9200. 15. 60. collapsed_files.list cornerfiles.list AP_DEF_IMAGE=$3.fits

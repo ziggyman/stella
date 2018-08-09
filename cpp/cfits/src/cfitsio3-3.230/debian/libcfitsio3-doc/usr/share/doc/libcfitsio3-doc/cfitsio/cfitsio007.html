@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>The CFITSIO Iterator Function </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio006.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio008.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc52">Chapter&#XA0;6</A>&#XA0;&#XA0; The CFITSIO Iterator Function </H1><P>The fits_iterate_data function in CFITSIO provides a unique method of
+executing an arbitrary user-supplied &#X2018;work&#X2019; function that operates on
+rows of data in FITS tables or on pixels in FITS images. Rather than
+explicitly reading and writing the FITS images or columns of data, one
+instead calls the CFITSIO iterator routine, passing to it the name of
+the user&#X2019;s work function that is to be executed along with a list of
+all the table columns or image arrays that are to be passed to the work
+function. The CFITSIO iterator function then does all the work of
+allocating memory for the arrays, reading the input data from the FITS
+file, passing them to the work function, and then writing any output
+data back to the FITS file after the work function exits. Because
+it is often more efficient to process only a subset of the total table
+rows at one time, the iterator function can determine the optimum
+amount of data to pass in each iteration and repeatedly call the work
+function until the entire table been processed.</P><P>For many applications this single CFITSIO iterator function can
+effectively replace all the other CFITSIO routines for reading or
+writing data in FITS images or tables. Using the iterator has several
+important advantages over the traditional method of reading and writing
+FITS data files:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+It cleanly separates the data I/O from the routine that operates on
+the data. This leads to a more modular and &#X2018;object oriented&#X2019;
+programming style.</LI><LI CLASS="li-itemize">It simplifies the application program by eliminating the need to allocate
+memory for the data arrays and eliminates most of the calls to the CFITSIO
+routines that explicitly read and write the data.</LI><LI CLASS="li-itemize">It ensures that the data are processed as efficiently as possible.
+This is especially important when processing tabular data since
+the iterator function will calculate the most efficient number
+of rows in the table to be passed at one time to the user&#X2019;s work
+function on each iteration.</LI><LI CLASS="li-itemize">Makes it possible for larger projects to develop a library of work
+functions that all have a uniform calling sequence and are all
+independent of the details of the FITS file format.</LI></UL><P>There are basically 2 steps in using the CFITSIO iterator function.
+The first step is to design the work function itself which must have a
+prescribed set of input parameters. One of these parameters is a
+structure containing pointers to the arrays of data; the work function
+can perform any desired operations on these arrays and does not need to
+worry about how the input data were read from the file or how the
+output data get written back to the file.</P><P>The second step is to design the driver routine that opens all the
+necessary FITS files and initializes the input parameters to the
+iterator function. The driver program calls the CFITSIO iterator
+function which then reads the data and passes it to the user&#X2019;s work
+function.</P><P>The following 2 sections describe these steps in more detail. There
+are also several example programs included with the CFITSIO
+distribution which illustrate how to use the iterator function.</P><H2 CLASS="section"><A NAME="toc32"></A><A NAME="htoc53">6.1</A>&#XA0;&#XA0;The Iterator Work Function</H2><P>The user-supplied iterator work function must have the following set of
+input parameters (the function can be given any desired name):</P><PRE CLASS="verbatim">  int user_fn( long totaln, long offset, long firstn, long nvalues,
+               int narrays, iteratorCol *data,  void *userPointer )
+</PRE><UL CLASS="itemize"><LI CLASS="li-itemize">totaln &#X2013; the total number of table rows or image pixels
+that will be passed to the work function
+during 1 or more iterations.</LI><LI CLASS="li-itemize">offset &#X2013; the offset applied to the first table row or image
+pixel to be passed to the work function. In other
+words, this is the number of rows or pixels that
+are skipped over before starting the iterations. If
+offset = 0, then all the table rows or image pixels
+will be passed to the work function.</LI><LI CLASS="li-itemize">firstn &#X2013; the number of the first table row or image pixel
+(starting with 1) that is being passed in this
+particular call to the work function.</LI><LI CLASS="li-itemize">nvalues &#X2013; the number of table rows or image pixels that are
+being passed in this particular call to the work
+function. nvalues will always be less than or
+equal to totaln and will have the same value on
+each iteration, except possibly on the last
+call which may have a smaller value.</LI><LI CLASS="li-itemize">narrays &#X2013; the number of arrays of data that are being passed
+to the work function. There is one array for each
+image or table column.</LI><LI CLASS="li-itemize">*data &#X2013; array of structures, one for each
+column or image. Each structure contains a pointer
+to the array of data as well as other descriptive
+parameters about that array.</LI><LI CLASS="li-itemize">*userPointer &#X2013; a user supplied pointer that can be used
+to pass ancillary information from the driver function
+to the work function.
+This pointer is passed to the CFITSIO iterator function
+which then passes it on to the
+work function without any modification.
+It may point to a single number, to an array of values,
+to a structure containing an arbitrary set of parameters
+of different types,
+or it may be a null pointer if it is not needed.
+The work function must cast this pointer to the
+appropriate data type before using it it.
+</LI></UL><P>The totaln, offset, narrays, data, and userPointer parameters are
+guaranteed to have the same value on each iteration. Only firstn,
+nvalues, and the arrays of data pointed to by the data structures may
+change on each iterative call to the work function.</P><P>Note that the iterator treats an image as a long 1-D array of pixels
+regardless of it&#X2019;s intrinsic dimensionality. The total number of
+pixels is just the product of the size of each dimension, and the order
+of the pixels is the same as the order that they are stored in the FITS
+file. If the work function needs to know the number and size of the
+image dimensions then these parameters can be passed via the
+userPointer structure.</P><P>The iteratorCol structure is currently defined as follows:</P><PRE CLASS="verbatim">typedef struct  /* structure for the iterator function column information */
+{
+   /* structure elements required as input to fits_iterate_data: */
+
+  fitsfile *fptr;       /* pointer to the HDU containing the column or image */
+  int      colnum;      /* column number in the table; ignored for images    */
+  char     colname[70]; /* name (TTYPEn) of the column; null for images      */
+  int      datatype;    /* output data type (converted if necessary) */
+  int      iotype;      /* type: InputCol, InputOutputCol, or OutputCol */
+
+  /* output structure elements that may be useful for the work function: */
+
+  void     *array;    /* pointer to the array (and the null value) */
+  long     repeat;    /* binary table vector repeat value; set     */
+                      /*     equal to 1 for images                 */
+  long     tlmin;     /* legal minimum data value, if any          */
+  long     tlmax;     /* legal maximum data value, if any          */
+  char     unit[70];  /* physical unit string (BUNIT or TUNITn)    */
+  char     tdisp[70]; /* suggested display format; null if none    */
+
+} iteratorCol;
+</PRE><P>Instead of directly reading or writing the elements in this structure,
+it is recommended that programmers use the access functions that are
+provided for this purpose.</P><P>The first five elements in this structure must be initially defined by
+the driver routine before calling the iterator routine. The CFITSIO
+iterator routine uses this information to determine what column or
+array to pass to the work function, and whether the array is to be
+input to the work function, output from the work function, or both.
+The CFITSIO iterator function fills in the values of the remaining
+structure elements before passing it to the work function.</P><P>The array structure element is a pointer to the actual data array and
+it must be cast to the correct data type before it is used. The
+&#X2018;repeat&#X2019; structure element give the number of data values in each row
+of the table, so that the total number of data values in the array is
+given by repeat * nvalues. In the case of image arrays and ASCII
+tables, repeat will always be equal to 1. When the data type is a
+character string, the array pointer is actually a pointer to an array
+of string pointers (i.e., char **array). The other output structure
+elements are provided for convenience in case that information is
+needed within the work function. Any other information may be passed
+from the driver routine to the work function via the userPointer
+parameter.</P><P>Upon completion, the work routine must return an integer status value,
+with 0 indicating success and any other value indicating an error which
+will cause the iterator function to immediately exit at that point. Return status
+values in the range 1 &#X2013; 1000 should be avoided since these are
+reserved for use by CFITSIO. A return status value of -1 may be used to
+force the CFITSIO iterator function to stop at that point and return
+control to the driver routine after writing any output arrays to the
+FITS file. CFITSIO does not considered this to be an error condition,
+so any further processing by the application program will continue normally.</P><H2 CLASS="section"><A NAME="toc33"></A><A NAME="htoc54">6.2</A>&#XA0;&#XA0;The Iterator Driver Function</H2><P>The iterator driver function must open the necessary FITS files and
+position them to the correct HDU. It must also initialize the following
+parameters in the iteratorCol structure (defined above) for each
+column or image before calling the CFITSIO iterator function.
+Several &#X2018;constructor&#X2019; routines are provided in CFITSIO for this
+purpose.</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+*fptr &#X2013; The fitsfile pointer to the table or image.
+</LI><LI CLASS="li-itemize">colnum &#X2013; the number of the column in the table. This value is ignored
+in the case of images. If colnum equals 0, then the column name
+will be used to identify the column to be passed to the
+work function.</LI><LI CLASS="li-itemize">colname &#X2013; the name (TTYPEn keyword) of the column. This is
+only required if colnum = 0 and is ignored for images.
+</LI><LI CLASS="li-itemize">datatype &#X2013; The desired data type of the array to be passed to the
+work function. For numerical data the data type does
+not need to be the same as the actual data type in the
+FITS file, in which case CFITSIO will do the conversion.
+Allowed values are: TSTRING, TLOGICAL, TBYTE, TSBYTE, TSHORT, TUSHORT,
+TINT, TLONG, TULONG, TFLOAT, TDOUBLE. If the input
+value of data type equals 0, then the existing
+data type of the column or image will be used without
+any conversion.</LI><LI CLASS="li-itemize">iotype &#X2013; defines whether the data array is to be input to the
+work function (i.e, read from the FITS file), or output
+from the work function (i.e., written to the FITS file) or
+both. Allowed values are InputCol, OutputCol, or InputOutputCol.
+	 Variable-length array columns are supported as InputCol or
+	 InputOutputCol types, but may not be used for an OutputCol type.
+</LI></UL><P>After the driver routine has initialized all these parameters, it
+can then call the CFITSIO iterator function:</P><PRE CLASS="verbatim">  int fits_iterate_data(int narrays, iteratorCol *data, long offset,
+      long nPerLoop, int (*workFn)( ), void *userPointer, int *status);
+</PRE><UL CLASS="itemize"><LI CLASS="li-itemize">
+<P>narrays &#X2013; the number of columns or images that are to be passed
+to the work function.
+</P></LI><LI CLASS="li-itemize">*data &#X2013; pointer to array of structures containing information
+about each column or image.</LI><LI CLASS="li-itemize">offset &#X2013; if positive, this number of rows at the
+beginning of the table (or pixels in the image)
+will be skipped and will not be passed to the work
+function.</LI><LI CLASS="li-itemize">nPerLoop - specifies the number of table rows (or number of
+image pixels) that are to be passed to the work
+function on each iteration. If nPerLoop = 0
+then CFITSIO will calculate the optimum number
+for greatest efficiency.
+If nPerLoop is negative, then all the rows
+or pixels will be passed at one time, and the work
+function will only be called once. If any variable
+		 length arrays are being processed, then the nPerLoop
+		 value is ignored, and the iterator will always process
+		 one row of the table at a time.</LI><LI CLASS="li-itemize">*workFn - the name (actually the address) of the work function
+that is to be called by fits_iterate_data.</LI><LI CLASS="li-itemize">*userPointer - this is a user supplied pointer that can be used
+to pass ancillary information from the driver routine
+to the work function. It may point to a single number,
+an array, or to a structure containing an arbitrary set
+of parameters.</LI><LI CLASS="li-itemize">*status - The CFITSIO error status. Should = 0 on input;
+a non-zero output value indicates an error.
+</LI></UL><P>When fits_iterate_data is called it first allocates memory to hold
+all the requested columns of data or image pixel arrays. It then reads
+the input data from the FITS tables or images into the arrays then
+passes the structure with pointers to these data arrays to the work
+function. After the work function returns, the iterator function
+writes any output columns of data or images back to the FITS files. It
+then repeats this process for any remaining sets of rows or image
+pixels until it has processed the entire table or image or until the
+work function returns a non-zero status value. The iterator then frees
+the memory that it initially allocated and returns control to the
+driver routine that called it.</P><H2 CLASS="section"><A NAME="toc34"></A><A NAME="htoc55">6.3</A>&#XA0;&#XA0;Guidelines for Using the Iterator Function</H2><P>The totaln, offset, firstn, and nvalues parameters that are passed to
+the work function are useful for determining how much of the data has
+been processed and how much remains left to do. On the very first call
+to the work function firstn will be equal to offset + 1; the work
+function may need to perform various initialization tasks before
+starting to process the data. Similarly, firstn + nvalues - 1 will be
+equal to totaln on the last iteration, at which point the work function
+may need to perform some clean up operations before exiting for the
+last time. The work function can also force an early termination of
+the iterations by returning a status value = -1.</P><P>The narrays and iteratorCol.datatype arguments allow the work function
+to double check that the number of input arrays and their data types
+have the expected values. The iteratorCol.fptr and iteratorCol.colnum
+structure elements can be used if the work function needs to read or
+write the values of other keywords in the FITS file associated with
+the array. This should generally only be done during the
+initialization step or during the clean up step after the last set of
+data has been processed. Extra FITS file I/O during the main
+processing loop of the work function can seriously degrade the speed of
+the program.</P><P>If variable-length array columns are being processed, then the iterator
+will operate on one row of the table at a time. In this case the
+the repeat element in the interatorCol structure will be set equal to
+the number of elements in the current row that is being processed.</P><P>One important feature of the iterator is that the first element in each
+array that is passed to the work function gives the value that is used
+to represent null or undefined values in the array. The real data then
+begins with the second element of the array (i.e., array[1], not
+array[0]). If the first array element is equal to zero, then this
+indicates that all the array elements have defined values and there are
+no undefined values. If array[0] is not equal to zero, then this
+indicates that some of the data values are undefined and this value
+(array[0]) is used to represent them. In the case of output arrays
+(i.e., those arrays that will be written back to the FITS file by the
+iterator function after the work function exits) the work function must
+set the first array element to the desired null value if necessary,
+otherwise the first element should be set to zero to indicate that
+there are no null values in the output array. CFITSIO defines 2
+values, FLOATNULLVALUE and DOUBLENULLVALUE, that can be used as default
+null values for float and double data types, respectively. In the case
+of character string data types, a null string is always used to
+represent undefined strings.</P><P>In some applications it may be necessary to recursively call the iterator
+function. An example of this is given by one of the example programs
+that is distributed with CFITSIO: it first calls a work function that
+writes out a 2D histogram image. That work function in turn calls
+another work function that reads the &#X2018;X&#X2019; and &#X2018;Y&#X2019; columns in a table to
+calculate the value of each 2D histogram image pixel. Graphically, the
+program structure can be described as:</P><PRE CLASS="verbatim"> driver --&gt; iterator --&gt; work1_fn --&gt; iterator --&gt; work2_fn
+</PRE><P>Finally, it should be noted that the table columns or image arrays that
+are passed to the work function do not all have to come from the same
+FITS file and instead may come from any combination of sources as long
+as they have the same length. The length of the first table column or
+image array is used by the iterator if they do not all have the same
+length.</P><H2 CLASS="section"><A NAME="toc35"></A><A NAME="htoc56">6.4</A>&#XA0;&#XA0;Complete List of Iterator Routines</H2><P>All of the iterator routines are listed below. Most of these routines
+do not have a corresponding short function name.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Iterator &#X2018;constructor&#X2019; functions that set
+the value of elements in the iteratorCol structure
+that define the columns or arrays. These set the fitsfile
+pointer, column name, column number, datatype, and iotype,
+respectively. The last 2 routines allow all the parameters
+to be set with one function call (one supplies the column
+name, the other the column number). <A NAME="ffiterset"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_iter_set_file(iteratorCol *col, fitsfile *fptr);
+
+  int fits_iter_set_colname(iteratorCol *col, char *colname);
+
+  int fits_iter_set_colnum(iteratorCol *col, int colnum);
+
+  int fits_iter_set_datatype(iteratorCol *col, int datatype);
+
+  int fits_iter_set_iotype(iteratorCol *col, int iotype);
+
+  int fits_iter_set_by_name(iteratorCol *col, fitsfile *fptr,
+          char *colname, int datatype,  int iotype);
+
+  int fits_iter_set_by_num(iteratorCol *col, fitsfile *fptr,
+          int colnum, int datatype,  int iotype);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Iterator &#X2018;accessor&#X2019; functions that return the value of the
+element in the iteratorCol structure
+that describes a particular data column or array <A NAME="ffiterget"></A>
+</DD></DL><PRE CLASS="verbatim">  fitsfile * fits_iter_get_file(iteratorCol *col);
+
+  char * fits_iter_get_colname(iteratorCol *col);
+
+  int fits_iter_get_colnum(iteratorCol *col);
+
+  int fits_iter_get_datatype(iteratorCol *col);
+
+  int fits_iter_get_iotype(iteratorCol *col);
+
+  void * fits_iter_get_array(iteratorCol *col);
+
+  long fits_iter_get_tlmin(iteratorCol *col);
+
+  long fits_iter_get_tlmax(iteratorCol *col);
+
+  long fits_iter_get_repeat(iteratorCol *col);
+
+  char * fits_iter_get_tunit(iteratorCol *col);
+
+  char * fits_iter_get_tdisp(iteratorCol *col);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> The CFITSIO iterator function <A NAME="ffiter"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_iterate_data(int narrays,  iteratorCol *data, long offset,
+            long nPerLoop,
+            int (*workFn)( long totaln, long offset, long firstn,
+                           long nvalues, int narrays, iteratorCol *data,
+                           void *userPointer),
+            void *userPointer,
+            int *status);
+</PRE><HR>
+<A HREF="cfitsio006.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio008.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

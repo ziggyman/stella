@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['s',['S',['../classMersenneTwister.html#abc3f15f62f0f1281d7d2b07a20378580',1,'MersenneTwister::S()'],['../classMersenneTwister_1_1mt__state.html#a368dc4512942e7642aaaa2085ccd4cbc',1,'MersenneTwister::mt_state::S()'],['../indexexpr_8h.html#ae024b0db549122b44c349ae28ec990dc',1,'s():&#160;indexexpr.h']]],
+  ['s0',['s0',['../structMersenneTwister_1_1BitMixer.html#a9cb7f7e60511d471f0afd7c9e8d0df37',1,'MersenneTwister::BitMixer']]],
+  ['scalaroperandcounter_5f',['scalarOperandCounter_',['../classprettyPrintFormat.html#a6b53514513cf799cabc0fe1c53c53562',1,'prettyPrintFormat']]],
+  ['seconddim',['secondDim',['../array-impl_8h.html#a518ffae5f2f550d35ec0e2fe7b9856ff',1,'array-impl.h']]],
+  ['secondrank',['secondRank',['../array-impl_8h.html#a80b19521ce0cdc6058a6e74f4ec23fe1',1,'array-impl.h']]],
+  ['seed',['seed',['../classUniform.html#ab0197eae880ae09ec28a589cb2c48916',1,'Uniform']]],
+  ['seventhdim',['seventhDim',['../array-impl_8h.html#ae82f35cbc334ff8aa239b73df4a56814',1,'array-impl.h']]],
+  ['seventhrank',['seventhRank',['../array-impl_8h.html#a3fca1df55adbfa8251489da219ce6e14',1,'array-impl.h']]],
+  ['sigma_5f',['sigma_',['../classNormal.html#a2d5a520390f17870c70b9599229131f8',1,'Normal']]],
+  ['sixthdim',['sixthDim',['../array-impl_8h.html#a09e286be77fa9fa73a5849629e5d33b9',1,'array-impl.h']]],
+  ['sixthrank',['sixthRank',['../array-impl_8h.html#a946e32a6eb593958f7c32a28a153ce40',1,'array-impl.h']]],
+  ['size_5f',['size_',['../classDiagonalIterator.html#a449e656511e2d61e50d878debe597300',1,'DiagonalIterator::size_()'],['../classDiagonal.html#acbc6f9a08e9301ba1e416bb971daee8c',1,'Diagonal::size_()'],['../classLowerTriangularIterator.html#a4e7c1d15a20473697c3d5f50bbe30048',1,'LowerTriangularIterator::size_()'],['../classLowerTriangular.html#a8e03e3074d92bfd753a7c02dcd63af51',1,'LowerTriangular::size_()'],['../classSymmetricIterator.html#af20fec83b924fece2f18e16e64d1d158',1,'SymmetricIterator::size_()'],['../classSymmetric.html#a1932ed2c562064e40c2a1d93612e3c6d',1,'Symmetric::size_()'],['../classUpperTriangularIterator.html#a0c6e58c284e4e65c2017666da3831573',1,'UpperTriangularIterator::size_()'],['../classUpperTriangular.html#a9478841a9fd71e2b8dcd2b88ab094b3a',1,'UpperTriangular::size_()']]],
+  ['standarddeviation_5f',['standardDeviation_',['../classNormal.html#a9d93b8e6d2f2d27e7a0a7eb7a4d3e2b8',1,'Normal']]],
+  ['storage_5f',['storage_',['../classArray.html#ab59a3d60aed828794ddff5988923ad95',1,'Array']]],
+  ['stride_5f',['stride_',['../classArray.html#a899a58be77231a2b6044e370a57648d6',1,'Array::stride_()'],['../classArray.html#ae69b93c4b923f1e95cf14421da3a8d72',1,'Array::stride_()'],['../classRange.html#aa221156b4de11e63ce338a0bad767f5b',1,'Range::stride_()'],['../classVectorIter.html#a07e8dd850a0e32fdb2ffbaf8d2604809',1,'VectorIter::stride_()'],['../classVectorIterConst.html#afc7ae4491012be68359fecaf877dfd93',1,'VectorIterConst::stride_()'],['../classVector.html#a6c2fcaac55b8f84d011755be2a3556b6',1,'Vector::stride_()']]],
+  ['structure_5f',['structure_',['../classMatrix.html#afd6f66aad8c628934e34d59134d05ee2',1,'Matrix']]],
+  ['sum_5f',['sum_',['../classReduceSum.html#a376d084caf4136d445dbf36f60132dbc',1,'ReduceSum::sum_()'],['../classReduceMean.html#a27a3d360fad5c0108687d90e42fa9326',1,'ReduceMean::sum_()']]]
+];

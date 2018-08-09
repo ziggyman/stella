@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Local FITS Conventions </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio012.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio014.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc111">Chapter&#XA0;12</A>&#XA0;&#XA0; Local FITS Conventions </H1><P>CFITSIO supports several local FITS conventions which are not
+defined in the official NOST FITS standard and which are not
+necessarily recognized or supported by other FITS software packages.
+Programmers should be cautious about using these features, especially
+if the FITS files that are produced are expected to be processed by
+other software systems which do not use the CFITSIO interface.</P><H2 CLASS="section"><A NAME="toc63"></A><A NAME="htoc112">12.1</A>&#XA0;&#XA0;64-Bit Long Integers</H2><P>CFITSIO supports reading and writing FITS images or table columns containing
+64-bit integer data values. Support for 64-bit integers was added to the
+official FITS Standard in December 2005.
+FITS 64-bit images have BITPIX =
+64, and the 64-bit binary table columns have TFORMn = &#X2019;K&#X2019;. CFITSIO also
+supports the &#X2019;Q&#X2019; variable-length array table column format which is
+analogous to the &#X2019;P&#X2019; column format except that the array descriptor
+is stored as a pair of 64-bit integers.</P><P>For the convenience of C programmers, the fitsio.h include file
+defines (with a typedef statement) the &#X2019;LONGLONG&#X2019; datatype to be
+equivalent to an appropriate 64-bit integer datatype on each platform.
+Since there is currently no universal standard
+for the name of the 64-bit integer datatype (it might be defined as
+&#X2019;long long&#X2019;, &#X2019;long&#X2019;, or &#X2019;__int64&#X2019; depending on the platform)
+C programmers may prefer to use the &#X2019;LONGLONG&#X2019; datatype when
+declaring or allocating 64-bit integer quantities when writing
+code which needs to run on multiple platforms.
+Note that CFITSIO will implicitly convert the datatype when reading
+or writing FITS 64-bit integer images and columns with data arrays of
+a different integer or floating point datatype, but there is an
+increased risk of loss of numerical precision or
+numerical overflow in this case.</P><H2 CLASS="section"><A NAME="toc64"></A><A NAME="htoc113">12.2</A>&#XA0;&#XA0;Long String Keyword Values.</H2><P>The length of a standard FITS string keyword is limited to 68
+characters because it must fit entirely within a single FITS header
+keyword record. In some instances it is necessary to encode strings
+longer than this limit, so CFITSIO supports a local convention in which
+the string value is continued over multiple keywords. This
+continuation convention uses an ampersand character at the end of each
+substring to indicate that it is continued on the next keyword, and the
+continuation keywords all have the name CONTINUE without an equal sign
+in column 9. The string value may be continued in this way over as many
+additional CONTINUE keywords as is required. The following lines
+illustrate this continuation convention which is used in the value of
+the STRKEY keyword:</P><PRE CLASS="verbatim">LONGSTRN= 'OGIP 1.0'    / The OGIP Long String Convention may be used.
+STRKEY  = 'This is a very long string keyword&amp;'  / Optional Comment
+CONTINUE  ' value that is continued over 3 keywords in the &amp;  '
+CONTINUE  'FITS header.' / This is another optional comment.
+</PRE><P>It is recommended that the LONGSTRN keyword, as shown here, always be
+included in any HDU that uses this longstring convention as a warning
+to any software that must read the keywords. A routine called fits_write_key_longwarn
+has been provided in CFITSIO to write this keyword if it does not
+already exist.</P><P>This long string convention is supported by the following CFITSIO
+routines:</P><PRE CLASS="verbatim">    fits_write_key_longstr  - write a long string keyword value
+    fits_insert_key_longstr - insert a long string keyword value
+    fits_modify_key_longstr - modify a long string keyword value
+    fits_update_key_longstr - modify a long string keyword value
+    fits_read_key_longstr   - read  a long string keyword value
+    fits_delete_key         - delete a keyword
+</PRE><P>The fits_read_key_longstr routine is unique among all the CFITSIO
+routines in that it internally allocates memory for the long string
+value; all the other CFITSIO routines that deal with arrays require
+that the calling program pre-allocate adequate space to hold the array
+of data. Consequently, programs which use the fits_read_key_longstr
+routine must be careful to free the allocated memory for the string
+when it is no longer needed.</P><P>The following 2 routines also have limited support for this long string
+convention,</P><PRE CLASS="verbatim">      fits_modify_key_str - modify an existing string keyword value
+      fits_update_key_str - update a string keyword value
+</PRE><P>in that they will correctly overwrite an existing long string value,
+but the new string value is limited to a maximum of 68 characters in
+length.</P><P>The more commonly used CFITSIO routines to write string valued keywords
+(fits_update_key and fits_write_key) do not support this long
+string convention and only support strings up to 68 characters in
+length. This has been done deliberately to prevent programs from
+inadvertently writing keywords using this non-standard convention
+without the explicit intent of the programmer or user. The
+fits_write_key_longstr routine must be called instead to write long
+strings. This routine can also be used to write ordinary string values
+less than 68 characters in length.</P><H2 CLASS="section"><A NAME="toc65"></A><A NAME="htoc114">12.3</A>&#XA0;&#XA0;Arrays of Fixed-Length Strings in Binary Tables</H2><P>CFITSIO supports 2 ways to specify that a character column in a binary
+table contains an array of fixed-length strings. The first way, which
+is officially supported by the FITS Standard document, uses the TDIMn keyword.
+For example, if TFORMn = &#X2019;60A&#X2019; and TDIMn = &#X2019;(12,5)&#X2019; then that
+column will be interpreted as containing an array of 5 strings, each 12
+characters long.</P><P>CFITSIO also supports a
+local convention for the format of the TFORMn keyword value of the form
+&#X2019;rAw&#X2019; where &#X2019;r&#X2019; is an integer specifying the total width in characters
+of the column, and &#X2019;w&#X2019; is an integer specifying the (fixed) length of
+an individual unit string within the vector. For example, TFORM1 =
+&#X2019;120A10&#X2019; would indicate that the binary table column is 120 characters
+wide and consists of 12 10-character length strings. This convention
+is recognized by the CFITSIO routines that read or write strings in
+binary tables. The Binary Table definition document specifies that
+other optional characters may follow the data type code in the TFORM
+keyword, so this local convention is in compliance with the
+FITS standard although other FITS readers may not
+recognize this convention.</P><P>The Binary Table definition document that was approved by the IAU in
+1994 contains an appendix describing an alternate convention for
+specifying arrays of fixed or variable length strings in a binary table
+character column (with the form &#X2019;rA:SSTRw/nnn)&#X2019;. This appendix was not
+officially voted on by the IAU and hence is still provisional. CFITSIO
+does not currently support this proposal.</P><H2 CLASS="section"><A NAME="toc66"></A><A NAME="htoc115">12.4</A>&#XA0;&#XA0;Keyword Units Strings</H2><P>One limitation of the current FITS Standard is that it does not define
+a specific convention for recording the physical units of a keyword
+value. The TUNITn keyword can be used to specify the physical units of
+the values in a table column, but there is no analogous convention for
+keyword values. The comment field of the keyword is often used for
+this purpose, but the units are usually not specified in a well defined
+format that FITS readers can easily recognize and extract.</P><P>To solve this problem, CFITSIO uses a local convention in which the
+keyword units are enclosed in square brackets as the first token in the
+keyword comment field; more specifically, the opening square bracket
+immediately follows the slash &#X2019;/&#X2019; comment field delimiter and a single
+space character. The following examples illustrate keywords that use
+this convention:</P><PRE CLASS="verbatim">EXPOSURE=               1800.0 / [s] elapsed exposure time
+V_HELIO =                16.23 / [km s**(-1)] heliocentric velocity
+LAMBDA  =                5400. / [angstrom] central wavelength
+FLUX    = 4.9033487787637465E-30 / [J/cm**2/s] average flux
+</PRE><P>In general, the units named in the IAU(1988) Style Guide are
+recommended, with the main exception that the preferred unit for angle
+is &#X2019;deg&#X2019; for degrees.</P><P>The fits_read_key_unit and fits_write_key_unit routines in
+CFITSIO read and write, respectively, the keyword unit strings in an
+existing keyword.</P><H2 CLASS="section"><A NAME="toc67"></A><A NAME="htoc116">12.5</A>&#XA0;&#XA0;HIERARCH Convention for Extended Keyword Names</H2><P>CFITSIO supports the HIERARCH keyword convention which allows keyword
+names that are longer then 8 characters and may contain the full range
+of printable ASCII text characters. This convention
+was developed at the European Southern Observatory (ESO) to support
+hierarchical FITS keyword such as:</P><PRE CLASS="verbatim">HIERARCH ESO INS FOCU POS = -0.00002500 / Focus position
+</PRE><P>Basically, this convention uses the FITS keyword &#X2019;HIERARCH&#X2019; to indicate
+that this convention is being used, then the actual keyword name
+(<TT>&#X2019;ESO INS FOCU POS&#X2019;</TT> in this example) begins in column 10 and can
+contain any printable ASCII text characters, including spaces. The
+equals sign marks the end of the keyword name and is followed by the
+usual value and comment fields just as in standard FITS keywords.
+Further details of this convention are described at
+http://arcdev.hq.eso.org/dicb/dicd/dic-1-1.4.html (search for
+HIERARCH).</P><P>This convention allows a much broader range of keyword names
+than is allowed by the FITS Standard. Here are more examples
+of such keywords:</P><PRE CLASS="verbatim">HIERARCH LongKeyword = 47.5 / Keyword has &gt; 8 characters, and mixed case
+HIERARCH XTE$TEMP = 98.6 / Keyword contains the '$' character
+HIERARCH Earth is a star = F / Keyword contains embedded spaces
+</PRE><P>CFITSIO will transparently read and write these keywords, so application
+programs do not in general need to know anything about the specific
+implementation details of the HIERARCH convention. In particular,
+application programs do not need to specify the &#X2018;HIERARCH&#X2019; part of the
+keyword name when reading or writing keywords (although it
+may be included if desired). When writing a keyword, CFITSIO first
+checks to see if the keyword name is legal as a standard FITS keyword
+(no more than 8 characters long and containing only letters, digits, or
+a minus sign or underscore). If so it writes it as a standard FITS
+keyword, otherwise it uses the hierarch convention to write the
+keyword. The maximum keyword name length is 67 characters, which
+leaves only 1 space for the value field. A more practical limit is
+about 40 characters, which leaves enough room for most keyword values.
+CFITSIO returns an error if there is not enough room for both the
+keyword name and the keyword value on the 80-character card, except for
+string-valued keywords which are simply truncated so that the closing
+quote character falls in column 80. In the current implementation,
+CFITSIO preserves the case of the letters when writing the keyword
+name, but it is case-insensitive when reading or searching for a
+keyword. The current implementation allows any ASCII text character
+(ASCII 32 to ASCII 126) in the keyword name except for the &#X2019;=&#X2019;
+character. A space is also required on either side of the equal sign.</P><H2 CLASS="section"><A NAME="toc68"></A><A NAME="htoc117">12.6</A>&#XA0;&#XA0;Tile-Compressed Image Format</H2><P>CFITSIO supports a convention for compressing n-dimensional images and
+storing the resulting byte stream in a variable-length column in a FITS
+binary table. The general principle used in this convention is to
+first divide the n-dimensional image into a rectangular grid of
+subimages or &#X2018;tiles&#X2019;. Each tile is then compressed as a continuous
+block of data, and the resulting compressed byte stream is stored in a
+row of a variable length column in a FITS binary table. By dividing the
+image into tiles it is generally possible to extract and uncompress
+subsections of the image without having to uncompress the whole image.
+The default tiling pattern treats each row of a 2-dimensional image (or
+higher dimensional cube) as a tile, such that each tile contains NAXIS1
+pixels (except the default with the HCOMPRESS algorithm is to
+compress the whole 2D image as a single tile). Any other rectangular
+tiling pattern may also be defined. In
+the case of relatively small images it may be sufficient to compress
+the entire image as a single tile, resulting in an output binary table
+with 1 row. In the case of 3-dimensional data cubes, it may be
+advantageous to treat each plane of the cube as a separate tile if
+application software typically needs to access the cube on a plane by
+plane basis.</P><P>See section 5.6 &#X201C;Image Compression&#X201D;
+for more information on using this tile-compressed image format.</P><HR>
+<A HREF="cfitsio012.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio014.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

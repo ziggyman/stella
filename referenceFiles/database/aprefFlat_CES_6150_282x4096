@@ -1,0 +1,29 @@
+# Mon 21:44:08 08-Mar-2004
+begin	aperture refFlat_CES_6150_282x4096 1 166.6485 2048.
+	image	refFlat_CES_6150_282x4096
+	aperture	1
+	beam	1
+	center	166.6485 2048.
+	low	-71.87882 -2047.
+	high	25.6111 2048.
+	background
+		xmin -71.87882
+		xmax 26.
+		function chebyshev
+		order 1
+		sample -24.3:-20.3,22.:26.
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		8.
+		4088.
+		0.007910931
+		-0.03777399
+		-0.04650094
+

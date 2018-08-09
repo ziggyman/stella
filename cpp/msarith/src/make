@@ -1,0 +1,7 @@
+make delete
+make ../bin/sarith
+chmod a+x ../bin/sarith
+rm ~/bin/sarith
+cp -p ../bin/sarith ~/bin/
+rm ~/stella/bin/sarith
+ln -s ~/bin/sarith ~/stella/bin/

@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Parameter Definitions </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio011.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio013.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc91">Chapter&#XA0;11</A>&#XA0;&#XA0; Parameter Definitions </H1><PRE CLASS="verbatim">anyf - (logical) set to TRUE if any of the returned data values are undefined
+array - (any datatype except character) array of bytes to be read or written.
+bitpix - (integer) bits per pixel: 8, 16, 32, -32, or -64
+blank - (integer) value used for undefined pixels in integer primary array
+blank - (integer*8) value used for undefined pixels in integer primary array
+blocksize - (integer) 2880-byte logical record blocking factor
+          (if 0 &lt; blocksize &lt; 11) or the actual block size in bytes
+          (if 10 &lt; blocksize &lt; 28800).  As of version 3.3 of FITSIO,
+          blocksizes greater than 2880 are no longer supported.
+bscale - (double precision) scaling factor for the primary array
+bytlen - (integer) length of the data unit, in bytes
+bzero - (double precision) zero point for primary array scaling
+card - (character*80) header record to be read or written
+casesen - (logical) will string matching be case sensitive?
+checksum - (character*16) encoded checksum string
+colname - (character) ASCII name of the column
+colnum - (integer) number of the column (first column = 1)
+coltemplate - (character) template string to be matched to column names
+comment - (character) the keyword comment field
+comments - (character array) keyword comment fields
+compid - (integer) the type of computer that the program is running on
+complement - (logical) should the checksum be complemented?
+coordtype - (character) type of coordinate projection (-SIN, -TAN, -ARC,
+          -NCP, -GLS, -MER, or -AIT)
+cube - 3D data cube of the appropriate datatype
+curaddr - (integer) starting address (in bytes) of the CHDU
+current - (integer) if not equal to 0, copy the current HDU
+datacode - (integer) symbolic code of the binary table column datatype
+dataok - (integer) was the data unit verification successful (=1) or
+         not (= -1).  Equals zero if the DATASUM keyword is not present.
+datasum - (double precision) 32-bit 1's complement checksum for the data unit
+datatype - (character) datatype (format) of the binary table column
+datestr  - (string) FITS date/time string: 'YYYY-MM-DDThh:mm:ss.ddd',
+           'YYYY-MM-dd', or 'dd/mm/yy'
+day - (integer) current day of the month
+dblval - (double precision) fractional part of the keyword value
+decimals - (integer) number of decimal places to be displayed
+dim1 - (integer) actual size of the first dimension of the image or cube array
+dim2 - (integer) actual size of the second dimension of the cube array
+dispwidth - (integer) - the display width (length of string) for a column
+dtype - (character) datatype of the keyword ('C', 'L', 'I',  or 'F')
+                C = character string
+                L = logical
+                I = integer
+                F = floating point number
+errmsg - (character*80) oldest error message on the internal stack
+errtext - (character*30) descriptive error message corresponding to error number
+casesen - (logical) true if column name matching is case sensitive
+exact - (logical) do the strings match exactly, or were wildcards used?
+exclist  (character array) list of names to be excluded from search
+exists   - flag indicating whether the file or compressed file exists on disk
+extend - (logical) true if there may be extensions following the primary data
+extname - (character) value of the EXTNAME keyword (if not blank)
+fbit - (integer) first bit in the field to be read or written
+felem - (integer) first pixel of the element vector (ignored for ASCII tables)
+filename - (character) name of the FITS file
+flagvals - (logical array) True if corresponding data element is undefined
+following - (integer) if not equal to 0, copy all following HDUs in the input file
+fparm - (integer) sequence number of the first group parameter to read or write
+fpixel - (integer) the first pixel position
+fpixels - (integer array) the first included pixel in each dimension
+frow - (integer) beginning row number (first row of table = 1)
+frowll - (integer*8) beginning row number (first row of table = 1)
+gcount - (integer) value of the GCOUNT keyword (usually = 1)
+group - (integer) sequence number of the data group (=0 for non-grouped data)
+hdtype - (integer) header record type: -1=delete;  0=append or replace;
+                   1=append; 2=this is the END keyword
+hduok - (integer) was the HDU verification successful (=1) or
+         not (= -1).  Equals zero if the CHECKSUM keyword is not present.
+hdusum - (double precision) 32 bit 1's complement checksum for the entire CHDU
+hdutype - (integer) type of HDU: 0 = primary array or IMAGE, 1 = ASCII table,
+                   2 = binary table, -1 = any HDU type or unknown type
+history - (character) the HISTORY keyword comment string
+hour - (integer) hour from 0 - 23
+image - 2D image of the appropriate datatype
+inclist  (character array) list of names to be included in search
+incs - (integer array) sampling interval for pixels in each FITS dimension
+intval - (integer) integer part of the keyword value
+iounit - (integer) value of an unused I/O unit number
+iunit - (integer) logical unit number associated with the input FITS file, 1-199
+key_no - (integer) sequence number (starting with 1) of the keyword record
+keylength - (integer) length of the keyword name
+keyroot - (character) root string for the keyword name
+keysadd -(integer) number of new keyword records which can fit in the CHU
+keysexist - (integer) number of existing keyword records in the CHU
+keyval - value of the keyword in the appropriate datatype
+keyvals - (array) value of the keywords in the appropriate datatype
+keyword - (character*8) name of a keyword
+lray - (logical array) array of logical values corresponding to the bit array
+lpixels - (integer array) the last included pixel in each dimension
+match - (logical) do the 2 strings match?
+maxdim - (integer) dimensioned size of the NAXES, TTYPE, TFORM or TUNIT arrays
+max_keys - (integer) maximum number of keywords to search for
+minute - (integer) minute of an hour (0 - 59)
+month - (integer) current month of the year (1 - 12)
+morekeys - (integer) will leave space in the header for this many more keywords
+naxes - (integer array) size of each dimension in the FITS array
+naxesll - (integer*8 array) size of each dimension in the FITS array
+naxis - (integer) number of dimensions in the FITS array
+naxis1 - (integer) length of the X/first axis of the FITS array
+naxis2 - (integer) length of the Y/second axis of the FITS array
+naxis3 - (integer) length of the Z/third axis of the FITS array
+nbit - (integer) number of bits in the field to read or write
+nchars - (integer) number of characters to read and return
+ncols - (integer) number of columns
+nelements - (integer) number of data elements to read or write
+nelementsll - (integer*8) number of data elements to read or write
+nexc   (integer)  number of names in the exclusion list (may = 0)
+nhdu - (integer) absolute number of the HDU (1st HDU = 1)
+ninc   (integer)  number of names in the inclusion list
+nmove - (integer) number of HDUs to move (+ or -), relative to current position
+nfound - (integer) number of keywords found (highest keyword number)
+no_keys - (integer) number of keywords to write in the sequence
+nparm - (integer) number of group parameters to read or write
+nrows - (integer) number of rows in the table
+nrowsll - (integer*8) number of rows in the table
+nullval - value to represent undefined pixels, of the appropriate datatype
+nextaddr - (integer) starting address (in bytes) of the HDU following the CHDU
+offset - (integer) byte offset in the heap to the first element of the array
+offsetll - (integer*8) byte offset in the heap to the first element of the array
+oldkey - (character) old name of keyword to be modified
+ounit - (integer) logical unit number associated with the output FITS file 1-199
+pcount - (integer) value of the PCOUNT keyword (usually = 0)
+previous - (integer) if not equal to 0, copy all previous HDUs in the input file
+repeat - (integer) length of element vector (e.g. 12J); ignored for ASCII table
+rot - (double precision) celestial coordinate rotation angle (degrees)
+rowlen - (integer) length of a table row, in characters or bytes
+rowlenll - (integer*8) length of a table row, in characters or bytes
+rowlist - (integer array) list of row numbers to be deleted in increasing order
+rownum - (integer) number of the row (first row = 1)
+rowrange- (string) list of rows or row ranges to be deleted
+rwmode - (integer) file access mode: 0 = readonly, 1 = readwrite
+second   (double)- second within minute (0 - 60.9999999999) (leap second!)
+seq_no - (integer) the sequence number to append to the keyword root name
+simple - (logical) does the FITS file conform to all the FITS standards
+snull - (character) value used to represent undefined values in ASCII table
+space - (integer) number of blank spaces to leave between ASCII table columns
+startchar - (integer) first character in the row to be read
+startno - (integer) value of the first keyword sequence number (usually 1)
+status - (integer) returned error status code (0 = OK)
+str_template (character) template string to be matched to reference string
+stream - (character) output stream for the report: either 'STDOUT' or 'STDERR'
+string - (character) character string
+sum - (double precision) 32 bit unsigned checksum value
+tbcol - (integer array) column number of the first character in the field(s)
+tdisp - (character) Fortran type display format for the table column
+template-(character) template string for a FITS header record
+tfields - (integer) number of fields (columns) in the table
+tform - (character array) format of the column(s); allowed values are:
+         For ASCII tables:  Iw, Aw, Fww.dd, Eww.dd, or Dww.dd
+         For binary tables: rL, rX, rB, rI, rJ, rA, rAw, rE, rD, rC, rM
+         where 'w'=width of the field, 'd'=no. of decimals, 'r'=repeat count
+         Note that the 'rAw' form is non-standard extension to the
+         TFORM keyword syntax that is not specifically defined in the
+         Binary Tables definition document.
+theap - (integer) zero indexed byte offset of starting address of the heap
+         relative to the beginning of the binary table data
+tnull - (integer) value used to represent undefined values in binary table
+tnullll - (integer*8) value used to represent undefined values in binary table
+ttype - (character array) label for table column(s)
+tscal - (double precision) scaling factor for table column
+tunit - (character array) physical unit for table column(s)
+tzero - (double precision) scaling zero point for table column
+unit  - (integer) logical unit number associated with the FITS file (1-199)
+units - (character) the keyword units string (e.g., 'km/s')
+value - (character) the keyword value string
+values - array of data values of the appropriate datatype
+varidat - (integer) size in bytes of the 'variable length data area'
+           following the binary table data (usually = 0)
+version - (real) current revision number of the library
+width - (integer) width of the character string field
+xcol - (integer) number of the column containing the X coordinate values
+xinc - (double precision) X axis coordinate increment at reference pixel (deg)
+xpix - (double precision) X axis pixel location
+xpos - (double precision) X axis celestial coordinate (usually RA) (deg)
+xrpix - (double precision) X axis reference pixel array location
+xrval - (double precision) X axis coordinate value at the reference pixel (deg)
+ycol - (integer) number of the column containing the X coordinate values
+year - (integer) last 2 digits of the year (00 - 99)
+yinc - (double precision) Y axis coordinate increment at reference pixel (deg)
+ypix - (double precision) y axis pixel location
+ypos - (double precision) y axis celestial coordinate (usually DEC) (deg)
+yrpix - (double precision) Y axis reference pixel array location
+yrval - (double precision) Y axis coordinate value at the reference pixel (deg)
+</PRE><P>
+</P><HR>
+<A HREF="fitsio011.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio013.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

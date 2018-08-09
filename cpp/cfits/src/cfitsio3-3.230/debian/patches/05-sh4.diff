@@ -1,0 +1,18 @@
+--- cfitsio3-3.230.orig/fitsio2.h
++++ cfitsio3-3.230/fitsio2.h
+@@ -176,6 +176,14 @@
+ 
+ #define BYTESWAPPED TRUE
+  
++#elif defined(__sh__)
++
++#  if defined(__LITTLE_ENDIAN__)
++#    define BYTESWAPPED TRUE
++#  else
++#    define BYTESWAPPED FALSE
++#  endif
++
+ #else
+ 
+ /*  assume all other machine uses the same IEEE formats as used in FITS files */
+

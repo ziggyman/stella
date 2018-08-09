@@ -1,0 +1,7 @@
+make delete
+make ../bin/dividespecbystandard
+chmod a+x ../bin/dividespecbystandard
+rm ~/bin/dividespecbystandard
+cp -p ../bin/dividespecbystandard ~/bin/
+rm ~/stella/bin/dividespecbystandard
+ln -s ~/bin/dividespecbystandard ~/stella/bin/

@@ -1,0 +1,165 @@
+cd mcalcmedian/src
+./make
+cd ../../
+cd mcreateerrorimage/src
+./make
+cd ../../
+cd mdispcorlist/src
+./make
+cd ../../
+cd mestimatescatter/src
+./make
+cd ../../
+cd mextendaps/src
+./make
+cd ../../
+cd mextract/src
+./make
+cd ../../
+cd mextractfromprofile/src
+./make
+cd ../../
+cd mextractmpfitgauss/src
+./make
+cd ../../
+cd mextractmpfitthreegauss/src
+./make
+cd ../../
+cd mextractmpfittwogauss/src
+./make
+cd ../../
+cd mextractspecfromprofile/src
+./make
+cd ../../
+cd mextractsum/src
+./make
+cd ../../
+cd mfindandtraceaps/src
+./make
+cd ../../
+cd mfindaperturenumbersinlist/src
+./make
+cd ../../
+cd mfindapsincirc/src
+./make
+cd ../../
+cd mfindapsinring/src
+./make
+cd ../../
+cd mfindcurvature/src
+./make
+cd ../../
+cd midentify/src
+./make
+cd ../../
+cd midentifylist/src
+./make
+cd ../../
+cd mimarith/src
+./make
+cd ../../
+cd mimrotate/src
+./make
+cd ../../
+cd mimtranspose/src
+./make
+cd ../../
+cd mmakenormflat/src
+./make
+cd ../../
+cd mmakeprofile/src
+./make
+cd ../../
+cd mmarkcenters/src
+./make
+cd ../../
+cd mreplacebadaps/src
+./make
+cd ../../
+cd mreplacestringinlistwith/src
+./make
+cd ../../
+cd mreverse/src
+./make
+cd ../../
+cd msarith/src
+./make
+cd ../../
+cd msetaplength/src
+./make
+cd ../../
+cd msetapstozero/src
+./make
+cd ../../
+cd msetapsyhigh/src
+./make
+cd ../../
+cd msetapsylow/src
+./make
+cd ../../
+cd msetapwidth/src
+./make
+cd ../../
+cd msetnegtozero/src
+./make
+cd ../../
+cd mshiftaps/src
+./make
+cd ../../
+cd msubscatterkriging/src
+./make
+cd ../../
+cd msubtractoverscanandtrim/src
+./make
+cd ../../
+cd mtransposearray/src
+./make
+cd ../../
+cd mwriteapcenters/src
+./make
+cd ../../
+cd mwriteaps/src
+./make
+cd ../../
+cd mwritefitsareatotext/src
+./make
+cd ../../
+cd mwritefitsheader/src
+./make
+cd ../../
+cd mxcor/src
+./make
+cd ../../
+cd mxcor2d/src
+./make
+cd ../../
+cd SEDM-IFU/mdividespecbystandard/src
+./make
+cd ../../../
+cd SEDM-IFU/mextractdoublegauss/src
+./make
+cd ../../../
+cd SEDM-IFU/mextractsum_obs_sky/src
+./make
+cd ../../../
+cd SEDM-IFU/mgaussextract_obs_sky/src
+./make
+cd ../../../
+cd SEDM-IFU/moptextract_obs_sky/src
+./make
+cd ../../../
+cd SEDM-IFU/mpreparecollapsedimage/src
+./make
+cd ../../../
+cd SEDM-IFU/mpreparecollapsedimage_no_scatter/src
+./make
+cd ../../../
+cd mfitsnozero/src
+./make
+cd ../../
+cd mmergespecweightconv/src
+./make
+cd ../../
+cd mremovedisplinesfromheader/src
+./make
+cd ../../

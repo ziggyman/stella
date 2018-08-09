@@ -1,0 +1,8 @@
+mv ../bin/findandtraceechelleaps ../bin/findandtraceechelleaps.bak
+g++ -g -fpermissive -lm -lgsl -lgslcblas -lmgl -lcfitsio -I/usr/local/include -static-libgcc -L. -o ../bin/findandtraceechelleaps ../../cfits/src/CAny.cpp ../../cfits/src/CString.cpp ../../cfits/src/CFits.cpp MFindAndTraceEchelleAps.cpp ../../cfits/src/kriging/geostat.cpp ../../cfits/src/kriging/matrix_ex.cpp ../../cfits/src/kriging/model_sph.cpp ../../cfits/src/kriging/model_stable.cpp ../../cfits/src/kriging/variogram.cpp ../../cmpfit-1.2/mpfit.c ../../cmpfit-1.2/MyFit.cpp
+chmod a+x ../bin/findandtraceechelleaps
+rm ~/bin/findandtraceechelleaps
+cp -p ../bin/findandtraceechelleaps ~/bin/
+rm ~/stella/bin/findandtraceechelleaps
+ln -s ~/bin/findandtraceechelleaps ~/stella/bin/
+

@@ -1,0 +1,2340 @@
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 1 8.581815 1026.
+	image	refFlat_SES_1074x2052
+	aperture	1
+	beam	1
+	center	8.581815 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		1416.
+		7.113951
+		-14.99738
+		2.456024
+		-0.05481723
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 2 15.97458 1026.
+	image	refFlat_SES_1074x2052
+	aperture	2
+	beam	2
+	center	15.97458 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.65686
+		-17.01046
+		5.092844
+		0.05563035
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 3 23.64967 1026.
+	image	refFlat_SES_1074x2052
+	aperture	3
+	beam	3
+	center	23.64967 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.699111
+		-17.1102
+		5.039891
+		-0.07129154
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 4 31.70272 1026.
+	image	refFlat_SES_1074x2052
+	aperture	4
+	beam	4
+	center	31.70272 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.601253
+		-17.17017
+		5.087645
+		-0.002351939
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 5 39.91847 1026.
+	image	refFlat_SES_1074x2052
+	aperture	5
+	beam	5
+	center	39.91847 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2006.
+		2.906813
+		-17.22794
+		5.016597
+		0.06727734
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 6 47.55439 1026.
+	image	refFlat_SES_1074x2052
+	aperture	6
+	beam	6
+	center	47.55439 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2006.
+		2.906813
+		-17.22794
+		5.016597
+		0.06727734
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 7 55.64554 1026.
+	image	refFlat_SES_1074x2052
+	aperture	7
+	beam	7
+	center	55.64554 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.584442
+		-17.43789
+		5.130545
+		-0.0102633
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 8 63.81737 1026.
+	image	refFlat_SES_1074x2052
+	aperture	8
+	beam	8
+	center	63.81737 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.563402
+		-17.55096
+		5.127913
+		-0.03349704
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 9 71.9072 1026.
+	image	refFlat_SES_1074x2052
+	aperture	9
+	beam	9
+	center	71.9072 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.61509
+		-17.60775
+		5.133099
+		-0.004519971
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 10 80.22124 1026.
+	image	refFlat_SES_1074x2052
+	aperture	10
+	beam	10
+	center	80.22124 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.590238
+		-17.6906
+		5.142709
+		0.004711192
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 11 88.62304 1026.
+	image	refFlat_SES_1074x2052
+	aperture	11
+	beam	11
+	center	88.62304 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.575446
+		-17.81702
+		5.157167
+		-0.0329449
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 12 97.11935 1026.
+	image	refFlat_SES_1074x2052
+	aperture	12
+	beam	12
+	center	97.11935 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.565754
+		-17.89697
+		5.1735
+		-0.03384581
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 13 105.5733 1026.
+	image	refFlat_SES_1074x2052
+	aperture	13
+	beam	13
+	center	105.5733 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.617836
+		-17.9985
+		5.190695
+		-0.02146524
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 14 114.3238 1026.
+	image	refFlat_SES_1074x2052
+	aperture	14
+	beam	14
+	center	114.3238 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.568192
+		-18.09925
+		5.199204
+		-0.03163967
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 15 122.9559 1026.
+	image	refFlat_SES_1074x2052
+	aperture	15
+	beam	15
+	center	122.9559 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.627083
+		-18.20255
+		5.203827
+		-0.03188453
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 16 131.7576 1026.
+	image	refFlat_SES_1074x2052
+	aperture	16
+	beam	16
+	center	131.7576 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.65784
+		-18.33385
+		5.220818
+		-0.03865493
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 17 140.7936 1026.
+	image	refFlat_SES_1074x2052
+	aperture	17
+	beam	17
+	center	140.7936 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.637592
+		-18.40568
+		5.233824
+		-0.02467764
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 18 149.8651 1026.
+	image	refFlat_SES_1074x2052
+	aperture	18
+	beam	18
+	center	149.8651 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.645075
+		-18.55082
+		5.252897
+		-0.01969087
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 19 159.1473 1026.
+	image	refFlat_SES_1074x2052
+	aperture	19
+	beam	19
+	center	159.1473 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.60689
+		-18.64405
+		5.264495
+		-0.03390852
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 20 168.4328 1026.
+	image	refFlat_SES_1074x2052
+	aperture	20
+	beam	20
+	center	168.4328 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.619434
+		-18.77247
+		5.268883
+		-0.03310891
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 21 177.7856 1026.
+	image	refFlat_SES_1074x2052
+	aperture	21
+	beam	21
+	center	177.7856 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.657771
+		-18.90706
+		5.275294
+		-0.03901793
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 22 187.4042 1026.
+	image	refFlat_SES_1074x2052
+	aperture	22
+	beam	22
+	center	187.4042 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.639396
+		-19.02828
+		5.29261
+		-0.02447348
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 23 197.114 1026.
+	image	refFlat_SES_1074x2052
+	aperture	23
+	beam	23
+	center	197.114 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.632148
+		-19.15973
+		5.298643
+		-0.0288893
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 24 206.8325 1026.
+	image	refFlat_SES_1074x2052
+	aperture	24
+	beam	24
+	center	206.8325 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.678773
+		-19.27696
+		5.312114
+		-0.02984502
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 25 216.725 1026.
+	image	refFlat_SES_1074x2052
+	aperture	25
+	beam	25
+	center	216.725 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.705008
+		-19.4157
+		5.330431
+		-0.03010357
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 26 226.7757 1026.
+	image	refFlat_SES_1074x2052
+	aperture	26
+	beam	26
+	center	226.7757 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.724395
+		-19.56454
+		5.347055
+		-0.02340388
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 27 237.1897 1026.
+	image	refFlat_SES_1074x2052
+	aperture	27
+	beam	27
+	center	237.1897 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.634238
+		-19.71037
+		5.356988
+		-0.02633196
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 28 247.4856 1026.
+	image	refFlat_SES_1074x2052
+	aperture	28
+	beam	28
+	center	247.4856 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.669785
+		-19.84399
+		5.372273
+		-0.03192756
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 29 257.8561 1026.
+	image	refFlat_SES_1074x2052
+	aperture	29
+	beam	29
+	center	257.8561 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.732003
+		-19.98648
+		5.384444
+		-0.02662601
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 30 268.5074 1026.
+	image	refFlat_SES_1074x2052
+	aperture	30
+	beam	30
+	center	268.5074 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.72318
+		-20.14025
+		5.393402
+		-0.0290628
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 31 279.3652 1026.
+	image	refFlat_SES_1074x2052
+	aperture	31
+	beam	31
+	center	279.3652 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.691084
+		-20.31034
+		5.413885
+		-0.02606627
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 32 290.3333 1026.
+	image	refFlat_SES_1074x2052
+	aperture	32
+	beam	32
+	center	290.3333 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.687044
+		-20.46643
+		5.422824
+		-0.02586331
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 33 301.3987 1026.
+	image	refFlat_SES_1074x2052
+	aperture	33
+	beam	33
+	center	301.3987 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.701349
+		-20.61684
+		5.432629
+		-0.03105713
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 34 312.5457 1026.
+	image	refFlat_SES_1074x2052
+	aperture	34
+	beam	34
+	center	312.5457 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.745685
+		-20.78106
+		5.448738
+		-0.02601988
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 35 323.9768 1026.
+	image	refFlat_SES_1074x2052
+	aperture	35
+	beam	35
+	center	323.9768 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.731447
+		-20.96305
+		5.458942
+		-0.02635786
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 36 335.5071 1026.
+	image	refFlat_SES_1074x2052
+	aperture	36
+	beam	36
+	center	335.5071 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.750438
+		-21.13585
+		5.474469
+		-0.0296897
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 37 347.3073 1026.
+	image	refFlat_SES_1074x2052
+	aperture	37
+	beam	37
+	center	347.3073 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.718732
+		-21.30852
+		5.496846
+		-0.02977772
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 38 359.1765 1026.
+	image	refFlat_SES_1074x2052
+	aperture	38
+	beam	38
+	center	359.1765 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.729829
+		-21.48968
+		5.51233
+		-0.02962976
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 39 371.2214 1026.
+	image	refFlat_SES_1074x2052
+	aperture	39
+	beam	39
+	center	371.2214 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.736329
+		-21.6681
+		5.526368
+		-0.0300888
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 40 383.4037 1026.
+	image	refFlat_SES_1074x2052
+	aperture	40
+	beam	40
+	center	383.4037 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.757972
+		-21.86107
+		5.539638
+		-0.03229695
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 41 395.6909 1026.
+	image	refFlat_SES_1074x2052
+	aperture	41
+	beam	41
+	center	395.6909 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.814321
+		-22.05189
+		5.5537
+		-0.02864675
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 42 408.3558 1026.
+	image	refFlat_SES_1074x2052
+	aperture	42
+	beam	42
+	center	408.3558 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.768437
+		-22.25162
+		5.567781
+		-0.03314032
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 43 421.0907 1026.
+	image	refFlat_SES_1074x2052
+	aperture	43
+	beam	43
+	center	421.0907 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.779138
+		-22.45128
+		5.584419
+		-0.02844678
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 44 433.9745 1026.
+	image	refFlat_SES_1074x2052
+	aperture	44
+	beam	44
+	center	433.9745 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.802734
+		-22.65718
+		5.599339
+		-0.03004827
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 45 447.1198 1026.
+	image	refFlat_SES_1074x2052
+	aperture	45
+	beam	45
+	center	447.1198 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.78886
+		-22.8719
+		5.617393
+		-0.02891684
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 46 460.4067 1026.
+	image	refFlat_SES_1074x2052
+	aperture	46
+	beam	46
+	center	460.4067 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.799093
+		-23.08541
+		5.632167
+		-0.02865553
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 47 473.7781 1026.
+	image	refFlat_SES_1074x2052
+	aperture	47
+	beam	47
+	center	473.7781 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.859643
+		-23.30177
+		5.647306
+		-0.03001943
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 48 487.4967 1026.
+	image	refFlat_SES_1074x2052
+	aperture	48
+	beam	48
+	center	487.4967 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.8429
+		-23.52555
+		5.668059
+		-0.02857525
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 49 501.4113 1026.
+	image	refFlat_SES_1074x2052
+	aperture	49
+	beam	49
+	center	501.4113 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.826394
+		-23.7596
+		5.681011
+		-0.03028674
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 50 515.452 1026.
+	image	refFlat_SES_1074x2052
+	aperture	50
+	beam	50
+	center	515.452 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.848818
+		-23.98952
+		5.698606
+		-0.02877742
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 51 529.6389 1026.
+	image	refFlat_SES_1074x2052
+	aperture	51
+	beam	51
+	center	529.6389 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.896881
+		-24.22942
+		5.718169
+		-0.0330072
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 52 544.2446 1026.
+	image	refFlat_SES_1074x2052
+	aperture	52
+	beam	52
+	center	544.2446 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.838251
+		-24.48036
+		5.734183
+		-0.03354502
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 53 558.8042 1026.
+	image	refFlat_SES_1074x2052
+	aperture	53
+	beam	53
+	center	558.8042 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.906926
+		-24.724
+		5.746741
+		-0.03765
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 54 573.686 1026.
+	image	refFlat_SES_1074x2052
+	aperture	54
+	beam	54
+	center	573.686 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.922332
+		-24.98483
+		5.769092
+		-0.03461112
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 55 588.8159 1026.
+	image	refFlat_SES_1074x2052
+	aperture	55
+	beam	55
+	center	588.8159 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.921848
+		-25.24495
+		5.785797
+		-0.03321422
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 56 604.2549 1026.
+	image	refFlat_SES_1074x2052
+	aperture	56
+	beam	56
+	center	604.2549 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.876372
+		-25.51372
+		5.806002
+		-0.0291333
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 57 619.688 1026.
+	image	refFlat_SES_1074x2052
+	aperture	57
+	beam	57
+	center	619.688 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.944925
+		-25.78649
+		5.820696
+		-0.03041925
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 58 635.5093 1026.
+	image	refFlat_SES_1074x2052
+	aperture	58
+	beam	58
+	center	635.5093 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.93333
+		-26.06364
+		5.841377
+		-0.02798826
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 59 651.5115 1026.
+	image	refFlat_SES_1074x2052
+	aperture	59
+	beam	59
+	center	651.5115 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.948642
+		-26.35086
+		5.862556
+		-0.03018835
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 60 667.7286 1026.
+	image	refFlat_SES_1074x2052
+	aperture	60
+	beam	60
+	center	667.7286 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.973109
+		-26.64216
+		5.881475
+		-0.03195471
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 61 684.3257 1026.
+	image	refFlat_SES_1074x2052
+	aperture	61
+	beam	61
+	center	684.3257 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.926605
+		-26.9416
+		5.898565
+		-0.03538448
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 62 701.0153 1026.
+	image	refFlat_SES_1074x2052
+	aperture	62
+	beam	62
+	center	701.0153 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.95502
+		-27.254
+		5.914498
+		-0.03397068
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 63 717.9956 1026.
+	image	refFlat_SES_1074x2052
+	aperture	63
+	beam	63
+	center	717.9956 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.966095
+		-27.56329
+		5.93454
+		-0.03163357
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 64 735.265 1026.
+	image	refFlat_SES_1074x2052
+	aperture	64
+	beam	64
+	center	735.265 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.954082
+		-27.87574
+		5.948236
+		-0.03120893
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 65 752.6306 1026.
+	image	refFlat_SES_1074x2052
+	aperture	65
+	beam	65
+	center	752.6306 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.020689
+		-28.20458
+		5.96951
+		-0.02334665
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 66 770.4314 1026.
+	image	refFlat_SES_1074x2052
+	aperture	66
+	beam	66
+	center	770.4314 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.997593
+		-28.54065
+		5.980838
+		-0.02684169
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 67 788.447 1026.
+	image	refFlat_SES_1074x2052
+	aperture	67
+	beam	67
+	center	788.447 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.99981
+		-28.88054
+		5.989103
+		-0.02563616
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 68 806.6445 1026.
+	image	refFlat_SES_1074x2052
+	aperture	68
+	beam	68
+	center	806.6445 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.045154
+		-29.23602
+		6.006622
+		-0.02870577
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 69 825.3255 1026.
+	image	refFlat_SES_1074x2052
+	aperture	69
+	beam	69
+	center	825.3255 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.987788
+		-29.60887
+		6.021705
+		-0.02907317
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 70 844.1599 1026.
+	image	refFlat_SES_1074x2052
+	aperture	70
+	beam	70
+	center	844.1599 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		2.99679
+		-29.97835
+		6.031322
+		-0.02698823
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 71 863.2678 1026.
+	image	refFlat_SES_1074x2052
+	aperture	71
+	beam	71
+	center	863.2678 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.01275
+		-30.36072
+		6.051603
+		-0.0274675
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 72 882.5831 1026.
+	image	refFlat_SES_1074x2052
+	aperture	72
+	beam	72
+	center	882.5831 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.068644
+		-30.75626
+		6.061187
+		-0.02501853
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 73 902.3984 1026.
+	image	refFlat_SES_1074x2052
+	aperture	73
+	beam	73
+	center	902.3984 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.029562
+		-31.16588
+		6.075934
+		-0.02454428
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 74 922.4161 1026.
+	image	refFlat_SES_1074x2052
+	aperture	74
+	beam	74
+	center	922.4161 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.043099
+		-31.58067
+		6.084836
+		-0.02270066
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 75 942.6693 1026.
+	image	refFlat_SES_1074x2052
+	aperture	75
+	beam	75
+	center	942.6693 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.096176
+		-32.01361
+		6.101295
+		-0.02096587
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 76 963.4304 1026.
+	image	refFlat_SES_1074x2052
+	aperture	76
+	beam	76
+	center	963.4304 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		6.
+		2046.
+		3.056788
+		-32.45575
+		6.110437
+		-0.01845929
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 77 984.433 1026.
+	image	refFlat_SES_1074x2052
+	aperture	77
+	beam	77
+	center	984.433 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		106.
+		2046.
+		1.179608
+		-30.44049
+		5.541706
+		-0.02755174
+
+# Tue 20:24:55 15-Nov-2005
+begin	aperture refFlat_SES_1074x2052 78 1005.708 1026.
+	image	refFlat_SES_1074x2052
+	aperture	78
+	beam	78
+	center	1005.708 1026.
+	low	-2.575623 -1025.
+	high	2.891785 1026.
+	background
+		xmin -2.575623
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		106.
+		2046.
+		1.211227
+		-30.90774
+		5.59169
+		-0.05250959
+

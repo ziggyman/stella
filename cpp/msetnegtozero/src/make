@@ -1,0 +1,7 @@
+make delete
+make ../bin/setnegtozero
+chmod a+x ../bin/setnegtozero
+rm ~/bin/setnegtozero
+cp -p ../bin/setnegtozero ~/bin/
+rm ~/stella/bin/setnegtozero
+ln -s ~/bin/setnegtozero ~/stella/bin/

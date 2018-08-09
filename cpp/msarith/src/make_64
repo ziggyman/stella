@@ -1,0 +1,6 @@
+g++ -g -fpermissive -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -lm -lcfitsio -static-libgcc -L. -o ../bin/sarith_64 ../../cfits/src/CAny.cpp ../../cfits/src/CString.cpp ../../cfits/src/CFits.cpp MSArith.cpp ../../cfits/src/kriging/vario_model.h ../../cfits/src/kriging/geostat.h ../../cfits/src/kriging/geostat.cpp ../../cfits/src/kriging/matrix_ex.h ../../cfits/src/kriging/matrix_ex.cpp ../../cfits/src/kriging/model_sph.h ../../cfits/src/kriging/model_sph.cpp ../../cfits/src/kriging/model_stable.h ../../cfits/src/kriging/model_stable.cpp ../../cfits/src/kriging/variogram.h ../../cfits/src/kriging/variogram.cpp ../../cmpfit-1.2/mpfit.c ../../cmpfit-1.2/MyFit.cpp
+chmod a+x ../bin/sarith_64
+cp ../bin/sarith_64 /home/azuri/stella/bin/
+rm /home/azuri/bin/sarith
+ln -s /home/azuri/stella/bin/sarith_64 /home/azuri/bin/sarith
+

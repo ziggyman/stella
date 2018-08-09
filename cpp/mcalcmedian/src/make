@@ -1,0 +1,7 @@
+make delete
+make ../bin/calcmedian
+chmod a+x ../bin/calcmedian
+rm ~/bin/calcmedian
+cp -p ../bin/calcmedian ~/bin/
+rm ~/stella/bin/calcmedian
+ln -s ~/bin/calcmedian ~/stella/bin/

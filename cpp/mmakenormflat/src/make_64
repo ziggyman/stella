@@ -1,0 +1,4 @@
+g++ -s -O2  -fpermissive -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -L. -lm -lcfitsio -lblitz -o ../bin/makenormflat_64 ../../cfits/src/CAny.cpp ../../cfits/src/CString.cpp ../../cfits/src/CFits.cpp MMakeNormFlat.cpp ../../cfits/src/kriging/vario_model.h ../../cfits/src/kriging/geostat.h ../../cfits/src/kriging/geostat.cpp ../../cfits/src/kriging/matrix_ex.h ../../cfits/src/kriging/matrix_ex.cpp ../../cfits/src/kriging/model_sph.h ../../cfits/src/kriging/model_sph.cpp ../../cfits/src/kriging/model_stable.h ../../cfits/src/kriging/model_stable.cpp ../../cfits/src/kriging/variogram.h ../../cfits/src/kriging/variogram.cpp
+cp -p /home/azuri/stella/bin/makenormflat_64 /home/azuri/stella/bin/makenormflat_64.bak
+cp ../bin/makenormflat_64 /home/azuri/stella/bin/
+

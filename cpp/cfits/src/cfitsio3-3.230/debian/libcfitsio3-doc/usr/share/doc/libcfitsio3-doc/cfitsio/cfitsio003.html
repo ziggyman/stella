@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Creating the CFITSIO Library </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio002.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio004.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc6">Chapter&#XA0;2</A>&#XA0;&#XA0; Creating the CFITSIO Library </H1><H2 CLASS="section"><A NAME="toc5"></A><A NAME="htoc7">2.1</A>&#XA0;&#XA0;Building the Library</H2><P>The CFITSIO code is contained in about 40 C source files (*.c) and header
+files (*.h). On VAX/VMS systems 2 assembly-code files (vmsieeed.mar and
+vmsieeer.mar) are also needed.</P><P>CFITSIO has currently been tested on the following platforms:</P><PRE CLASS="verbatim">  OPERATING SYSTEM           COMPILER
+   Sun OS                     gcc and cc (3.0.1)
+   Sun Solaris                gcc and cc
+   Silicon Graphics IRIX      gcc and cc
+   Silicon Graphics IRIX64    MIPS
+   Dec Alpha OSF/1            gcc and cc
+   DECstation  Ultrix         gcc
+   Dec Alpha OpenVMS          cc
+   DEC VAX/VMS                gcc and cc
+   HP-UX                      gcc
+   IBM AIX                    gcc
+   Linux                      gcc
+   MkLinux                    DR3
+   Windows 95/98/NT           Borland C++ V4.5
+   Windows 95/98/NT/ME/XP     Microsoft/Compaq Visual C++ v5.0, v6.0
+   Windows 95/98/NT           Cygwin gcc
+   MacOS 7.1 or greater       Metrowerks 10.+
+   MacOS-X 10.1 or greater    cc (gcc)
+</PRE><P>CFITSIO will probably run on most other Unix platforms. Cray
+supercomputers are currently not supported.</P><H3 CLASS="subsection"><A NAME="htoc8">2.1.1</A>&#XA0;&#XA0;Unix Systems</H3><P>The CFITSIO library is built on Unix systems by typing:</P><PRE CLASS="verbatim"> &gt;  ./configure [--prefix=/target/installation/path]
+ &gt;  make          (or  'make shared')
+ &gt;  make install  (this step is optional)
+</PRE><P>at the operating system prompt. The configure command customizes the
+Makefile for the particular system, then the &#X2018;make&#X2019; command compiles the
+source files and builds the library. Type &#X2018;./configure&#X2019; and not simply
+&#X2018;configure&#X2019; to ensure that the configure script in the current directory
+is run and not some other system-wide configure script. The optional
+&#X2019;prefix&#X2019; argument to configure gives the path to the directory where
+the CFITSIO library and include files should be installed via the later
+&#X2019;make install&#X2019; command. For example,</P><PRE CLASS="verbatim">   &gt; ./configure --prefix=/usr1/local
+</PRE><P>will cause the &#X2019;make install&#X2019; command to copy the CFITSIO libcfitsio file
+to /usr1/local/lib and the necessary include files to /usr1/local/include
+(assuming of course that the process has permission to write to these
+directories).</P><P>The &#X2019;make shared&#X2019; option builds a shared or dynamic version of the
+CFITSIO library. When using the shared library the executable code is
+not copied into your program at link time and instead the program
+locates the necessary library code at run time, normally through
+LD_LIBRARY_PATH or some other method. The advantages of using a shared
+library are:</P><PRE CLASS="verbatim">   1.  Less disk space if you build more than 1 program
+   2.  Less memory if more than one copy of a program using the shared
+       library is running at the same time since the system is smart
+       enough to share copies of the shared library at run time.
+   3.  Possibly easier maintenance since a new version of the shared
+       library can be installed without relinking all the software
+       that uses it (as long as the subroutine names and calling
+       sequences remain unchanged).
+   4.  No run-time penalty.
+</PRE><P>The disadvantages are:</P><PRE CLASS="verbatim">   1. More hassle at runtime.  You have to either build the programs
+      specially or have LD_LIBRARY_PATH set right.
+   2. There may be a slight start up penalty, depending on where you are
+      reading the shared library and the program from and if your CPU is
+      either really slow or really heavily loaded.
+</PRE><P>On Mac OS X platforms the &#X2019;make shared&#X2019; command works like on other
+UNIX platforms, but a .dylib file will be created instead of .so. If
+installed in a nonstandard location, add its location to the
+DYLD_LIBRARY_PATH environment variable so that the library can be found
+at run time.</P><P>On HP/UX systems, the environment variable CFLAGS should be set
+to -Ae before running configure to enable "extended ANSI" features.</P><P>By default, a set of Fortran-callable wrapper routines are
+also built and included in the CFITSIO library. If these wrapper
+routines are not needed (i.e., the CFITSIO library will not
+be linked to any Fortran applications which call FITSIO subroutines)
+then they may be omitted from the build by typing &#X2019;make all-nofitsio&#X2019;
+instead of simply typing &#X2019;make&#X2019;. This will reduce the size
+of the CFITSIO library slightly.</P><P>It may not be possible to statically link programs that use CFITSIO on
+some platforms (namely, on Solaris 2.6) due to the network drivers
+(which provide FTP and HTTP access to FITS files). It is possible to
+make both a dynamic and a static version of the CFITSIO library, but
+network file access will not be possible using the static version.</P><H3 CLASS="subsection"><A NAME="htoc9">2.1.2</A>&#XA0;&#XA0;VMS</H3><P>On VAX/VMS and ALPHA/VMS systems the make_gfloat.com command file may
+be executed to build the cfitsio.olb object library using the default
+G-floating point option for double variables. The make_dfloat.com and
+make_ieee.com files may be used instead to build the library with the
+other floating point options. Note that the getcwd function that is
+used in the group.c module may require that programs using CFITSIO be
+linked with the ALPHA$LIBRARY:VAXCRTL.OLB library. See the example
+link line in the next section of this document.</P><H3 CLASS="subsection"><A NAME="htoc10">2.1.3</A>&#XA0;&#XA0;Windows PCs</H3><P>A precompiled DLL version of CFITSIO is available for IBM-PC users of
+the Borland or Microsoft Visual C++ compilers in the files
+cfitsiodll_3xxx_borland.zip and cfitsiodll_3xxx_vcc.zip, where
+&#X2019;3xxx&#X2019; represents the current release number. These zip archives also
+contains other files and instructions on how to use the CFITSIO DLL
+library.</P><P>The CFITSIO library may also be built from the source code using the
+makefile.bc or makefile.vcc files. Finally, the makepc.bat file gives
+an example of building CFITSIO with the Borland C++ v4.5 or v5.5 compiler
+using older DOS commands.</P><H3 CLASS="subsection"><A NAME="htoc11">2.1.4</A>&#XA0;&#XA0;Macintosh PCs</H3><P>When building on Mac OS-X, users should follow the Unix instructions,
+above. See the README.MacOS file for instructions on building a Universal
+Binary that supports both Intel and PowerPC CPUs.</P><H2 CLASS="section"><A NAME="toc6"></A><A NAME="htoc12">2.2</A>&#XA0;&#XA0;Testing the Library</H2><P>The CFITSIO library should be tested by building and running
+the testprog.c program that is included with the release.
+On Unix systems, type:</P><PRE CLASS="verbatim">    % make testprog
+    % testprog &gt; testprog.lis
+    % diff testprog.lis testprog.out
+    % cmp testprog.fit testprog.std
+</PRE><P>On VMS systems,
+(assuming cc is the name of the C compiler command), type:</P><PRE CLASS="verbatim">    $ cc testprog.c
+    $ link testprog, cfitsio/lib, alpha$library:vaxcrtl/lib
+    $ run testprog
+</PRE><P>The test program should produce a FITS file called &#X2018;testprog.fit&#X2019;
+that is identical to the &#X2018;testprog.std&#X2019; FITS file included with this
+release. The diagnostic messages (which were piped to the file
+testprog.lis in the Unix example) should be identical to the listing
+contained in the file testprog.out. The &#X2019;diff&#X2019; and &#X2019;cmp&#X2019; commands
+shown above should not report any differences in the files. (There
+may be some minor format differences, such as the presence or
+absence of leading zeros, or 3 digit exponents in numbers,
+which can be ignored).</P><P>The Fortran wrappers in CFITSIO may be tested with the testf77
+program on Unix systems with:</P><PRE CLASS="verbatim">    % f77 -o testf77 testf77.f -L. -lcfitsio -lnsl -lsocket
+  or
+    % f77 -f -o testf77 testf77.f -L. -lcfitsio    (under SUN O/S)
+  or
+    % f77 -o testf77 testf77.f -Wl,-L. -lcfitsio -lm -lnsl -lsocket (HP/UX)
+
+    % testf77 &gt; testf77.lis
+    % diff testf77.lis testf77.out
+    % cmp testf77.fit testf77.std
+</PRE><P>On machines running SUN O/S, Fortran programs must be compiled with the
+&#X2019;-f&#X2019; option to force double precision variables to be aligned on 8-byte
+boundarys to make the fortran-declared variables compatible with C. A
+similar compiler option may be required on other platforms. Failing to
+use this option may cause the program to crash on FITSIO routines that
+read or write double precision variables.</P><P>Also note that on some systems, the output listing of the testf77
+program may differ slightly from the testf77.std template, if leading
+zeros are not printed by default before the decimal point when using F
+format.</P><P>A few other utility programs are included with CFITSIO; the first four
+of this programs can be compiled an linked by typing &#X2018;make
+program_name&#X2019; where &#X2018;program_name&#X2019; is the actual name of the program:</P><PRE CLASS="verbatim">    speed - measures the maximum throughput (in MB per second)
+              for writing and reading FITS files with CFITSIO.
+
+    listhead - lists all the header keywords in any FITS file
+
+    fitscopy - copies any FITS file (especially useful in conjunction
+                 with the CFITSIO's extended input filename syntax).
+
+    cookbook - a sample program that performs common read and
+                 write operations on a FITS file.
+
+    iter_a, iter_b, iter_c - examples of the CFITSIO iterator routine
+</PRE><H2 CLASS="section"><A NAME="toc7"></A><A NAME="htoc13">2.3</A>&#XA0;&#XA0;Linking Programs with CFITSIO</H2><P>When linking applications software with the CFITSIO library, several
+system libraries usually need to be specified on the link command
+line. On Unix systems, the most reliable way to determine what
+libraries are required is to type &#X2019;make testprog&#X2019; and see what
+libraries the configure script has added. The typical libraries that
+need to be added are -lm (the math library) and -lnsl and -lsocket
+(needed only for FTP and HTTP file access). These latter 2 libraries
+are not needed on VMS and Windows platforms, because FTP file access is
+not currently supported on those platforms.</P><P>Note that when upgrading to a newer version of CFITSIO it is usually
+necessary to recompile, as well as relink, the programs that use CFITSIO,
+because the definitions in fitsio.h often change.</P><H2 CLASS="section"><A NAME="toc8"></A><A NAME="htoc14">2.4</A>&#XA0;&#XA0;Using CFITSIO in Multi-threaded Environments</H2><P>CFITSIO can be used either with the
+POSIX pthreads interface or the OpenMP interface for multithreaded
+parallel programs. When used in a multithreaded environment,
+the CFITSIO library *must* be built using
+the -D_REENTRANT compiler directive. This can be done using the following
+build commands:</P><PRE CLASS="verbatim">  &gt;./configure --enable-reentrant
+  &gt; make
+</PRE><P>Multiple threads can then call any of the CFITSIO routines
+to read or write separate
+FITS files. Multiple threads can also read data from
+the same FITS file simultaneously,
+but different threads must never try to write to the same
+FITS file.</P><H2 CLASS="section"><A NAME="toc9"></A><A NAME="htoc15">2.5</A>&#XA0;&#XA0;Getting Started with CFITSIO</H2><P>In order to effectively use the CFITSIO library it is recommended that
+new users begin by reading the &#X201C;CFITSIO Quick Start Guide&#X201D;. It
+contains all the basic information needed to write programs that
+perform most types of operations on FITS files. The set of example
+FITS utility programs that are available from the CFITSIO web site are
+also very useful for learning how to use CFITSIO. To learn even more
+about the capabilities of the CFITSIO library the following steps are
+recommended:</P><P>1. Read the following short &#X2018;FITS Primer&#X2019; chapter for an overview of
+the structure of FITS files.</P><P>2. Review the Programming Guidelines in Chapter 4 to become familiar
+with the conventions used by the CFITSIO interface.</P><P>3. Refer to the cookbook.c, listhead.c, and fitscopy.c programs that
+are included with this release for examples of routines that perform
+various common FITS file operations. Type &#X2019;make program_name&#X2019; to
+compile and link these programs on Unix systems.</P><P>4. Write a simple program to read or write a FITS file using the Basic
+Interface routines described in Chapter 5.</P><P>5. Scan through the more specialized routines that are described in
+the following chapters to become familiar with the functionality that
+they provide.</P><H2 CLASS="section"><A NAME="toc10"></A><A NAME="htoc16">2.6</A>&#XA0;&#XA0;Example Program</H2><P>The following listing shows an example of how to use the CFITSIO
+routines in a C program. Refer to the cookbook.c program that is
+included with the CFITSIO distribution for other example routines.</P><P>This program creates a new FITS file, containing a FITS image. An
+&#X2018;EXPOSURE&#X2019; keyword is written to the header, then the image data are
+written to the FITS file before closing the FITS file.</P><PRE CLASS="verbatim">#include "fitsio.h"  /* required by every program that uses CFITSIO  */
+main()
+{
+    fitsfile *fptr;       /* pointer to the FITS file; defined in fitsio.h */
+    int status, ii, jj;
+    long  fpixel = 1, naxis = 2, nelements, exposure;
+    long naxes[2] = { 300, 200 };   /* image is 300 pixels wide by 200 rows */
+    short array[200][300];
+
+    status = 0;         /* initialize status before calling fitsio routines */
+    fits_create_file(&amp;fptr, "testfile.fits", &amp;status);   /* create new file */
+
+    /* Create the primary array image (16-bit short integer pixels */
+    fits_create_img(fptr, SHORT_IMG, naxis, naxes, &amp;status);
+
+    /* Write a keyword; must pass the ADDRESS of the value */
+    exposure = 1500.;
+    fits_update_key(fptr, TLONG, "EXPOSURE", &amp;exposure,
+         "Total Exposure Time", &amp;status);
+
+    /* Initialize the values in the image with a linear ramp function */
+    for (jj = 0; jj &lt; naxes[1]; jj++)
+        for (ii = 0; ii &lt; naxes[0]; ii++)
+            array[jj][ii] = ii + jj;
+
+    nelements = naxes[0] * naxes[1];          /* number of pixels to write */
+
+    /* Write the array of integers to the image */
+    fits_write_img(fptr, TSHORT, fpixel, nelements, array[0], &amp;status);
+
+    fits_close_file(fptr, &amp;status);            /* close the file */
+
+    fits_report_error(stderr, status);  /* print out any error messages */
+    return( status );
+}
+</PRE><HR>
+<A HREF="cfitsio002.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio004.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

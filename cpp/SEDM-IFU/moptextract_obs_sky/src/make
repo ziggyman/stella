@@ -1,0 +1,7 @@
+make delete
+make ../bin/optextract_obs_sky
+chmod a+x ../bin/optextract_obs_sky
+rm ~/bin/optextract_obs_sky
+cp -p ../bin/optextract_obs_sky ~/bin/
+rm ~/stella/bin/optextract_obs_sky
+ln -s ~/bin/optextract_obs_sky ~/stella/bin/

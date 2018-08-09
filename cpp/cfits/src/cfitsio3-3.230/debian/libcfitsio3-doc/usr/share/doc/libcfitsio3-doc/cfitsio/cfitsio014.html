@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Optimizing Programs </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio013.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio015.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc118">Chapter&#XA0;13</A>&#XA0;&#XA0; Optimizing Programs </H1><P>CFITSIO has been carefully designed to obtain the highest possible
+speed when reading and writing FITS files. In order to achieve the
+best performance, however, application programmers must be careful to
+call the CFITSIO routines appropriately and in an efficient sequence;
+inappropriate usage of CFITSIO routines can greatly slow down the
+execution speed of a program.</P><P>The maximum possible I/O speed of CFITSIO depends of course on the type
+of computer system that it is running on. As a rough guide, the
+current generation of workstations can achieve speeds of 2 &#X2013; 10 MB/s
+when reading or writing FITS images and similar, or slightly slower
+speeds with FITS binary tables. Reading of FITS files can occur at
+even higher rates (30MB/s or more) if the FITS file is still cached in
+system memory following a previous read or write operation on the same
+file. To more accurately predict the best performance that is possible
+on any particular system, a diagnostic program called &#X201C;speed.c&#X201D; is
+included with the CFITSIO distribution which can be run to
+approximately measure the maximum possible speed of writing and reading
+a test FITS file.</P><P>The following 2 sections provide some background on how CFITSIO
+internally manages the data I/O and describes some strategies that may
+be used to optimize the processing speed of software that uses
+CFITSIO.</P><H2 CLASS="section"><A NAME="toc69"></A><A NAME="htoc119">13.1</A>&#XA0;&#XA0;How CFITSIO Manages Data I/O</H2><P>Many CFITSIO operations involve transferring only a small number of
+bytes to or from the FITS file (e.g, reading a keyword, or writing a
+row in a table); it would be very inefficient to physically read or
+write such small blocks of data directly in the FITS file on disk,
+therefore CFITSIO maintains a set of internal Input&#X2013;Output (IO)
+buffers in RAM memory that each contain one FITS block (2880 bytes) of
+data. Whenever CFITSIO needs to access data in the FITS file, it first
+transfers the FITS block containing those bytes into one of the IO
+buffers in memory. The next time CFITSIO needs to access bytes in the
+same block it can then go to the fast IO buffer rather than using a
+much slower system disk access routine. The number of available IO
+buffers is determined by the NIOBUF parameter (in fitsio2.h) and is
+currently set to 40 by default.</P><P>Whenever CFITSIO reads or writes data it first checks to see if that
+block of the FITS file is already loaded into one of the IO buffers.
+If not, and if there is an empty IO buffer available, then it will load
+that block into the IO buffer (when reading a FITS file) or will
+initialize a new block (when writing to a FITS file). If all the IO
+buffers are already full, it must decide which one to reuse (generally
+the one that has been accessed least recently), and flush the contents
+back to disk if it has been modified before loading the new block.</P><P>The one major exception to the above process occurs whenever a large
+contiguous set of bytes are accessed, as might occur when reading or
+writing a FITS image. In this case CFITSIO bypasses the internal IO
+buffers and simply reads or writes the desired bytes directly in the
+disk file with a single call to a low-level file read or write
+routine. The minimum threshold for the number of bytes to read or
+write this way is set by the MINDIRECT parameter and is currently set
+to 3 FITS blocks = 8640 bytes. This is the most efficient way to read
+or write large chunks of data and can achieve IO transfer rates of
+5 &#X2013; 10MB/s or greater. Note that this fast direct IO process is not
+applicable when accessing columns of data in a FITS table because the
+bytes are generally not contiguous since they are interleaved by the
+other columns of data in the table. This explains why the speed for
+accessing FITS tables is generally slower than accessing
+FITS images.</P><P>Given this background information, the general strategy for efficiently
+accessing FITS files should be apparent: when dealing with FITS
+images, read or write large chunks of data at a time so that the direct
+IO mechanism will be invoked; when accessing FITS headers or FITS
+tables, on the other hand, once a particular FITS block has been
+loading into one of the IO buffers, try to access all the needed
+information in that block before it gets flushed out of the IO buffer.
+It is important to avoid the situation where the same FITS block is
+being read then flushed from a IO buffer multiple times.</P><P>The following section gives more specific suggestions for optimizing
+the use of CFITSIO.</P><H2 CLASS="section"><A NAME="toc70"></A><A NAME="htoc120">13.2</A>&#XA0;&#XA0;Optimization Strategies</H2><P>1. When dealing with a FITS primary array or IMAGE extension, it is
+more efficient to read or write large chunks of the image at a time
+(at least 3 FITS blocks = 8640 bytes) so that the direct IO mechanism
+will be used as described in the previous section. Smaller chunks of
+data are read or written via the IO buffers, which is somewhat less
+efficient because of the extra copy operation and additional
+bookkeeping steps that are required. In principle it is more efficient
+to read or write as big an array of image pixels at one time as
+possible, however, if the array becomes so large that the operating
+system cannot store it all in RAM, then the performance may be degraded
+because of the increased swapping of virtual memory to disk.</P><P>2. When dealing with FITS tables, the most important efficiency factor
+in the software design is to read or write the data in the FITS file in
+a single pass through the file. An example of poor program design
+would be to read a large, 3-column table by sequentially reading the
+entire first column, then going back to read the 2nd column, and
+finally the 3rd column; this obviously requires 3 passes through the
+file which could triple the execution time of an IO limited program.
+For small tables this is not important, but when reading multi-megabyte
+sized tables these inefficiencies can become significant. The more
+efficient procedure in this case is to read or write only as many rows
+of the table as will fit into the available internal IO buffers, then
+access all the necessary columns of data within that range of rows.
+Then after the program is completely finished with the data in those
+rows it can move on to the next range of rows that will fit in the
+buffers, continuing in this way until the entire file has been
+processed. By using this procedure of accessing all the columns of a
+table in parallel rather than sequentially, each block of the FITS file
+will only be read or written once.</P><P>The optimal number of rows to read or write at one time in a given
+table depends on the width of the table row and on the number of IO
+buffers that have been allocated in CFITSIO. The CFITSIO Iterator routine
+will automatically use the optimal-sized buffer, but there is also a
+CFITSIO routine that will return the optimal number of rows for a given
+table: fits_get_rowsize. It is not critical to use exactly the
+value of nrows returned by this routine, as long as one does not exceed
+it. Using a very small value however can also lead to poor performance
+because of the overhead from the larger number of subroutine calls.</P><P>The optimal number of rows returned by fits_get_rowsize is valid only
+as long as the application program is only reading or writing data in
+the specified table. Any other calls to access data in the table
+header would cause additional blocks of data
+to be loaded into the IO buffers displacing data from the original
+table, and should be avoided during the critical period while the table
+is being read or written.</P><P>3. Use the CFITSIO Iterator routine. This routine provides a
+more &#X2018;object oriented&#X2019; way of reading and writing FITS files
+which automatically uses the most appropriate data buffer size
+to achieve the maximum I/O throughput.</P><P>4. Use binary table extensions rather than ASCII table
+extensions for better efficiency when dealing with tabular data. The
+I/O to ASCII tables is slower because of the overhead in formatting or
+parsing the ASCII data fields and because ASCII tables are about twice
+as large as binary tables with the same information content.</P><P>5. Design software so that it reads the FITS header keywords in the
+same order in which they occur in the file. When reading keywords,
+CFITSIO searches forward starting from the position of the last keyword
+that was read. If it reaches the end of the header without finding the
+keyword, it then goes back to the start of the header and continues the
+search down to the position where it started. In practice, as long as
+the entire FITS header can fit at one time in the available internal IO
+buffers, then the header keyword access will be very fast and it makes
+little difference which order they are accessed.</P><P>6. Avoid the use of scaling (by using the BSCALE and BZERO or TSCAL and
+TZERO keywords) in FITS files since the scaling operations add to the
+processing time needed to read or write the data. In some cases it may
+be more efficient to temporarily turn off the scaling (using fits_set_bscale or
+fits_set_tscale) and then read or write the raw unscaled values in the FITS
+file.</P><P>7. Avoid using the &#X2018;implicit data type conversion&#X2019; capability in
+CFITSIO. For instance, when reading a FITS image with BITPIX = -32
+(32-bit floating point pixels), read the data into a single precision
+floating point data array in the program. Forcing CFITSIO to convert
+the data to a different data type can slow the program.</P><P>8. Where feasible, design FITS binary tables using vector column
+elements so that the data are written as a contiguous set of bytes,
+rather than as single elements in multiple rows. For example, it is
+faster to access the data in a table that contains a single row
+and 2 columns with TFORM keywords equal to &#X2019;10000E&#X2019; and &#X2019;10000J&#X2019;, than
+it is to access the same amount of data in a table with 10000 rows
+which has columns with the TFORM keywords equal to &#X2019;1E&#X2019; and &#X2019;1J&#X2019;. In
+the former case the 10000 floating point values in the first column are
+all written in a contiguous block of the file which can be read or
+written quickly, whereas in the second case each floating point value
+in the first column is interleaved with the integer value in the second
+column of the same row so CFITSIO has to explicitly move to the
+position of each element to be read or written.</P><P>9. Avoid the use of variable length vector columns in binary tables,
+since any reading or writing of these data requires that CFITSIO first
+look up or compute the starting address of each row of data in the
+heap. In practice, this is probably not a significant efficiency issue.</P><P>10. When copying data from one FITS table to another, it is faster to
+transfer the raw bytes instead of reading then writing each column of
+the table. The CFITSIO routines fits_read_tblbytes and
+fits_write_tblbytes will perform low-level reads or writes of any
+contiguous range of bytes in a table extension. These routines can be
+used to read or write a whole row (or multiple rows for even greater
+efficiency) of a table with a single function call. These routines
+are fast because they bypass all the usual data scaling, error checking
+and machine dependent data conversion that is normally done by CFITSIO,
+and they allow the program to write the data to the output file in
+exactly the same byte order. For these same reasons, these routines
+can corrupt the FITS data file if used incorrectly because no
+validation or machine dependent conversion is performed by these
+routines. These routines are only recommended for optimizing critical
+pieces of code and should only be used by programmers who thoroughly
+understand the internal format of the FITS tables they are reading or
+writing.</P><P>11. Another strategy for improving the speed of writing a FITS table,
+similar to the previous one, is to directly construct the entire byte
+stream for a whole table row (or multiple rows) within the application
+program and then write it to the FITS file with
+fits_write_tblbytes. This avoids all the overhead normally present
+in the column-oriented CFITSIO write routines. This technique should
+only be used for critical applications because it makes the code more
+difficult to understand and maintain, and it makes the code more system
+dependent (e.g., do the bytes need to be swapped before writing to the
+FITS file?).</P><P>12. Finally, external factors such as the speed of the magnetic disk,
+the size of the disk cache, the amount of disk fragmentation, and the amount of
+RAM available on the system can all have a significant impact on
+overall I/O efficiency. For critical applications, the entire hardware
+and software system should be reviewed to identify any
+potential I/O bottlenecks.</P><P>
+</P><HR>
+<A HREF="cfitsio013.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio015.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

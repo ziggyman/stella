@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="quick.css">
+<TITLE>Example Programs</TITLE>
+</HEAD>
+<BODY >
+<A HREF="quick003.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="quick005.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H2 CLASS="section"><A NAME="htoc3">3</A>&#XA0;&#XA0;Example Programs</H2><P>Before describing the individual CFITSIO routines in detail, it is
+instructive to first look at an actual program. The names of the
+CFITSIO routines are fairly descriptive (they all begin with <TT>fits_</TT>, so it should be reasonably clear what this program does:</P><PRE CLASS="verbatim">----------------------------------------------------------------
+    #include &lt;string.h&gt;
+    #include &lt;stdio.h&gt;
+1:  #include "fitsio.h"
+
+    int main(int argc, char *argv[])
+    {
+2:      fitsfile *fptr;         
+        char card[FLEN_CARD]; 
+3:      int status = 0,  nkeys, ii;  /* MUST initialize status */
+
+4:      fits_open_file(&amp;fptr, argv[1], READONLY, &amp;status);
+        fits_get_hdrspace(fptr, &amp;nkeys, NULL, &amp;status);
+
+        for (ii = 1; ii &lt;= nkeys; ii++)  { 
+          fits_read_record(fptr, ii, card, &amp;status); /* read keyword */
+          printf("%s\n", card);
+        }
+        printf("END\n\n");  /* terminate listing with END */
+        fits_close_file(fptr, &amp;status);
+
+        if (status)          /* print any error messages */
+5:          fits_report_error(stderr, status);
+        return(status);
+    }
+----------------------------------------------------------------
+</PRE><P>This program opens the specified FITS file and prints
+out all the header keywords in the current HDU.
+Some other points to notice about the program are:
+</P><OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">The <TT>fitsio.h</TT> header file must be included to define the 
+various routines and symbols used in CFITSIO.</LI><LI CLASS="li-enumerate"><P>The <TT>fitsfile</TT> parameter is the first argument in almost every
+CFITSIO routine. It is a pointer to a structure (defined in <TT>fitsio.h</TT>) that stores information about the particular FITS file that
+the routine will operate on. Memory for this structure is
+automatically allocated when the file is first opened or created, and
+is freed when the file is closed.</P></LI><LI CLASS="li-enumerate">Almost every CFITSIO routine has a <TT>status</TT> parameter as the last
+argument. The status value is also usually returned as the value of the
+function itself. Normally status = 0, and a positive status value
+indicates an error of some sort. The status variable must always be
+initialized to zero before use, because if status is greater than zero
+on input then the CFITSIO routines will simply return without doing
+anything. This &#X2018;inherited status&#X2019; feature, where each CFITSIO routine
+inherits the status from the previous routine, makes it unnecessary to
+check the status value after every single CFITSIO routine call.
+Generally you should check the status after an especially important or
+complicated routine has been called, or after a block of
+closely related CFITSIO calls. This example program has taken this
+feature to the extreme and only checks the status value at the 
+very end of the program.</LI><LI CLASS="li-enumerate"><P>In this example program the file name to be opened is given as an
+argument on the command line (<TT>arg[1]</TT>). If the file contains more
+than 1 HDU or extension, you can specify which particular HDU to be
+opened by enclosing the name or number of the HDU in square brackets
+following the root name of the file. For example, <TT>file.fts[0]</TT>
+opens the primary array, while <TT>file.fts[2]</TT> will move to and open
+the 2nd extension in the file, and <TT>file.fit[EVENTS]</TT> will open the
+extension that has a <TT>EXTNAME = &#X2019;EVENTS&#X2019;</TT> keyword in the header.
+Note that on the Unix command line you must enclose the file name in
+single or double quote characters if the name contains special
+characters such as &#X2018;[&#X2019; or &#X2018;]&#X2019;.</P><P>All of the CFITSIO routines which read or write header keywords,
+image data, or table data operate only within the currently opened
+HDU in the file. To read or write information in a different HDU you must
+first explicitly move to that HDU (see the <TT>fits_movabs_hdu</TT> and
+<TT>fits_movrel_hdu</TT> routines in section 4.3).</P></LI><LI CLASS="li-enumerate"><P>The <TT>fits_report_error</TT> routine provides a convenient way to print out
+diagnostic messages about any error that may have occurred. </P></LI></OL><P>A set of example FITS utility programs are available from the CFITSIO
+web site at<BR>
+http://heasarc.gsfc.nasa.gov/docs/software/fitsio/cexamples.html.
+These are real working programs which illustrate how to read, write,
+and modify FITS files using the CFITSIO library. Most of these
+programs are very short, containing only a few 10s of lines of
+executable code or less, yet they perform quite useful operations on
+FITS files. Running each program without any command line arguments
+will produce a short description of how to use the program.
+The currently available programs are:
+</P><BLOCKQUOTE CLASS="quote">
+fitscopy - copy a file<BR>
+listhead - list header keywords<BR>
+liststruc - show the structure of a FITS file.<BR>
+modhead - write or modify a header keyword<BR>
+imarith - add, subtract, multiply, or divide 2 images<BR>
+imlist - list pixel values in an image<BR>
+imstat - compute mean, min, and max pixel values in an image<BR>
+tablist - display the contents of a FITS table<BR>
+tabcalc - general table calculator
+</BLOCKQUOTE><HR>
+<A HREF="quick003.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="quick005.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

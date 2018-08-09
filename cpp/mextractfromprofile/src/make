@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractfromprofile
+chmod a+x ../bin/extractfromprofile
+rm ~/bin/extractfromprofile
+cp -p ../bin/extractfromprofile ~/bin/
+rm ~/stella/bin/extractfromprofile
+ln -s ~/bin/extractfromprofile ~/stella/bin/

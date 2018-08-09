@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractmpfitgauss
+chmod a+x ../bin/extractmpfitgauss
+rm ~/bin/extractmpfitgauss
+cp -p ../bin/extractmpfitgauss ~/bin/
+rm ~/stella/bin/extractmpfitgauss
+ln -s ~/bin/extractmpfitgauss ~/stella/bin/

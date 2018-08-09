@@ -1,0 +1,7 @@
+make delete
+make ../bin/findapsinring
+chmod a+x ../bin/findapsinring
+rm ~/bin/findapsinring
+cp -p ../bin/findapsinring ~/bin/
+rm ~/stella/bin/findapsinring
+ln -s ~/bin/findapsinring ~/stella/bin/

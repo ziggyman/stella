@@ -1,0 +1,1131 @@
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 1 59.36721 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	1
+	beam	1
+	center	59.36721 2047.
+	low	-9.341892 -2046.
+	high	11.0551 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		35.14095
+		104.0462
+		70.44455
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 2 88.8672 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	2
+	beam	2
+	center	88.8672 2047.
+	low	-4.221504 -2046.
+	high	10.03455 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		35.47512
+		103.4298
+		70.83614
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 3 118.9146 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	3
+	beam	3
+	center	118.9146 2047.
+	low	-3.742401 -2046.
+	high	10.6051 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4037.
+		33.72913
+		99.10249
+		69.55808
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 4 149.7166 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	4
+	beam	4
+	center	149.7166 2047.
+	low	-3.924469 -2046.
+	high	10.69432 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4032.
+		33.65205
+		97.93886
+		69.63095
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 5 180.8619 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	5
+	beam	5
+	center	180.8619 2047.
+	low	-4.350494 -2046.
+	high	10.71031 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4032.
+		33.50183
+		96.31801
+		68.98405
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 6 212.9719 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	6
+	beam	6
+	center	212.9719 2047.
+	low	-4.225342 -2046.
+	high	10.82986 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4044.5
+		34.49039
+		97.058
+		70.64338
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 7 245.7459 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	7
+	beam	7
+	center	245.7459 2047.
+	low	-4.36026 -2046.
+	high	10.70065 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4044.5
+		34.61433
+		95.97718
+		70.90239
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 8 279.144 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	8
+	beam	8
+	center	279.144 2047.
+	low	-4.978485 -2046.
+	high	10.43491 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4044.5
+		34.75999
+		94.72874
+		71.11397
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 9 313.7502 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	9
+	beam	9
+	center	313.7502 2047.
+	low	-5.240692 -2046.
+	high	10.54611 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4037.
+		34.43998
+		92.75074
+		71.06078
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 10 348.9809 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	10
+	beam	10
+	center	348.9809 2047.
+	low	-5.361786 -2046.
+	high	10.78329 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		37.21383
+		96.57936
+		74.29335
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 11 385.2016 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	11
+	beam	11
+	center	385.2016 2047.
+	low	-6.087341 -2046.
+	high	10.05783 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		37.48505
+		95.46102
+		74.7957
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 12 422.6131 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	12
+	beam	12
+	center	422.6131 2047.
+	low	-6.319946 -2046.
+	high	10.89484 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		37.69872
+		94.27926
+		75.31342
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 13 460.9407 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	13
+	beam	13
+	center	460.9407 2047.
+	low	-5.988861 -2046.
+	high	11.14874 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		37.97393
+		93.02405
+		75.83046
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 14 500.3877 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	14
+	beam	14
+	center	500.3877 2047.
+	low	-6.271912 -2046.
+	high	10.62109 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		38.25958
+		91.7121
+		76.38163
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 15 541.0244 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	15
+	beam	15
+	center	541.0244 2047.
+	low	-6.757751 -2046.
+	high	10.86896 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		38.5437
+		90.33108
+		76.94669
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 16 582.9296 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	16
+	beam	16
+	center	582.9296 2047.
+	low	-7.501343 -2046.
+	high	10.37006 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		38.8034
+		88.87881
+		77.52818
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 17 625.9739 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	17
+	beam	17
+	center	625.9739 2047.
+	low	-7.473633 -2046.
+	high	11.87311 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		39.12442
+		87.35753
+		78.13899
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 18 670.3055 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	18
+	beam	18
+	center	670.3055 2047.
+	low	-6.228821 -2046.
+	high	11.46698 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		39.45613
+		85.76446
+		78.77313
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 19 716.0526 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	19
+	beam	19
+	center	716.0526 2047.
+	low	-5.758789 -2046.
+	high	10.61737 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		39.76797
+		84.09063
+		79.42618
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 20 763.1478 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	20
+	beam	20
+	center	763.1478 2047.
+	low	-5.685181 -2046.
+	high	10.6911 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		40.11577
+		82.3427
+		80.1114
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 21 811.8087 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	21
+	beam	21
+	center	811.8087 2047.
+	low	-7.12738 -2046.
+	high	10.56842 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		40.4139
+		80.49517
+		80.79687
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 22 861.8527 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	22
+	beam	22
+	center	861.8527 2047.
+	low	-7.689758 -2046.
+	high	11.64264 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		40.76798
+		78.56448
+		81.51735
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 23 913.3145 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	23
+	beam	23
+	center	913.3145 2047.
+	low	-6.698853 -2046.
+	high	10.42792 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		41.19753
+		76.54964
+		82.27192
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 24 966.5731 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	24
+	beam	24
+	center	966.5731 2047.
+	low	-7.414734 -2046.
+	high	11.20026 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		41.55593
+		74.43611
+		83.06052
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 25 1021.39 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	25
+	beam	25
+	center	1021.39 2047.
+	low	-8.988586 -2046.
+	high	10.38141 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		41.9713
+		72.23705
+		83.87488
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 26 1077.978 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	26
+	beam	26
+	center	1077.978 2047.
+	low	-7.102051 -2046.
+	high	11.14087 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		42.39647
+		69.91002
+		84.73298
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 27 1136.251 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	27
+	beam	27
+	center	1136.251 2047.
+	low	-7.330322 -2046.
+	high	11.65674 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4077.
+		42.56192
+		66.81898
+		85.20188
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 28 1196.556 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	28
+	beam	28
+	center	1196.556 2047.
+	low	-7.258911 -2046.
+	high	10.70508 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4087.
+		43.29296
+		64.86697
+		86.37741
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 29 1258.823 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	29
+	beam	29
+	center	1258.823 2047.
+	low	-6.592651 -2046.
+	high	10.73035 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4087.
+		43.85314
+		62.40018
+		87.63816
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 30 1323.005 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	30
+	beam	30
+	center	1323.005 2047.
+	low	-6.636353 -2046.
+	high	11.00769 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		44.28992
+		59.37935
+		88.57451
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 31 1389.318 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	31
+	beam	31
+	center	1389.318 2047.
+	low	-6.23291 -2046.
+	high	10.76001 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		44.84008
+		56.40931
+		89.66908
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 32 1457.956 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	32
+	beam	32
+	center	1457.956 2047.
+	low	-6.910522 -2046.
+	high	10.79443 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		45.372
+		53.28544
+		90.82558
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 33 1528.854 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	33
+	beam	33
+	center	1528.854 2047.
+	low	-6.593506 -2046.
+	high	11.49255 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		45.97239
+		50.00823
+		92.05656
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 34 1602.201 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	34
+	beam	34
+	center	1602.201 2047.
+	low	-6.497559 -2046.
+	high	10.85046 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4084.5
+		46.59415
+		46.55783
+		93.33818
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 35 1678.247 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	35
+	beam	35
+	center	1678.247 2047.
+	low	-6.755005 -2046.
+	high	11.68799 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		14.
+		4082.
+		47.24845
+		43.01112
+		94.94062
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 36 1756.588 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	36
+	beam	36
+	center	1756.588 2047.
+	low	-8.321289 -2046.
+	high	11.73669 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		562.
+		4084.5
+		43.66611
+		67.16988
+		71.56659
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 37 1838.125 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	37
+	beam	37
+	center	1838.125 2047.
+	low	-7.647217 -2046.
+	high	11.61279 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4077.
+		48.21931
+		34.09482
+		96.59448
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 38 1922.52 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	38
+	beam	38
+	center	1922.52 2047.
+	low	-7.94873 -2046.
+	high	11.32532 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		12.
+		4087.
+		49.33582
+		30.54818
+		98.57975
+
+# Wed 15:18:07 21-Mar-2007
+begin	aperture refOrderdef_FEROS_2148x4096_object 39 2010.093 2047.
+	image	refOrderdef_FEROS_2148x4096_object
+	aperture	39
+	beam	39
+	center	2010.093 2047.
+	low	-7.06189 -2046.
+	high	11.81812 2047.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1092.
+		3987.
+		40.34199
+		69.82922
+		50.74663
+

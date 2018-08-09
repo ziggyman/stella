@@ -1,0 +1,180 @@
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 1 36.3826 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	1
+	beam	1
+	center	36.3826 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		4085.
+		38.97214
+		89.20851
+		77.50507
+		0.4623227
+
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 2 79.4776 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	2
+	beam	2
+	center	79.4776 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		4085.
+		39.26187
+		87.69491
+		78.12109
+		0.4648228
+
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 3 123.8662 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	3
+	beam	3
+	center	123.8662 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		3962.
+		34.71032
+		76.52852
+		73.98158
+		0.3923896
+
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 4 169.5882 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	4
+	beam	4
+	center	169.5882 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		3962.
+		35.05334
+		74.84531
+		74.5721
+		0.3732714
+
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 5 216.7019 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	5
+	beam	5
+	center	216.7019 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		3991.
+		36.50823
+		75.2726
+		76.30994
+		0.3404997
+
+# Fri 10:54:15 04-May-2007
+begin	aperture tempOrderDef_FEROS_301x4089 6 265.2228 2045.
+	image	tempOrderDef_FEROS_301x4089
+	aperture	6
+	beam	6
+	center	265.2228 2045.
+	low	-5. -2044.
+	high	10.5 2045.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		120.
+		3933.
+		34.70672
+		73.01517
+		70.82442
+		0.2829146
+

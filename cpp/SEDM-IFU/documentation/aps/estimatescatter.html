@@ -1,0 +1,19 @@
+<html><body><center>
+<h1> estimatescatter </h1>
+</center><br>
+<h2>Usage:</h2>
+estimatescatter "char[] [@]FitsFileName_In" <char[] [@]FitsFileName_Out> <int ClusterSizeX> <int ClusterSizeY> [AREA=[<int I_XMin>,<int I_XMax>,<int I_YMin>,<int I_YMax>]]
+<h2>Parameters:</h2>
+<h3>char[] [@]FitsFileName_In</h3>
+Name of input fits image (without @, e.g. "image_in.fits"), or name of input file list (with @, e.g. "@images_in.list")<br> 
+<h3>char[] [@]FitsFileName_Out</h3>
+Name of output fits image (without @, e.g. "image_out.fits"), or name of output file list (with @, e.g. "@images_out.list")<br>
+* output file list must have same number of elements as input file list<br>
+<h3>int ClusterSizeX</h3>
+size of rectangular CCD areas in x to calculate scattered light from<br>
+<h3>int ClusterSizeY</h3>
+size of rectangular CCD areas in y to calculate scattered light from<br>
+<h3>optinal parameter: AREA=[<int I_XMin>,<int I_XMax>,<int I_YMin>,<int I_YMax>]</h3>
+CCD area of interest (pixel values range from 0 to size-1)<br>
+<br>
+</body></html>

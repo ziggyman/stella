@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Introduction </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc1">Chapter&#XA0;1</A>&#XA0;&#XA0;Introduction </H1><P>This document describes the Fortran-callable subroutine interface that
+is provided as part of the CFITSIO library (which is written in ANSI
+C). This is a companion document to the CFITSIO User&#X2019;s Guide which
+should be consulted for further information about the underlying
+CFITSIO library. In the remainder of this document, the terms FITSIO
+and CFITSIO are interchangeable and refer to the same library.</P><P>FITSIO/CFITSIO is a machine-independent library of routines for reading
+and writing data files in the FITS (Flexible Image Transport System)
+data format. It can also read IRAF format image files and raw binary
+data arrays by converting them on the fly into a virtual FITS format
+file. This library was written to provide a powerful yet simple
+interface for accessing FITS files which will run on most commonly used
+computers and workstations. FITSIO supports all the features described
+in the official NOST definition of the FITS format and can read and
+write all the currently defined types of extensions, including ASCII
+tables (TABLE), Binary tables (BINTABLE) and IMAGE extensions. The
+FITSIO subroutines insulate the programmer from having to deal with the
+complicated formatting details in the FITS file, however, it is assumed
+that users have a general knowledge about the structure and usage of
+FITS files.</P><P>The CFITSIO package was initially developed by the HEASARC (High Energy
+Astrophysics Science Archive Research Center) at the NASA Goddard Space
+Flight Center to convert various existing and newly acquired
+astronomical data sets into FITS format and to further analyze data
+already in FITS format. New features continue to be added to CFITSIO
+in large part due to contributions of ideas or actual code from users
+of the package. The Integral Science Data Center in Switzerland, and
+the XMM/ESTEC project in The Netherlands made especially significant
+contributions that resulted in many of the new features that appeared
+in v2.0 of CFITSIO.</P><P>The latest version of the CFITSIO source code, documentation, and
+example programs are available on the World-Wide Web or via anonymous
+ftp from:</P><PRE CLASS="verbatim">        http://heasarc.gsfc.nasa.gov/fitsio
+        ftp://legacy.gsfc.nasa.gov/software/fitsio/c
+</PRE><P>Any questions, bug reports, or suggested enhancements related to the CFITSIO
+package should be sent to the primary author:</P><PRE CLASS="verbatim">        Dr. William Pence                 Telephone:  (301) 286-4599
+        HEASARC, Code 662                 E-mail: William.D.Pence@nasa.gov
+        NASA/Goddard Space Flight Center
+        Greenbelt, MD 20771, USA
+</PRE><P>This User&#X2019;s Guide assumes that readers already have a general
+understanding of the definition and structure of FITS format files.
+Further information about FITS formats is available from the FITS Support
+Office at <TT>http://fits.gsfc.nasa.gov</TT>. In particular, the
+&#X2019;NOST FITS Standard&#X2019; gives the authoritative definition of the FITS data
+format, and the &#X2018;FITS User&#X2019;s Guide&#X2019; provides additional historical background
+and practical advice on using FITS files.</P><P>CFITSIO users may also be interested in the FTOOLS package of programs
+that can be used to manipulate and analyze FITS format files.
+Information about FTOOLS can be obtained on the Web or via anonymous
+ftp at:</P><PRE CLASS="verbatim">        http://heasarc.gsfc.nasa.gov/ftools
+        ftp://legacy.gsfc.nasa.gov/software/ftools/release
+</PRE><P>
+</P><HR>
+<A HREF="fitsio001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

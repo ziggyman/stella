@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractsum_obs_sky
+chmod a+x ../bin/extractsum_obs_sky
+rm ~/bin/extractsum_obs_sky
+cp -p ../bin/extractsum_obs_sky ~/bin/
+rm ~/stella/bin/extractsum_obs_sky
+ln -s ~/bin/extractsum_obs_sky ~/stella/bin/

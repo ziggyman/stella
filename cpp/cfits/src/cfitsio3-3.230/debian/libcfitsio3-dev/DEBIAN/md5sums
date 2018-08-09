@@ -1,0 +1,14 @@
+929e9f1a1114adae62c1b17f6255ac9a  usr/lib/libcfitsio.a
+07a730aafe0cb4afdaf044259844c696  usr/lib/pkgconfig/cfitsio.pc
+52c9189c07cc5c8c469fcc8d7062db4b  usr/include/drvrsmem.h
+257c9091e5649c80b7a5252ce119b29a  usr/include/fitsio.h
+887a6d5466b44f945ee1058d537c9ad6  usr/include/fitsio2.h
+b963e9ba3f85f7c23f831ed3987de0f8  usr/include/longnam.h
+fc3ed4dd7e464736fda81e476bb2961e  usr/share/doc/libcfitsio3-dev/changelog.gz
+8f793a3bec7f082aa0bac4ed20a071ad  usr/share/doc/libcfitsio3-dev/copyright
+606d10272b3a31daadb4251b7b1774b4  usr/share/doc/libcfitsio3-dev/examples/README.examples
+8f8f43569e43c29ef213ddb1640f7c35  usr/share/doc/libcfitsio3-dev/examples/listhead.c
+0e5ae6b59db1319a9fb90bdd59d37b17  usr/share/doc/libcfitsio3-dev/examples/smem.c
+97f43e9bb2b21d9c979fdad716981ed6  usr/share/doc/libcfitsio3-dev/examples/cookbook.c.gz
+ad818c8ca7c42ce835b60bb7f144bfc9  usr/share/doc/libcfitsio3-dev/examples/testprog.c.gz
+92bfc92ea87fab8be4bd840b051f649d  usr/share/doc/libcfitsio3-dev/changelog.Debian.gz

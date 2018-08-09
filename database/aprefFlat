@@ -1,0 +1,435 @@
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 1 77.87693 1024.
+	image	refFlat
+	aperture	1
+	beam	1
+	center	77.87693 1024.
+	low	-29.35464 -1023.
+	high	30.08885 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-2.557677
+		102.0125
+		-6.074356
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 2 230.9253 1024.
+	image	refFlat
+	aperture	2
+	beam	2
+	center	230.9253 1024.
+	low	-28.78211 -1023.
+	high	30.86652 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.861502
+		100.489
+		-4.097314
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 3 381.5704 1024.
+	image	refFlat
+	aperture	3
+	beam	3
+	center	381.5704 1024.
+	low	-29.36342 -1023.
+	high	30.27161 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.89025
+		98.92776
+		-4.117344
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 4 530.1461 1024.
+	image	refFlat
+	aperture	4
+	beam	4
+	center	530.1461 1024.
+	low	-31.06136 -1023.
+	high	28.5 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-3.599933
+		97.6282
+		-3.736344
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 5 671.5917 1024.
+	image	refFlat
+	aperture	5
+	beam	5
+	center	671.5917 1024.
+	low	-29.06422 -1023.
+	high	30.40788 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.612964
+		96.10046
+		-3.827291
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 6 812.0283 1024.
+	image	refFlat
+	aperture	6
+	beam	6
+	center	812.0283 1024.
+	low	-29.06324 -1023.
+	high	30.66715 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.357189
+		95.78313
+		-4.734049
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 7 949.8752 1024.
+	image	refFlat
+	aperture	7
+	beam	7
+	center	949.8752 1024.
+	low	-29.59114 -1023.
+	high	30.04833 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.582351
+		94.14687
+		-3.873604
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 8 1084.108 1024.
+	image	refFlat
+	aperture	8
+	beam	8
+	center	1084.108 1024.
+	low	-29.24473 -1023.
+	high	30.38924 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.450251
+		93.26071
+		-3.466455
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 9 1215.642 1024.
+	image	refFlat
+	aperture	9
+	beam	9
+	center	1215.642 1024.
+	low	-29.22495 -1023.
+	high	30.48572 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.488716
+		92.11806
+		-2.401725
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 10 1344.441 1024.
+	image	refFlat
+	aperture	10
+	beam	10
+	center	1344.441 1024.
+	low	-29.12473 -1023.
+	high	30.55306 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-0.5706601
+		90.87843
+		-2.344885
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 11 1471.298 1024.
+	image	refFlat
+	aperture	11
+	beam	11
+	center	1471.298 1024.
+	low	-29.53987 -1023.
+	high	30.17242 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.102437
+		89.71674
+		-3.18487
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 12 1594.93 1024.
+	image	refFlat
+	aperture	12
+	beam	12
+	center	1594.93 1024.
+	low	-29.51293 -1023.
+	high	30.31702 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-1.050125
+		89.16348
+		-3.146484
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 13 1715.826 1024.
+	image	refFlat
+	aperture	13
+	beam	13
+	center	1715.826 1024.
+	low	-29.18973 -1023.
+	high	30.9166 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-0.9070699
+		87.93948
+		-1.585076
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 14 1834.944 1024.
+	image	refFlat
+	aperture	14
+	beam	14
+	center	1834.944 1024.
+	low	-29.65915 -1023.
+	high	30.88894 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-0.3043615
+		87.09762
+		-2.186013
+
+# Mon 18:40:58 03-Dec-2001
+begin	aperture refFlat 15 1951.94 1024.
+	image	refFlat
+	aperture	15
+	beam	15
+	center	1951.94 1024.
+	low	-29.89841 -1023.
+	high	30.3135 1024.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2048.
+		-0.4471396
+		86.69811
+		-1.770528
+

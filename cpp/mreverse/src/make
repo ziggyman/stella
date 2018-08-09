@@ -1,0 +1,7 @@
+make delete
+make ../bin/reverse
+chmod a+x ../bin/reverse
+rm ~/bin/reverse
+cp -p ../bin/reverse ~/bin/
+rm ~/stella/bin/reverse
+ln -s ~/bin/reverse ~/stella/bin/

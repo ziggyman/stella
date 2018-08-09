@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractsum
+chmod a+x ../bin/extractsum
+rm ~/bin/extractsum
+cp -p ../bin/extractsum ~/bin/
+rm ~/stella/bin/extractsum
+ln -s ~/bin/extractsum ~/stella/bin/

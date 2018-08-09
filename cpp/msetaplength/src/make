@@ -1,0 +1,7 @@
+make delete
+make ../bin/setaplength
+chmod a+x ../bin/setaplength
+rm ~/bin/setaplength
+cp -p ../bin/setaplength ~/bin/
+rm ~/stella/bin/setaplength
+ln -s ~/bin/setaplength ~/stella/bin/

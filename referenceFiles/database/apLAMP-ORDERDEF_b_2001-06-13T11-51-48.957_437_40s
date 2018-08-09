@@ -1,0 +1,990 @@
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 1 37.8427 100.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	1
+	beam	1
+	center	37.8427 100.
+	low	-21.16087 -99.
+	high	22.85799 2900.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2390.
+		12.34204
+		-47.76227
+		0.9525475
+		-0.05970683
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 2 86.82381 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	2
+	beam	2
+	center	86.82381 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2390.
+		12.34204
+		-47.76227
+		0.9525475
+		-0.05970683
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 3 136.7497 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	3
+	beam	3
+	center	136.7497 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2915.
+		2.059932
+		-57.91027
+		1.361482
+		0.05621824
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 4 187.5173 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	4
+	beam	4
+	center	187.5173 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2915.
+		2.029332
+		-58.27689
+		1.25144
+		0.05310144
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 5 239.1429 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	5
+	beam	5
+	center	239.1429 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2935.
+		1.603432
+		-59.06668
+		1.177693
+		0.03468155
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 6 291.6718 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	6
+	beam	6
+	center	291.6718 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2935.
+		1.556265
+		-59.48112
+		1.068756
+		0.04188902
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 7 345.1129 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	7
+	beam	7
+	center	345.1129 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2935.
+		1.517367
+		-59.88533
+		0.9731758
+		0.03246155
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 8 399.4589 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	8
+	beam	8
+	center	399.4589 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2937.5
+		1.438162
+		-60.35325
+		0.8786301
+		0.00949083
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 9 454.7731 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	9
+	beam	9
+	center	454.7731 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2937.5
+		1.389612
+		-60.7877
+		0.7810677
+		-0.01336445
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 10 511.0527 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	10
+	beam	10
+	center	511.0527 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2937.5
+		1.350505
+		-61.22648
+		0.6843792
+		-0.02508022
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 11 568.325 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	11
+	beam	11
+	center	568.325 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2937.5
+		1.315331
+		-61.67144
+		0.5838062
+		-0.04202382
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 12 626.6335 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	12
+	beam	12
+	center	626.6335 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2995.
+		0.05707332
+		-63.29906
+		0.5054432
+		-0.02253823
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 13 685.9868 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	13
+	beam	13
+	center	685.9868 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		1.16815
+		-62.63107
+		0.3772595
+		-0.06581189
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 14 746.4017 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	14
+	beam	14
+	center	746.4017 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		1.132139
+		-63.08639
+		0.272904
+		-0.07303604
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 15 807.9291 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	15
+	beam	15
+	center	807.9291 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		1.078634
+		-63.54623
+		0.1656866
+		-0.07920754
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 16 870.5661 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	16
+	beam	16
+	center	870.5661 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		1.038552
+		-64.01323
+		0.0587454
+		-0.08765524
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 17 934.3675 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	17
+	beam	17
+	center	934.3675 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2965.
+		0.43686
+		-65.04166
+		-0.04929571
+		-0.08599134
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 18 999.3525 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	18
+	beam	18
+	center	999.3525 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.9421223
+		-64.97208
+		-0.157683
+		-0.09074986
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 19 1065.562 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	19
+	beam	19
+	center	1065.562 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.8956146
+		-65.47579
+		-0.272262
+		-0.08523554
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 20 1133.034 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	20
+	beam	20
+	center	1133.034 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.8320411
+		-65.94612
+		-0.3906527
+		-0.09333663
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 21 1201.752 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	21
+	beam	21
+	center	1201.752 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.7821118
+		-66.44903
+		-0.5119087
+		-0.1006205
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 22 1271.788 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	22
+	beam	22
+	center	1271.788 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.7282112
+		-66.94788
+		-0.6239191
+		-0.09043638
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 23 1343.165 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	23
+	beam	23
+	center	1343.165 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.6736699
+		-67.45852
+		-0.7493529
+		-0.08933139
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 24 1415.922 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	24
+	beam	24
+	center	1415.922 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.6071531
+		-67.97183
+		-0.8838394
+		-0.1003799
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 25 1490.078 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	25
+	beam	25
+	center	1490.078 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2940.
+		0.5584483
+		-68.51314
+		-0.9997084
+		-0.09758836
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 26 1565.714 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	26
+	beam	26
+	center	1565.714 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2960.
+		0.01805794
+		-69.56139
+		-1.154876
+		-0.1016572
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 27 1642.85 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	27
+	beam	27
+	center	1642.85 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2960.
+		-0.05170092
+		-70.1107
+		-1.310251
+		-0.1147571
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 28 1721.505 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	28
+	beam	28
+	center	1721.505 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2960.
+		-0.1139836
+		-70.64791
+		-1.451213
+		-0.1123952
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 29 1801.705 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	29
+	beam	29
+	center	1801.705 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2962.5
+		-0.2398652
+		-71.28891
+		-1.612872
+		-0.1063767
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 30 1883.565 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	30
+	beam	30
+	center	1883.565 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2962.5
+		-0.3150136
+		-71.88716
+		-1.793392
+		-0.1031997
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 31 1967.098 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	31
+	beam	31
+	center	1967.098 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		2962.5
+		-0.3981754
+		-72.42543
+		-1.990278
+		-0.03612554
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 32 2052.314 1500.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	32
+	beam	32
+	center	2052.314 1500.
+	low	-21.16087 -1499.
+	high	22.85799 1500.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		570.
+		2920.
+		-12.87587
+		-59.10549
+		-1.408966
+		-0.1821503
+
+# Fri 23:29:19 30-Mar-2007
+begin	aperture LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s 33 2138.349 2900.
+	image	LAMP-ORDERDEF_b_2001-06-13T11-51-48.957_437_40s
+	aperture	33
+	beam	33
+	center	2138.349 2900.
+	low	-21.16087 -2899.
+	high	22.85799 100.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		570.
+		2920.
+		-12.87587
+		-59.10549
+		-1.408966
+		-0.1821503
+

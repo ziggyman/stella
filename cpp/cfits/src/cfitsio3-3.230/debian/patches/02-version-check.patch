@@ -1,0 +1,13 @@
+--- cfitsio3-3.080.orig/longnam.h
++++ cfitsio3-3.080/longnam.h
+@@ -19,7 +19,8 @@
+    file that was used to build the CFITSIO library is the same version
+    as included when compiling the application program
+ */
+-#define fits_open_file(A, B, C, D)  ffopentest( CFITSIO_VERSION, A, B, C, D)
++/* #define fits_open_file(A, B, C, D)  ffopentest( CFITSIO_VERSION, A, B, C, D) */
++#define fits_open_file(A, B, C, D)  ffopen(A, B, C, D)
+ 
+ #define fits_open_data      ffdopn
+ #define fits_open_table     fftopn
+

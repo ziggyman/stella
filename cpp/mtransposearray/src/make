@@ -1,0 +1,7 @@
+make delete
+make ../bin/transposearray
+chmod a+x ../bin/transposearray
+rm ~/bin/transposearray
+cp -p ../bin/transposearray ~/bin/
+rm ~/stella/bin/transposearray
+ln -s ~/bin/transposearray ~/stella/bin/

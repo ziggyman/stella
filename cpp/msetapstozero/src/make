@@ -1,0 +1,7 @@
+make delete
+make ../bin/setapstozero
+chmod a+x ../bin/setapstozero
+rm ~/bin/setapstozero
+cp -p ../bin/setapstozero ~/bin/
+rm ~/stella/bin/setapstozero
+ln -s ~/bin/setapstozero ~/stella/bin/

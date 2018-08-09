@@ -1,0 +1,957 @@
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 1 29.6565 1500.
+image	refFlat_346_2048x3000
+aperture	1
+beam	1
+center	29.6565 1500.
+low	-20.65177 -1499.
+high	20.44429 1500.
+background
+xmin -20.65177
+xmax 20.44429
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.01344774
+-52.99741
+3.191717
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 2 77.40883 1500.
+image	refFlat_346_2048x3000
+aperture	2
+beam	2
+center	77.40883 1500.
+low	-20.31311 -1499.
+high	21.00133 1500.
+background
+xmin -20.31311
+xmax 21.00133
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.1669986
+-54.75877
+1.915399
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 3 126.214 1500.
+image	refFlat_346_2048x3000
+aperture	3
+beam	3
+center	126.214 1500.
+low	-20.15375 -1499.
+high	22.24575 1500.
+background
+xmin -20.15375
+xmax 22.24575
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.08915909
+-54.84794
+1.94801
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 4 176.39 1500.
+image	refFlat_346_2048x3000
+aperture	4
+beam	4
+center	176.39 1500.
+low	-19.8698 -1499.
+high	21.4821 1500.
+background
+xmin -19.8698
+xmax 21.4821
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.1179381
+-55.32259
+1.584618
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 5 227.998 1500.
+image	refFlat_346_2048x3000
+aperture	5
+beam	5
+center	227.998 1500.
+low	-21.35287 -1499.
+high	20.36453 1500.
+background
+xmin -21.35287
+xmax 20.36453
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.1267005
+-55.65205
+1.400522
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 6 280.5198 1500.
+image	refFlat_346_2048x3000
+aperture	6
+beam	6
+center	280.5198 1500.
+low	-23.00732 -1499.
+high	19.79526 1500.
+background
+xmin -23.00732
+xmax 19.79526
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.047489
+-56.22185
+0.9258689
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 7 332.5842 1500.
+image	refFlat_346_2048x3000
+aperture	7
+beam	7
+center	332.5842 1500.
+low	-22.7536 -1499.
+high	19.3179 1500.
+background
+xmin -22.7536
+xmax 19.3179
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.01570831
+-56.5473
+0.7497567
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 8 384.3954 1500.
+image	refFlat_346_2048x3000
+aperture	8
+beam	8
+center	384.3954 1500.
+low	-21.88107 -1499.
+high	20.93292 1500.
+background
+xmin -21.88107
+xmax 20.93292
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.0898693
+-56.89791
+0.6671075
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 9 438.1475 1500.
+image	refFlat_346_2048x3000
+aperture	9
+beam	9
+center	438.1475 1500.
+low	-22.02765 -1499.
+high	20.10583 1500.
+background
+xmin -22.02765
+xmax 20.10583
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.1224488
+-57.28114
+0.5821998
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 10 493.8001 1500.
+image	refFlat_346_2048x3000
+aperture	10
+beam	10
+center	493.8001 1500.
+low	-23.56198 -1499.
+high	18.96982 1500.
+background
+xmin -23.56198
+xmax 18.96982
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.1758677
+-57.6882
+0.4077215
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 11 547.8178 1500.
+image	refFlat_346_2048x3000
+aperture	11
+beam	11
+center	547.8178 1500.
+low	-21.90448 -1499.
+high	20.61517 1500.
+background
+xmin -21.90448
+xmax 20.61517
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.008289285
+-58.04221
+0.3166226
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 12 606.2975 1500.
+image	refFlat_346_2048x3000
+aperture	12
+beam	12
+center	606.2975 1500.
+low	-24.72107 -1499.
+high	17.79871 1500.
+background
+xmin -24.72107
+xmax 17.79871
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.06610481
+-58.4104
+0.2432232
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 13 658.5171 1500.
+image	refFlat_346_2048x3000
+aperture	13
+beam	13
+center	658.5171 1500.
+low	-20.89142 -1499.
+high	22.41302 1500.
+background
+xmin -20.89142
+xmax 22.41302
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+0.03933046
+-58.70907
+0.2695681
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 14 718.1274 1500.
+image	refFlat_346_2048x3000
+aperture	14
+beam	14
+center	718.1274 1500.
+low	-21.81244 -1499.
+high	19.61487 1500.
+background
+xmin -21.81244
+xmax 19.61487
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.0465056
+-59.26692
+-0.07673895
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 15 780.5333 1500.
+image	refFlat_346_2048x3000
+aperture	15
+beam	15
+center	780.5333 1500.
+low	-25.96411 -1499.
+high	16.75659 1500.
+background
+xmin -25.96411
+xmax 16.75659
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.03601938
+-59.55314
+-0.05612635
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 16 833.2363 1500.
+image	refFlat_346_2048x3000
+aperture	16
+beam	16
+center	833.2363 1500.
+low	-19.55072 -1499.
+high	22.73889 1500.
+background
+xmin -19.55072
+xmax 22.73889
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.0313768
+-59.90033
+-0.08670635
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 17 894.3737 1500.
+image	refFlat_346_2048x3000
+aperture	17
+beam	17
+center	894.3737 1500.
+low	-20.70941 -1499.
+high	21.58008 1500.
+background
+xmin -20.70941
+xmax 21.58008
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.09362957
+-60.3412
+-0.2418701
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 18 956.462 1500.
+image	refFlat_346_2048x3000
+aperture	18
+beam	18
+center	956.462 1500.
+low	-21.08105 -1499.
+high	20.34625 1500.
+background
+xmin -21.08105
+xmax 20.34625
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.1914305
+-60.7166
+-0.2948366
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 19 1018.32 1500.
+image	refFlat_346_2048x3000
+aperture	19
+beam	19
+center	1018.32 1500.
+low	-20.79663 -1499.
+high	20.74103 1500.
+background
+xmin -20.79663
+xmax 20.74103
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.2260804
+-61.10207
+-0.3649326
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 20 1085.727 1500.
+image	refFlat_346_2048x3000
+aperture	20
+beam	20
+center	1085.727 1500.
+low	-25.44934 -1499.
+high	16.52966 1500.
+background
+xmin -25.44934
+xmax 16.52966
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.2308036
+-61.45189
+-0.424152
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 21 1145.486 1500.
+image	refFlat_346_2048x3000
+aperture	21
+beam	21
+center	1145.486 1500.
+low	-21.58374 -1499.
+high	20.83728 1500.
+background
+xmin -21.58374
+xmax 20.83728
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.2404839
+-61.91024
+-0.5547707
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 22 1210.654 1500.
+image	refFlat_346_2048x3000
+aperture	22
+beam	22
+center	1210.654 1500.
+low	-21.79004 -1499.
+high	20.63098 1500.
+background
+xmin -21.79004
+xmax 20.63098
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.25682
+-62.34364
+-0.6369834
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 23 1279.368 1500.
+image	refFlat_346_2048x3000
+aperture	23
+beam	23
+center	1279.368 1500.
+low	-24.67322 -1499.
+high	17.7478 1500.
+background
+xmin -24.67322
+xmax 17.7478
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.3423475
+-62.7376
+-0.7537996
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 24 1342.933 1500.
+image	refFlat_346_2048x3000
+aperture	24
+beam	24
+center	1342.933 1500.
+low	-21.36304 -1499.
+high	21.33704 1500.
+background
+xmin -21.36304
+xmax 21.33704
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.4104597
+-63.14363
+-0.855158
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 25 1415.535 1500.
+image	refFlat_346_2048x3000
+aperture	25
+beam	25
+center	1415.535 1500.
+low	-25.56519 -1499.
+high	16.2168 1500.
+background
+xmin -25.56519
+xmax 16.2168
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.4151637
+-63.54538
+-0.9071883
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 26 1477.956 1500.
+image	refFlat_346_2048x3000
+aperture	26
+beam	26
+center	1477.956 1500.
+low	-19.11255 -1499.
+high	22.66943 1500.
+background
+xmin -19.11255
+xmax 22.66943
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.5021062
+-64.00233
+-1.044078
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 27 1552.208 1500.
+image	refFlat_346_2048x3000
+aperture	27
+beam	27
+center	1552.208 1500.
+low	-23.58923 -1499.
+high	19.5697 1500.
+background
+xmin -23.58923
+xmax 19.5697
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.5702487
+-64.46275
+-1.177332
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 28 1625.935 1500.
+image	refFlat_346_2048x3000
+aperture	28
+beam	28
+center	1625.935 1500.
+low	-26.15002 -1499.
+high	17.4679 1500.
+background
+xmin -26.15002
+xmax 17.4679
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.595414
+-64.87831
+-1.245765
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 29 1695.13 1500.
+image	refFlat_346_2048x3000
+aperture	29
+beam	29
+center	1695.13 1500.
+low	-22.90198 -1499.
+high	20.05603 1500.
+background
+xmin -22.90198
+xmax 20.05603
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.622083
+-65.33279
+-1.361969
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 30 1768.94 1500.
+image	refFlat_346_2048x3000
+aperture	30
+beam	30
+center	1768.94 1500.
+low	-23.14233 -1499.
+high	19.79968 1500.
+background
+xmin -23.14233
+xmax 19.79968
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.6510498
+-65.76885
+-1.476679
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 31 1846.431 1500.
+image	refFlat_346_2048x3000
+aperture	31
+beam	31
+center	1846.431 1500.
+low	-25.59875 -1499.
+high	17.35925 1500.
+background
+xmin -25.59875
+xmax 17.35925
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.7516647
+-66.19392
+-1.571066
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 32 1917.558 1500.
+image	refFlat_346_2048x3000
+aperture	32
+beam	32
+center	1917.558 1500.
+low	-20.68994 -1499.
+high	21.75903 1500.
+background
+xmin -20.68994
+xmax 21.75903
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.8425329
+-66.67822
+-1.672188
+
+# Sun 21:17:57 02-Mar-2003
+begin	aperture refFlat_346_2048x3000 33 1999.305 1500.
+image	refFlat_346_2048x3000
+aperture	33
+beam	33
+center	1999.305 1500.
+low	-24.92163 -1499.
+high	17.52734 1500.
+background
+xmin -24.92163
+xmax 17.52734
+function chebyshev
+order 1
+sample -10:-6,6:10
+naverage -3
+niterate 0
+low_reject 3.
+high_reject 3.
+grow 0.
+axis	1
+curve 7
+2.
+3.
+1.
+3000.
+-0.8573838
+-67.17451
+-1.824052
+

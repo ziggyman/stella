@@ -1,0 +1,7 @@
+make delete
+make ../bin/replacestringinlistwith
+chmod a+x ../bin/replacestringinlistwith
+rm ~/bin/replacestringinlistwith
+cp -p ../bin/replacestringinlistwith ~/bin/
+rm ~/stella/bin/replacestringinlistwith
+ln -s ~/bin/replacestringinlistwith ~/stella/bin/

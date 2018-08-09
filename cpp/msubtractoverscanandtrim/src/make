@@ -1,0 +1,7 @@
+make delete
+make ../bin/subtractoverscanandtrim
+chmod a+x ../bin/subtractoverscanandtrim
+rm ~/bin/subtractoverscanandtrim
+cp -p ../bin/subtractoverscanandtrim ~/bin/
+rm ~/stella/bin/subtractoverscanandtrim
+ln -s ~/bin/subtractoverscanandtrim ~/stella/bin/

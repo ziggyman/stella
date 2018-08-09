@@ -1,0 +1,4 @@
+g++ -s -O2 -fpermissive -lm -lgsl -lgslcblas -I/usr/local/include -L. -lm -lcfitsio -lblitz -o ../bin/extendaps_debug ../../cfits/src/CAny.cpp ../../cfits/src/CString.cpp ../../cfits/src/CFits.cpp MExtendAps.cpp ../../cfits/src/kriging/geostat.cpp ../../cfits/src/kriging/matrix_ex.cpp ../../cfits/src/kriging/model_sph.cpp ../../cfits/src/kriging/model_stable.cpp ../../cfits/src/kriging/variogram.cpp
+cp ../bin/extendaps_debug /home/azuri/stella/bin/
+rm /home/azuri/bin/extendaps_debug
+ln -s /home/azuri/stella/bin/extendaps_debug /home/azuri/bin/extendaps_debug

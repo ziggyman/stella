@@ -1,0 +1,7 @@
+make delete
+make ../bin/writefitsareatotext
+chmod a+x ../bin/writefitsareatotext
+rm ~/bin/writefitsareatotext
+cp -p ../bin/writefitsareatotext ~/bin/
+rm ~/stella/bin/writefitsareatotext
+ln -s ~/bin/writefitsareatotext ~/stella/bin/

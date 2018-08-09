@@ -1,0 +1,7 @@
+make delete
+make ../bin/writeapcenters
+chmod a+x ../bin/writeapcenters
+rm ~/bin/writeapcenters
+cp -p ../bin/writeapcenters ~/bin/
+rm ~/stella/bin/writeapcenters
+ln -s ~/bin/writeapcenters ~/stella/bin/

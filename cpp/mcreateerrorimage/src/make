@@ -1,0 +1,7 @@
+make delete
+make ../bin/createerrorimage
+chmod a+x ../bin/createerrorimage
+rm ~/bin/createerrorimage
+cp -p ../bin/createerrorimage ~/bin/
+rm ~/stella/bin/createerrorimage
+ln -s ~/bin/createerrorimage ~/stella/bin/

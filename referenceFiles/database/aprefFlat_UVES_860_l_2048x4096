@@ -1,0 +1,360 @@
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 1 189.109 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	1
+	beam	1
+	center	189.109 2048.
+	low	-35.13037 -2047.
+	high	35.23314 2048.
+	background
+		xmin -35.13037
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-1.137625
+		79.1471
+		-2.475233
+		0.2561027
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 2 376.9336 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	2
+	beam	2
+	center	376.9336 2048.
+	low	-36.14401 -2047.
+	high	37.69528 2048.
+	background
+		xmin -36.14401
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-1.000718
+		77.72028
+		-2.024049
+		0.1932406
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 3 558.5469 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	3
+	beam	3
+	center	558.5469 2048.
+	low	-35.63208 -2047.
+	high	35.77832 2048.
+	background
+		xmin -35.63208
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.8540779
+		76.26926
+		-1.740572
+		0.207924
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 4 734.1423 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	4
+	beam	4
+	center	734.1423 2048.
+	low	-34.76599 -2047.
+	high	34.87518 2048.
+	background
+		xmin -34.76599
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.6407099
+		74.91796
+		-1.3696
+		0.1684955
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 5 904.1982 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	5
+	beam	5
+	center	904.1982 2048.
+	low	-36.01746 -2047.
+	high	36.59088 2048.
+	background
+		xmin -36.01746
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.4952684
+		73.58481
+		-1.078983
+		0.1384249
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 6 1068.913 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	6
+	beam	6
+	center	1068.913 2048.
+	low	-35.34045 -2047.
+	high	36.11157 2048.
+	background
+		xmin -35.34045
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.3526024
+		72.29734
+		-0.7592532
+		0.1104842
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 7 1228.547 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	7
+	beam	7
+	center	1228.547 2048.
+	low	-35.70996 -2047.
+	high	34.65308 2048.
+	background
+		xmin -35.70996
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.2019053
+		71.06458
+		-0.4661689
+		0.1125841
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 8 1383.369 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	8
+	beam	8
+	center	1383.369 2048.
+	low	-35.59766 -2047.
+	high	35.30933 2048.
+	background
+		xmin -35.59766
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		-0.06565009
+		69.88301
+		-0.1466201
+		0.1227552
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 9 1533.574 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	9
+	beam	9
+	center	1533.574 2048.
+	low	-35.58923 -2047.
+	high	35.38672 2048.
+	background
+		xmin -35.58923
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		0.07538585
+		68.71262
+		0.1069086
+		0.1077738
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 10 1679.405 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	10
+	beam	10
+	center	1679.405 2048.
+	low	-34.75049 -2047.
+	high	34.65759 2048.
+	background
+		xmin -34.75049
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		0.1986586
+		67.59836
+		0.3752321
+		0.08799431
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 11 1821.037 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	11
+	beam	11
+	center	1821.037 2048.
+	low	-35.57666 -2047.
+	high	35.12427 2048.
+	background
+		xmin -35.57666
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		0.327545
+		66.50824
+		0.6254386
+		0.07850279
+
+# Fri 16:35:40 30-Jul-2004
+begin	aperture refFlat_UVES_860_l_2048x4096 12 1958.645 2048.
+	image	refFlat_UVES_860_l_2048x4096
+	aperture	12
+	beam	12
+	center	1958.645 2048.
+	low	-35.52002 -2047.
+	high	35.18103 2048.
+	background
+		xmin -35.52002
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		4096.
+		0.463043
+		65.44807
+		0.8582754
+		0.04296402
+

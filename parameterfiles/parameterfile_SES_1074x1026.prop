@@ -1,0 +1,402 @@
+# Parameterfile for the STELLA-Pipeline
+#
+# general parameters
+log_level                          3              (1-min 2-standard 3-all)[to adopt]
+observatory                        stella         (Name of observatory where images where taken)
+setinst_instrument                 echelle        (Instrument ID [echelle or kpnocoude] [See ccdred.setinstrument.instrument])
+extinct                            onedstds$kpnoextinct.dat (Extinction file [echelle or kpnocoude])
+caldir                             onedstds$spec50cal/ (Standard star calibration directory [echelle or kpnocoude])
+interp                             poly5          (Interpolation type [nearest|linear|poly3|poly5|spline3|sinc] [echelle or kpnocoude])
+dispaxis                           2              (1-horizontal 2-vertical [echelle or kpnocoude])
+nsum                               5              (Number of lines/columns/bands to sum for 2D/3D images [echelle or kpnocoude])
+ccdred_ssfile                      subsets        (Subset translation file)
+ccdred_graphic                     stdgraph       (Interactive graphics output device)
+onedspec_interp                    poly5          (1D-Interpolation type [nearest|linear|poly3|poly5|spline3|sinc])
+calc_error_propagation             YES            (Do error estimation and calculate propagation of errors? [YES|NO])
+imtype                             fits           (Image type)[to adopt]
+#
+# instrument paramters
+slicer                             NO             (Does the instrument use an image slicer? [YES|NO])
+#
+# CCD parameters
+rdnoise                            3.42           (CCD readout noise)
+gain                               0.63           (CCD gain)
+snoise                             0.             (CCD sensitivity noise)
+readoutaxis                        line           (subzero_readcor)(Read out axis [line|column])
+#
+# aperture definition reference
+reference                          /home/azuri/stella/referenceFiles/database/aprefFlat_SES_1074x1026 (reference aperture-definition file)
+calibapoffset                      0.             (Offset for Calib's with respect to aperture definition table of refFlat)
+obsapoffset                        0.             (Offset for objects with respect to aperture definition table of refFlat)
+#
+# --- wavelength calibration reference
+refCalib                           /home/azuri/stella/referenceFiles/database/ecrefThAr_SES_2198x2052 (reference ThAr-line list for reidentifying ThArs)
+#
+# --- apdefault
+apdef_apidtable                    -              (Aperture ID table)
+# --- background subtraction not supported
+apdefb_function                    "chebyshev"    (Background function)
+apdefb_order                       1              (Background function order)
+apdefb_samplebuf                   4              (Size of background sample regions around apertures in pixels)
+apdefb_naverage                    -3             (Background average or median)
+apdefb_niterate                    2              (Background rejection iterations)
+apdefb_low_reject                  3.             (Background lower rejection sigma)
+apdefb_high_reject                 3.             (Background upper rejection sigma)
+apdefb_grow                        0.             (Background rejection growing radius)
+#
+# --- stprepare
+stprepare_firststringnr            12             (Position of first letter of image header parameter value)
+stprepare_firstcharnottotake       (First         character behind image header parameter value. ATTENTION: Leave empty for Space!!!)
+stprepare_ihdate                   DATE           (Image-header keyword for Date Of Observation)
+stprepare_ihutc                    UTC            (Image-header keyword for Universal Time)
+stprepare_ihobject                 IMAGETYP       (Image-header keyword for Image Name)
+stprepare_ihexptime                EXPTIME        (Image-header keyword for Exposure Time)
+stprepare_ihra                     RA             (Image-header keyword for Rectascension)
+stprepare_ihdec                    DEC            (Image-header keyword for Declination)
+stprepare_ihepoch                  EQUINOX        (Image-header keyword for Epoch)
+stprepare_ihjd                     JD             (Image-header keyword for Julian Date)
+stprepare_ihhjd                    HJD            (Image-header keyword for Heliocentric Julian Date)
+stprepare_ihljd                    LJD            (Image-header keyword for Local Julian Date)
+stprepare_ihobservatory            TELESCOP       (Image-header keyword for name of Telescope)[to adopt]
+stprepare_ihutdate                 YES            (Is observation date UT? [YES|NO])
+stprepare_ihuttime                 YES            (Is observation time UT? [YES|NO])
+#
+# --- stzero
+normalbiasmean                     2143.0         (Expected mean of biases)
+normalbiasstddev                   66.5           (Expected stddev of biases)
+maxmeanbiaserror                   10.            (Maximum difference of bias mean with respect to "normalbiasmean")
+maxstddevbiaserror                 5.             (Maximum difference of bias stddev with respect to "normalbiasstddev")
+zero_combine                       average        (Type of combine operation [average|median])
+zero_reject                        minmax         (Type of rejection [none|minmax|ccdclip|crreject|sigclip|avsigclip|pclip])
+zero_offsets                       none           (Input image offsets [none|wcs|grid|<filename>])
+zero_scale                         none           (Multiplicative image scaling to be applied [none|mode|median|mean|exposure|@<file>|!<keyword>])
+zero_zero                          none           (Additive zero level image shifts to be applied [none|mode|median|mean|@<file>|!<keyword>])
+zero_weight                        none           (Weights to be applied during the final averaging [none|mode|median|mean|exposure|@<file>|!<keyword>])
+zero_statsec                       -              (Section of images to use in computing image statistics for scaling and weighting)
+zero_lthreshold                    INDEF          (Low rejection threshold)
+zero_hthreshold                    INDEF          (High rejection threshold)
+zero_nlow                          0              (minmax: Number of low pixels to be rejected)
+zero_nhigh                         1              (minmax: Number of high pixels to be rejected)
+zero_nkeep                         1              (clipping algorithms: Minimum number of pixels to retain (pos) or the maximum number to reject (neg))
+zero_mclip                         YES            (clipping algorithms: Use median in sigma clipping algorithms?)
+zero_lsigma                        3.             (clipping algorithms: Low and sigma clipping factors)
+zero_hsigma                        3.             (clipping algorithms: High sigma clipping factors)
+zero_sigscale                      0.1            (clipping algorithms: Tolerance for sigma clipping scaling corrections)
+zero_pclip                         -0.5           (clipping algorithms: Percentile clipping parameter)
+zero_grow                          0              (rejection algorithms: Radius in pixels for 1D neighbor rejection)
+#
+# --- stbadovertrim
+bot_badpixelfile                   /home/azuri/stella/badpixelmasks/badpix_SES_1074x1026.mask (file containing bad pixels)
+bot_biassec                        [2:26,1:1026]  (overscan section)
+bot_trimsec                        [27:1050,1:1026] (section of the object images containing good data)
+bot_overscan_interactive           NO             (Fit overscan interactively?)
+bot_overscan_function              chebyshev      (Fitting function for overscan [legendre|chebyshev|spline1|spline3])
+bot_overscan_order                 1              (Number of polynomial terms or spline pieces for fitting function (chebyshev))
+bot_overscan_sample                *              (Sample points to fit overscan)
+bot_overscan_naverage              1              (Number of sample points to combine)
+bot_overscan_niterate              5              (Number of rejection iterations)
+bot_overscan_low_rej               5.             (Low sigma rejection factor)
+bot_overscan_high_rej              0.4            (High sigma rejection factor for nonflats)
+bot_overscan_high_rej_flat         0.01           (High sigma rejection factor for flats)
+bot_overscan_grow                  0.             (One dimensional growing radius for rejection of neighbors to deviant points)
+#
+# --- stsubzero
+subtract_biasmean                  YES            (Subtract mean of combined Zero? If not the combined Zero itself will be subtracted)
+subzero_readcor                    NO             (Convert zero level image to readout correction?)
+#
+# --- stflat
+normalflatmean                     10635.         (Expected mean of flats)
+maxmeanflaterror                   400.           (Maximum difference of flat mean with respect to "normalflatmean")
+flat_combine                       average        (Type of combine operation [average|median])
+flat_reject                        ccdclip        (Type of rejection [none|minmax|ccdclip|crreject|sigclip|avsigclip|pclip])
+flat_offsets                       none           (Input image offsets [none|wcs|grid|<filename>])
+flat_scale                         none           (Multiplicative image scaling to be applied [none|mode|median|mean|exposure|@<file>|!<keyword>])
+flat_zero                          none           (Additive zero level image shifts to be applied [none|mode|median|mean|@<file>|!<keyword>])
+flat_weight                        none           (Weights to be applied during the final averaging [none|mode|median|mean|exposure|@<file>|!<keyword>])
+flat_statsec                       -              (Section of images to use in computing image statistics for scaling and weighting)
+flat_lthreshold                    INDEF          (Low rejection threshold)
+flat_hthreshold                    INDEF          (High rejection threshold)
+flat_nlow                          2              (minmax: Number of low pixels to be rejected)
+flat_nhigh                         3              (minmax: Number of high pixels to be rejected)
+flat_nkeep                         1              (clipping algorithms: Minimum number of pixels to retain (pos) or the maximum number to reject (neg))
+flat_mclip                         YES            (clipping algorithms: Use median in sigma clipping algorithms?)
+flat_lsigma                        3.             (clipping algorithms: Low sigma clipping factors)
+flat_hsigma                        3.             (clipping algorithms: High sigma clipping factors)
+flat_sigscale                      0.1            (clipping algorithms: Tolerance for sigma clipping scaling corrections)
+flat_pclip                         -0.5           (clipping algorithms: Percentile clipping parameter)
+flat_grow                          0              (rejection algorithms: Radius in pixels for 1D neighbor rejection)
+#
+# --- stnflat (apfind, apresize)
+nflat_interactive                  YES            (Flatten apertures interactively?)
+nflat_recenter                     YES            (Recenter apertures?)
+nflat_resize                       NO             (Resize apertures?)
+nflat_edit                         YES            (Edit apertures? ["nflat_interact" has to be YES])
+nflat_trace                        NO             (Trace apertures of Flats and Objects?)
+nflat_recenter_line                INDEF          (Dispersion line for the recenter task)
+nflat_recenter_nsum                20             (Number of dispersion lines to sum or median during the recenter task)
+nflat_recenter_aprecenter          -              (Apertures for recentering calculation ["-" for all apertures])
+nflat_recenter_npeaks              INDEF          (Select brightest peaks for recentering calculation)
+nflat_recenter_shift               YES            (Use average shift instead of recentering?)
+nflat_recenter_ddapcenterlimit     30.            (Maximum difference between delta_ycenter's)
+nflat_resize_line                  INDEF          (Dispersion line for the resize task)
+nflat_resize_nsum                  10             (Number of dispersion lines to sum or median during the resize task)
+nflat_resize_ylevel                INDEF          (Ylevel as fraction of the peak for resizing apertures (lower and nflat_resize_*_lower and ..._upper have to be INDEF))
+nflat_resize_flats_lower           -32.1          (Lower aperture limit for resizing Flats (nflat_resize_ylevel has to be INDEF))
+nflat_resize_flats_upper           33.7           (Upper aperture limit for resizing Flats (nflat_resize_ylevel has to be INDEF))
+nflat_resize_flats_lowlimit        -40.           (Minimum lower aperture limit for Flats)
+nflat_resize_flats_highlimit       40.5           (Maximum upper aperture limit for Flats)
+nflat_resize_multlimit             0.75           (Multiply limit by this factor is limit is exceeded)
+nflat_resize_bkg                   NO             (Subtract background in automatic width?)
+nflat_resize_r_grow                0.             (Grow limits by this factor)
+nflat_resize_avglimit              NO             (Average limits over all apertures?)
+nflat_edit_line                    INDEF          (Dispersion line for the apedit task)
+nflat_edit_nsum                    20             (Number of dispersion lines to sum or median during the edit task)
+nflat_edit_width                   70.            (Profile centering width)
+nflat_edit_radius                  25.            (Profile centering radius)
+nflat_edit_threshold               100.           (Detection threshold intensity for profile centering)
+nflat_trace_line                   INDEF          (Starting dispersion line for tracing)
+nflat_trace_nsum                   30             (Number of dispersion lines to sum for tracing)
+nflat_trace_step                   5              (Tracing step)
+nflat_trace_nlost                  10             (Number of consecutive times profile is lost before quitting)
+nflat_trace_function               legendre       (Trace fitting function [chebyshev|legendre|spline1|spline3])
+nflat_trace_order                  4              (Trace fitting function order)
+nflat_trace_sample                 *              (Trace sample regions)
+nflat_trace_naverage               1              (Trace average (pos) or median(neg))
+nflat_trace_niterate               2              (Trace rejection iterations)
+nflat_trace_low_reject             3.             (Trace lower rejection sigma)
+nflat_trace_high_reject            3.             (Trace upper rejection sigma)
+nflat_trace_grow                   0.             (Trace rejection growing radius)
+nflat_trace_yminlimit              -23.           (Trace: Minimum aperture position relative to center (pixels))
+nflat_trace_ymaxlimit              33.            (Trace: Maximum aperture position relative to center (pixels))
+nflat_flat_line                    INDEF          (Dispersion line for flattening spectra)
+nflat_flat_nsum                    20             (Number of dispersion lines to sum or median)
+nflat_flat_threshold               1.             (Threshold for flattening spectra)
+nflat_flat_clean                   NO             (Detect and replace bad pixels?)
+nflat_flat_saturation              INDEF          (Saturation level for flat)
+nflat_flat_low_reject              0.00000000001  (Lower rejection sigma for flattening spectra)
+nflat_flat_high_reject             4.             (Upper rejection sigma for flattening spectra)
+nflat_flat_function                chebyshev      (Fitting function for normalization spectra)
+nflat_flat_order                   1              (Fitting function order for flattening spectra)
+nflat_flat_sample                  300:920        (Sample regions for fitting function to flat spectra)
+nflat_flat_naverage                1              (Use average or median for flattening spectra)
+nflat_flat_niterate                2              (Number of rejection iterations for flattening spectra)
+nflat_flat_lsigma                  3.             (Lower rejection threshold for flattening spectra)
+nflat_flat_usigma                  3.             (Upper rejection threshold for flattening spectra)
+nflat_flat_grow                    0.             (Rejection growing radius for flattening spectra)
+nflat_flat_pfit                    fit1d          (Profile algorith to use (fit1d|fit2d|iterate)
+nflat_flat_nmedian                 20             (Number of pixels to medianfilter Blaze function)[to adopt]
+nflat_flat_minsnr                  80.            (Minimum SNR to normalize)[to adopt]
+nflat_flat_swathwidth              300            (Minimum SNR to normalize)[to adopt]
+#
+# --- stdivflat
+divflat_ccdproc_minreplace         0.             (scancor)(Minimum flat field value)
+#
+# --- stcosmics
+reject_cosmicrays                  YES            (Run crutil.cosmicrays task?)
+cosmic_interactive                 YES            (Do task interactively?)
+cosmic_multthreshold               1.             (Multiply standard deviation by this number to calculate detection threshold above mean)
+cosmic_fluxratio                   8.             (Flux ratio threshold (in percent))
+cosmic_npasses                     10             (Number of detection passes)
+cosmic_window                      7              (Size of detection window)
+cosmic_treatasbadpix               YES            (Treat found cosmic rays as bad pixels [YES|NO])[to adopt]
+cosmic_grow                        1              (Grow cosmic-ray hits by this number of pixels)[to adopt]
+#
+# --- stscatter
+subscatter                         NO             (Subtract scattered light?)
+refscatter                         /home/azuri/stella/referenceFiles/refScatter_SES_1074x1026 (Reference scattered-light image)
+sc_interactive                     NO             (Run task interactively?)
+sc_recenter                        YES            (Recenter apertures?)
+sc_resize                          NO             (Resize apertures?)
+sc_edit                            YES            (Edit apertures? ["sc_interactive" has to be YES])
+sc_trace                           NO             (Trace apertures of Flats and Objects?)
+sc_smooth                          YES            (Smooth the cross-dispersion fits along the dispersion?)
+sc_line                            INDEF          (Dispersion line)
+sc_nsum                            10             (Numer of dispersion lines to sum or median)
+sc_buffer                          0.2            (Buffer distance from apertures)
+apscat1_function                   chebyshev      (apscat1: Fitting function (spline3|legendre|chebyshev|spline1))
+apscat1_order                      4              (apscat1: Order of fitting function)
+apscat1_sample                     *              (Apscat1 sample points to use)
+apscat1_naverage                   2              (apscat1: Number of points to average (pos) or median (neg))
+apscat1_low_rej                    3.             (apscat1: Low sigma clipping rejection threshold)
+apscat1_high_rej                   1.02           (apscat1: High sigma clipping rejection threshold)
+apscat1_niterate                   3              (apscat1: Number of rejection iterations)
+apscat1_grow                       0.             (apscat1: Growing radius for rejected points (in pixels))
+apscat2_function                   spline3        (apscat2: Fitting function (spline3|legendre|chebyshev|spline1))
+apscat2_order                      5              (apscat2: Order of fitting function)
+apscat2_sample                     *              (apscat2: Sample points to use)
+apscat2_naverage                   1              (apscat2: Number of points to average (pos) or median (neg))
+apscat2_low_rej                    2.             (apscat2: Low sigma clipping rejection threshold)
+apscat2_high_rej                   0.5            (apscat2: High sigma clipping rejection threshold)
+apscat2_niterate                   4              (apscat2: Number of rejection iterations)
+apscat2_grow                       0.             (apscat2: Growing radius for rejected points (in pixels))
+sc_maxerrmeanmult                  0.2            (Multiply mean of resulting comparison scattered-light image b< this factor to calculate maximum stddev of scattered-light images)
+[to                                               adopt]
+#
+# --- strecenter
+recenter_line                      INDEF          (Dispersion line for the recenter task)[to adopt]
+recenter_nsum                      20             (Number of dispersion lines to sum or median during the recenter task)[to adopt]
+recenter_apertures                 -              (Apertures for recentering calculation)[to adopt]
+recenter_npeaks                    INDEF          (Select brightest peaks for recentering calculation)[to adopt]
+recenter_shift                     YES            (Use average shift instead of recentering?)[to adopt]
+recenter_width                     5.             (Width of spectrum profiles)[to adopt]
+recenter_radius                    3.             (Profile centering error radius)[to adopt]
+recenter_threshold                 100.           (Detection threshold for profile centering)[to adopt]
+recenter_ddapcenterlimit           2.             (Maximum difference between delta_ycenter's)[to adopt]
+#
+# --- stresize
+resize_line                        INDEF          (Dispersion line for the resize task)[to adopt]
+resize_nsum                        10             (Number of dispersion lines to sum or median during the resize task)[to adopt]
+resize_ylevel                      INDEF          (Ylevel as fraction of the peak for resizing apertures (lower and resize_*_lower and ..._upper have to be INDEF))[to adopt]
+resize_peak                        YES            (Is ylevel a fraction of the peak?)[to adopt]
+resize_obs_lower                   -3.12          (Lower aperture limit for resizing objects (resize_ylevel has to be INDEF))[to adopt]
+resize_obs_upper                   8.95           (Upper aperture limit for resizing objects (resize_ylevel has to be INDEF))[to adopt]
+resize_flats_lower                 -3.12          (Lower aperture limit for resizing Flats (resize_ylevel has to be INDEF))[to adopt]
+resize_flats_upper                 8.95           (Upper aperture limit for resizing Flats (resize_ylevel has to be INDEF))[to adopt]
+resize_obs_lowlimit                -3.2           (Minimum lower aperture limit for objects)[to adopt]
+resize_obs_highlimit               9.0            (Maximum upper aperture limit for objects)[to adopt]
+resize_flats_lowlimit              -3.2           (Minimum lower aperture limit for Flats)[to adopt]
+resize_flats_highlimit             9.0            (Maximum upper aperture limit for Flats)[to adopt]
+resize_multlimit                   0.85           (Multiply limit by this factor is limit is exceeded)[to adopt]
+resize_bkg                         YES            (Subtract background in automatic width?)[to adopt]
+resize_grow                        0.             (Grow limits by this factor)[to adopt]
+resize_avglimit                    NO             (Average limits over all apertures?)[to adopt]
+resize_calib_lower                 -.95           (Lower aperture limit for resizing calibs)[to adopt]
+resize_calib_upper                 3.2            (Upper aperture limit for resizing calibs)[to adopt]
+#
+# --- apedit
+edit_line                          INDEF          (Dispersion line for the apedit task)[to adopt]
+edit_nsum                          20             (Number of dispersion lines to sum or median during the edit task)[to adopt]
+#
+# --- sttrace
+trace_line                         INDEF          (Starting dispersion line for tracing)[to adopt]
+trace_nsum                         30             (Number of dispersion lines to sum for tracing)[to adopt]
+trace_step                         5              (Tracing step)[to adopt]
+trace_nlost                        10             (Number of consecutive times profile is lost before quitting)[to adopt]
+trace_function                     legendre       (Trace fitting function [chebyshev|legendre|spline1|spline3])[to adopt]
+trace_order                        4              (Trace fitting function order)[to adopt]
+trace_sample                       *              (Trace sample regions)[to adopt]
+trace_naverage                     1              (Trace average (pos) or median(neg))[to adopt]
+trace_niterate                     2              (Trace rejection iterations)[to adopt]
+trace_low_reject                   3.             (Trace lower rejection sigma)[to adopt]
+trace_high_reject                  3.             (Trace upper rejection sigma)[to adopt]
+trace_grow                         0.             (Trace rejection growing radius)[to adopt]
+trace_yminlimit                    -160.          (Trace: Minimum aperture position relative to center (pixels))[to adopt]
+trace_ymaxlimit                    160.           (Trace: Maximum aperture position relative to center (pixels))[to adopt]
+#
+# --- stextract
+ext_interact                       NO             (Run task interactively?)
+ext_recenterobs                    YES            (Recenter apertures of objects?)
+ext_resizeobs                      YES            (Resize apertures of objects?)
+ext_traceobs                       YES            (Trace apertures of objects?)
+ext_edit                           YES            (Edit apertures of objects? ["extinteract" hat to be YES])
+ext_recentercalibs                 NO             (Recenter apertures of calibs?)
+ext_resizecalibs                   YES            (Resize apertures of calibs?)
+ext_clean                          YES            (Detect and replace bad pixels?)
+ext_extras                         NO             (Extract sky, sigma, etc.?)
+ext_background                     none           (Background to subtract (none|average|fit))
+ext_weights                        none           (Extraction weights (none|variance))
+ext_pfit                           fit2d          (Profile fitting algorithm to use with variance weighting or cleaning (fit1d|fit2d|iterate))
+ext_skybox                         1              (Box car smoothing length for sky)
+ext_saturation                     INDEF          (Saturation level)
+ext_nsubaps                        1              (Number of subapertures per aperture)
+ext_nsum                           20             (Number of dispersion lines to sum or median)
+ext_lsigma                         3.             (Lower rejection threshold)
+ext_usigma                         3.             (Upper rejection threshold)
+#
+# --- stblaze
+blaze_run_task                     YES            (Run task? [YES|NO])
+blaze_interactive                  YES            (Set fitting parameters interactively? [YES|NO])[to adopt]
+blaze_fit                          YES             (Fit Blaze function from combined Flat? If not the Blaze function from optextract(combinedFlat) is used. [YES|NO])[to adopt]
+blaze_fit_order                    7              (Order to set for fitting function for function set by parameter nflat_flat_function)
+blaze_fit_naverage                 3              (Number of points in sample averaging)[to adopt]
+blaze_fit_niterate                 2              (Number of rejection iterations)[to adopt]
+blaze_fit_lsigma                   0.5            (Low rejection in sigma of fit)[to adopt]
+blaze_fit_usigma                   5.             (High rejection in sigma of fit)[to adopt]
+blaze_divbyfilter                  YES            (Divide Blaze function by Flatfield-Filter function? [YES|NO])
+blaze_reffilterfunc                /home/azuri/stella/referenceFiles/refFlatFilter_SES.text (Flatfield-Filter function to divide Blaze function by)
+#
+# --- stidentify
+ident_threshold                    500.           (Intensity threshold for identifying emission lines)
+ident_shift                        INDEF          (Shift to add to reference features [INDEF to search])
+ident_search                       5.             (Search radius [only available for coude instruments])
+ident_cradius                      10.            (Centering radius)
+ident_refit                        YES            (Refit coordinate function? [YES|NO])
+ident_plot_residuals               YES            (Plot residuals to files? [YES|NO][only available for coude instruments])
+ident_interactive                  YES            (Run task interactively [YES|NO][only available for coude instruments])
+#
+# --- strefspec
+ref_minlines                       2000           (Minimum number of identified lines)
+ref_maxrms                         0.003          (Maximum RMS of identified lines)
+ref_select                         interp         (Selection method for reference spectra (match|nearest|preceding|following|interp|average))
+ref_sort                           jd             (Sort key)
+ref_group                          ljd            (Group key)
+ref_forceset                       YES            (Force setting of first calibration image? [YES|NO])
+#
+# --- stdispcor
+disp_linearize                     YES            (Linearize (interpolate) spectra? [YES|NO])
+disp_log                           NO             (Logarithmic wavelength scale? [YES|NO])
+disp_flux                          NO             (Conserve flux? [YES|NO])
+disp_samedisp                      NO             (Same dispersion in all apertures? [YES|NO])
+disp_global                        NO             (Apply global defaults? [YES|NO])
+disp_ignoreaps                     NO             (Ignore apertures? [YES|NO])
+#
+# --- sttrimaps
+# --- NOTE: Row of orders depending on wavelength ranges (First orders has lowest wavelength)!
+trimaps_firstgapbefore             76             (The first gap is before order no..[Set to O if no gaps])
+trimaps_trimsecapa                 [1067:2045]    (Section of the first aperture of object images containing good data)
+trimaps_trimsecapb                 [480:2046]     (Section of the second aperture of object images containing good data)
+trimaps_trimsecapm                 [11:2037]      (Section of the aperture before the gap containing good data)
+trimaps_trimsecapn                 [12:2000]      (Section of the aperture behind the gap containing good data)
+trimaps_trimsecapy                 [28:1973]      (Section of the second last aperture of object images containing good data)
+trimaps_trimsecapz                 [18:1501]      (Section of the last aperture of object images containing good data)
+#
+# --- stmerge
+merge_rebin_oversampling           1.2            (Oversampling factor for greatest dlambda)[to adopt]
+#
+# --- stcombine
+combine_combine                    average        (Type of combine operation)
+combine_reject                     avsigclip      (Type of rejection)
+combine_scale                      none           (Image scaling)
+combine_zero                       none           (Image zero point offset)
+combine_weight                     mean           (Image weights)
+combine_sample                     (Wavelength    sample regions for statistics (Leave empty for all))
+combine_lthreshold                 INDEF.         (Lower threshold)
+combine_hthreshold                 INDEF.         (Upper threshold)
+combine_nlow                       1              (minmax: Number of low pixels to reject)
+combine_nhigh                      1              (minmax: Number of high pixels to reject)
+combine_nkeep                      1              (Minimum to keep (pos) or maximum to reject (neg))
+combine_mclip                      YES            (Use median in sigma clipping algorithms?)
+combine_lsigma                     3.             (Lower sigma clipping factor)
+combine_hsigma                     3.             (Upper sigma clipping factor)
+combine_sigscale                   0.1            (Tolerance for sigma clipping scaling correction)[to adopt]
+combine_pclip                      -0.5           (pclip: Percentile clipping parameter)
+combine_grow                       0              (Radius (pixels) for 1D neighbor rejection)
+combine_blank                      0.             (Value if there are no pixels)
+#
+# --- stcontinuum
+continuum_lines                    *              (Image lines to be fit)
+continuum_bands                    *              (Image bands to be fit)
+continuum_replace                  NO             (Replace rejected points by fit? [YES|NO])
+continuum_wavescale                YES            (Scale the X axis with wavelength? [YES|NO])
+continuum_logscale                 NO             (Take the log (base 10) of both axes? [YES|NO])
+continuum_override                 NO             (Override previously fit lines? [YES|NO])
+continuum_listonly                 NO             (List fit but don't modify any images? [YES|NO])
+continuum_interactive              YES            (Set fitting parameters interactively? [YES|NO])
+continuum_sample_orders            *              (Sample points to use in fit (individual orders))[to adopt]
+continuum_sample_single            *              (Sample points to use in fit (merged spectra))[to adopt]
+continuum_naverage_orders          2              (Number of points in sample averaging (individual orders))[to adopt]
+continuum_naverage_single          3              (Number of points in sample averaging (merged spectra))[to adopt]
+continuum_function_orders          spline3        (Fitting function [spline3|legendre|chebyshev|spline1] (individual orders))[to adopt]
+continuum_function_single          spline3        (Fitting function [spline3|legendre|chebyshev|spline1] (merged spectra))[to adopt]
+continuum_order_orders             4              (Order of fitting function (individual orders))
+continuum_order_single             35             (Order of fitting function (merged spectra))
+continuum_low_reject_orders        0.12           (Low rejection in sigma of fit (individual orders))[to adopt]
+continuum_low_reject_single        0.1            (Low rejection in sigma of fit (merged spectra))[to adopt]
+continuum_high_reject_orders       3.             (High rejection in sigma of fit (individual orders))[to adopt]
+continuum_high_reject_single       5.             (High rejection in sigma of fit (merged spectra))[to adopt]
+continuum_niterate_orders          2              (Number of rejection iterations (individual orders))[to adopt]
+continuum_niterate_single          10             (Number of rejection iterations (merged spectra))[to adopt]
+continuum_grow_orders              1.             (Rejection growing radius in pixels (individual orders))[to adopt]
+continuum_grow_single              1.             (Rejection growing radius in pixels (merged spectra))[to adopt]
+continuum_markrej                  NO             (Mark rejected points? [YES|NO])
+continuum_ask                      YES            (YES|NO|SKIP])

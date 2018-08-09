@@ -1,0 +1,164 @@
+# Thu 16:09:25 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	3
+	        330.73 1029.73288  6717.0428   4.0 1 1 NeI
+	        413.12 1112.12296     6678.2   4.0 1 1 blend HeI 6678.149 with NeI 6678.2764
+	        817.30 1516.29706  6506.5279   4.0 1 1 NeI(3)
+
+# Thu 16:09:57 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	5
+	        257.62   6752.832   6752.832   4.0 1 1 AI(11)
+	        330.73  6717.0428  6717.0428   4.0 1 1 NeI
+	        413.12     6678.2     6678.2   4.0 1 1 blend HeI 6678.149 with NeI 6678.2764
+	        751.68  6532.8824  6532.8824   4.0 1 1 NeI
+	        817.30  6506.5279  6506.5279   4.0 1 1 NeI(3)
+	function spline3
+	order 2
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		3.
+		2.
+		1.
+		1001.
+		1198.806049206437
+		1146.288377990873
+		1104.919948003686
+		1072.472877885805
+		1038.922544763645
+
+# Thu 17:13:59 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	3
+	        330.73  6717.0428  6717.0428   4.0 1 1 NeI
+	        413.12 6665.13057     6678.2   4.0 1 1 blend HeI 6678.149 with NeI 6678.2764
+	        664.84  6506.5279  6506.5279   4.0 1 1 NeI(3)
+	function spline3
+	order 2
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	6
+		2.
+		2.
+		1.
+		1001.
+		6609.761237972378
+		-315.0389863878574
+
+# Thu 17:16:12 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	8
+	        231.15  6752.8031   6752.832   4.0 1 1 AI(11)
+	        330.73 6717.10016  6717.0428   4.0 1 1 NeI
+	        413.12 6678.19558     6678.2   4.0 1 1 blend HeI 6678.149 with NeI 6678.2764
+	        664.84 6506.39341  6506.5279   4.0 1 1 NeI(3)
+	        797.65 6383.33219  6382.9914   4.0 1 1 NeI(3)
+	        844.82  6334.1954  6334.4279   4.0 1 1 NeI(1)
+	        871.86 6304.74253  6304.7892   4.0 1 1 NeI
+	        905.71 6266.54384   6266.495   4.0 1 1 NeI(5)
+	function spline3
+	order 1
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	8
+		3.
+		1.
+		1.
+		1001.
+		1065.228250077932
+		1165.474542115202
+		1061.143422225345
+		741.0300579451606
+
+# Thu 17:55:13 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	2
+	        413.12 1112.12296  6598.9529   4.0 1 1 NeI(6)
+	        817.30 1516.29706   6402.246   4.0 1 1 NeI(1)
+
+# Thu 17:55:54 09-Feb-2006
+begin	identify refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	id	refCalib_ALFOSC_6grism9_2102x2052
+	task	identify
+	image	refCalib_ALFOSC_6grism9_2102x2052 - Ap 1
+	aperture	1
+	aplow	782.33
+	aphigh	812.34
+	units	Angstroms
+	features	7
+	        170.56  6717.0428  6717.0428   4.0 1 1 NeI
+	        250.39     6678.2     6678.2   4.0 1 1 blend HeI 6678.149 with NeI 6678.2764
+	        413.12  6598.9529  6598.9529   4.0 1 1 NeI(6)
+	        548.79  6532.8824  6532.8824   4.0 1 1 NeI
+	        602.52  6506.5279  6506.5279   4.0 1 1 NeI(3)
+	        817.30   6402.246   6402.246   4.0 1 1 NeI(1)
+	        855.16  6382.9914  6382.9914   4.0 1 1 NeI(3)
+	function spline3
+	order 4
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	11
+		3.
+		4.
+		1.
+		1001.
+		1132.664276237309
+		1133.838660336387
+		1112.809616811626
+		1092.824031272405
+		1072.152068227579
+		1052.852319514215
+		1006.61043733205
+

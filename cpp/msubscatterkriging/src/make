@@ -1,0 +1,7 @@
+make delete
+make ../bin/subscatterkriging
+chmod a+x ../bin/subscatterkriging
+rm ~/bin/subscatterkriging
+cp -p ../bin/subscatterkriging ~/bin/
+rm ~/stella/bin/subscatterkriging
+ln -s ~/bin/subscatterkriging ~/stella/bin/

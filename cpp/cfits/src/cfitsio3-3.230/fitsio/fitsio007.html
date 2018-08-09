@@ -1,0 +1,1819 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Advanced Interface Subroutines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio006.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio008.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc35">Chapter&#XA0;6</A>&#XA0;&#XA0; Advanced Interface Subroutines </H1><P>This chapter defines all the available subroutines in the FITSIO user
+interface. For completeness, the basic subroutines described in the
+previous chapter are also repeated here. A right arrow symbol is used
+here to separate the input parameters from the output parameters in the
+definition of each subroutine. This symbol is not actually part of the
+calling sequence. An alphabetical list and definition of all the
+parameters is given at the end of this section.</P><H2 CLASS="section"><A NAME="toc25"></A><A NAME="htoc36">6.1</A>&#XA0;&#XA0;FITS File Open and Close Subroutines: <A NAME="FTOPEN"></A></H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Open an existing FITS file with readonly or readwrite access. The
+FTDKOPEN routine simply opens the specified file without trying to
+interpret the filename using the extended filename syntax. FTDOPN opens
+the file and
+also moves to the first HDU containing significant data, if no specific
+HDU is specified as part of the filename. FTTOPN and FTIOPN are similar
+except that they will move to the first table HDU or image HDU, respectively,
+if a HDU name or number is not specified as part of the filename.
+</DD></DL><PRE CLASS="verbatim">        FTOPEN(unit,filename,rwmode, &gt; blocksize,status)
+        FTDKOPEN(unit,filename,rwmode, &gt; blocksize,status)
+
+        FTDOPN(unit,filename,rwmode, &gt; status)
+        FTTOPN(unit,filename,rwmode, &gt; status)
+        FTIOPN(unit,filename,rwmode, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description">Open an existing FITS file with readonly or readwrite access
+and move to a following extension, if one was specified as
+part of the filename. (e.g., &#X2019;filename.fits+2&#X2019; or
+&#X2019;filename.fits[2]&#X2019; will move to the 3rd HDU in the file).
+Note that this routine differs from FTOPEN in that it does not
+have the redundant blocksize argument.
+</DD></DL><PRE CLASS="verbatim">        FTNOPN(unit,filename,rwmode, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Reopen a FITS file that was previously opened with
+FTOPEN, FTNOPN, or FTINIT. The newunit number
+may then be treated as a separate file, and one may
+simultaneously read or write to 2 (or more) different extensions in
+the same file. The FTOPEN and FTNOPN routines (above) automatically
+detects cases where a previously opened file is being opened again,
+and then internally call FTREOPEN, so programs should rarely
+need to explicitly call this routine.
+</DD></DL><PRE CLASS="verbatim">       FTREOPEN(unit, &gt; newunit, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description">Open and initialize a new empty FITS file.
+The FTDKINIT routine simply creates the specified
+file without trying to interpret the filename using the extended
+filename syntax.
+</DD></DL><PRE CLASS="verbatim">       FTINIT(unit,filename,blocksize, &gt; status)
+       FTDKINIT(unit,filename,blocksize, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Create a new FITS file, using a template file to define its
+initial size and structure. The template may be another FITS HDU
+or an ASCII template file. If the input template file name
+is blank, then this routine behaves the same as FTINIT.
+The currently supported format of the ASCII template file is described
+under the fits_parse_template routine (in the general Utilities
+section), but this may change slightly later releases of
+CFITSIO.
+</DD></DL><PRE CLASS="verbatim">       FTTPLT(unit, filename, tplfilename, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description">Flush internal buffers of data to the output FITS file
+previously opened with ftopen or ftinit. The routine usually
+never needs to be called, but doing so will ensure that
+if the program subsequently aborts, then the FITS file will
+have at least been closed properly.
+</DD></DL><PRE CLASS="verbatim">        FTFLUS(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description">Close a FITS file previously opened with ftopen or ftinit
+</DD></DL><PRE CLASS="verbatim">        FTCLOS(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Close and DELETE a FITS file previously opened with ftopen or ftinit.
+This routine may be useful in cases where a FITS file is created, but
+an error occurs which prevents the complete file from being written.
+</DD></DL><PRE CLASS="verbatim">        FTDELT(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Get the value of an unused I/O unit number which may then be used
+as input to FTOPEN or FTINIT. This routine searches for the first
+unused unit number in the range from with 99 down to 50. This
+routine just keeps an internal list of the allocated unit numbers
+and does not physically check that the Fortran unit is available (to be
+compatible with the SPP version of FITSIO). Thus users must not
+independently allocate any unit numbers in the range 50 - 99
+if this routine is also to be used in the same program. This
+routine is provided for convenience only, and it is not required
+that the unit numbers used by FITSIO be allocated by this routine.
+</DD></DL><PRE CLASS="verbatim">        FTGIOU( &gt; iounit, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Free (deallocate) an I/O unit number which was previously allocated
+with FTGIOU. All previously allocated unit numbers may be
+deallocated at once by calling FTFIOU with iounit = -1.
+</DD></DL><PRE CLASS="verbatim">        FTFIOU(iounit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Return the Fortran unit number that corresponds to the C fitsfile
+pointer value, or vice versa. These 2 C routines may be useful in
+mixed language programs where both C and Fortran subroutines need
+to access the same file. For example, if a FITS file is opened
+with unit 12 by a Fortran subroutine, then a C routine within the
+same program could get the fitfile pointer value to access the same file
+by calling &#X2019;fptr = CUnit2FITS(12)&#X2019;. These routines return a value
+of zero if an error occurs.
+</DD></DL><PRE CLASS="verbatim">      int       CFITS2Unit(fitsfile *ptr);
+      fitsfile* CUnit2FITS(int unit);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Parse the input filename and return the HDU number that would be
+moved to if the file were opened with FTNOPN. The returned HDU
+number begins with 1 for the primary array, so for example, if the
+input filename = &#X2018;myfile.fits[2]&#X2019; then hdunum = 3 will be returned.
+FITSIO does not open the file to check if the extension actually exists
+if an extension number is specified. If an extension *name* is included
+in the file name specification (e.g. &#X2018;myfile.fits[EVENTS]&#X2019; then this
+routine will have to open the FITS file and look for the position of
+the named extension, then close file again. This is not possible if
+the file is being read from the stdin stream, and an error will be
+returned in this case. If the filename does not specify an explicit
+extension (e.g. &#X2019;myfile.fits&#X2019;) then hdunum = -99 will be returned,
+which is functionally equivalent to hdunum = 1. This routine is mainly
+used for backward compatibility in the ftools software package and is
+not recommended for general use. It is generally better and more
+efficient to first open the FITS file with FTNOPN, then use FTGHDN to
+determine which HDU in the file has been opened, rather than calling
+FTEXTN followed by a call to FTNOPN.
+</DD></DL><PRE CLASS="verbatim">        FTEXTN(filename, &gt; nhdu, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Return the name of the opened FITS file.
+</DD></DL><PRE CLASS="verbatim">        FTFLNM(unit, &gt; filename, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>13</B></DT><DD CLASS="dd-description"> Return the I/O mode of the open FITS file (READONLY = 0, READWRITE = 1).
+</DD></DL><PRE CLASS="verbatim">        FTFLMD(unit, &gt; iomode, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>14</B></DT><DD CLASS="dd-description"> Return the file type of the opened FITS file (e.g. &#X2019;file://&#X2019;, &#X2019;ftp://&#X2019;,
+etc.).
+</DD></DL><PRE CLASS="verbatim">        FTURLT(unit, &gt; urltype, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>15</B></DT><DD CLASS="dd-description"> Parse the input filename or URL into its component parts: the file
+type (file://, ftp://, http://, etc), the base input file name, the
+name of the output file that the input file is to be copied to prior
+to opening, the HDU or extension specification, the filtering
+specifier, the binning specifier, and the column specifier. Blank
+strings will be returned for any components that are not present
+in the input file name.
+</DD></DL><PRE CLASS="verbatim">       FTIURL(filename, &gt; filetype, infile, outfile, extspec, filter,
+               binspec, colspec, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>16</B></DT><DD CLASS="dd-description"> Parse the input file name and return the root file name. The root
+name includes the file type if specified, (e.g. &#X2019;ftp://&#X2019; or &#X2019;http://&#X2019;)
+and the full path name, to the extent that it is specified in the input
+filename. It does not include the HDU name or number, or any filtering
+specifications.
+</DD></DL><PRE CLASS="verbatim">       FTRTNM(filename, &gt; rootname, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>16</B></DT><DD CLASS="dd-description"> Test if the input file or a compressed version of the file (with
+a .gz, .Z, .z, or .zip extension) exists on disk. The returned value of
+the &#X2019;exists&#X2019; parameter will have 1 of the 4 following values:<PRE CLASS="verbatim">   2:  the file does not exist, but a compressed version does exist
+   1:  the disk file does exist
+   0:  neither the file nor a compressed version of the file exist
+  -1:  the input file name is not a disk file (could be a ftp, http,
+       smem, or mem file, or a file piped in on the STDIN stream)
+</PRE></DD></DL><PRE CLASS="verbatim">      FTEXIST(filename, &gt; exists, status);
+</PRE><H2 CLASS="section"><A NAME="toc26"></A><A NAME="htoc37">6.2</A>&#XA0;&#XA0;HDU-Level Operations <A NAME="FTMAHD"></A></H2><P>When a FITS file is first opened or created, the internal buffers in
+FITSIO automatically point to the first HDU in the file. The following
+routines may be used to move to another HDU in the file. Note that
+the HDU numbering convention used in FITSIO denotes the primary array
+as the first HDU, the first extension in a FITS file is the second HDU,
+and so on.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Move to a specified (absolute) HDU in the FITS file (nhdu = 1 for the
+FITS primary array)
+</DD></DL><PRE CLASS="verbatim">        FTMAHD(unit,nhdu, &gt; hdutype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description">Move to a new (existing) HDU forward or backwards relative to the CHDU
+</DD></DL><PRE CLASS="verbatim">        FTMRHD(unit,nmove, &gt; hdutype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Move to the (first) HDU which has the specified extension type and
+EXTNAME (or HDUNAME) and EXTVER keyword values. The hdutype parameter
+may have
+a value of IMAGE_HDU (0), ASCII_TBL (1), BINARY_TBL (2), or ANY_HDU (-1)
+where ANY_HDU means that only the extname and extver values will be
+used to locate the correct extension. If the input value of
+extver is 0 then the EXTVER keyword is ignored and the first HDU
+with a matching EXTNAME (or HDUNAME) keyword will be found. If no
+matching HDU is found in the file then the current HDU will remain
+unchanged
+and a status = BAD_HDU_NUM (301) will be returned.
+</DD></DL><PRE CLASS="verbatim">        FTMNHD(unit, hdutype, extname, extver, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description">Get the number of the current HDU in the FITS file (primary array = 1)
+</DD></DL><PRE CLASS="verbatim">        FTGHDN(unit, &gt; nhdu)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Return the type of the current HDU in the FITS file. The possible
+values for hdutype are IMAGE_HDU (0), ASCII_TBL (1), or BINARY_TBL (2).
+</DD></DL><PRE CLASS="verbatim">        FTGHDT(unit, &gt; hdutype, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Return the total number of HDUs in the FITS file.
+The CHDU remains unchanged.
+</DD></DL><PRE CLASS="verbatim">        FTTHDU(unit, &gt; hdunum, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description">Create (append) a new empty HDU following the last extension that
+has been previously accessed by the program. This will overwrite
+any extensions in an existing FITS file if the program has not already
+moved to that (or a later) extension using the FTMAHD or FTMRHD routines.
+For example, if an existing FITS file contains a primary array and 5
+extensions and a program (1) opens the FITS file, (2) moves to
+extension 4, (3) moves back to the primary array, and (4) then calls
+FTCRHD, then the new extension will be written following the 4th
+extension, overwriting the existing 5th extension.
+</DD></DL><PRE CLASS="verbatim">        FTCRHD(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Create a primary array (if none already exists), or insert a
+new IMAGE extension immediately following the CHDU, or
+insert a new Primary Array at the beginning of the file. Any
+following extensions in the file will be shifted down to make room
+for the new extension. If the CHDU is the last HDU in the file
+then the new image extension will simply be appended to the end of
+the file. One can force a new primary array to be inserted at the
+beginning of the FITS file by setting status = -9 prior
+to calling the routine. In this case the existing primary array will be
+converted to an IMAGE extension. The new extension (or primary
+array) will become the CHDU. The FTIIMGLL routine is identical
+to the FTIIMG routine except that the 4th parameter (the length
+of each axis) is an array of 64-bit integers rather than an array
+of 32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTIIMG(unit,bitpix,naxis,naxes, &gt; status)
+        FTIIMGLL(unit,bitpix,naxis,naxesll, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Insert a new ASCII TABLE extension immediately following the CHDU.
+Any following extensions will be shifted down to make room for
+the new extension. If there are no other following extensions
+then the new table extension will simply be appended to the
+end of the file. The new extension will become the CHDU. The FTITABLL
+routine is identical
+to the FTITAB routine except that the 2nd and 3rd parameters (that give
+the size of the table) are 64-bit integers rather than
+32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTITAB(unit,rowlen,nrows,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+        FTITABLL(unit,rowlenll,nrowsll,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Insert a new binary table extension immediately following the CHDU.
+Any following extensions will be shifted down to make room for
+the new extension. If there are no other following extensions
+then the new bintable extension will simply be appended to the
+end of the file. The new extension will become the CHDU. The FTIBINLL
+routine is identical
+to the FTIBIN routine except that the 2nd parameter (that gives
+the length of the table) is a 64-bit integer rather than
+a 32-bit integer.
+</DD></DL><PRE CLASS="verbatim">        FTIBIN(unit,nrows,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+        FTIBINLL(unit,nrowsll,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Resize an image by modifing the size, dimensions, and/or datatype of the
+current primary array or image extension. If the new image, as specified
+by the input arguments, is larger than the current existing image
+in the FITS file then zero fill data will be inserted at the end
+of the current image and any following extensions will be moved
+further back in the file. Similarly, if the new image is
+smaller than the current image then any following extensions
+will be shifted up towards the beginning of the FITS file
+and the image data will be truncated to the new size.
+This routine rewrites the BITPIX, NAXIS, and NAXISn keywords
+with the appropriate values for new image. The FTRSIMLL routine is identical
+to the FTRSIM routine except that the 4th parameter (the length
+of each axis) is an array of 64-bit integers rather than an array
+of 32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTRSIM(unit,bitpix,naxis,naxes,status)
+        FTRSIMLL(unit,bitpix,naxis,naxesll,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Delete the CHDU in the FITS file. Any following HDUs will be shifted
+forward in the file, to fill in the gap created by the deleted
+HDU. In the case of deleting the primary array (the first HDU in
+the file) then the current primary array will be replace by a null
+primary array containing the minimum set of required keywords and
+no data. If there are more extensions in the file following the
+one that is deleted, then the the CHDU will be redefined to point
+to the following extension. If there are no following extensions
+then the CHDU will be redefined to point to the previous HDU. The
+output HDUTYPE parameter indicates the type of the new CHDU after
+the previous CHDU has been deleted.
+</DD></DL><PRE CLASS="verbatim">        FTDHDU(unit, &gt; hdutype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>13</B></DT><DD CLASS="dd-description"> Copy all or part of the input FITS file and append it
+to the end of the output FITS file. If &#X2019;previous&#X2019; (an integer parameter) is
+not equal to 0, then any HDUs preceding the current HDU in the input file
+will be copied to the output file. Similarly, &#X2019;current&#X2019; and &#X2019;following&#X2019;
+determine whether the current HDU, and/or any following HDUs in the input
+file will be copied to the output file. If all 3 parameters are not equal
+to zero, then the entire input file will be copied. On return, the current
+HDU in the input file will be unchanged, and the last copied HDU will be the
+current HDU in the output file.
+</DD></DL><PRE CLASS="verbatim">        FTCPFL(iunit, ounit, previous, current, following, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>14</B></DT><DD CLASS="dd-description"> Copy the entire CHDU from the FITS file associated with IUNIT to the CHDU
+of the FITS file associated with OUNIT. The output HDU must be empty and
+not already contain any keywords. Space will be reserved for MOREKEYS
+additional keywords in the output header if there is not already enough
+space.
+</DD></DL><PRE CLASS="verbatim">        FTCOPY(iunit,ounit,morekeys, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>15</B></DT><DD CLASS="dd-description"> Copy the header (and not the data) from the CHDU associated with inunit
+to the CHDU associated with outunit. If the current output HDU
+is not completely empty, then the CHDU will be closed and a new
+HDU will be appended to the output file. This routine will automatically
+transform the necessary keywords when copying a primary array to
+and image extension, or an image extension to a primary array.
+An empty output data unit will be created (all values = 0).
+</DD></DL><PRE CLASS="verbatim">        FTCPHD(inunit, outunit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>16</B></DT><DD CLASS="dd-description"> Copy just the data from the CHDU associated with IUNIT
+to the CHDU associated with OUNIT. This will overwrite
+any data previously in the OUNIT CHDU. This low level routine is used
+by FTCOPY, but it may also be useful in certain application programs
+which want to copy the data from one FITS file to another but also
+want to modify the header keywords in the process. all the required
+header keywords must be written to the OUNIT CHDU before calling
+this routine
+</DD></DL><PRE CLASS="verbatim">        FTCPDT(iunit,ounit, &gt; status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc27"></A><A NAME="htoc38">6.3</A>&#XA0;&#XA0;Define or Redefine the structure of the CHDU <A NAME="FTRDEF"></A></H2><P>It should rarely be necessary to call the subroutines in this section.
+FITSIO internally calls these routines whenever necessary, so any calls
+to these routines by application programs will likely be redundant.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> This routine forces FITSIO to scan the current header keywords that
+define the structure of the HDU (such as the NAXISn, PCOUNT and GCOUNT
+keywords) so that it can initialize the internal buffers that describe
+the HDU structure. This routine may be used instead of the more
+complicated calls to ftpdef, ftadef or ftbdef. This routine is
+also very useful for reinitializing the structure of an HDU,
+if the number of rows in a table, as specified by the NAXIS2 keyword,
+has been modified from its initial value.
+</DD></DL><PRE CLASS="verbatim">        FTRDEF(unit, &gt; status)   (DEPRECATED)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description">Define the structure of the primary array or IMAGE extension. When
+writing GROUPed FITS files that by convention set the NAXIS1 keyword
+equal to 0, ftpdef must be called with naxes(1) = 1, NOT 0, otherwise
+FITSIO will report an error status=308 when trying to write data
+to a group. Note: it is usually simpler to call FTRDEF rather
+than this routine.
+</DD></DL><PRE CLASS="verbatim">        FTPDEF(unit,bitpix,naxis,naxes,pcount,gcount, &gt; status)  (DEPRECATED)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Define the structure of an ASCII table (TABLE) extension. Note: it
+is usually simpler to call FTRDEF rather than this routine.
+</DD></DL><PRE CLASS="verbatim">        FTADEF(unit,rowlen,tfields,tbcol,tform,nrows &gt; status) (DEPRECATED)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Define the structure of a binary table (BINTABLE) extension. Note: it
+is usually simpler to call FTRDEF rather than this routine.
+</DD></DL><PRE CLASS="verbatim">        FTBDEF(unit,tfields,tform,varidat,nrows &gt; status) (DEPRECATED)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Define the size of the Current Data Unit, overriding the length
+of the data unit as previously defined by ftpdef, ftadef, or ftbdef.
+This is useful if one does not know the total size of the data unit until
+after the data have been written. The size (in bytes) of an ASCII or
+Binary table is given by NAXIS1 * NAXIS2. (Note that to determine the
+value of NAXIS1 it is often more convenient to read the value of the
+NAXIS1 keyword from the output file, rather than computing the row
+length directly from all the TFORM keyword values). Note: it
+is usually simpler to call FTRDEF rather than this routine.
+</DD></DL><PRE CLASS="verbatim">        FTDDEF(unit,bytlen, &gt; status) (DEPRECATED)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Define the zero indexed byte offset of the &#X2019;heap&#X2019; measured from
+the start of the binary table data. By default the heap is assumed
+to start immediately following the regular table data, i.e., at
+location NAXIS1 x NAXIS2. This routine is only relevant for
+binary tables which contain variable length array columns (with
+TFORMn = &#X2019;Pt&#X2019;). This subroutine also automatically writes
+the value of theap to a keyword in the extension header. This
+subroutine must be called after the required keywords have been
+written (with ftphbn) and after the table structure has been defined
+(with ftbdef) but before any data is written to the table.
+</DD></DL><PRE CLASS="verbatim">        FTPTHP(unit,theap, &gt; status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc28"></A><A NAME="htoc39">6.4</A>&#XA0;&#XA0;FITS Header I/O Subroutines</H2><H3 CLASS="subsection"><A NAME="htoc40">6.4.1</A>&#XA0;&#XA0;Header Space and Position Routines <A NAME="FTHDEF"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Reserve space in the CHU for MOREKEYS more header keywords.
+This subroutine may be called to reserve space for keywords which are
+to be written at a later time, after the data unit or subsequent
+extensions have been written to the FITS file. If this subroutine is
+not explicitly called, then the initial size of the FITS header will be
+limited to the space available at the time that the first data is written
+to the associated data unit. FITSIO has the ability to dynamically
+add more space to the header if needed, however it is more efficient
+to preallocate the required space if the size is known in advance.
+</DD></DL><PRE CLASS="verbatim">        FTHDEF(unit,morekeys, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Return the number of existing keywords in the CHU (NOT including the
+END keyword which is not considered a real keyword) and the remaining
+space available to write additional keywords in the CHU. (returns
+KEYSADD = -1 if the header has not yet been closed).
+Note that FITSIO will attempt to dynamically add space for more
+keywords if required when appending new keywords to a header.
+</DD></DL><PRE CLASS="verbatim">        FTGHSP(iunit, &gt; keysexist,keysadd,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Return the number of keywords in the header and the current position
+in the header. This returns the number of the keyword record that
+will be read next (or one greater than the position of the last keyword
+that was read or written). A value of 1 is returned if the pointer is
+positioned at the beginning of the header.
+</DD></DL><PRE CLASS="verbatim">        FTGHPS(iunit, &gt; keysexist,key_no,status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc41">6.4.2</A>&#XA0;&#XA0;Read or Write Standard Header Routines <A NAME="FTPHPR"></A></H3><P>These subroutines provide a simple method of reading or writing most of
+the keyword values that are normally required in a FITS files. These
+subroutines are provided for convenience only and are not required to
+be used. If preferred, users may call the lower-level subroutines
+described in the previous section to individually read or write the
+required keywords. Note that in most cases, the required keywords such
+as NAXIS, TFIELD, TTYPEn, etc, which define the structure of the HDU
+must be written to the header before any data can be written to the
+image or table.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Put the primary header or IMAGE extension keywords into the CHU.
+There are 2 available routines: The simpler FTPHPS routine is
+equivalent to calling ftphpr with the default values of SIMPLE = true,
+pcount = 0, gcount = 1, and EXTEND = true. PCOUNT, GCOUNT and EXTEND
+keywords are not required in the primary header and are only written if
+pcount is not equal to zero, gcount is not equal to zero or one, and if
+extend is TRUE, respectively. When writing to an IMAGE extension, the
+SIMPLE and EXTEND parameters are ignored.
+</DD></DL><PRE CLASS="verbatim">        FTPHPS(unit,bitpix,naxis,naxes, &gt; status)
+
+        FTPHPR(unit,simple,bitpix,naxis,naxes,pcount,gcount,extend, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get primary header or IMAGE extension keywords from the CHU. When
+reading from an IMAGE extension the SIMPLE and EXTEND parameters are
+ignored.
+</DD></DL><PRE CLASS="verbatim">        FTGHPR(unit,maxdim, &gt; simple,bitpix,naxis,naxes,pcount,gcount,extend,
+               status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Put the ASCII table header keywords into the CHU. The optional
+TUNITn and EXTNAME keywords are written only if the input string
+values are not blank.
+</DD></DL><PRE CLASS="verbatim">        FTPHTB(unit,rowlen,nrows,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Get the ASCII table header keywords from the CHU
+</DD></DL><PRE CLASS="verbatim">        FTGHTB(unit,maxdim, &gt; rowlen,nrows,tfields,ttype,tbcol,tform,tunit,
+               extname,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description">Put the binary table header keywords into the CHU. The optional
+TUNITn and EXTNAME keywords are written only if the input string
+values are not blank. The pcount parameter, which specifies the
+size of the variable length array heap, should initially = 0;
+FITSIO will automatically update the PCOUNT keyword value if any
+variable length array data is written to the heap. The TFORM keyword
+value for variable length vector columns should have the form &#X2019;Pt(len)&#X2019;
+or &#X2019;1Pt(len)&#X2019; where &#X2018;t&#X2019; is the data type code letter (A,I,J,E,D, etc.)
+and &#X2018;len&#X2019; is an integer specifying the maximum length of the vectors
+in that column (len must be greater than or equal to the longest
+vector in the column). If &#X2018;len&#X2019; is not specified when the table is
+created (e.g., the input TFORMn value is just &#X2019;1Pt&#X2019;) then FITSIO will
+scan the column when the table is first closed and will append the
+maximum length to the TFORM keyword value. Note that if the table
+is subsequently modified to increase the maximum length of the vectors
+then the modifying program is responsible for also updating the TFORM
+keyword value.
+</DD></DL><PRE CLASS="verbatim">        FTPHBN(unit,nrows,tfields,ttype,tform,tunit,extname,varidat, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description">Get the binary table header keywords from the CHU
+</DD></DL><PRE CLASS="verbatim">        FTGHBN(unit,maxdim, &gt; nrows,tfields,ttype,tform,tunit,extname,varidat,
+               status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc42">6.4.3</A>&#XA0;&#XA0;Write Keyword Subroutines <A NAME="FTPREC"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Put (append) an 80-character record into the CHU.
+</DD></DL><PRE CLASS="verbatim">        FTPREC(unit,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Put (append) a COMMENT keyword into the CHU. Multiple COMMENT keywords
+will be written if the input comment string is longer than 72 characters.
+</DD></DL><PRE CLASS="verbatim">        FTPCOM(unit,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description">Put (append) a HISTORY keyword into the CHU. Multiple HISTORY keywords
+will be written if the input history string is longer than 72 characters.
+</DD></DL><PRE CLASS="verbatim">        FTPHIS(unit,history, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Put (append) the DATE keyword into the CHU. The keyword value will contain
+the current system date as a character string in &#X2019;dd/mm/yy&#X2019; format. If
+a DATE keyword already exists in the header, then this subroutine will
+simply update the keyword value in-place with the current date.
+</DD></DL><PRE CLASS="verbatim">        FTPDAT(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Put (append) a new keyword of the appropriate datatype into the CHU.
+Note that FTPKYS will only write string values up to 68 characters in
+length; longer strings will be truncated. The FTPKLS routine can be
+used to write longer strings, using a non-standard FITS convention.
+The E and D versions of this routine have the added feature that
+if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019; display
+format rather then the &#X2019;E&#X2019; format will be used when constructing
+the keyword value, taking the absolute value of &#X2019;decimals&#X2019; for the
+precision. This will suppress trailing zeros, and will use a
+fixed format rather than an exponential format,
+depending on the magnitude of the value.
+</DD></DL><PRE CLASS="verbatim">        FTPKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTPKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Put (append) a string valued keyword into the CHU which may be longer
+than 68 characters in length. This uses the Long String Keyword
+convention that is described in the "Usage Guidelines and Suggestions"
+section of this document. Since this uses a non-standard FITS
+convention to encode the long keyword string, programs which use
+this routine should also call the FTPLSW routine to add some COMMENT
+keywords to warn users of the FITS file that this convention is
+being used. FTPLSW also writes a keyword called LONGSTRN to record
+the version of the longstring convention that has been used, in case
+a new convention is adopted at some point in the future. If the
+LONGSTRN keyword is already present in the header, then FTPLSW will
+simply return and will not write duplicate keywords.
+</DD></DL><PRE CLASS="verbatim">        FTPKLS(unit,keyword,keyval,comment, &gt; status)
+        FTPLSW(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Put (append) a new keyword with an undefined, or null, value into the CHU.
+The value string of the keyword is left blank in this case.
+</DD></DL><PRE CLASS="verbatim">        FTPKYU(unit,keyword,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Put (append) a numbered sequence of keywords into the CHU. One may
+append the same comment to every keyword (and eliminate the need
+to have an array of identical comment strings, one for each keyword) by
+including the ampersand character as the last non-blank character in the
+(first) COMMENTS string parameter. This same string
+will then be used for the comment field in all the keywords. (Note
+that the SPP version of these routines only supports a single comment
+string).
+</DD></DL><PRE CLASS="verbatim">        FTPKN[JKLS](unit,keyroot,startno,no_keys,keyvals,comments, &gt; status)
+        FTPKN[EDFG](unit,keyroot,startno,no_keys,keyvals,decimals,comments, &gt;
+                   status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description">Copy an indexed keyword from one HDU to another, modifying
+the index number of the keyword name in the process. For example,
+this routine could read the TLMIN3 keyword from the input HDU
+(by giving keyroot = "TLMIN" and innum = 3) and write it to the
+output HDU with the keyword name TLMIN4 (by setting outnum = 4).
+If the input keyword does not exist, then this routine simply
+returns without indicating an error.
+</DD></DL><PRE CLASS="verbatim">        FTCPKY(inunit, outunit, innum, outnum, keyroot, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Put (append) a &#X2019;triple precision&#X2019; keyword into the CHU in F28.16 format.
+The floating point keyword value is constructed by concatenating the
+input integer value with the input double precision fraction value
+(which must have a value between 0.0 and 1.0). The FTGKYT routine should
+be used to read this keyword value, because the other keyword reading
+subroutines will not preserve the full precision of the value.
+</DD></DL><PRE CLASS="verbatim">        FTPKYT(unit,keyword,intval,dblval,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Write keywords to the CHDU that are defined in an ASCII template file.
+The format of the template file is described under the ftgthd
+routine below.
+</DD></DL><PRE CLASS="verbatim">        FTPKTP(unit, filename, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Append the physical units string to an existing keyword. This
+routine uses a local convention, shown in the following example,
+in which the keyword units are enclosed in square brackets in the
+beginning of the keyword comment field.
+</DD></DL><PRE CLASS="verbatim">     VELOCITY=                 12.3 / [km/s] orbital speed
+
+        FTPUNT(unit,keyword,units, &gt; status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc43">6.4.4</A>&#XA0;&#XA0;Insert Keyword Subroutines <A NAME="FTIREC"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Insert a new keyword record into the CHU at the specified position
+(i.e., immediately preceding the (keyno)th keyword in the header.)
+This &#X2019;insert record&#X2019; subroutine is somewhat less efficient
+then the &#X2019;append record&#X2019; subroutine (FTPREC) described above because
+the remaining keywords in the header have to be shifted down one slot.
+</DD></DL><PRE CLASS="verbatim">        FTIREC(unit,key_no,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Insert a new keyword into the CHU. The new keyword is inserted
+immediately following the last keyword that has been read from the header.
+The FTIKLS subroutine works the same as the FTIKYS subroutine, except
+it also supports long string values greater than 68 characters in length.
+These &#X2019;insert keyword&#X2019; subroutines are somewhat less efficient then
+the &#X2019;append keyword&#X2019; subroutines described above because the remaining
+keywords in the header have to be shifted down one slot.
+</DD></DL><PRE CLASS="verbatim">        FTIKEY(unit, card, &gt; status)
+        FTIKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTIKLS(unit,keyword,keyval,comment, &gt; status)
+        FTIKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Insert a new keyword with an undefined, or null, value into the CHU.
+The value string of the keyword is left blank in this case.
+</DD></DL><PRE CLASS="verbatim">        FTIKYU(unit,keyword,comment, &gt; status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc44">6.4.5</A>&#XA0;&#XA0;Read Keyword Subroutines <A NAME="FTGREC"></A></H3><P>These routines return the value of the specified keyword(s). Wild card
+characters (*, ?, or #) may be used when specifying the name of the keyword
+to be read: a &#X2019;?&#X2019; will match any single character at that position in the
+keyword name and a &#X2019;*&#X2019; will match any length (including zero) string of
+characters. The &#X2019;#&#X2019; character will match any consecutive string of
+decimal digits (0 - 9). Note that when a wild card is used in the input
+keyword name, the routine will only search for a match from the current
+header position to the end of the header. It will not resume the search
+from the top of the header back to the original header position as is done
+when no wildcards are included in the keyword name. If the desired
+keyword string is 8-characters long (the maximum length of a keyword
+name) then a &#X2019;*&#X2019; may be appended as the ninth character of the input
+name to force the keyword search to stop at the end of the header
+(e.g., &#X2019;COMMENT *&#X2019; will search for the next COMMENT keyword). The
+ffgrec routine may be used to set the starting position when doing
+wild card searches.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Get the nth 80-character header record from the CHU. The first keyword
+in the header is at key_no = 1; if key_no = 0 then this subroutine
+simple moves the internal pointer to the beginning of the header
+so that subsequent keyword operations will start at the top of
+the header; it also returns a blank card value in this case.
+</DD></DL><PRE CLASS="verbatim">        FTGREC(unit,key_no, &gt; card,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the name, value (as a string), and comment of the nth keyword in CHU.
+This routine also checks that the returned keyword name (KEYWORD) contains
+only legal ASCII characters. Call FTGREC and FTPSVC to bypass this error
+check.
+</DD></DL><PRE CLASS="verbatim">        FTGKYN(unit,key_no, &gt; keyword,value,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Get the 80-character header record for the named keyword
+</DD></DL><PRE CLASS="verbatim">        FTGCRD(unit,keyword, &gt; card,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Get the next keyword whose name matches one of the strings in
+&#X2019;inclist&#X2019; but does not match any of the strings in &#X2019;exclist&#X2019;.
+The strings in inclist and exclist may contain wild card characters
+(*, ?, and #) as described at the beginning of this section.
+This routine searches from the current header position to the
+end of the header, only, and does not continue the search from
+the top of the header back to the original position. The current
+header position may be reset with the ftgrec routine. Note
+that nexc may be set = 0 if there are no keywords to be excluded.
+This routine returns status = 202 if a matching
+keyword is not found.
+</DD></DL><PRE CLASS="verbatim">        FTGNXK(unit,inclist,ninc,exclist,nexc, &gt; card,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Get the literal keyword value as a character string. Regardless
+of the datatype of the keyword, this routine simply returns the
+string of characters in the value field of the keyword along with
+the comment field.
+</DD></DL><PRE CLASS="verbatim">        FTGKEY(unit,keyword, &gt; value,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Get a keyword value (with the appropriate datatype) and comment from
+the CHU
+</DD></DL><PRE CLASS="verbatim">        FTGKY[EDJKLS](unit,keyword, &gt; keyval,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Get a sequence of numbered keyword values. These
+routines do not support wild card characters in the root name.
+</DD></DL><PRE CLASS="verbatim">        FTGKN[EDJKLS](unit,keyroot,startno,max_keys, &gt; keyvals,nfound,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Get the value of a floating point keyword, returning the integer and
+fractional parts of the value in separate subroutine arguments.
+This subroutine may be used to read any keyword but is especially
+useful for reading the &#X2019;triple precision&#X2019; keywords written by FTPKYT.
+</DD></DL><PRE CLASS="verbatim">        FTGKYT(unit,keyword, &gt; intval,dblval,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Get the physical units string in an existing keyword. This
+routine uses a local convention, shown in the following example,
+in which the keyword units are
+enclosed in square brackets in the beginning of the keyword comment
+field. A blank string is returned if no units are defined
+for the keyword.
+</DD></DL><PRE CLASS="verbatim">    VELOCITY=                 12.3 / [km/s] orbital speed
+
+        FTGUNT(unit,keyword, &gt; units,status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc45">6.4.6</A>&#XA0;&#XA0;Modify Keyword Subroutines <A NAME="FTMREC"></A></H3><P>Wild card characters, as described in the Read Keyword section, above,
+may be used when specifying the name of the keyword to be modified.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the nth 80-character header record in the CHU
+</DD></DL><PRE CLASS="verbatim">        FTMREC(unit,key_no,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the 80-character header record for the named keyword
+in the CHU. This can be used to overwrite the name of the keyword as
+well as its value and comment fields.
+</DD></DL><PRE CLASS="verbatim">        FTMCRD(unit,keyword,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the name of an existing keyword in the CHU
+preserving the current value and comment fields.
+</DD></DL><PRE CLASS="verbatim">        FTMNAM(unit,oldkey,keyword, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the comment field of an existing keyword in the CHU
+</DD></DL><PRE CLASS="verbatim">        FTMCOM(unit,keyword,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Modify the value and comment fields of an existing keyword in the CHU.
+The FTMKLS subroutine works the same as the FTMKYS subroutine, except
+it also supports long string values greater than 68 characters in length.
+Optionally, one may modify only the value field and leave the comment
+field unchanged by setting the input COMMENT parameter equal to
+the ampersand character (&amp;).
+The E and D versions of this routine have the added feature that
+if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019; display
+format rather then the &#X2019;E&#X2019; format will be used when constructing
+the keyword value, taking the absolute value of &#X2019;decimals&#X2019; for the
+precision. This will suppress trailing zeros, and will use a
+fixed format rather than an exponential format,
+depending on the magnitude of the value.
+</DD></DL><PRE CLASS="verbatim">        FTMKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTMKLS(unit,keyword,keyval,comment, &gt; status)
+        FTMKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Modify the value of an existing keyword to be undefined, or null.
+The value string of the keyword is set to blank.
+Optionally, one may leave the comment field unchanged by setting the
+input COMMENT parameter equal to the ampersand character (&amp;).
+</DD></DL><PRE CLASS="verbatim">        FTMKYU(unit,keyword,comment, &gt; status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc46">6.4.7</A>&#XA0;&#XA0;Update Keyword Subroutines <A NAME="FTUCRD"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Update an 80-character record in the CHU. If the specified keyword
+already exists then that header record will be replaced with
+the input CARD string. If it does not exist then the new record will
+be added to the header.
+The FTUKLS subroutine works the same as the FTUKYS subroutine, except
+it also supports long string values greater than 68 characters in length.
+</DD></DL><PRE CLASS="verbatim">        FTUCRD(unit,keyword,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Update the value and comment fields of a keyword in the CHU.
+The specified keyword is modified if it already exists (by calling
+FTMKYx) otherwise a new keyword is created by calling FTPKYx.
+The E and D versions of this routine have the added feature that
+if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019; display
+format rather then the &#X2019;E&#X2019; format will be used when constructing
+the keyword value, taking the absolute value of &#X2019;decimals&#X2019; for the
+precision. This will suppress trailing zeros, and will use a
+fixed format rather than an exponential format,
+depending on the magnitude of the value.
+</DD></DL><PRE CLASS="verbatim">        FTUKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTUKLS(unit,keyword,keyval,comment, &gt; status)
+        FTUKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Update the value of an existing keyword to be undefined, or null,
+or insert a new undefined-value keyword if it doesn&#X2019;t already exist.
+The value string of the keyword is left blank in this case.
+</DD></DL><PRE CLASS="verbatim">        FTUKYU(unit,keyword,comment, &gt; status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc47">6.4.8</A>&#XA0;&#XA0;Delete Keyword Subroutines <A NAME="FTDREC"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Delete an existing keyword record. The space previously occupied by
+the keyword is reclaimed by moving all the following header records up
+one row in the header. The first routine deletes a keyword at a
+specified position in the header (the first keyword is at position 1),
+whereas the second routine deletes a specifically named keyword.
+Wild card characters, as described in the Read Keyword section, above,
+may be used when specifying the name of the keyword to be deleted
+(be careful!).
+</DD></DL><PRE CLASS="verbatim">        FTDREC(unit,key_no, &gt; status)
+        FTDKEY(unit,keyword, &gt; status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc29"></A><A NAME="htoc48">6.5</A>&#XA0;&#XA0;Data Scaling and Undefined Pixel Parameters <A NAME="FTPSCL"></A></H2><P>These subroutines define or modify the internal parameters used by
+FITSIO to either scale the data or to represent undefined pixels.
+Generally FITSIO will scale the data according to the values of the BSCALE
+and BZERO (or TSCALn and TZEROn) keywords, however these subroutines
+may be used to override the keyword values. This may be useful when
+one wants to read or write the raw unscaled values in the FITS file.
+Similarly, FITSIO generally uses the value of the BLANK or TNULLn
+keyword to signify an undefined pixel, but these routines may be used
+to override this value. These subroutines do not create or modify the
+corresponding header keyword values.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Reset the scaling factors in the primary array or image extension; does
+not change the BSCALE and BZERO keyword values and only affects the
+automatic scaling performed when the data elements are written/read
+to/from the FITS file. When reading from a FITS file the returned
+data value = (the value given in the FITS array) * BSCALE + BZERO.
+The inverse formula is used when writing data values to the FITS
+file. (NOTE: BSCALE and BZERO must be declared as Double Precision
+variables).
+</DD></DL><PRE CLASS="verbatim">        FTPSCL(unit,bscale,bzero, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Reset the scaling parameters for a table column; does not change
+the TSCALn or TZEROn keyword values and only affects the automatic
+scaling performed when the data elements are written/read to/from
+the FITS file. When reading from a FITS file the returned data
+value = (the value given in the FITS array) * TSCAL + TZERO. The
+inverse formula is used when writing data values to the FITS file.
+(NOTE: TSCAL and TZERO must be declared as Double Precision
+variables).
+</DD></DL><PRE CLASS="verbatim">        FTTSCL(unit,colnum,tscal,tzero, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Define the integer value to be used to signify undefined pixels in the
+primary array or image extension. This is only used if BITPIX = 8, 16,
+32. or 64 This does not create or change the value of the BLANK keyword in
+the header. FTPNULLL is identical to FTPNUL except that the blank
+value is a 64-bit integer instead of a 32-bit integer.
+</DD></DL><PRE CLASS="verbatim">        FTPNUL(unit,blank, &gt; status)
+        FTPNULLL(unit,blankll, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Define the string to be used to signify undefined pixels in
+a column in an ASCII table. This does not create or change the value
+of the TNULLn keyword.
+</DD></DL><PRE CLASS="verbatim">        FTSNUL(unit,colnum,snull &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Define the value to be used to signify undefined pixels in
+an integer column in a binary table (where TFORMn = &#X2019;B&#X2019;, &#X2019;I&#X2019;, &#X2019;J&#X2019;, or &#X2019;K&#X2019;).
+This does not create or change the value of the TNULLn keyword.
+FTTNULLL is identical to FTTNUL except that the tnull
+value is a 64-bit integer instead of a 32-bit integer.
+</DD></DL><PRE CLASS="verbatim">        FTTNUL(unit,colnum,tnull &gt; status)
+        FTTNULLL(unit,colnum,tnullll &gt; status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc30"></A><A NAME="htoc49">6.6</A>&#XA0;&#XA0;FITS Primary Array or IMAGE Extension I/O Subroutines <A NAME="FTPPR"></A></H2><P>These subroutines put or get data values in the primary data array
+(i.e., the first HDU in the FITS file) or an IMAGE extension. The
+data array is represented as a single one-dimensional array of
+pixels regardless of the actual dimensionality of the array, and the
+FPIXEL parameter gives the position within this 1-D array of the first
+pixel to read or write. Automatic data type conversion is performed
+for numeric data (except for complex data types) if the data type of
+the primary array (defined by the BITPIX keyword) differs from the data
+type of the array in the calling subroutine. The data values are also
+scaled by the BSCALE and BZERO header values as they are being written
+or read from the FITS array. The ftpscl subroutine MUST be
+called to define the scaling parameters when writing data to the FITS
+array or to override the default scaling value given in the header when
+reading the FITS array.</P><P>Two sets of subroutines are provided to read the data array which
+differ in the way undefined pixels are handled. The first set of
+routines (FTGPVx) simply return an array of data elements in which
+undefined pixels are set equal to a value specified by the user in the
+&#X2019;nullval&#X2019; parameter. An additional feature of these subroutines is
+that if the user sets nullval = 0, then no checks for undefined pixels
+will be performed, thus increasing the speed of the program. The
+second set of routines (FTGPFx) returns the data element array and, in
+addition, a logical array which defines whether the corresponding data
+pixel is undefined. The latter set of subroutines may be more
+convenient to use in some circumstances, however, it requires an
+additional array of logical values which can be unwieldy when working
+with large data arrays. Also for programmer convenience, sets of
+subroutines to directly read or write 2 and 3 dimensional arrays have
+been provided, as well as a set of subroutines to read or write any
+contiguous rectangular subset of pixels within the n-dimensional array.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the data type of the image (= BITPIX value). Possible returned
+values are: 8, 16, 32, 64, -32, or -64 corresponding to unsigned byte,
+signed 2-byte integer, signed 4-byte integer, signed 8-byte integer,
+real, and double.<P>The second subroutine is similar to FTGIDT, except that if the image
+pixel values are scaled, with non-default values for the BZERO and
+BSCALE keywords, then this routine will return the &#X2019;equivalent&#X2019;
+data type that is needed to store the scaled values. For example,
+if BITPIX = 16 and BSCALE = 0.1 then the equivalent data type is
+floating point, and -32 will be returned. There are 2 special cases:
+if the image contains unsigned 2-byte integer values, with BITPIX =
+16, BSCALE = 1, and BZERO = 32768, then this routine will return
+a non-standard value of 20 for the bitpix value. Similarly if the
+image contains unsigned 4-byte integers, then bitpix will
+be returned with a value of 40.
+</P></DD></DL><PRE CLASS="verbatim">        FTGIDT(unit, &gt; bitpix,status)
+        FTGIET(unit, &gt; bitpix,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the dimension (number of axes = NAXIS) of the image
+</DD></DL><PRE CLASS="verbatim">        FTGIDM(unit, &gt; naxis,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Get the size of all the dimensions of the image. The FTGISZLL
+routine returns an array of 64-bit integers instead of 32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTGISZ(unit, maxdim, &gt; naxes,status)
+        FTGISZLL(unit, maxdim, &gt; naxesll,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Get the parameters that define the type and size of the image. This
+routine simply combines calls to the above 3 routines. The FTGIPRLL
+routine returns an array of 64-bit integers instead of 32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTGIPR(unit, maxdim, &gt; bitpix, naxis, naxes, int *status)
+        FTGIPRLL(unit, maxdim, &gt; bitpix, naxis, naxesll, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description">Put elements into the data array
+</DD></DL><PRE CLASS="verbatim">        FTPPR[BIJKED](unit,group,fpixel,nelements,values, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description">Put elements into the data array, substituting the appropriate FITS null
+value for all elements which are equal to the value of NULLVAL. For
+integer FITS arrays, the null value defined by the previous call to FTPNUL
+will be substituted; for floating point FITS arrays (BITPIX = -32
+or -64) then the special IEEE NaN (Not-a-Number) value will be
+substituted.
+</DD></DL><PRE CLASS="verbatim">        FTPPN[BIJKED](unit,group,fpixel,nelements,values,nullval &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description">Set data array elements as undefined
+</DD></DL><PRE CLASS="verbatim">        FTPPRU(unit,group,fpixel,nelements, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Get elements from the data array. Undefined array elements will be
+returned with a value = nullval, unless nullval = 0 in which case no
+checks for undefined pixels will be performed.
+</DD></DL><PRE CLASS="verbatim">        FTGPV[BIJKED](unit,group,fpixel,nelements,nullval, &gt; values,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Get elements and nullflags from data array.
+Any undefined array elements will have the corresponding flagvals element
+set equal to .TRUE.
+</DD></DL><PRE CLASS="verbatim">        FTGPF[BIJKED](unit,group,fpixel,nelements, &gt; values,flagvals,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Put values into group parameters
+</DD></DL><PRE CLASS="verbatim">        FTPGP[BIJKED](unit,group,fparm,nparm,values, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Get values from group parameters
+</DD></DL><PRE CLASS="verbatim">        FTGGP[BIJKED](unit,group,fparm,nparm, &gt; values,status)
+</PRE><P>The following 4 subroutines transfer FITS images with 2 or 3 dimensions
+to or from a data array which has been declared in the calling program.
+The dimensionality of the FITS image is passed by the naxis1, naxis2,
+and naxis3 parameters and the declared dimensions of the program array
+are passed in the dim1 and dim2 parameters. Note that the program array
+does not have to have the same dimensions as the FITS array, but must
+be at least as big. For example if a FITS image with NAXIS1 = NAXIS2 = 400
+is read into a program array which is dimensioned as 512 x 512 pixels,
+then the image will just fill the lower left corner of the array
+with pixels in the range 1 - 400 in the X an Y directions. This has
+the effect of taking a contiguous set of pixel value in the FITS array
+and writing them to a non-contiguous array in program memory
+(i.e., there are now some blank pixels around the edge of the image
+in the program array).</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Put 2-D image into the data array
+</DD></DL><PRE CLASS="verbatim">        FTP2D[BIJKED](unit,group,dim1,naxis1,naxis2,image, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Put 3-D cube into the data array
+</DD></DL><PRE CLASS="verbatim">        FTP3D[BIJKED](unit,group,dim1,dim2,naxis1,naxis2,naxis3,cube, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>13</B></DT><DD CLASS="dd-description"> Get 2-D image from the data array. Undefined
+pixels in the array will be set equal to the value of &#X2019;nullval&#X2019;,
+unless nullval=0 in which case no testing for undefined pixels will
+be performed.
+</DD></DL><PRE CLASS="verbatim">        FTG2D[BIJKED](unit,group,nullval,dim1,naxis1,naxis2, &gt; image,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>14</B></DT><DD CLASS="dd-description"> Get 3-D cube from the data array. Undefined
+pixels in the array will be set equal to the value of &#X2019;nullval&#X2019;,
+unless nullval=0 in which case no testing for undefined pixels will
+be performed.
+</DD></DL><PRE CLASS="verbatim">        FTG3D[BIJKED](unit,group,nullval,dim1,dim2,naxis1,naxis2,naxis3, &gt;
+                     cube,anyf,status)
+</PRE><P>The following subroutines transfer a rectangular subset of the pixels
+in a FITS N-dimensional image to or from an array which has been
+declared in the calling program. The fpixels and lpixels parameters
+are integer arrays which specify the starting and ending pixels in each
+dimension of the FITS image that are to be read or written. (Note that
+these are the starting and ending pixels in the FITS image, not in the
+declared array). The array parameter is treated simply as a large
+one-dimensional array of the appropriate datatype containing the pixel
+values; The pixel values in the FITS array are read/written from/to
+this program array in strict sequence without any gaps; it is up to
+the calling routine to correctly interpret the dimensionality of this
+array. The two families of FITS reading routines (FTGSVx and FTGSFx
+subroutines) also have an &#X2019;incs&#X2019; parameter which defines the
+data sampling interval in each dimension of the FITS array. For
+example, if incs(1)=2 and incs(2)=3 when reading a 2-dimensional
+FITS image, then only every other pixel in the first dimension
+and every 3rd pixel in the second dimension will be returned in
+the &#X2019;array&#X2019; parameter. [Note: the FTGSSx family of routines which
+were present in previous versions of FITSIO have been superseded
+by the more general FTGSVx family of routines.]</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>15</B></DT><DD CLASS="dd-description"> Put an arbitrary data subsection into the data array.
+</DD></DL><PRE CLASS="verbatim">        FTPSS[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,array, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>16</B></DT><DD CLASS="dd-description"> Get an arbitrary data subsection from the data array. Undefined
+pixels in the array will be set equal to the value of &#X2019;nullval&#X2019;,
+unless nullval=0 in which case no testing for undefined pixels will
+be performed.
+</DD></DL><PRE CLASS="verbatim">        FTGSV[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,incs,nullval, &gt;
+                     array,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>17</B></DT><DD CLASS="dd-description"> Get an arbitrary data subsection from the data array. Any Undefined
+pixels in the array will have the corresponding &#X2019;flagvals&#X2019;
+element set equal to .TRUE.
+</DD></DL><PRE CLASS="verbatim">        FTGSF[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,incs, &gt;
+                     array,flagvals,anyf,status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc31"></A><A NAME="htoc50">6.7</A>&#XA0;&#XA0;FITS ASCII and Binary Table Data I/O Subroutines</H2><H3 CLASS="subsection"><A NAME="htoc51">6.7.1</A>&#XA0;&#XA0;Column Information Subroutines <A NAME="FTGCNO"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the number of rows or columns in the current FITS table.
+The number of rows is given by the NAXIS2 keyword and the
+number of columns is given by the TFIELDS keyword in the header
+of the table. The FTGNRWLL routine is identical to FTGNRW except
+that the number of rows is returned as a 64-bit integer rather
+than a 32-bit integer.
+</DD></DL><PRE CLASS="verbatim">        FTGNRW(unit, &gt; nrows, status)
+        FTGNRWLL(unit, &gt; nrowsll, status)
+        FTGNCL(unit, &gt; ncols, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the table column number (and name) of the column whose name
+matches an input template name. The table column names are defined by
+the TTYPEn keywords in the FITS header. If a column does not have a
+TTYPEn keyword, then these routines assume that the name consists of
+all blank characters. These 2 subroutines perform the same function
+except that FTGCNO only returns the number of the matching column whereas
+FTGCNN also returns the name of the column. If CASESEN = .true. then
+the column name match will be case-sensitive.<P>The input column name template (COLTEMPLATE) is (1) either the exact
+name of the column to be searched for, or (2) it may contain wild cards
+characters (*, ?, or #), or (3) it may contain the number of the desired
+column (where the number is expressed as ASCII digits). The first 2 wild
+cards behave similarly to UNIX filename matching: the &#X2019;*&#X2019; character matches
+any sequence of characters (including zero characters) and the &#X2019;?&#X2019;
+character matches any single character. The # wildcard will match
+any consecutive string of decimal digits (0-9). As an example, the template
+strings &#X2019;AB?DE&#X2019;, &#X2019;AB*E&#X2019;, and &#X2019;AB*CDE&#X2019; will all match the string
+&#X2019;ABCDE&#X2019;. If more than one column name in the table matches the
+template string, then the first match is returned and the status value
+will be set to 237 as a warning that a unique match was not found. To
+find the other cases that match the template, simply call the
+subroutine again leaving the input status value equal to 237 and the
+next matching name will then be returned. Repeat this process until a
+status = 219 (column name not found) is returned. If these subroutines
+fail to match the template to any of the columns in the table, they
+lastly check if the template can be interpreted as a simple positive
+integer (e.g., &#X2019;7&#X2019;, or &#X2019;512&#X2019;) and if so, they return that column
+number. If no matches are found then a status = 219 error is
+returned.</P><P>Note that the FITS Standard recommends that only letters, digits, and
+the underscore character be used in column names (with no embedded
+spaces in the name). Trailing blank characters are not significant.
+</P></DD></DL><PRE CLASS="verbatim">        FTGCNO(unit,casesen,coltemplate, &gt; colnum,status)
+        FTGCNN(unit,casesen,coltemplate, &gt; colname,colnum,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Get the datatype of a column in an ASCII or binary table. This
+routine returns an integer code value corresponding to the datatype
+of the column. (See the FTBNFM and FTASFM subroutines in the Utilities
+section of this document for a list of the code values). The vector
+repeat count (which is alway 1 for ASCII table columns) is also returned.
+If the specified column has an ASCII character datatype (code = 16) then
+the width of a unit string in the column is also returned. Note that
+this routine supports the local convention for specifying arrays of
+strings within a binary table character column, using the syntax
+TFORM = &#X2019;rAw&#X2019; where &#X2019;r&#X2019; is the total number of characters (= the width
+of the column) and &#X2019;w&#X2019; is the width of a unit string within the column.
+Thus if the column has TFORM = &#X2019;60A12&#X2019; then this routine will return
+datacode = 16, repeat = 60, and width = 12. (The TDIMn
+keyword may also be used to specify the unit string length; The pair
+of keywords TFORMn = &#X2019;60A&#X2019; and TDIMn = &#X2019;(12,5)&#X2019; would have the
+same effect as TFORMn = &#X2019;60A12&#X2019;).<P>The second routine, FTEQTY is similar except that in
+the case of scaled integer columns it returns the &#X2019;equivalent&#X2019; data
+type that is needed to store the scaled values, and not necessarily
+the physical data type of the unscaled values as stored in the FITS
+table. For example if a &#X2019;1I&#X2019; column in a binary table has TSCALn =
+1 and TZEROn = 32768, then this column effectively contains unsigned
+short integer values, and thus the returned value of typecode will
+be the code for an unsigned short integer, not a signed short integer.
+Similarly, if a column has TTYPEn = &#X2019;1I&#X2019;
+and TSCALn = 0.12, then the returned typecode
+will be the code for a &#X2019;real&#X2019; column.
+</P></DD></DL><PRE CLASS="verbatim">        FTGTCL(unit,colnum, &gt; datacode,repeat,width,status)
+        FTEQTY(unit,colnum, &gt; datacode,repeat,width,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Return the display width of a column. This is the length
+of the string that will be returned
+when reading the column as a formatted string. The display width is
+determined by the TDISPn keyword, if present, otherwise by the data
+type of the column.
+</DD></DL><PRE CLASS="verbatim">        FTGCDW(unit, colnum, &gt; dispwidth, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Get information about an existing ASCII table column. (NOTE: TSCAL and
+TZERO must be declared as Double Precision variables). All the
+returned parameters are scalar quantities.
+</DD></DL><PRE CLASS="verbatim">        FTGACL(unit,colnum, &gt;
+               ttype,tbcol,tunit,tform,tscal,tzero,snull,tdisp,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Get information about an existing binary table column. (NOTE: TSCAL and
+TZERO must be declared as Double Precision variables). DATATYPE is a
+character string which returns the datatype of the column as defined
+by the TFORMn keyword (e.g., &#X2019;I&#X2019;, &#X2019;J&#X2019;,&#X2019;E&#X2019;, &#X2019;D&#X2019;, etc.). In the case
+of an ASCII character column, DATATYPE will have a value of the
+form &#X2019;An&#X2019; where &#X2019;n&#X2019; is an integer expressing the width of the field
+in characters. For example, if TFORM = &#X2019;160A8&#X2019; then FTGBCL will return
+DATATYPE=&#X2019;A8&#X2019; and REPEAT=20. All the returned parameters are scalar
+quantities.
+</DD></DL><PRE CLASS="verbatim">        FTGBCL(unit,colnum, &gt;
+               ttype,tunit,datatype,repeat,tscal,tzero,tnull,tdisp,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Put (append) a TDIMn keyword whose value has the form &#X2019;(l,m,n...)&#X2019;
+where l, m, n... are the dimensions of a multidimensional array
+column in a binary table.
+</DD></DL><PRE CLASS="verbatim">        FTPTDM(unit,colnum,naxis,naxes, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Return the number of and size of the dimensions of a table column.
+Normally this information is given by the TDIMn keyword, but if
+this keyword is not present then this routine returns NAXIS = 1
+and NAXES(1) equal to the repeat count in the TFORM keyword.
+</DD></DL><PRE CLASS="verbatim">        FTGTDM(unit,colnum,maxdim, &gt; naxis,naxes,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Decode the input TDIMn keyword string (e.g. &#X2019;(100,200)&#X2019;) and return the
+number of and size of the dimensions of a binary table column. If the input
+tdimstr character string is null, then this routine returns naxis = 1
+and naxes[0] equal to the repeat count in the TFORM keyword. This routine
+is called by FTGTDM.
+</DD></DL><PRE CLASS="verbatim">        FTDTDM(unit,tdimstr,colnum,maxdim, &gt; naxis,naxes, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Return the optimal number of rows to read or write at one time for
+maximum I/O efficiency. Refer to the &#X201C;Optimizing Code&#X201D; section
+in Chapter 5 for more discussion on how to use this routine.
+</DD></DL><PRE CLASS="verbatim">        FFGRSZ(unit, &gt; nrows,status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc52">6.7.2</A>&#XA0;&#XA0;Low-Level Table Access Subroutines <A NAME="FTGTBS"></A></H3><P>The following subroutines provide low-level access to the data in ASCII
+or binary tables and are mainly useful as an efficient way to copy all
+or part of a table from one location to another. These routines simply
+read or write the specified number of consecutive bytes in an ASCII or
+binary table, without regard for column boundaries or the row length in
+the table. The first two subroutines read or write consecutive bytes
+in a table to or from a character string variable, while the last two
+subroutines read or write consecutive bytes to or from a variable
+declared as a numeric data type (e.g., INTEGER, INTEGER*2, REAL, DOUBLE
+PRECISION). These routines do not perform any machine dependent data
+conversion or byte swapping, except that conversion to/from ASCII
+format is performed by the FTGTBS and FTPTBS routines on machines which
+do not use ASCII character codes in the internal data representations
+(e.g., on IBM mainframe computers).</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Read a consecutive string of characters from an ASCII table
+into a character variable (spanning columns and multiple rows if necessary)
+This routine should not be used with binary tables because of
+complications related to passing string variables between C and Fortran.
+</DD></DL><PRE CLASS="verbatim">        FTGTBS(unit,frow,startchar,nchars, &gt; string,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Write a consecutive string of characters to an ASCII table
+from a character variable (spanning columns and multiple rows if necessary)
+This routine should not be used with binary tables because of
+complications related to passing string variables between C and Fortran.
+</DD></DL><PRE CLASS="verbatim">        FTPTBS(unit,frow,startchar,nchars,string, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Read a consecutive array of bytes from an ASCII or binary table
+into a numeric variable (spanning columns and multiple rows if necessary).
+The array parameter may be declared as any numerical datatype as long
+as the array is at least &#X2019;nchars&#X2019; bytes long, e.g., if nchars = 17,
+then declare the array as INTEGER*4 ARRAY(5).
+</DD></DL><PRE CLASS="verbatim">        FTGTBB(unit,frow,startchar,nchars, &gt; array,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Write a consecutive array of bytes to an ASCII or binary table
+from a numeric variable (spanning columns and multiple rows if necessary)
+The array parameter may be declared as any numerical datatype as long
+as the array is at least &#X2019;nchars&#X2019; bytes long, e.g., if nchars = 17,
+then declare the array as INTEGER*4 ARRAY(5).
+</DD></DL><PRE CLASS="verbatim">        FTPTBB(unit,frow,startchar,nchars,array, &gt; status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc53">6.7.3</A>&#XA0;&#XA0;Edit Rows or Columns <A NAME="FTIROW"></A></H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Insert blank rows into an existing ASCII or binary table (in the CDU).
+All the rows FOLLOWING row FROW are shifted down by NROWS rows. If
+FROW or FROWLL equals 0 then the blank rows are inserted at the beginning of the
+table. These routines modify the NAXIS2 keyword to reflect the new
+number of rows in the table.
+</DD></DL><PRE CLASS="verbatim">        FTIROW(unit,frow,nrows, &gt; status)
+        FTIROWLL(unit,frowll,nrowsll, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Delete rows from an existing ASCII or binary table (in the CDU).
+The NROWS (or NROWSLL) is the number of rows are deleted, starting
+with row FROW (or FROWLL), and
+any remaining rows in the table are shifted up to fill in the space.
+These routines modify the NAXIS2 keyword to reflect the new number
+of rows in the table.
+</DD></DL><PRE CLASS="verbatim">        FTDROW(unit,frow,nrows, &gt; status)
+        FTDROWLL(unit,frowll,nrowsll, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Delete a list of rows from an ASCII or binary table (in the CDU).
+In the first routine, &#X2019;rowrange&#X2019; is a character string listing the
+rows or row ranges to delete (e.g., &#X2019;2-4, 5, 8-9&#X2019;). In the second
+routine, &#X2019;rowlist&#X2019; is an integer array of row numbers to be deleted
+from the table. nrows is the number of row numbers in the list.
+The first row in the table is 1 not 0. The list of row numbers
+must be sorted in ascending order.
+</DD></DL><PRE CLASS="verbatim">        FTDRRG(unit,rowrange, &gt; status)
+        FTDRWS(unit,rowlist,nrows, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Insert a blank column (or columns) into an existing ASCII or binary
+table (in the CDU). COLNUM specifies the column number that the (first)
+new column should occupy in the table. NCOLS specifies how many
+columns are to be inserted. Any existing columns from this position and
+higher are moved over to allow room for the new column(s).
+The index number on all the following keywords will be incremented
+if necessary to reflect the new position of the column(s) in the table:
+TBCOLn, TFORMn, TTYPEn, TUNITn, TNULLn, TSCALn, TZEROn, TDISPn, TDIMn,
+TLMINn, TLMAXn, TDMINn, TDMAXn, TCTYPn, TCRPXn, TCRVLn, TCDLTn, TCROTn,
+and TCUNIn.
+</DD></DL><PRE CLASS="verbatim">        FTICOL(unit,colnum,ttype,tform, &gt; status)
+        FTICLS(unit,colnum,ncols,ttype,tform, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Modify the vector length of a binary table column (e.g.,
+change a column from TFORMn = &#X2019;1E&#X2019; to &#X2019;20E&#X2019;). The vector
+length may be increased or decreased from the current value.
+</DD></DL><PRE CLASS="verbatim">        FTMVEC(unit,colnum,newveclen, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Delete a column from an existing ASCII or binary table (in the CDU).
+The index number of all the keywords listed above (for FTICOL) will be
+decremented if necessary to reflect the new position of the column(s) in
+the table. Those index keywords that refer to the deleted column will
+also be deleted. Note that the physical size of the FITS file will
+not be reduced by this operation, and the empty FITS blocks if any
+at the end of the file will be padded with zeros.
+</DD></DL><PRE CLASS="verbatim">        FTDCOL(unit,colnum, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Copy a column from one HDU to another (or to the same HDU). If
+createcol = TRUE, then a new column will be inserted in the output
+table, at position &#X2018;outcolumn&#X2019;, otherwise the existing output column will
+be overwritten (in which case it must have a compatible datatype).
+Note that the first column in a table is at colnum = 1.
+</DD></DL><PRE CLASS="verbatim">        FTCPCL(inunit,outunit,incolnum,outcolnum,createcol, &gt; status);
+</PRE><H3 CLASS="subsection"><A NAME="htoc54">6.7.4</A>&#XA0;&#XA0;Read and Write Column Data Routines <A NAME="FTPCLS"></A></H3><P>These subroutines put or get data values in the current ASCII or Binary table
+extension. Automatic data type conversion is performed for numerical data
+types (B,I,J,E,D) if the data type of the column (defined by the TFORM keyword)
+differs from the data type of the calling subroutine. The data values are also
+scaled by the TSCALn and TZEROn header values as they are being written to
+or read from the FITS array. The fttscl subroutine MUST be used to define the
+scaling parameters when writing data to the table or to override the default
+scaling values given in the header
+when reading from the table.</P><P>In the case of binary tables with vector elements, the &#X2019;felem&#X2019;
+parameter defines the starting pixel within the element vector. This
+parameter is ignored with ASCII tables. Similarly, in the case of
+binary tables the &#X2019;nelements&#X2019; parameter specifies the total number of
+vector values read or written (continuing on subsequent rows if
+required) and not the number of table elements. Two sets of
+subroutines are provided to get the column data which differ in the way
+undefined pixels are handled. The first set of routines (FTGCV)
+simply return an array of data elements in which undefined pixels are
+set equal to a value specified by the user in the &#X2019;nullval&#X2019; parameter.
+An additional feature of these subroutines is that if the user sets
+nullval = 0, then no checks for undefined pixels will be performed,
+thus increasing the speed of the program. The second set of routines
+(FTGCF) returns the data element array and in addition a logical array
+of flags which defines whether the corresponding data pixel is undefined.</P><P>Any column, regardless of it&#X2019;s intrinsic datatype, may be read as a
+string. It should be noted however that reading a numeric column
+as a string is 10 - 100 times slower than reading the same column as
+a number due to the large overhead in constructing the formatted
+strings. The display format of the returned strings will be
+determined by the TDISPn keyword, if it exists, otherwise by the
+datatype of the column. The length of the returned strings can be
+determined with the ftgcdw routine. The following TDISPn display
+formats are currently supported:</P><PRE CLASS="verbatim">    Iw.m   Integer
+    Ow.m   Octal integer
+    Zw.m   Hexadecimal integer
+    Fw.d   Fixed floating point
+    Ew.d   Exponential floating point
+    Dw.d   Exponential floating point
+    Gw.d   General; uses Fw.d if significance not lost, else Ew.d
+</PRE><P>where w is the width in characters of the displayed values, m is the minimum
+number of digits displayed, and d is the number of digits to the right of the
+decimal. The .m field is optional.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Put elements into an ASCII or binary table column (in the CDU).
+(The SPP FSPCLS routine has an additional integer argument after
+the VALUES character string which specifies the size of the 1st
+dimension of this 2-D CHAR array).<P>The alternate version of these routines, whose names end in &#X2019;LL&#X2019;
+after the datatype character, support large tables with more then
+2*31 rows. When calling these routines, the frow and felem parameters
+*must* be 64-bit integer*8 variables, instead of normal 4-byte integers.
+</P></DD></DL><PRE CLASS="verbatim">        FTPCL[SLBIJKEDCM](unit,colnum,frow,felem,nelements,values, &gt; status)
+        FTPCL[LBIJKEDCM]LL(unit,colnum,frow,felem,nelements,values, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Put elements into an ASCII or binary table column (in the CDU)
+substituting the appropriate FITS null value for any elements that
+are equal to NULLVAL. For ASCII TABLE extensions, the
+null value defined by the previous call to FTSNUL will be substituted;
+For integer FITS columns, in a binary table the null value
+defined by the previous call to FTTNUL will be substituted;
+For floating point FITS columns a special IEEE NaN (Not-a-Number)
+value will be substituted.<P>The alternate version of these routines, whose names end in &#X2019;LL&#X2019;
+after the datatype character, support large tables with more then
+2*31 rows. When calling these routines, the frow and felem parameters
+*must* be 64-bit integer*8 variables, instead of normal 4-byte integers.
+</P></DD></DL><PRE CLASS="verbatim">        FTPCN[SBIJKED](unit,colnum,frow,felem,nelements,values,nullval &gt; status)
+        FTPCN[SBIJKED]LL(unit,colnum,(I*8) frow,(I*8) felem,nelements,values,
+                 nullval &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Put bit values into a binary byte (&#X2019;B&#X2019;) or bit (&#X2019;X&#X2019;) table column (in the
+CDU). LRAY is an array of logical values corresponding to the sequence of
+bits to be written. If LRAY is true then the corresponding bit is
+set to 1, otherwise the bit is set to 0. Note that in the case of
+&#X2019;X&#X2019; columns, FITSIO will write to all 8 bits of each byte whether
+they are formally valid or not. Thus if the column is defined as
+&#X2019;4X&#X2019;, and one calls FTPCLX with fbit=1 and nbit=8, then all 8 bits
+will be written into the first byte (as opposed to writing the
+first 4 bits into the first row and then the next 4 bits into the
+next row), even though the last 4 bits of each byte are formally
+not defined.
+</DD></DL><PRE CLASS="verbatim">        FTPCLX(unit,colnum,frow,fbit,nbit,lray, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Set table elements in a column as undefined
+</DD></DL><PRE CLASS="verbatim">        FTPCLU(unit,colnum,frow,felem,nelements, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Get elements from an ASCII or binary table column (in the CDU). These
+routines return the values of the table column array elements. Undefined
+array elements will be returned with a value = nullval, unless nullval = 0
+(or = &#X2019; &#X2019; for ftgcvs) in which case no checking for undefined values will
+be performed. The ANYF parameter is set to true if any of the returned
+elements are undefined. (Note: the ftgcl routine simple gets an array
+of logical data values without any checks for undefined values; use
+the ftgcfl routine to check for undefined logical elements).
+(The SPP FSGCVS routine has an additional integer argument after
+the VALUES character string which specifies the size of the 1st
+dimension of this 2-D CHAR array).<P>The alternate version of these routines, whose names end in &#X2019;LL&#X2019;
+after the datatype character, support large tables with more then
+2*31 rows. When calling these routines, the frow and felem parameters
+*must* be 64-bit integer*8 variables, instead of normal 4-byte integers.
+</P></DD></DL><PRE CLASS="verbatim">        FTGCL(unit,colnum,frow,felem,nelements, &gt; values,status)
+        FTGCV[SBIJKEDCM](unit,colnum,frow,felem,nelements,nullval, &gt;
+                       values,anyf,status)
+        FTGCV[BIJKEDCM]LL(unit,colnum,(I*8) frow, (I*8) felem, nelements,
+                nullval, &gt; values,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Get elements and null flags from an ASCII or binary table column (in the
+CHDU). These routines return the values of the table column array elements.
+Any undefined array elements will have the corresponding flagvals element
+set equal to .TRUE. The ANYF parameter is set to true if any of the
+returned elements are undefined.
+(The SPP FSGCFS routine has an additional integer argument after
+the VALUES character string which specifies the size of the 1st
+dimension of this 2-D CHAR array).<P>The alternate version of these routines, whose names end in &#X2019;LL&#X2019;
+after the datatype character, support large tables with more then
+2*31 rows. When calling these routines, the frow and felem parameters
+*must* be 64-bit integer*8 variables, instead of normal 4-byte integers.
+</P></DD></DL><PRE CLASS="verbatim">        FTGCF[SLBIJKEDCM](unit,colnum,frow,felem,nelements, &gt;
+                         values,flagvals,anyf,status)
+        FTGCF[BIJKED]LL(unit,colnum, (I*8) frow, (I*8) felem,nelements, &gt;
+                         values,flagvals,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Get an arbitrary data subsection from an N-dimensional array
+in a binary table vector column. Undefined pixels
+in the array will be set equal to the value of &#X2019;nullval&#X2019;,
+unless nullval=0 in which case no testing for undefined pixels will
+be performed. The first and last rows in the table to be read
+are specified by fpixels(naxis+1) and lpixels(naxis+1), and hence
+are treated as the next higher dimension of the FITS N-dimensional
+array. The INCS parameter specifies the sampling interval in
+each dimension between the data elements that will be returned.
+</DD></DL><PRE CLASS="verbatim">        FTGSV[BIJKED](unit,colnum,naxis,naxes,fpixels,lpixels,incs,nullval, &gt;
+                     array,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Get an arbitrary data subsection from an N-dimensional array
+in a binary table vector column. Any Undefined
+pixels in the array will have the corresponding &#X2019;flagvals&#X2019;
+element set equal to .TRUE. The first and last rows in the table
+to be read are specified by fpixels(naxis+1) and lpixels(naxis+1),
+and hence are treated as the next higher dimension of the FITS
+N-dimensional array. The INCS parameter specifies the sampling
+interval in each dimension between the data elements that will be
+returned.
+</DD></DL><PRE CLASS="verbatim">        FTGSF[BIJKED](unit,colnum,naxis,naxes,fpixels,lpixels,incs, &gt;
+                     array,flagvals,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Get bit values from a byte (&#X2019;B&#X2019;) or bit (&#X2018;X&#X2018;) table column (in the
+CDU). LRAY is an array of logical values corresponding to the
+sequence of bits to be read. If LRAY is true then the
+corresponding bit was set to 1, otherwise the bit was set to 0.
+Note that in the case of &#X2019;X&#X2019; columns, FITSIO will read all 8 bits
+of each byte whether they are formally valid or not. Thus if the
+column is defined as &#X2019;4X&#X2019;, and one calls FTGCX with fbit=1 and
+nbit=8, then all 8 bits will be read from the first byte (as
+opposed to reading the first 4 bits from the first row and then the
+first 4 bits from the next row), even though the last 4 bits of
+each byte are formally not defined.
+</DD></DL><PRE CLASS="verbatim">        FTGCX(unit,colnum,frow,fbit,nbit, &gt; lray,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Read any consecutive set of bits from an &#X2019;X&#X2019; or &#X2019;B&#X2019; column and
+interpret them as an unsigned n-bit integer. NBIT must be less than
+or equal to 16 when calling FTGCXI, and less than or equal to 32 when
+calling FTGCXJ; there is no limit on the value of NBIT for FTGCXD, but
+the returned double precision value only has 48 bits of precision on
+most 32-bit word machines. The NBITS bits are interpreted as an
+unsigned integer unless NBITS = 16 (in FTGCXI) or 32 (in FTGCXJ) in which
+case the string of bits are interpreted as 16-bit or 32-bit 2&#X2019;s
+complement signed integers. If NROWS is greater than 1 then the
+same set of bits will be read from sequential rows in the table
+starting with row FROW. Note that the numbering convention
+used here for the FBIT parameter adopts 1 for the first element of the
+vector of bits; this is the Most Significant Bit of the integer value.
+</DD></DL><PRE CLASS="verbatim">        FTGCX[IJD](unit,colnum,frow,nrows,fbit,nbit, &gt; array,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Get the descriptor for a variable length column in a binary table.
+The descriptor consists of 2 integer parameters: the number of elements
+in the array and the starting offset relative to the start of the heap.
+The first routine returns a single descriptor whereas the second routine
+returns the descriptors for a range of rows in the table.
+</DD></DL><PRE CLASS="verbatim">        FTGDES(unit,colnum,rownum, &gt; nelements,offset,status)
+        FTGDESLL(unit,colnum,rownum, &gt; nelementsll,offsetll,status)
+
+        FFGDESS(unit,colnum,firstrow,nrows &gt; nelements,offset, status)
+        FFGDESSLL(unit,colnum,firstrow,nrows &gt; nelementsll,offsetll, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Write the descriptor for a variable length column in a binary table.
+These subroutines can be used in conjunction with FTGDES to enable
+2 or more arrays to point to the same storage location to save
+storage space if the arrays are identical.
+</DD></DL><PRE CLASS="verbatim">        FTPDES(unit,colnum,rownum,nelements,offset, &gt; status)
+        FTPDESLL(unit,colnum,rownum,nelementsll,offsetll, &gt; status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc32"></A><A NAME="htoc55">6.8</A>&#XA0;&#XA0;Row Selection and Calculator Routines <A NAME="FTFROW"></A></H2><P>These routines all parse and evaluate an input string containing a user
+defined arithmetic expression. The first 3 routines select rows in a
+FITS table, based on whether the expression evaluates to true (not
+equal to zero) or false (zero). The other routines evaluate the
+expression and calculate a value for each row of the table. The
+allowed expression syntax is described in the row filter section in the
+earlier &#X2018;Extended File Name Syntax&#X2019; chapter of this document. The
+expression may also be written to a text file, and the name of the
+file, prepended with a &#X2019;@&#X2019; character may be supplied for the &#X2019;expr&#X2019;
+parameter (e.g. &#X2019;@filename.txt&#X2019;). The expression in the file can
+be arbitrarily complex and extend over multiple lines of the file.
+Lines that begin with 2 slash characters (&#X2019;//&#X2019;) will be ignored and
+may be used to add comments to the file.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Evaluate a boolean expression over the indicated rows, returning an
+array of flags indicating which rows evaluated to TRUE/FALSE
+</DD></DL><PRE CLASS="verbatim">         FTFROW(unit,expr,firstrow, nrows, &gt; n_good_rows, row_status, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Find the first row which satisfies the input boolean expression
+</DD></DL><PRE CLASS="verbatim">         FTFFRW(unit, expr, &gt; rownum, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description">Evaluate an expression on all rows of a table. If the input and output
+files are not the same, copy the TRUE rows to the output file. If the
+files are the same, delete the FALSE rows (preserve the TRUE rows).
+</DD></DL><PRE CLASS="verbatim">         FTSROW(inunit, outunit, expr, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Calculate an expression for the indicated rows of a table, returning
+the results, cast as datatype (TSHORT, TDOUBLE, etc), in array. If
+nulval==NULL, UNDEFs will be zeroed out. For vector results, the number
+of elements returned may be less than nelements if nelements is not an
+even multiple of the result dimension. Call FTTEXP to obtain
+the dimensions of the results.
+</DD></DL><PRE CLASS="verbatim">         FTCROW(unit,datatype,expr,firstrow,nelements,nulval, &gt;
+             array,anynul,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description">Evaluate an expression and write the result either to a column (if
+the expression is a function of other columns in the table) or to a
+keyword (if the expression evaluates to a constant and is not a
+function of other columns in the table). In the former case, the
+parName parameter is the name of the column (which may or may not already
+exist) into which to write the results, and parInfo contains an
+optional TFORM keyword value if a new column is being created. If a
+TFORM value is not specified then a default format will be used,
+depending on the expression. If the expression evaluates to a constant,
+then the result will be written to the keyword name given by the
+parName parameter, and the parInfo parameter may be used to supply an
+optional comment for the keyword. If the keyword does not already
+exist, then the name of the keyword must be preceded with a &#X2019;#&#X2019; character,
+otherwise the result will be written to a column with that name.
+</DD></DL><PRE CLASS="verbatim">         FTCALC(inunit, expr, outunit, parName, parInfo, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> This calculator routine is similar to the previous routine, except
+that the expression is only evaluated over the specified
+row ranges. nranges specifies the number of row ranges, and firstrow
+and lastrow give the starting and ending row number of each range.
+</DD></DL><PRE CLASS="verbatim">         FTCALC_RNG(inunit, expr, outunit, parName, parInfo,
+            nranges, firstrow, lastrow, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description">Evaluate the given expression and return information on the result.
+</DD></DL><PRE CLASS="verbatim">         FTTEXP(unit, expr, &gt; datatype, nelem, naxis, naxes, status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc33"></A><A NAME="htoc56">6.9</A>&#XA0;&#XA0;Celestial Coordinate System Subroutines <A NAME="FTGICS"></A></H2><P>The FITS community has adopted a set of keyword conventions that define
+the transformations needed to convert between pixel locations in an
+image and the corresponding celestial coordinates on the sky, or more
+generally, that define world coordinates that are to be associated with
+any pixel location in an n-dimensional FITS array. CFITSIO is distributed
+with a couple of self-contained World Coordinate System (WCS) routines,
+however, these routines DO NOT support all the latest WCS conventions,
+so it is STRONGLY RECOMMENDED that software developers use a more robust
+external WCS library. Several recommended libraries are:</P><PRE CLASS="verbatim">  WCSLIB -  supported by Mark Calabretta
+  WCSTools - supported by Doug Mink
+  AST library - developed by the U.K. Starlink project
+</PRE><P>More information about the WCS keyword conventions and links to all of
+these WCS libraries can be found on the FITS Support Office web site at
+http://fits.gsfc.nasa.gov under the WCS link.</P><P>The functions provided in these external WCS libraries will need access to
+the WCS information contained in the FITS file headers. One convenient
+way to pass this information to the external library is to use FITSIO
+to copy the header keywords into one long character string, and then
+pass this string to an interface routine in the external library that
+will extract the necessary WCS information (e.g., see the astFitsChan
+and astPutCards routines in the Starlink AST library).</P><P>The following FITSIO routines DO NOT support the more recent WCS conventions
+that have been approved as part of the FITS standard. Consequently,
+the following routines ARE NOW DEPRECATED. It is STRONGLY RECOMMENDED
+that software developers not use these routines, and instead use an
+external WCS library, as described above.</P><P>These routines are included mainly for backward compatibility with
+existing software. They support the following standard map
+projections: -SIN, -TAN, -ARC, -NCP, -GLS, -MER, and -AIT (these are the
+legal values for the coordtype parameter). These routines are based
+on similar functions in Classic AIPS. All the angular quantities are
+given in units of degrees.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the values of all the standard FITS celestial coordinate system
+keywords from the header of a FITS image (i.e., the primary array or
+an image extension). These values may then be passed to the subroutines
+that perform the coordinate transformations. If any or all of the WCS
+keywords are not present, then default values will be returned. If
+the first coordinate axis is the declination-like coordinate, then
+this routine will swap them so that the longitudinal-like coordinate
+is returned as the first axis.<P>If the file uses the newer &#X2019;CDj_i&#X2019; WCS transformation matrix
+keywords instead of old style &#X2019;CDELTn&#X2019; and &#X2019;CROTA2&#X2019; keywords, then
+this routine will calculate and return the values of the equivalent
+old-style keywords. Note that the conversion from the new-style
+keywords to the old-style values is sometimes only an
+approximation, so if the approximation is larger than an internally
+defined threshold level, then CFITSIO will still return the
+approximate WCS keyword values, but will also return with status =
+506, to warn the calling program that approximations have been
+made. It is then up to the calling program to decide whether the
+approximations are sufficiently accurate for the particular
+application, or whether more precise WCS transformations must be
+performed using new-style WCS keywords directly.
+</P></DD></DL><PRE CLASS="verbatim">        FTGICS(unit, &gt; xrval,yrval,xrpix,yrpix,xinc,yinc,rot,coordtype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the values of all the standard FITS celestial coordinate system
+keywords from the header of a FITS table where the X and Y (or RA and
+DEC coordinates are stored in 2 separate columns of the table.
+These values may then be passed to the subroutines that perform the
+coordinate transformations.
+</DD></DL><PRE CLASS="verbatim">        FTGTCS(unit,xcol,ycol, &gt;
+               xrval,yrval,xrpix,yrpix,xinc,yinc,rot,coordtype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Calculate the celestial coordinate corresponding to the input
+X and Y pixel location in the image.
+</DD></DL><PRE CLASS="verbatim">        FTWLDP(xpix,ypix,xrval,yrval,xrpix,yrpix,xinc,yinc,rot,
+                          coordtype, &gt; xpos,ypos,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Calculate the X and Y pixel location corresponding to the input
+celestial coordinate in the image.
+</DD></DL><PRE CLASS="verbatim">        FTXYPX(xpos,ypos,xrval,yrval,xrpix,yrpix,xinc,yinc,rot,
+                          coordtype, &gt; xpix,ypix,status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc34"></A><A NAME="htoc57">6.10</A>&#XA0;&#XA0;File Checksum Subroutines <A NAME="FTPCKS"></A></H2><P>The following routines either compute or validate the checksums for the
+CHDU. The DATASUM keyword is used to store the numerical value of the
+32-bit, 1&#X2019;s complement checksum for the data unit alone. If there is
+no data unit then the value is set to zero. The numerical value is
+stored as an ASCII string of digits, enclosed in quotes, because the
+value may be too large to represent as a 32-bit signed integer. The
+CHECKSUM keyword is used to store the ASCII encoded COMPLEMENT of the
+checksum for the entire HDU. Storing the complement, rather than the
+actual checksum, forces the checksum for the whole HDU to equal zero.
+If the file has been modified since the checksums were computed, then
+the HDU checksum will usually not equal zero. These checksum keyword
+conventions are based on a paper by Rob Seaman published in the
+proceedings of the ADASS IV conference in Baltimore in November 1994
+and a later revision in June 1995.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Compute and write the DATASUM and CHECKSUM keyword values for the CHDU
+into the current header. The DATASUM value is the 32-bit checksum
+for the data unit, expressed as a decimal integer enclosed in single
+quotes. The CHECKSUM keyword value is a 16-character string which
+is the ASCII-encoded value for the complement of the checksum for
+the whole HDU. If these keywords already exist, their values
+will be updated only if necessary (i.e., if the file has been modified
+since the original keyword values were computed).
+</DD></DL><PRE CLASS="verbatim">        FTPCKS(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Update the CHECKSUM keyword value in the CHDU, assuming that the
+DATASUM keyword exists and already has the correct value. This routine
+calculates the new checksum for the current header unit, adds it to the
+data unit checksum, encodes the value into an ASCII string, and writes
+the string to the CHECKSUM keyword.
+</DD></DL><PRE CLASS="verbatim">        FTUCKS(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Verify the CHDU by computing the checksums and comparing
+them with the keywords. The data unit is verified correctly
+if the computed checksum equals the value of the DATASUM
+keyword. The checksum for the entire HDU (header plus data unit) is
+correct if it equals zero. The output DATAOK and HDUOK parameters
+in this subroutine are integers which will have a value = 1
+if the data or HDU is verified correctly, a value = 0
+if the DATASUM or CHECKSUM keyword is not present, or value = -1
+if the computed checksum is not correct.
+</DD></DL><PRE CLASS="verbatim">        FTVCKS(unit, &gt; dataok,hduok,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Compute and return the checksum values for the CHDU (as
+double precision variables) without creating or modifying the
+CHECKSUM and DATASUM keywords. This routine is used internally by
+FTVCKS, but may be useful in other situations as well.
+</DD></DL><PRE CLASS="verbatim">        FTGCKS(unit, &gt; datasum,hdusum,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Encode a checksum value (stored in a double precision variable)
+into a 16-character string. If COMPLEMENT = .true. then the 32-bit
+sum value will be complemented before encoding.
+</DD></DL><PRE CLASS="verbatim">        FTESUM(sum,complement, &gt; checksum)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Decode a 16 character checksum string into a double precision value.
+If COMPLEMENT = .true. then the 32-bit sum value will be complemented
+after decoding.
+</DD></DL><PRE CLASS="verbatim">        FTDSUM(checksum,complement, &gt; sum)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc35"></A><A NAME="htoc58">6.11</A>&#XA0;&#XA0; Date and Time Utility Routines <A NAME="FTGSDT"></A></H2><P>The following routines help to construct or parse the FITS date/time
+strings. Starting in the year 2000, the FITS DATE keyword values (and
+the values of other &#X2018;DATE-&#X2019; keywords) must have the form &#X2019;YYYY-MM-DD&#X2019;
+(date only) or &#X2019;YYYY-MM-DDThh:mm:ss.ddd...&#X2019; (date and time) where the
+number of decimal places in the seconds value is optional. These times
+are in UTC. The older &#X2019;dd/mm/yy&#X2019; date format may not be used for dates
+after 01 January 2000.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the current system date. The returned year has 4 digits
+(1999, 2000, etc.)
+</DD></DL><PRE CLASS="verbatim">        FTGSDT( &gt; day, month, year, status )
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the current system date and time string (&#X2019;YYYY-MM-DDThh:mm:ss&#X2019;).
+The time will be in UTC/GMT if available, as indicated by a returned timeref
+value = 0. If the returned value of timeref = 1 then this indicates that
+it was not possible to convert the local time to UTC, and thus the local
+time was returned.
+</DD></DL><PRE CLASS="verbatim">        FTGSTM(&gt; datestr, timeref, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Construct a date string from the input date values. If the year
+is between 1900 and 1998, inclusive, then the returned date string will
+have the old FITS format (&#X2019;dd/mm/yy&#X2019;), otherwise the date string will
+have the new FITS format (&#X2019;YYYY-MM-DD&#X2019;). Use FTTM2S instead
+to always return a date string using the new FITS format.
+</DD></DL><PRE CLASS="verbatim">        FTDT2S( year, month, day, &gt; datestr, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Construct a new-format date + time string (&#X2019;YYYY-MM-DDThh:mm:ss.ddd...&#X2019;).
+If the year, month, and day values all = 0 then only the time is encoded
+with format &#X2019;hh:mm:ss.ddd...&#X2019;. The decimals parameter specifies how many
+decimal places of fractional seconds to include in the string. If &#X2018;decimals&#X2019;
+is negative, then only the date will be return (&#X2019;YYYY-MM-DD&#X2019;).
+</DD></DL><PRE CLASS="verbatim">        FTTM2S( year, month, day, hour, minute, second, decimals,
+                &gt; datestr, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Return the date as read from the input string, where the string may be
+in either the old (&#X2019;dd/mm/yy&#X2019;) or new (&#X2019;YYYY-MM-DDThh:mm:ss&#X2019; or
+&#X2019;YYYY-MM-DD&#X2019;) FITS format.
+</DD></DL><PRE CLASS="verbatim">        FTS2DT(datestr, &gt; year, month, day, status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Return the date and time as read from the input string, where the
+string may be in either the old or new FITS format. The returned hours,
+minutes, and seconds values will be set to zero if the input string
+does not include the time (&#X2019;dd/mm/yy&#X2019; or &#X2019;YYYY-MM-DD&#X2019;) . Similarly,
+the returned year, month, and date values will be set to zero if the
+date is not included in the input string (&#X2019;hh:mm:ss.ddd...&#X2019;).
+</DD></DL><PRE CLASS="verbatim">        FTS2TM(datestr, &gt; year, month, day, hour, minute, second, status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc36"></A><A NAME="htoc59">6.12</A>&#XA0;&#XA0;General Utility Subroutines <A NAME="FTGHAD"></A></H2><P>The following utility subroutines may be useful for certain applications:</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Return the starting byte address of the CHDU and the next HDU.
+</DD></DL><PRE CLASS="verbatim">        FTGHAD(iunit, &gt; curaddr, nextaddr)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Convert a character string to uppercase (operates in place).
+</DD></DL><PRE CLASS="verbatim">        FTUPCH(string)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Compare the input template string against the reference string
+to see if they match. The template string may contain wildcard
+characters: &#X2019;*&#X2019; will match any sequence of characters (including
+zero characters) and &#X2019;?&#X2019; will match any single character in the
+reference string. The &#X2019;#&#X2019; character will match any consecutive string
+of decimal digits (0 - 9). If CASESN = .true. then the match will be
+case sensitive. The returned MATCH parameter will be .true. if
+the 2 strings match, and EXACT will be .true. if the match is
+exact (i.e., if no wildcard characters were used in the match).
+Both strings must be 68 characters or less in length.
+</DD></DL><PRE CLASS="verbatim">        FTCMPS(str_template, string, casesen, &gt; match, exact)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Test that the keyword name contains only legal characters: A-Z,0-9,
+hyphen, and underscore.
+</DD></DL><PRE CLASS="verbatim">        FTTKEY(keyword, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Test that the keyword record contains only legal printable ASCII
+characters
+</DD></DL><PRE CLASS="verbatim">        FTTREC(card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Test whether the current header contains any NULL (ASCII 0) characters.
+These characters are illegal in the header, but they will go undetected
+by most of the CFITSIO keyword header routines, because the null is
+interpreted as the normal end-of-string terminator. This routine returns
+the position of the first null character in the header, or zero if there
+are no nulls. For example a returned value of 110 would indicate that
+the first NULL is located in the 30th character of the second keyword
+in the header (recall that each header record is 80 characters long).
+Note that this is one of the few FITSIO routines in which the returned
+value is not necessarily equal to the status value).
+</DD></DL><PRE CLASS="verbatim">        FTNCHK(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Parse a header keyword record and return the name of the keyword
+and the length of the name.
+The keyword name normally occupies the first 8 characters of the
+record, except under the HIERARCH convention where the name can
+be up to 70 characters in length.
+</DD></DL><PRE CLASS="verbatim">        FTGKNM(card, &gt; keyname, keylength, staThe '\#' character will match any consecutive string
+    of decimal digits (0 - 9). tus)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Parse a header keyword record.
+This subroutine parses the input header record to return the value (as
+a character string) and comment strings. If the keyword has no
+value (columns 9-10 not equal to &#X2019;= &#X2019;), then the value string is returned
+blank and the comment string is set equal to column 9 - 80 of the
+input string.
+</DD></DL><PRE CLASS="verbatim">        FTPSVC(card, &gt; value,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Construct a sequence keyword name (ROOT + nnn).
+This subroutine appends the sequence number to the root string to create
+a keyword name (e.g., &#X2019;NAXIS&#X2019; + 2 = &#X2019;NAXIS2&#X2019;)
+</DD></DL><PRE CLASS="verbatim">        FTKEYN(keyroot,seq_no, &gt; keyword,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>10</B></DT><DD CLASS="dd-description"> Construct a sequence keyword name (n + ROOT).
+This subroutine concatenates the sequence number to the front of the
+root string to create a keyword name (e.g., 1 + &#X2019;CTYP&#X2019; = &#X2019;1CTYP&#X2019;)
+</DD></DL><PRE CLASS="verbatim">        FTNKEY(seq_no,keyroot, &gt; keyword,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Determine the datatype of a keyword value string.
+This subroutine parses the keyword value string (usually columns 11-30
+of the header record) to determine its datatype.
+</DD></DL><PRE CLASS="verbatim">        FTDTYP(value, &gt; dtype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>11</B></DT><DD CLASS="dd-description"> Return the class of input header record. The record is classified
+into one of the following categories (the class values are
+defined in fitsio.h). Note that this is one of the few FITSIO
+routines that does not return a status value.
+</DD></DL><PRE CLASS="verbatim">       Class  Value             Keywords
+  TYP_STRUC_KEY  10  SIMPLE, BITPIX, NAXIS, NAXISn, EXTEND, BLOCKED,
+                     GROUPS, PCOUNT, GCOUNT, END
+                     XTENSION, TFIELDS, TTYPEn, TBCOLn, TFORMn, THEAP,
+                     and the first 4 COMMENT keywords in the primary array
+                     that define the FITS format.
+  TYP_CMPRS_KEY  20  The experimental keywords used in the compressed
+                     image format ZIMAGE, ZCMPTYPE, ZNAMEn, ZVALn,
+                     ZTILEn, ZBITPIX, ZNAXISn, ZSCALE, ZZERO, ZBLANK
+  TYP_SCAL_KEY   30  BSCALE, BZERO, TSCALn, TZEROn
+  TYP_NULL_KEY   40  BLANK, TNULLn
+  TYP_DIM_KEY    50  TDIMn
+  TYP_RANG_KEY   60  TLMINn, TLMAXn, TDMINn, TDMAXn, DATAMIN, DATAMAX
+  TYP_UNIT_KEY   70  BUNIT, TUNITn
+  TYP_DISP_KEY   80  TDISPn
+  TYP_HDUID_KEY  90  EXTNAME, EXTVER, EXTLEVEL, HDUNAME, HDUVER, HDULEVEL
+  TYP_CKSUM_KEY 100  CHECKSUM, DATASUM
+  TYP_WCS_KEY   110  CTYPEn, CUNITn, CRVALn, CRPIXn, CROTAn, CDELTn
+                     CDj_is, PVj_ms, LONPOLEs, LATPOLEs
+                     TCTYPn, TCTYns, TCUNIn, TCUNns, TCRVLn, TCRVns, TCRPXn,
+                     TCRPks, TCDn_k, TCn_ks, TPVn_m, TPn_ms, TCDLTn, TCROTn
+                     jCTYPn, jCTYns, jCUNIn, jCUNns, jCRVLn, jCRVns, iCRPXn,
+                     iCRPns, jiCDn,  jiCDns, jPVn_m, jPn_ms, jCDLTn, jCROTn
+                     (i,j,m,n are integers, s is any letter)
+  TYP_REFSYS_KEY 120 EQUINOXs, EPOCH, MJD-OBSs, RADECSYS, RADESYSs
+  TYP_COMM_KEY   130 COMMENT, HISTORY, (blank keyword)
+  TYP_CONT_KEY   140 CONTINUE
+  TYP_USER_KEY   150 all other keywords
+
+         class = FTGKCL (char *card)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>12</B></DT><DD CLASS="dd-description"> Parse the &#X2019;TFORM&#X2019; binary table column format string.
+This subroutine parses the input TFORM character string and returns the
+integer datatype code, the repeat count of the field, and, in the case
+of character string fields, the length of the unit string. The following
+datatype codes are returned (the negative of the value is returned
+if the column contains variable-length arrays):
+</DD></DL><PRE CLASS="verbatim">                Datatype                DATACODE value
+                bit, X                   1
+                byte, B                 11
+                logical, L              14
+                ASCII character, A      16
+                short integer, I        21
+                integer, J              41
+                real, E                 42
+                double precision, D     82
+                complex                 83
+                double complex          163
+
+        FTBNFM(tform, &gt; datacode,repeat,width,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>13</B></DT><DD CLASS="dd-description"> Parse the &#X2019;TFORM&#X2019; keyword value that defines the column format in
+an ASCII table. This routine parses the input TFORM character
+string and returns the datatype code, the width of the column,
+and (if it is a floating point column) the number of decimal places
+to the right of the decimal point. The returned datatype codes are
+the same as for the binary table, listed above, with the following
+additional rules: integer columns that are between 1 and 4 characters
+wide are defined to be short integers (code = 21). Wider integer
+columns are defined to be regular integers (code = 41). Similarly,
+Fixed decimal point columns (with TFORM = &#X2019;Fw.d&#X2019;) are defined to
+be single precision reals (code = 42) if w is between 1 and 7 characters
+wide, inclusive. Wider &#X2019;F&#X2019; columns will return a double precision
+data code (= 82). &#X2019;Ew.d&#X2019; format columns will have datacode = 42,
+and &#X2019;Dw.d&#X2019; format columns will have datacode = 82.
+</DD></DL><PRE CLASS="verbatim">        FTASFM(tform, &gt; datacode,width,decimals,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>14</B></DT><DD CLASS="dd-description"> Calculate the starting column positions and total ASCII table width
+based on the input array of ASCII table TFORM values. The SPACE input
+parameter defines how many blank spaces to leave between each column
+(it is recommended to have one space between columns for better human
+readability).
+</DD></DL><PRE CLASS="verbatim">        FTGABC(tfields,tform,space, &gt; rowlen,tbcol,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>15</B></DT><DD CLASS="dd-description"> Parse a template string and return a formatted 80-character string
+suitable for appending to (or deleting from) a FITS header file.
+This subroutine is useful for parsing lines from an ASCII template file
+and reformatting them into legal FITS header records. The formatted
+string may then be passed to the FTPREC, FTMCRD, or FTDKEY subroutines
+to append or modify a FITS header record.
+</DD></DL><PRE CLASS="verbatim">        FTGTHD(template, &gt; card,hdtype,status)
+</PRE><P>The input TEMPLATE character string generally should contain 3 tokens:
+(1) the KEYNAME, (2) the VALUE, and (3) the COMMENT string. The
+TEMPLATE string must adhere to the following format:</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>- </B></DT><DD CLASS="dd-description"> The KEYNAME token must begin in columns 1-8 and be a maximum of 8
+characters long. If the first 8 characters of the template line are
+blank then the remainder of the line is considered to be a FITS comment
+(with a blank keyword name). A legal FITS keyword name may only
+contain the characters A-Z, 0-9, and &#X2019;-&#X2019; (minus sign) and
+underscore. This subroutine will automatically convert any lowercase
+characters to uppercase in the output string. If KEYNAME = &#X2019;COMMENT&#X2019;
+or &#X2019;HISTORY&#X2019; then the remainder of the line is considered to be a FITS
+COMMENT or HISTORY record, respectively.
+</DD></DL><DL CLASS="description"><DT CLASS="dt-description">
+<B>- </B></DT><DD CLASS="dd-description"> The VALUE token must be separated from the KEYNAME token by one or more
+spaces and/or an &#X2019;=&#X2019; character. The datatype of the VALUE token
+(numeric, logical, or character string) is automatically determined
+and the output CARD string is formatted accordingly. The value
+token may be forced to be interpreted as a string (e.g. if it is a
+string of numeric digits) by enclosing it in single quotes.
+</DD></DL><DL CLASS="description"><DT CLASS="dt-description">
+<B>- </B></DT><DD CLASS="dd-description"> The COMMENT token is optional, but if present must be separated from
+the VALUE token by at least one blank space. A leading &#X2019;/&#X2019; character
+may be used to mark the beginning of the comment field, otherwise the
+comment field begins with the first non-blank character following the
+value token.
+</DD></DL><DL CLASS="description"><DT CLASS="dt-description">
+<B>- </B></DT><DD CLASS="dd-description"> One exception to the above rules is that if the first non-blank
+character in the template string is a minus sign (&#X2019;-&#X2019;) followed
+by a single token, or a single token followed by an equal sign,
+then it is interpreted as the name of a keyword which is to be
+deleted from the FITS header.
+</DD></DL><DL CLASS="description"><DT CLASS="dt-description">
+<B>- </B></DT><DD CLASS="dd-description"> The second exception is that if the template string starts with
+a minus sign and is followed by 2 tokens then the second token
+is interpreted as the new name for the keyword specified by
+first token. In this case the old keyword name (first token)
+is returned in characters 1-8 of the returned CARD string, and
+the new keyword name (the second token) is returned in characters
+41-48 of the returned CARD string. These old and new names
+may then be passed to the FTMNAM subroutine which will change
+the keyword name.
+</DD></DL><P>The HDTYPE output parameter indicates how the returned CARD string
+should be interpreted:</P><PRE CLASS="verbatim">        hdtype                  interpretation
+        ------           -------------------------------------------------
+           -2            Modify the name of the keyword given in CARD(1:8)
+                         to the new name given in CARD(41:48)
+
+           -1            CARD(1:8) contains the name of a keyword to be deleted
+                         from the FITS header.
+
+            0            append the CARD string to the FITS header if the
+                         keyword does not already exist, otherwise update
+                         the value/comment if the keyword is already present
+                         in the header.
+
+            1            simply append this keyword to the FITS header (CARD
+                         is either a HISTORY or COMMENT keyword).
+
+            2            This is a FITS END record; it should not be written
+                         to the FITS header because FITSIO automatically
+                         appends the END record when the header is closed.
+</PRE><P>EXAMPLES: The following lines illustrate valid input template strings:</P><PRE CLASS="verbatim">      INTVAL 7 This is an integer keyword
+      RVAL           34.6   /     This is a floating point keyword
+      EVAL=-12.45E-03  This is a floating point keyword in exponential notation
+      lval F This is a boolean keyword
+                  This is a comment keyword with a blank keyword name
+      SVAL1 = 'Hello world'   /  this is a string keyword
+      SVAL2  '123.5'  this is also a string keyword
+      sval3  123+  /  this is also a string keyword with the value '123+    '
+      # the following template line deletes the DATE keyword
+      - DATE
+      # the following template line modifies the NAME keyword to OBJECT
+      - NAME OBJECT
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>16</B></DT><DD CLASS="dd-description"> Parse the input string containing a list of rows or row ranges, and
+return integer arrays containing the first and last row in each
+range. For example, if rowlist = "3-5, 6, 8-9" then it will
+return numranges = 3, rangemin = 3, 6, 8 and rangemax = 5, 6, 9.
+At most, &#X2019;maxranges&#X2019; number of ranges will be returned. &#X2019;maxrows&#X2019;
+is the maximum number of rows in the table; any rows or ranges
+larger than this will be ignored. The rows must be specified in
+increasing order, and the ranges must not overlap. A minus sign
+may be use to specify all the rows to the upper or lower bound, so
+"50-" means all the rows from 50 to the end of the table, and "-"
+means all the rows in the table, from 1 - maxrows.
+</DD></DL><PRE CLASS="verbatim">    FTRWRG(rowlist, maxrows, maxranges, &gt;
+           numranges, rangemin, rangemax, status)
+</PRE><P></P><HR>
+<A HREF="fitsio006.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio008.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

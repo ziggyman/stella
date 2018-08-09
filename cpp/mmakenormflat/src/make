@@ -1,0 +1,7 @@
+make delete
+make ../bin/makenormflat
+chmod a+x ../bin/makenormflat
+rm ~/bin/makenormflat
+cp -p ../bin/makenormflat ~/bin/
+rm ~/stella/bin/makenormflat
+ln -s ~/bin/makenormflat ~/stella/bin/

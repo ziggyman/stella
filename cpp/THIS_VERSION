@@ -1,0 +1,30 @@
+* added createmakefiles for the automatical creation of makefiles for all modules
+  Usage: cd mcreatemakefiles/src
+         make clean
+         make ../bin/createmakefiles
+         cp src/createmakefiles ../../
+         cd ../../
+         ./createmakefiles @dirs.list @modules.list <this directory, e.g. ~/stella/cpp/>
+         ./make_all
+* fixed bug which caused an offset of 0.5 pixels between calculated spatial profile 
+  and spectral trace
+* added spline fitting as alternative to Chi-square minimization for the calculation of 
+  the spatial profile (CFits::SlitFunc)
+
+
+HISTORY:
+3.1-3.2:
+Removed MathGL
+removed -static-libgcc from make files to make it compile on MacOSX
+added /usr/local/lib to compiler commands
+changed include stdc++.h
+
+HISTORY:
+3.0->3.1:
+added 1st line to make files to move existing executable to .bak
+added @database_fname to mmarkcenters
+fixed bug in CFits.cpp which prevented it from compiling on some machines
+fixed bug in mwritefitsarea to text which kept size parameters from previous image
+fixed bug in CFits.PolyFit regarding MEASURE_ERRORS_IN
+added Where function to CString
+

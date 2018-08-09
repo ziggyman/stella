@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="quick.css">
+<TITLE>Introduction</TITLE>
+</HEAD>
+<BODY >
+<A HREF="quick001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="quick003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H2 CLASS="section"><A NAME="htoc1">1</A>&#XA0;&#XA0;Introduction</H2><P>This document is intended to help you quickly start writing C programs
+to read and write FITS files using the CFITSIO library. It covers the
+most important CFITSIO routines that are needed to perform most types
+of operations on FITS files. For more complete information about these
+and all the other available routines in the library please refer to
+the &#X201C;CFITSIO User&#X2019;s Reference Guide&#X201D;, which is available from the
+CFITSIO Web site at <TT>http://heasarc.gsfc.nasa.gov/fitsio</TT>.</P><P>For more general information about the FITS data format, refer to the
+following web page:
+http://heasarc.gsfc.nasa.gov/docs/heasarc/fits.html</P><P>FITS stands for Flexible Image Transport System and is the standard
+file format used to store most astronomical data files. There are 2
+basic types of FITS files: images and tables. FITS images often
+contain a 2-dimensional array of pixels representing an image of a
+piece of the sky, but FITS images can also contain 1-D arrays (i.e,
+a spectrum or light curve), or 3-D arrays (a data cube), or
+even higher dimensional arrays of data. An image may also have zero
+dimensions, in which case it is referred to as a null or empty array.
+The supported datatypes for the image arrays are 8, 16, and 32-bit
+integers, and 32 and 64-bit floating point real numbers. Both signed
+and unsigned integers are supported.</P><P>FITS tables contain rows and columns of data, similar to a
+spreadsheet. All the values in a particular column must have the same
+datatype. A cell of a column is not restricted to a single number, and
+instead can contain an array or vector of numbers. There are actually
+2 subtypes of FITS tables: ASCII and binary. As the names imply, ASCII
+tables store the data values in an ASCII representation whereas binary
+tables store the data values in a more efficient machine-readable
+binary format. Binary tables are generally more compact and support
+more features (e.g., a wider range of datatypes, and vector columns)
+than ASCII tables.</P><P>A single FITS file many contain multiple images or tables. Each table
+or image is called a Header-Data Unit, or HDU. The first HDU in a FITS
+file must be an image (but it may have zero axes) and is called the
+Primary Array. Any additional HDUs in the file (which are also
+referred to as &#X2018;extensions&#X2019;) may contain either an image or a table.</P><P>Every HDU contains a header containing keyword records. Each keyword
+record is 80 ASCII characters long and has the following format:</P><PRE CLASS="verbatim">KEYWORD = value / comment string
+</PRE><P>The keyword name can be up to 8 characters long (all uppercase). The
+value can be either an integer or floating point number, a logical
+value (T or F), or a character string enclosed in single quotes. Each
+header begins with a series of required keywords to describe the
+datatype and format of the following data unit, if any. Any number of
+other optional keywords can be included in the header to provide other
+descriptive information about the data. For the most part, the CFITSIO
+routines automatically write the required FITS keywords for each HDU,
+so you, the programmer, usually do not need to worry about them.</P><HR>
+<A HREF="quick001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="quick003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

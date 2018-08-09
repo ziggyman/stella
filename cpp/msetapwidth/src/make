@@ -1,0 +1,7 @@
+make delete
+make ../bin/setapwidth
+chmod a+x ../bin/setapwidth
+rm ~/bin/setapwidth
+cp -p ../bin/setapwidth ~/bin/
+rm ~/stella/bin/setapwidth
+ln -s ~/bin/setapwidth ~/stella/bin/

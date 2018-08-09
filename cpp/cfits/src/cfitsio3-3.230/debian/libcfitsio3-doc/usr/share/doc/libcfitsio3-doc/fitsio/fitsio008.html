@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>The CFITSIO Iterator Function </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio007.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio009.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc60">Chapter&#XA0;7</A>&#XA0;&#XA0; The CFITSIO Iterator Function </H1><P>The fits_iterate_data function in CFITSIO provides a unique method of
+executing an arbitrary user-supplied &#X2018;work&#X2019; function that operates on
+rows of data in FITS tables or on pixels in FITS images. Rather than
+explicitly reading and writing the FITS images or columns of data, one
+instead calls the CFITSIO iterator routine, passing to it the name of
+the user&#X2019;s work function that is to be executed along with a list of
+all the table columns or image arrays that are to be passed to the work
+function. The CFITSIO iterator function then does all the work of
+allocating memory for the arrays, reading the input data from the FITS
+file, passing them to the work function, and then writing any output
+data back to the FITS file after the work function exits. Because
+it is often more efficient to process only a subset of the total table
+rows at one time, the iterator function can determine the optimum
+amount of data to pass in each iteration and repeatedly call the work
+function until the entire table been processed.</P><P>For many applications this single CFITSIO iterator function can
+effectively replace all the other CFITSIO routines for reading or
+writing data in FITS images or tables. Using the iterator has several
+important advantages over the traditional method of reading and writing
+FITS data files:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+It cleanly separates the data I/O from the routine that operates on
+the data. This leads to a more modular and &#X2018;object oriented&#X2019;
+programming style.</LI><LI CLASS="li-itemize">It simplifies the application program by eliminating the need to allocate
+memory for the data arrays and eliminates most of the calls to the CFITSIO
+routines that explicitly read and write the data.</LI><LI CLASS="li-itemize">It ensures that the data are processed as efficiently as possible.
+This is especially important when processing tabular data since
+the iterator function will calculate the most efficient number
+of rows in the table to be passed at one time to the user&#X2019;s work
+function on each iteration.</LI><LI CLASS="li-itemize">Makes it possible for larger projects to develop a library of work
+functions that all have a uniform calling sequence and are all
+independent of the details of the FITS file format.</LI></UL><P>There are basically 2 steps in using the CFITSIO iterator function.
+The first step is to design the work function itself which must have a
+prescribed set of input parameters. One of these parameters is a
+structure containing pointers to the arrays of data; the work function
+can perform any desired operations on these arrays and does not need to
+worry about how the input data were read from the file or how the
+output data get written back to the file.</P><P>The second step is to design the driver routine that opens all the
+necessary FITS files and initializes the input parameters to the
+iterator function. The driver program calls the CFITSIO iterator
+function which then reads the data and passes it to the user&#X2019;s work
+function.</P><P>Further details on using the iterator function can be found in the
+companion CFITSIO User&#X2019;s Guide, and in the iter_a.f, iter_b.f and
+iter_c.f example programs.</P><P></P><HR>
+<A HREF="fitsio007.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio009.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

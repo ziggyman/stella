@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Creating FITSIO/CFITSIO </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio002.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio004.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc2">Chapter&#XA0;2</A>&#XA0;&#XA0; Creating FITSIO/CFITSIO </H1><H2 CLASS="section"><A NAME="toc1"></A><A NAME="htoc3">2.1</A>&#XA0;&#XA0;Building the Library</H2><P>To use the FITSIO subroutines one must first build the CFITSIO library,
+which requires a C compiler. gcc is ideal, or most other ANSI-C
+compilers will also work. The CFITSIO code is contained in about 40 C
+source files (*.c) and header files (*.h). On VAX/VMS systems 2
+assembly-code files (vmsieeed.mar and vmsieeer.mar) are also needed.</P><P>The Fortran interface subroutines to the C CFITSIO routines are located
+in the f77_wrap1.c, through f77_wrap4.c files. These are relatively simple
+&#X2019;wrappers&#X2019; that translate the arguments in the Fortran subroutine into
+the appropriate format for the corresponding C routine. This
+translation is performed transparently to the user by a set of C macros
+located in the cfortran.h file. Unfortunately cfortran.h does not
+support every combination of C and Fortran compilers so the Fortran
+interface is not supported on all platforms. (see further notes below).</P><P>A standard combination of C and Fortran compilers will be assumed by
+default, but one may also specify a particular Fortran compiler by
+doing:</P><PRE CLASS="verbatim"> &gt;  setenv CFLAGS -DcompilerName=1
+</PRE><P>(where &#X2019;compilerName&#X2019; is the name of the compiler) before running
+the configure command. The currently recognized compiler
+names are:</P><PRE CLASS="verbatim"> g77Fortran
+ IBMR2Fortran
+ CLIPPERFortran
+ pgiFortran
+ NAGf90Fortran
+ f2cFortran
+ hpuxFortran
+ apolloFortran
+ sunFortran
+ CRAYFortran
+ mipsFortran
+ DECFortran
+ vmsFortran
+ CONVEXFortran
+ PowerStationFortran
+ AbsoftUNIXFortran
+ AbsoftProFortran
+ SXFortran
+</PRE><P>Alternatively, one may edit the CFLAGS line in the Makefile to add the
+&#X2019;-DcompilerName&#X2019; flag after running the &#X2019;./configure&#X2019; command.</P><P>The CFITSIO library is built on Unix systems by typing:</P><PRE CLASS="verbatim"> &gt;  ./configure [--prefix=/target/installation/path]
+ &gt;  make          (or  'make shared')
+ &gt;  make install  (this step is optional)
+</PRE><P>at the operating system prompt. The configure command customizes the
+Makefile for the particular system, then the &#X2018;make&#X2019; command compiles the
+source files and builds the library. Type &#X2018;./configure&#X2019; and not simply
+&#X2018;configure&#X2019; to ensure that the configure script in the current directory
+is run and not some other system-wide configure script. The optional
+&#X2019;prefix&#X2019; argument to configure gives the path to the directory where
+the CFITSIO library and include files should be installed via the later
+&#X2019;make install&#X2019; command. For example,</P><PRE CLASS="verbatim">   &gt; ./configure --prefix=/usr1/local
+</PRE><P>will cause the &#X2019;make install&#X2019; command to copy the CFITSIO libcfitsio file
+to /usr1/local/lib and the necessary include file to /usr1/local/include
+(assuming of course that the process has permission to write to these
+directories).</P><P>By default this also builds the set of Fortran-callable
+wrapper routines whose calling sequences are described later in this
+document.</P><P>The &#X2019;make shared&#X2019; option builds a shared or dynamic version of the
+CFITSIO library. When using the shared library the executable code is
+not copied into your program at link time and instead the program
+locates the necessary library code at run time, normally through
+LD_LIBRARY_PATH or some other method. The advantages of using a shared
+library are:</P><PRE CLASS="verbatim">   1.  Less disk space if you build more than 1 program
+   2.  Less memory if more than one copy of a program using the shared
+       library is running at the same time since the system is smart
+       enough to share copies of the shared library at run time.
+   3.  Possibly easier maintenance since a new version of the shared
+       library can be installed without relinking all the software
+       that uses it (as long as the subroutine names and calling
+       sequences remain unchanged).
+   4.  No run-time penalty.
+</PRE><P>The disadvantages are:</P><PRE CLASS="verbatim">   1. More hassle at runtime.  You have to either build the programs
+      specially or have LD_LIBRARY_PATH set right.
+   2. There may be a slight start up penalty, depending on where you are
+      reading the shared library and the program from and if your CPU is
+      either really slow or really heavily loaded.
+</PRE><P>On HP/UX systems, the environment variable CFLAGS should be set
+to -Ae before running configure to enable "extended ANSI" features.</P><P>It may not be possible to statically link programs that use CFITSIO on
+some platforms (namely, on Solaris 2.6) due to the network drivers
+(which provide FTP and HTTP access to FITS files). It is possible to
+make both a dynamic and a static version of the CFITSIO library, but
+network file access will not be possible using the static version.</P><P>On VAX/VMS and ALPHA/VMS systems the make_gfloat.com command file may
+be executed to build the cfitsio.olb object library using the default
+G-floating point option for double variables. The make_dfloat.com and
+make_ieee.com files may be used instead to build the library with the
+other floating point options. Note that the getcwd function that is
+used in the group.c module may require that programs using CFITSIO be
+linked with the ALPHA$LIBRARY:VAXCRTL.OLB library. See the example
+link line in the next section of this document.</P><P>On Windows IBM-PC type platforms the situation is more complicated
+because of the wide variety of Fortran compilers that are available and
+because of the inherent complexities of calling the CFITSIO C routines
+from Fortran. Two different versions of the CFITSIO dll library are
+available, compiled with the Borland C++ compiler and the Microsoft
+Visual C++ compiler, respectively, in the files
+cfitsiodll_2xxx_borland.zip and cfitsiodll_3xxx_vcc.zip, where
+&#X2019;3xxx&#X2019; represents the current release number. Both these dll libraries
+contain a set of Fortran wrapper routines which may be compatible with
+some, but probably not all, available Fortran compilers. To test if
+they are compatible, compile the program testf77.f and try linking to
+these dll libraries. If these libraries do not work with a particular
+Fortran compiler, then there are 2 possible solutions. The first
+solution would be to modify the file cfortran.h for that particular
+combination of C and Fortran compilers, and then rebuild the CFITSIO
+dll library. This will require, however, a some expertise in
+mixed language programming.
+The other solution is to use the older v5.03 Fortran-77 implementation
+of FITSIO that is still available from the FITSIO web-site. This
+version is no longer supported, but it does provide the basic functions
+for reading and writing FITS files and should be compatible with most
+Fortran compilers.</P><P>CFITSIO has currently been tested on the following platforms:</P><PRE CLASS="verbatim">  OPERATING SYSTEM           COMPILER
+   Sun OS                     gcc and cc (3.0.1)
+   Sun Solaris                gcc and cc
+   Silicon Graphics IRIX      gcc and cc
+   Silicon Graphics IRIX64    MIPS
+   Dec Alpha OSF/1            gcc and cc
+   DECstation  Ultrix         gcc
+   Dec Alpha OpenVMS          cc
+   DEC VAX/VMS                gcc and cc
+   HP-UX                      gcc
+   IBM AIX                    gcc
+   Linux                      gcc
+   MkLinux                    DR3
+   Windows 95/98/NT           Borland C++ V4.5
+   Windows 95/98/NT/ME/XP     Microsoft/Compaq Visual C++ v5.0, v6.0
+   Windows 95/98/NT           Cygwin gcc
+   OS/2                       gcc + EMX
+   MacOS 7.1 or greater       Metrowerks 10.+
+</PRE><P>CFITSIO will probably run on most other Unix platforms. Cray
+supercomputers are currently not supported.</P><H2 CLASS="section"><A NAME="toc2"></A><A NAME="htoc4">2.2</A>&#XA0;&#XA0;Testing the Library</H2><P>The CFITSIO library should be tested by building and running
+the testprog.c program that is included with the release.
+On Unix systems type:</P><PRE CLASS="verbatim">    % make testprog
+    % testprog &gt; testprog.lis
+    % diff testprog.lis testprog.out
+    % cmp testprog.fit testprog.std
+</PRE><P>On VMS systems,
+(assuming cc is the name of the C compiler command), type:</P><PRE CLASS="verbatim">    $ cc testprog.c
+    $ link testprog, cfitsio/lib, alpha$library:vaxcrtl/lib
+    $ run testprog
+</PRE><P>The testprog program should produce a FITS file called &#X2018;testprog.fit&#X2019;
+that is identical to the &#X2018;testprog.std&#X2019; FITS file included with this
+release. The diagnostic messages (which were piped to the file
+testprog.lis in the Unix example) should be identical to the listing
+contained in the file testprog.out. The &#X2019;diff&#X2019; and &#X2019;cmp&#X2019; commands
+shown above should not report any differences in the files. (There
+may be some minor formatting differences, such as the presence or
+absence of leading zeros, or 3 digit exponents in numbers,
+which can be ignored).</P><P>The Fortran wrappers in CFITSIO may be tested with the testf77
+program. On Unix systems the fortran compilation and link command
+may be called &#X2019;f77&#X2019; or &#X2019;g77&#X2019;, depending on the system.</P><PRE CLASS="verbatim">   % f77 -o testf77 testf77.f -L. -lcfitsio -lnsl -lsocket
+ or
+   % f77 -f -o testf77 testf77.f -L. -lcfitsio    (under SUN O/S)
+ or
+   % f77 -o testf77 testf77.f -Wl,-L. -lcfitsio -lm -lnsl -lsocket (HP/UX)
+ or
+   % g77 -o testf77 -s testf77.f -lcfitsio -lcc_dynamic -lncurses (Mac OS-X)
+
+   % testf77 &gt; testf77.lis
+   % diff testf77.lis testf77.out
+   % cmp testf77.fit testf77.std
+</PRE><P>On machines running SUN O/S, Fortran programs must be compiled with the
+&#X2019;-f&#X2019; option to force double precision variables to be aligned on 8-byte
+boundaries to make the fortran-declared variables compatible with C. A
+similar compiler option may be required on other platforms. Failing to
+use this option may cause the program to crash on FITSIO routines that
+read or write double precision variables.</P><P>On Windows platforms, linking Fortran programs with a C library
+often depends on the particular compilers involved. Some users have
+found the following command works when using the Intel Fortran compiler:</P><PRE CLASS="verbatim">ifort /libs:dll cfitsio.lib /MD /fpp /extfpp:cfortran.h,fitsio.h
+    /iface:cvf testf77.f
+</PRE><P>Also note that on some systems the output listing of the testf77
+program may differ slightly from the testf77.std template if leading
+zeros are not printed by default before the decimal point when using F
+format.</P><P>A few other utility programs are included with CFITSIO:</P><PRE CLASS="verbatim">    speed - measures the maximum throughput (in MB per second)
+              for writing and reading FITS files with CFITSIO
+
+    listhead - lists all the header keywords in any FITS file
+
+    fitscopy - copies any FITS file (especially useful in conjunction
+                 with the CFITSIO's extended input filename syntax)
+
+    cookbook - a sample program that performs common read and
+                 write operations on a FITS file.
+
+    iter_a, iter_b, iter_c - examples of the CFITSIO iterator routine
+</PRE><P>The first 4 of these utility programs can be compiled and linked by typing</P><PRE CLASS="verbatim">   %  make program_name
+</PRE><H2 CLASS="section"><A NAME="toc3"></A><A NAME="htoc5">2.3</A>&#XA0;&#XA0;Linking Programs with FITSIO</H2><P>When linking applications software with the FITSIO library, several system libraries usually need to be specified on the link comman
+Unix systems, the most reliable way to determine what libraries are required
+is to type &#X2019;make testprog&#X2019; and see what libraries the configure script has
+added. The typical libraries that may need to be added are -lm (the math
+library) and -lnsl and -lsocket (needed only for FTP and HTTP file access).
+These latter 2 libraries are not needed on VMS and Windows platforms,
+because FTP file access is not currently supported on those platforms.</P><P>Note that when upgrading to a newer version of CFITSIO it is usually
+necessary to recompile, as well as relink, the programs that use CFITSIO,
+because the definitions in fitsio.h often change.</P><H2 CLASS="section"><A NAME="toc4"></A><A NAME="htoc6">2.4</A>&#XA0;&#XA0;Getting Started with FITSIO</H2><P>In order to effectively use the FITSIO library as quickly as possible,
+it is recommended that new users follow these steps:</P><P>1. Read the following &#X2018;FITS Primer&#X2019; chapter for a brief
+overview of the structure of FITS files. This is especially important
+for users who have not previously dealt with the FITS table and image
+extensions.</P><P>2. Write a simple program to read or write a FITS file using the Basic
+Interface routines.</P><P>3. Refer to the cookbook.f program that is included with this release
+for examples of routines that perform various common FITS file
+operations.</P><P>4. Read Chapters 4 and 5 to become familiar with the conventions and
+advanced features of the FITSIO interface.</P><P>5. Scan through the more extensive set of routines that are provided
+in the &#X2018;Advanced Interface&#X2019;. These routines perform more specialized
+functions than are provided by the Basic Interface routines.</P><H2 CLASS="section"><A NAME="toc5"></A><A NAME="htoc7">2.5</A>&#XA0;&#XA0;Example Program</H2><P>The following listing shows an example of how to use the FITSIO
+routines in a Fortran program. Refer to the cookbook.f program that
+is included with the FITSIO distribution for examples of other
+FITS programs.</P><PRE CLASS="verbatim">      program writeimage
+
+C     Create a FITS primary array containing a 2-D image
+
+      integer status,unit,blocksize,bitpix,naxis,naxes(2)
+      integer i,j,group,fpixel,nelements,array(300,200)
+      character filename*80
+      logical simple,extend
+
+      status=0
+C     Name of the FITS file to be created:
+      filename='ATESTFILE.FITS'
+
+C     Get an unused Logical Unit Number to use to create the FITS file
+      call ftgiou(unit,status)
+
+C     create the new empty FITS file
+      blocksize=1
+      call ftinit(unit,filename,blocksize,status)
+
+C     initialize parameters about the FITS image (300 x 200 16-bit integers)
+      simple=.true.
+      bitpix=16
+      naxis=2
+      naxes(1)=300
+      naxes(2)=200
+      extend=.true.
+
+C     write the required header keywords
+      call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+
+C     initialize the values in the image with a linear ramp function
+      do j=1,naxes(2)
+          do i=1,naxes(1)
+              array(i,j)=i+j
+          end do
+      end do
+
+C     write the array to the FITS file
+      group=1
+      fpixel=1
+      nelements=naxes(1)*naxes(2)
+      call ftpprj(unit,group,fpixel,nelements,array,status)
+
+C     write another optional keyword to the header
+      call ftpkyj(unit,'EXPOSURE',1500,'Total Exposure Time',status)
+
+C     close the file and free the unit number
+      call ftclos(unit, status)
+      call ftfiou(unit, status)
+      end
+</PRE><P></P><H2 CLASS="section"><A NAME="toc6"></A><A NAME="htoc8">2.6</A>&#XA0;&#XA0;Legal Stuff</H2><P>Copyright (Unpublished&#X2013;all rights reserved under the copyright laws of
+the United States), U.S. Government as represented by the Administrator
+of the National Aeronautics and Space Administration. No copyright is
+claimed in the United States under Title 17, U.S. Code.</P><P>Permission to freely use, copy, modify, and distribute this software
+and its documentation without fee is hereby granted, provided that this
+copyright notice and disclaimer of warranty appears in all copies.
+(However, see the restriction on the use of the gzip compression code,
+below).</P><P>DISCLAIMER:</P><P>THE SOFTWARE IS PROVIDED &#X2019;AS IS&#X2019; WITHOUT ANY WARRANTY OF ANY KIND,
+EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO,
+ANY WARRANTY THAT THE SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND FREEDOM FROM INFRINGEMENT, AND ANY WARRANTY THAT THE
+DOCUMENTATION WILL CONFORM TO THE SOFTWARE, OR ANY WARRANTY THAT THE
+SOFTWARE WILL BE ERROR FREE. IN NO EVENT SHALL NASA BE LIABLE FOR ANY
+DAMAGES, INCLUDING, BUT NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES, ARISING OUT OF, RESULTING FROM, OR IN ANY WAY
+CONNECTED WITH THIS SOFTWARE, WHETHER OR NOT BASED UPON WARRANTY,
+CONTRACT, TORT , OR OTHERWISE, WHETHER OR NOT INJURY WAS SUSTAINED BY
+PERSONS OR PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED
+FROM, OR AROSE OUT OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR
+SERVICES PROVIDED HEREUNDER."</P><P>The file compress.c contains (slightly modified) source code that
+originally came from gzip-1.2.4, copyright (C) 1992-1993 by Jean-loup
+Gailly. This gzip code is distributed under the GNU General Public
+License and thus requires that any software that uses the CFITSIO
+library (which in turn uses the gzip code) must conform to the
+provisions in the GNU General Public License. A copy of the GNU
+license is included at the beginning of compress.c file.</P><P>Similarly, the file wcsutil.c contains 2 slightly modified routines
+from the Classic AIPS package that are also distributed under the GNU
+General Public License.</P><P>Alternate versions of the compress.c and wcsutil.c files (called
+compress_alternate.c and wcsutil_alternate.c) are provided for users
+who want to use the CFITSIO
+library but are unwilling or unable to publicly release their software
+under the terms of the GNU General Public License. These alternate
+versions contains non-functional stubs for the file compression and
+uncompression routines and the world coordinate transformation routines
+used by CFITSIO. Replace the file &#X2018;compress.c&#X2019;
+with &#X2018;compress_alternate.c&#X2019; and &#X2019;wcsutil.c&#X2019; with &#X2019;wcsutil_alternate.c
+before compiling the CFITSIO library. This
+will produce a version of CFITSIO which does not support reading or
+writing compressed FITS files, or doing image coordinate transformations,
+but is otherwise identical to the standard version.</P><H2 CLASS="section"><A NAME="toc7"></A><A NAME="htoc9">2.7</A>&#XA0;&#XA0;Acknowledgments</H2><P>The development of many of the powerful features in CFITSIO was made
+possible through collaborations with many people or organizations from
+around the world. The following, in particular, have made especially
+significant contributions:</P><P>Programmers from the Integral Science Data Center, Switzerland (namely,
+Jurek Borkowski, Bruce O&#X2019;Neel, and Don Jennings), designed the concept
+for the plug-in I/O drivers that was introduced with CFITSIO 2.0. The
+use of &#X2018;drivers&#X2019; greatly simplified the low-level I/O, which in turn
+made other new features in CFITSIO (e.g., support for compressed FITS
+files and support for IRAF format image files) much easier to
+implement. Jurek Borkowski wrote the Shared Memory driver, and Bruce
+O&#X2019;Neel wrote the drivers for accessing FITS files over the network
+using the FTP, HTTP, and ROOT protocols.</P><P>The ISDC also provided the template parsing routines (written by Jurek
+Borkowski) and the hierarchical grouping routines (written by Don
+Jennings). The ISDC DAL (Data Access Layer) routines are layered on
+top of CFITSIO and make extensive use of these features.</P><P>Uwe Lammers (XMM/ESA/ESTEC, The Netherlands) designed the
+high-performance lexical parsing algorithm that is used to do
+on-the-fly filtering of FITS tables. This algorithm essentially
+pre-compiles the user-supplied selection expression into a form that
+can be rapidly evaluated for each row. Peter Wilson (RSTX, NASA/GSFC)
+then wrote the parsing routines used by CFITSIO based on Lammers&#X2019;
+design, combined with other techniques such as the CFITSIO iterator
+routine to further enhance the data processing throughput. This effort
+also benefited from a much earlier lexical parsing routine that was
+developed by Kent Blackburn (NASA/GSFC). More recently, Craig Markwardt
+(NASA/GSFC) implemented additional functions (median, average, stddev)
+and other enhancements to the lexical parser.</P><P>The CFITSIO iterator function is loosely based on similar ideas
+developed for the XMM Data Access Layer.</P><P>Peter Wilson (RSTX, NASA/GSFC) wrote the complete set of
+Fortran-callable wrappers for all the CFITSIO routines, which in turn
+rely on the CFORTRAN macro developed by Burkhard Burow.</P><P>The syntax used by CFITSIO for filtering or binning input FITS files is
+based on ideas developed for the AXAF Science Center Data Model by
+Jonathan McDowell, Antonella Fruscione, Aneta Siemiginowska and Bill
+Joye. See http://heasarc.gsfc.nasa.gov/docs/journal/axaf7.html for
+further description of the AXAF Data Model.</P><P>The file decompression code were taken directly from the gzip (GNU zip)
+program developed by Jean-loup Gailly and others.</P><P>Doug Mink, SAO, provided the routines for converting IRAF format
+images into FITS format.</P><P>Martin Reinecke (Max Planck Institute, Garching)) provided the modifications to
+cfortran.h that are necessary to support 64-bit integer values when calling
+C routines from fortran programs. The cfortran.h macros were originally developed
+by Burkhard Burow (CERN).</P><P>In addition, many other people have made valuable contributions to the
+development of CFITSIO. These include (with apologies to others that may
+have inadvertently been omitted):</P><P>Steve Allen, Carl Akerlof, Keith Arnaud, Morten Krabbe Barfoed, Kent
+Blackburn, G Bodammer, Romke Bontekoe, Lucio Chiappetti, Keith Costorf,
+Robin Corbet, John Davis, Richard Fink, Ning Gan, Emily Greene, Joe
+Harrington, Cheng Ho, Phil Hodge, Jim Ingham, Yoshitaka Ishisaki, Diab
+Jerius, Mark Levine, Todd Karakaskian, Edward King, Scott Koch, Claire
+Larkin, Rob Managan, Eric Mandel, John Mattox, Carsten Meyer, Emi
+Miyata, Stefan Mochnacki, Mike Noble, Oliver Oberdorf, Clive Page,
+Arvind Parmar, Jeff Pedelty, Tim Pearson, Maren Purves, Scott Randall,
+Chris Rogers, Arnold Rots, Barry Schlesinger, Robin Stebbins, Andrew
+Szymkowiak, Allyn Tennant, Peter Teuben, James Theiler, Doug Tody,
+Shiro Ueno, Steve Walton, Archie Warnock, Alan Watson, Dan Whipple, Wim
+Wimmers, Peter Young, Jianjun Xu, and Nelson Zarate.
+</P><HR>
+<A HREF="fitsio002.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio004.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

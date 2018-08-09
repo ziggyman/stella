@@ -1,0 +1,7 @@
+make delete
+make ../bin/preparecollapsedimage
+chmod a+x ../bin/preparecollapsedimage
+rm ~/bin/preparecollapsedimage
+cp -p ../bin/preparecollapsedimage ~/bin/
+rm ~/stella/bin/preparecollapsedimage
+ln -s ~/bin/preparecollapsedimage ~/stella/bin/

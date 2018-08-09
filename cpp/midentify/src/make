@@ -1,0 +1,7 @@
+make delete
+make ../bin/identify
+chmod a+x ../bin/identify
+rm ~/bin/identify
+cp -p ../bin/identify ~/bin/
+rm ~/stella/bin/identify
+ln -s ~/bin/identify ~/stella/bin/

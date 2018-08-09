@@ -1,0 +1,360 @@
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 1 87.5135 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	1
+	beam	1
+	center	87.5135 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.5549491
+		36.89071
+		-1.104356
+		0.07108822
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 2 181.5133 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	2
+	beam	2
+	center	181.5133 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.546961
+		36.17644
+		-0.9229795
+		0.04168303
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 3 272.2253 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	3
+	beam	3
+	center	272.2253 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.378805
+		35.49949
+		-0.7818195
+		0.04275933
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 4 360.1079 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	4
+	beam	4
+	center	360.1079 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.3425165
+		34.84916
+		-0.6295509
+		0.04714606
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 5 445.134 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	5
+	beam	5
+	center	445.134 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.2602811
+		34.21403
+		-0.4933242
+		0.04237857
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 6 527.4912 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	6
+	beam	6
+	center	527.4912 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.1745918
+		33.60881
+		-0.3517989
+		0.03572081
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 7 607.343 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	7
+	beam	7
+	center	607.343 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.122092
+		33.01661
+		-0.2180141
+		0.03446022
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 8 684.72 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	8
+	beam	8
+	center	684.72 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		-0.01118447
+		32.45163
+		-0.09395101
+		0.03327679
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 9 759.8419 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	9
+	beam	9
+	center	759.8419 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		0.0488951
+		31.89202
+		0.02199359
+		0.03234568
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 10 832.7821 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	10
+	beam	10
+	center	832.7821 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		0.1013472
+		31.36601
+		0.1414451
+		0.02652887
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 11 903.6048 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	11
+	beam	11
+	center	903.6048 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		0.1683031
+		30.85021
+		0.2521909
+		0.02827305
+
+# Wed 12:37:36 01-Aug-2007
+begin	aperture refOrderDef_UVES_860_l_1023x1941 12 972.478 965.
+	image	refOrderDef_UVES_860_l_1023x1941
+	aperture	12
+	beam	12
+	center	972.478 965.
+	low	-3.251831 -964.
+	high	2.848816 966.
+	background
+		xmin -25.
+		xmax 25.
+		function chebyshev
+		order 1
+		sample -25:-23,23:25
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		15.
+		1915.
+		0.1800487
+		30.34681
+		0.3593563
+		0.02454135
+

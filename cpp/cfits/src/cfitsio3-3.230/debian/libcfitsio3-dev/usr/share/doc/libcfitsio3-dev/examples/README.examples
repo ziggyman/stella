@@ -1,0 +1,11 @@
+To compile some of the example programs included here, copy the example 
+C program to your directory, and then complile it. For say the listhead 
+program, after copying:
+
+$ gcc listhead.c -o listhead -lcfitsio -lm
+
+Some documentation on the example C files can be found in the cfitsio-doc 
+package.
+
+Gopal Narayanan <gopal@debian.org>
+

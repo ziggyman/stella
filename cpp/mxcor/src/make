@@ -1,0 +1,7 @@
+make delete
+make ../bin/xcor
+chmod a+x ../bin/xcor
+rm ~/bin/xcor
+cp -p ../bin/xcor ~/bin/
+rm ~/stella/bin/xcor
+ln -s ~/bin/xcor ~/stella/bin/

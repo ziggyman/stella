@@ -1,0 +1,2987 @@
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 1 416.3977 1021.
+	image	refFlat_SES_2198x2052
+	aperture	1
+	beam	1
+	center	416.3977 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		1251.
+		15.34194
+		-24.04899
+		2.623275
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 2 425.1704 1021.
+	image	refFlat_SES_2198x2052
+	aperture	2
+	beam	2
+	center	425.1704 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2011.
+		4.521586
+		-30.04723
+		7.615367
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 3 434.1315 1021.
+	image	refFlat_SES_2198x2052
+	aperture	3
+	beam	3
+	center	434.1315 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2031.
+		3.749969
+		-30.54133
+		7.604493
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 4 442.5389 1021.
+	image	refFlat_SES_2198x2052
+	aperture	4
+	beam	4
+	center	442.5389 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2021.
+		4.11247
+		-30.65944
+		7.327119
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 5 451.3173 1021.
+	image	refFlat_SES_2198x2052
+	aperture	5
+	beam	5
+	center	451.3173 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.632838
+		-30.98507
+		7.376445
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 6 459.7247 1021.
+	image	refFlat_SES_2198x2052
+	aperture	6
+	beam	6
+	center	459.7247 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.712054
+		-31.16747
+		7.22738
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 7 468.3205 1021.
+	image	refFlat_SES_2198x2052
+	aperture	7
+	beam	7
+	center	468.3205 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.727443
+		-31.15501
+		7.324362
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 8 477.0932 1021.
+	image	refFlat_SES_2198x2052
+	aperture	8
+	beam	8
+	center	477.0932 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2011.
+		3.870024
+		-31.12446
+		7.072806
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 9 485.8716 1021.
+	image	refFlat_SES_2198x2052
+	aperture	9
+	beam	9
+	center	485.8716 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.316971
+		-31.31268
+		7.240404
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 10 493.9394 1021.
+	image	refFlat_SES_2198x2052
+	aperture	10
+	beam	10
+	center	493.9394 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		1721.
+		7.878863
+		-29.27507
+		5.430651
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 11 502.8691 1021.
+	image	refFlat_SES_2198x2052
+	aperture	11
+	beam	11
+	center	502.8691 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		1721.
+		7.878863
+		-29.27507
+		5.430651
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 12 511.4649 1021.
+	image	refFlat_SES_2198x2052
+	aperture	12
+	beam	12
+	center	511.4649 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.716197
+		-31.55439
+		7.328888
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 13 520.4203 1021.
+	image	refFlat_SES_2198x2052
+	aperture	13
+	beam	13
+	center	520.4203 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.456377
+		-31.64184
+		7.355171
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 14 528.868 1021.
+	image	refFlat_SES_2198x2052
+	aperture	14
+	beam	14
+	center	528.868 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.755385
+		-31.68445
+		7.377589
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 15 537.871 1021.
+	image	refFlat_SES_2198x2052
+	aperture	15
+	beam	15
+	center	537.871 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.538658
+		-31.78495
+		7.318094
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 16 546.571 1021.
+	image	refFlat_SES_2198x2052
+	aperture	16
+	beam	16
+	center	546.571 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.707793
+		-31.87198
+		7.331024
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 17 555.474 1021.
+	image	refFlat_SES_2198x2052
+	aperture	17
+	beam	17
+	center	555.474 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.710808
+		-31.94853
+		7.355544
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 18 564.377 1021.
+	image	refFlat_SES_2198x2052
+	aperture	18
+	beam	18
+	center	564.377 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.78011
+		-32.02884
+		7.354123
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 19 573.3799 1021.
+	image	refFlat_SES_2198x2052
+	aperture	19
+	beam	19
+	center	573.3799 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.830047
+		-32.11064
+		7.393506
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 20 582.5795 1021.
+	image	refFlat_SES_2198x2052
+	aperture	20
+	beam	20
+	center	582.5795 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.746347
+		-32.21515
+		7.360878
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 21 591.5929 1021.
+	image	refFlat_SES_2198x2052
+	aperture	21
+	beam	21
+	center	591.5929 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.92703
+		-32.30577
+		7.382296
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 22 601.0759 1021.
+	image	refFlat_SES_2198x2052
+	aperture	22
+	beam	22
+	center	601.0759 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.725692
+		-32.40131
+		7.419452
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 23 610.4487 1021.
+	image	refFlat_SES_2198x2052
+	aperture	23
+	beam	23
+	center	610.4487 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.728332
+		-32.47723
+		7.434209
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 24 619.7079 1021.
+	image	refFlat_SES_2198x2052
+	aperture	24
+	beam	24
+	center	619.7079 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.926221
+		-32.60744
+		7.437881
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 25 629.1909 1021.
+	image	refFlat_SES_2198x2052
+	aperture	25
+	beam	25
+	center	629.1909 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.967092
+		-32.69649
+		7.45609
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 26 638.8907 1021.
+	image	refFlat_SES_2198x2052
+	aperture	26
+	beam	26
+	center	638.8907 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.91495
+		-32.79705
+		7.452966
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 27 648.8142 1021.
+	image	refFlat_SES_2198x2052
+	aperture	27
+	beam	27
+	center	648.8142 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.736797
+		-32.90582
+		7.501155
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 28 658.7378 1021.
+	image	refFlat_SES_2198x2052
+	aperture	28
+	beam	28
+	center	658.7378 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.635084
+		-33.01729
+		7.504129
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 29 668.5428 1021.
+	image	refFlat_SES_2198x2052
+	aperture	29
+	beam	29
+	center	668.5428 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.78259
+		-33.12125
+		7.519347
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 30 678.6223 1021.
+	image	refFlat_SES_2198x2052
+	aperture	30
+	beam	30
+	center	678.6223 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.746435
+		-33.2574
+		7.524839
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 31 688.8354 1021.
+	image	refFlat_SES_2198x2052
+	aperture	31
+	beam	31
+	center	688.8354 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.697233
+		-33.36169
+		7.543173
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 32 698.9106 1021.
+	image	refFlat_SES_2198x2052
+	aperture	32
+	beam	32
+	center	698.9106 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.88951
+		-33.48248
+		7.543671
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 33 709.3995 1021.
+	image	refFlat_SES_2198x2052
+	aperture	33
+	beam	33
+	center	709.3995 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.778306
+		-33.64592
+		7.542771
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 34 719.8928 1021.
+	image	refFlat_SES_2198x2052
+	aperture	34
+	beam	34
+	center	719.8928 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.78313
+		-33.75391
+		7.562424
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 35 730.5197 1021.
+	image	refFlat_SES_2198x2052
+	aperture	35
+	beam	35
+	center	730.5197 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.787824
+		-33.86539
+		7.596644
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 36 741.1465 1021.
+	image	refFlat_SES_2198x2052
+	aperture	36
+	beam	36
+	center	741.1465 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.91028
+		-34.01142
+		7.594747
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 37 752.1913 1021.
+	image	refFlat_SES_2198x2052
+	aperture	37
+	beam	37
+	center	752.1913 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.729827
+		-34.14541
+		7.60941
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 38 762.9774 1021.
+	image	refFlat_SES_2198x2052
+	aperture	38
+	beam	38
+	center	762.9774 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.940844
+		-34.29103
+		7.624994
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 39 774.165 1021.
+	image	refFlat_SES_2198x2052
+	aperture	39
+	beam	39
+	center	774.165 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.866226
+		-34.44911
+		7.615543
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 40 785.3528 1021.
+	image	refFlat_SES_2198x2052
+	aperture	40
+	beam	40
+	center	785.3528 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.928793
+		-34.59318
+		7.633464
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 41 796.8644 1021.
+	image	refFlat_SES_2198x2052
+	aperture	41
+	beam	41
+	center	796.8644 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.81872
+		-34.7345
+		7.662392
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 42 808.3761 1021.
+	image	refFlat_SES_2198x2052
+	aperture	42
+	beam	42
+	center	808.3761 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.831793
+		-34.90039
+		7.656472
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 43 820.0497 1021.
+	image	refFlat_SES_2198x2052
+	aperture	43
+	beam	43
+	center	820.0497 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.820447
+		-35.04821
+		7.678292
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 44 831.8904 1021.
+	image	refFlat_SES_2198x2052
+	aperture	44
+	beam	44
+	center	831.8904 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.776386
+		-35.22447
+		7.672556
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 45 843.7261 1021.
+	image	refFlat_SES_2198x2052
+	aperture	45
+	beam	45
+	center	843.7261 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.889874
+		-35.38273
+		7.698508
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 46 855.8857 1021.
+	image	refFlat_SES_2198x2052
+	aperture	46
+	beam	46
+	center	855.8857 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.823882
+		-35.55352
+		7.698664
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 47 867.9908 1021.
+	image	refFlat_SES_2198x2052
+	aperture	47
+	beam	47
+	center	867.9908 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.951493
+		-35.71601
+		7.718442
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 48 880.5464 1021.
+	image	refFlat_SES_2198x2052
+	aperture	48
+	beam	48
+	center	880.5464 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.783842
+		-35.89353
+		7.733335
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 49 892.8531 1021.
+	image	refFlat_SES_2198x2052
+	aperture	49
+	beam	49
+	center	892.8531 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.02697
+		-36.06606
+		7.752157
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 50 905.8909 1021.
+	image	refFlat_SES_2198x2052
+	aperture	50
+	beam	50
+	center	905.8909 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.679159
+		-36.23173
+		7.776465
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 51 918.6801 1021.
+	image	refFlat_SES_2198x2052
+	aperture	51
+	beam	51
+	center	918.6801 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.729401
+		-36.43768
+		7.775991
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 52 931.7178 1021.
+	image	refFlat_SES_2198x2052
+	aperture	52
+	beam	52
+	center	931.7178 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.701912
+		-36.62321
+		7.788112
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 53 944.7557 1021.
+	image	refFlat_SES_2198x2052
+	aperture	53
+	beam	53
+	center	944.7557 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.83342
+		-36.80994
+		7.810668
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 54 958.0271 1021.
+	image	refFlat_SES_2198x2052
+	aperture	54
+	beam	54
+	center	958.0271 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.894475
+		-36.99807
+		7.831694
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 55 971.7885 1021.
+	image	refFlat_SES_2198x2052
+	aperture	55
+	beam	55
+	center	971.7885 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.623991
+		-37.2063
+		7.826383
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 56 985.3083 1021.
+	image	refFlat_SES_2198x2052
+	aperture	56
+	beam	56
+	center	985.3083 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.77061
+		-37.40416
+		7.853607
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 57 999.0697 1021.
+	image	refFlat_SES_2198x2052
+	aperture	57
+	beam	57
+	center	999.0697 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.840853
+		-37.61813
+		7.864518
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 58 1013.064 1021.
+	image	refFlat_SES_2198x2052
+	aperture	58
+	beam	58
+	center	1013.064 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.855718
+		-37.82185
+		7.878606
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 59 1027.067 1021.
+	image	refFlat_SES_2198x2052
+	aperture	59
+	beam	59
+	center	1027.067 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.029448
+		-38.03871
+		7.888646
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 60 1041.552 1021.
+	image	refFlat_SES_2198x2052
+	aperture	60
+	beam	60
+	center	1041.552 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.905351
+		-38.26383
+		7.908064
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 61 1056.058 1021.
+	image	refFlat_SES_2198x2052
+	aperture	61
+	beam	61
+	center	1056.058 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.932263
+		-38.49106
+		7.902215
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 62 1070.7 1021.
+	image	refFlat_SES_2198x2052
+	aperture	62
+	beam	62
+	center	1070.7 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.0138
+		-38.71895
+		7.930976
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 63 1085.552 1021.
+	image	refFlat_SES_2198x2052
+	aperture	63
+	beam	63
+	center	1085.552 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.065593
+		-38.95188
+		7.939418
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 64 1100.804 1021.
+	image	refFlat_SES_2198x2052
+	aperture	64
+	beam	64
+	center	1100.804 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.906254
+		-39.19639
+		7.962111
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 65 1116.056 1021.
+	image	refFlat_SES_2198x2052
+	aperture	65
+	beam	65
+	center	1116.056 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.937294
+		-39.43893
+		7.963532
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 66 1131.517 1021.
+	image	refFlat_SES_2198x2052
+	aperture	66
+	beam	66
+	center	1131.517 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.954888
+		-39.68254
+		7.990631
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 67 1146.973 1021.
+	image	refFlat_SES_2198x2052
+	aperture	67
+	beam	67
+	center	1146.973 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.171468
+		-39.93673
+		8.006308
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 68 1163.037 1021.
+	image	refFlat_SES_2198x2052
+	aperture	68
+	beam	68
+	center	1163.037 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.978295
+		-40.20341
+		8.008333
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 69 1179.108 1021.
+	image	refFlat_SES_2198x2052
+	aperture	69
+	beam	69
+	center	1179.108 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.985377
+		-40.45267
+		8.04013
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 70 1195.412 1021.
+	image	refFlat_SES_2198x2052
+	aperture	70
+	beam	70
+	center	1195.412 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.955469
+		-40.73199
+		8.038629
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 71 1212.03 1021.
+	image	refFlat_SES_2198x2052
+	aperture	71
+	beam	71
+	center	1212.03 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.827471
+		-41.01301
+		8.050232
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 72 1228.375 1021.
+	image	refFlat_SES_2198x2052
+	aperture	72
+	beam	72
+	center	1228.375 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.177404
+		-41.30023
+		8.048607
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 73 1245.256 1021.
+	image	refFlat_SES_2198x2052
+	aperture	73
+	beam	73
+	center	1245.256 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.214669
+		-41.57057
+		8.092024
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 74 1262.69 1021.
+	image	refFlat_SES_2198x2052
+	aperture	74
+	beam	74
+	center	1262.69 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.901914
+		-41.88732
+		8.05844
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 75 1279.852 1021.
+	image	refFlat_SES_2198x2052
+	aperture	75
+	beam	75
+	center	1279.852 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.095212
+		-42.18089
+		8.07832
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 76 1297.558 1021.
+	image	refFlat_SES_2198x2052
+	aperture	76
+	beam	76
+	center	1297.558 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.974912
+		-42.47611
+		8.112167
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 77 1315.264 1021.
+	image	refFlat_SES_2198x2052
+	aperture	77
+	beam	77
+	center	1315.264 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.068618
+		-42.7989
+		8.098392
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 78 1333.243 1021.
+	image	refFlat_SES_2198x2052
+	aperture	78
+	beam	78
+	center	1333.243 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.132735
+		-43.11079
+		8.137154
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 79 1351.765 1021.
+	image	refFlat_SES_2198x2052
+	aperture	79
+	beam	79
+	center	1351.765 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		3.882725
+		-43.4333
+		8.145769
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 80 1370.016 1021.
+	image	refFlat_SES_2198x2052
+	aperture	80
+	beam	80
+	center	1370.016 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.142663
+		-43.78035
+		8.132429
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 81 1388.632 1021.
+	image	refFlat_SES_2198x2052
+	aperture	81
+	beam	81
+	center	1388.632 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.278038
+		-44.13092
+		8.138843
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 82 1407.62 1021.
+	image	refFlat_SES_2198x2052
+	aperture	82
+	beam	82
+	center	1407.62 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.305094
+		-44.46791
+		8.180257
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 83 1426.97 1021.
+	image	refFlat_SES_2198x2052
+	aperture	83
+	beam	83
+	center	1426.97 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.201923
+		-44.84724
+		8.144188
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 84 1446.32 1021.
+	image	refFlat_SES_2198x2052
+	aperture	84
+	beam	84
+	center	1446.32 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.365915
+		-45.21165
+		8.160894
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 85 1466.372 1021.
+	image	refFlat_SES_2198x2052
+	aperture	85
+	beam	85
+	center	1466.372 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.091455
+		-45.57606
+		8.179334
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 86 1486.063 1021.
+	image	refFlat_SES_2198x2052
+	aperture	86
+	beam	86
+	center	1486.063 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.43779
+		-45.9715
+		8.200441
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 87 1506.115 1021.
+	image	refFlat_SES_2198x2052
+	aperture	87
+	beam	87
+	center	1506.115 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.691251
+		-46.37913
+		8.1762
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 88 1527.222 1021.
+	image	refFlat_SES_2198x2052
+	aperture	88
+	beam	88
+	center	1527.222 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.165965
+		-46.76395
+		8.20809
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 89 1547.978 1021.
+	image	refFlat_SES_2198x2052
+	aperture	89
+	beam	89
+	center	1547.978 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.259493
+		-47.19596
+		8.203505
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 90 1569.074 1021.
+	image	refFlat_SES_2198x2052
+	aperture	90
+	beam	90
+	center	1569.074 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.309223
+		-47.62283
+		8.215818
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 91 1590.532 1021.
+	image	refFlat_SES_2198x2052
+	aperture	91
+	beam	91
+	center	1590.532 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.279983
+		-48.03565
+		8.219055
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 92 1612.342 1021.
+	image	refFlat_SES_2198x2052
+	aperture	92
+	beam	92
+	center	1612.342 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.193419
+		-48.49044
+		8.233036
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 93 1634.152 1021.
+	image	refFlat_SES_2198x2052
+	aperture	93
+	beam	93
+	center	1634.152 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.394591
+		-48.92496
+		8.253789
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 94 1656.745 1021.
+	image	refFlat_SES_2198x2052
+	aperture	94
+	beam	94
+	center	1656.745 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.13125
+		-49.3866
+		8.272771
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 95 1679.196 1021.
+	image	refFlat_SES_2198x2052
+	aperture	95
+	beam	95
+	center	1679.196 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		2041.
+		4.301294
+		-49.85592
+		8.244392
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 96 1702.287 1021.
+	image	refFlat_SES_2198x2052
+	aperture	96
+	beam	96
+	center	1702.287 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		51.
+		2041.
+		2.738433
+		-48.55088
+		7.89245
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 97 1725.379 1021.
+	image	refFlat_SES_2198x2052
+	aperture	97
+	beam	97
+	center	1725.379 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		81.
+		2041.
+		2.021008
+		-47.97004
+		7.576276
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 98 1749.432 1021.
+	image	refFlat_SES_2198x2052
+	aperture	98
+	beam	98
+	center	1749.432 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		111.
+		1971.
+		2.165336
+		-46.40588
+		6.853347
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 99 1773.174 1021.
+	image	refFlat_SES_2198x2052
+	aperture	99
+	beam	99
+	center	1773.174 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		191.
+		1941.
+		0.7437507
+		-43.60159
+		6.186335
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 100 1798.188 1021.
+	image	refFlat_SES_2198x2052
+	aperture	100
+	beam	100
+	center	1798.188 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		271.
+		1871.
+		-0.8076199
+		-40.16939
+		5.133862
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 101 1822.241 1021.
+	image	refFlat_SES_2198x2052
+	aperture	101
+	beam	101
+	center	1822.241 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		361.
+		1781.
+		-0.7968239
+		-36.07183
+		4.059633
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 102 1847.265 1021.
+	image	refFlat_SES_2198x2052
+	aperture	102
+	beam	102
+	center	1847.265 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		491.
+		1651.
+		-1.523813
+		-29.73671
+		2.697768
+
+# Fri 14:28:57 10-Feb-2006
+begin	aperture refFlat_SES_2198x2052 103 1872.6 1021.
+	image	refFlat_SES_2198x2052
+	aperture	103
+	beam	103
+	center	1872.6 1021.
+	low	-3.134705 -1020.
+	high	3.026093 1022.
+	background
+		xmin -7.86
+		xmax 8.28
+		function chebyshev
+		order 1
+		sample -7.86:-3.86,4.28:8.28
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		641.
+		1541.
+		-3.146422
+		-23.22371
+		1.603242
+

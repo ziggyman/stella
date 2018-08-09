@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>/home/azuri/entwicklung/stella/ses-pipeline/c/cfits/src/cfitsio3-3.230/fitsio/fitsio</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+</HEAD>
+<BODY >
+<!--HEVEA command line is: /usr/bin/hevea -fix -o /home/azuri/entwicklung/stella/ses-pipeline/c/cfits/src/cfitsio3-3.230/fitsio/fitsio fitsio.tex -->
+<!--HACHA command line is: /usr/bin/hacha fitsio -->
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+
+</P><DIV CLASS="center">
+<FONT SIZE=7><B>FITSIO User&#X2019;s Guide</B></FONT><BR>
+</DIV><P>
+<BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5><B>A Subroutine Interface to FITS Format Files</B></FONT><BR>
+</DIV><DIV CLASS="center">
+<FONT SIZE=5><B>for Fortran Programmers</B></FONT><BR>
+</DIV><P>
+<BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5>Version 3.0<BR>
+</FONT>
+</DIV><P>
+<BR>
+<BR>
+2.5cm
+</P><DIV CLASS="center">
+HEASARC<BR>
+Code 662<BR>
+Goddard Space Flight Center<BR>
+Greenbelt, MD 20771<BR>
+USA
+</DIV><P><BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5>April 2009<BR>
+</FONT>
+</DIV><UL>
+<LI><A HREF="fitsio001.html">Contents</A>
+</LI><LI><A HREF="fitsio002.html">Introduction </A>
+</LI><LI><A HREF="fitsio003.html">Creating FITSIO/CFITSIO </A>
+<UL>
+<LI><A HREF="fitsio003.html#toc1">Building the Library</A>
+</LI><LI><A HREF="fitsio003.html#toc2">Testing the Library</A>
+</LI><LI><A HREF="fitsio003.html#toc3">Linking Programs with FITSIO</A>
+</LI><LI><A HREF="fitsio003.html#toc4">Getting Started with FITSIO</A>
+</LI><LI><A HREF="fitsio003.html#toc5">Example Program</A>
+</LI><LI><A HREF="fitsio003.html#toc6">Legal Stuff</A>
+</LI><LI><A HREF="fitsio003.html#toc7">Acknowledgments</A>
+</LI></UL>
+</LI><LI><A HREF="fitsio004.html">A FITS Primer </A>
+</LI><LI><A HREF="fitsio005.html">FITSIO Conventions and Guidelines </A>
+<UL>
+<LI><A HREF="fitsio005.html#toc8">CFITSIO Size Limitations</A>
+</LI><LI><A HREF="fitsio005.html#toc9">Multiple Access to the Same FITS File</A>
+</LI><LI><A HREF="fitsio005.html#toc10">Current Header Data Unit (CHDU)</A>
+</LI><LI><A HREF="fitsio005.html#toc11">Subroutine Names</A>
+</LI><LI><A HREF="fitsio005.html#toc12">Subroutine Families and Datatypes</A>
+</LI><LI><A HREF="fitsio005.html#toc13">Implicit Data Type Conversion</A>
+</LI><LI><A HREF="fitsio005.html#toc14">Data Scaling</A>
+</LI><LI><A HREF="fitsio005.html#toc15">Error Status Values and the Error Message Stack</A>
+</LI><LI><A HREF="fitsio005.html#toc16">Variable-Length Array Facility in Binary Tables</A>
+</LI><LI><A HREF="fitsio005.html#toc17">Support for IEEE Special Values</A>
+</LI><LI><A HREF="fitsio005.html#toc18">When the Final Size of the FITS HDU is Unknown</A>
+</LI><LI><A HREF="fitsio005.html#toc19">Local FITS Conventions supported by FITSIO</A>
+</LI><LI><A HREF="fitsio005.html#toc20">Optimizing Code for Maximum Processing Speed</A>
+</LI></UL>
+</LI><LI><A HREF="fitsio006.html">Basic Interface Routines </A>
+<UL>
+<LI><A HREF="fitsio006.html#toc21">FITSIO Error Status Routines </A>
+</LI><LI><A HREF="fitsio006.html#toc22">File I/O Routines</A>
+</LI><LI><A HREF="fitsio006.html#toc23">Keyword I/O Routines</A>
+</LI><LI><A HREF="fitsio006.html#toc24">Data I/O Routines</A>
+</LI></UL>
+</LI><LI><A HREF="fitsio007.html">Advanced Interface Subroutines </A>
+<UL>
+<LI><A HREF="fitsio007.html#toc25">FITS File Open and Close Subroutines: </A>
+</LI><LI><A HREF="fitsio007.html#toc26">HDU-Level Operations </A>
+</LI><LI><A HREF="fitsio007.html#toc27">Define or Redefine the structure of the CHDU </A>
+</LI><LI><A HREF="fitsio007.html#toc28">FITS Header I/O Subroutines</A>
+</LI><LI><A HREF="fitsio007.html#toc29">Data Scaling and Undefined Pixel Parameters </A>
+</LI><LI><A HREF="fitsio007.html#toc30">FITS Primary Array or IMAGE Extension I/O Subroutines </A>
+</LI><LI><A HREF="fitsio007.html#toc31">FITS ASCII and Binary Table Data I/O Subroutines</A>
+</LI><LI><A HREF="fitsio007.html#toc32">Row Selection and Calculator Routines </A>
+</LI><LI><A HREF="fitsio007.html#toc33">Celestial Coordinate System Subroutines </A>
+</LI><LI><A HREF="fitsio007.html#toc34">File Checksum Subroutines </A>
+</LI><LI><A HREF="fitsio007.html#toc35">Date and Time Utility Routines </A>
+</LI><LI><A HREF="fitsio007.html#toc36">General Utility Subroutines </A>
+</LI></UL>
+</LI><LI><A HREF="fitsio008.html">The CFITSIO Iterator Function </A>
+</LI><LI><A HREF="fitsio009.html">Extended File Name Syntax </A>
+<UL>
+<LI><A HREF="fitsio009.html#toc37">Overview</A>
+</LI><LI><A HREF="fitsio009.html#toc38">Filetype</A>
+</LI><LI><A HREF="fitsio009.html#toc39">Base Filename</A>
+</LI><LI><A HREF="fitsio009.html#toc40">Output File Name when Opening an Existing File</A>
+</LI><LI><A HREF="fitsio009.html#toc41">Template File Name when Creating a New File</A>
+</LI><LI><A HREF="fitsio009.html#toc42">Image Tile-Compression Specification</A>
+</LI><LI><A HREF="fitsio009.html#toc43">HDU Location Specification</A>
+</LI><LI><A HREF="fitsio009.html#toc44">Image Section</A>
+</LI><LI><A HREF="fitsio009.html#toc45">Image Transform Filters</A>
+</LI><LI><A HREF="fitsio009.html#toc46">Column and Keyword Filtering Specification</A>
+</LI><LI><A HREF="fitsio009.html#toc47">Row Filtering Specification</A>
+</LI><LI><A HREF="fitsio009.html#toc48">Binning or Histogramming Specification</A>
+</LI></UL>
+</LI><LI><A HREF="fitsio010.html">Template Files </A>
+<UL>
+<LI><A HREF="fitsio010.html#toc49">Detailed Template Line Format</A>
+</LI><LI><A HREF="fitsio010.html#toc50">Auto-indexing of Keywords</A>
+</LI><LI><A HREF="fitsio010.html#toc51">Template Parser Directives</A>
+</LI><LI><A HREF="fitsio010.html#toc52">Formal Template Syntax</A>
+</LI><LI><A HREF="fitsio010.html#toc53">Errors</A>
+</LI><LI><A HREF="fitsio010.html#toc54">Examples</A>
+</LI></UL>
+</LI><LI><A HREF="fitsio011.html">Summary of all FITSIO User-Interface Subroutines </A>
+</LI><LI><A HREF="fitsio012.html">Parameter Definitions </A>
+</LI><LI><A HREF="fitsio013.html">FITSIO Error Status Codes </A>
+</LI></UL>
+<!--FOOTER-->
+<HR SIZE=2><BLOCKQUOTE CLASS="quote"><EM>This document was translated from L<sup>A</sup>T<sub>E</sub>X by
+</EM><A HREF="http://hevea.inria.fr/index.html"><EM>H</EM><EM><FONT SIZE=2><sup>E</sup></FONT></EM><EM>V</EM><EM><FONT SIZE=2><sup>E</sup></FONT></EM><EM>A</EM></A><EM>.</EM></BLOCKQUOTE></BODY>
+</HTML>

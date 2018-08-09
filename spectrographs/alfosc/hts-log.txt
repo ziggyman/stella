@@ -1,0 +1,12 @@
+HTTrack3.32-3 launched on Mon, 12 Sep 2005 16:20:31 at http://geena.not.iac.es/instruments/alfosc/lamps/
+(httrack http://geena.not.iac.es/instruments/alfosc/lamps/ -r2 )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+No files purged
+
+HTTrack Website Copier/3.32-3 mirror complete in 19 seconds : 93 links scanned, 92 files written (8141541 bytes overall) [8180723 bytes received at 430564 bytes/sec], 17.3 requests per connection
+(No errors, 0 warnings, 0 messages)

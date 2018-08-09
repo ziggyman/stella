@@ -1,0 +1,7 @@
+make delete
+make ../bin/findaperturenumbersinlist
+chmod a+x ../bin/findaperturenumbersinlist
+rm ~/bin/findaperturenumbersinlist
+cp -p ../bin/findaperturenumbersinlist ~/bin/
+rm ~/stella/bin/findaperturenumbersinlist
+ln -s ~/bin/findaperturenumbersinlist ~/stella/bin/

@@ -1,0 +1,7 @@
+make delete
+make ../bin/estimatescatter
+chmod a+x ../bin/estimatescatter
+rm ~/bin/estimatescatter
+cp -p ../bin/estimatescatter ~/bin/
+rm ~/stella/bin/estimatescatter
+ln -s ~/bin/estimatescatter ~/stella/bin/

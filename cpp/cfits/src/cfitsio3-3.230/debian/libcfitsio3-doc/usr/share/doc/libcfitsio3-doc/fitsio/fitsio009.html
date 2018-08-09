@@ -1,0 +1,1168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Extended File Name Syntax </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio008.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio010.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc61">Chapter&#XA0;8</A>&#XA0;&#XA0; Extended File Name Syntax </H1><H2 CLASS="section"><A NAME="toc37"></A><A NAME="htoc62">8.1</A>&#XA0;&#XA0;Overview</H2><P>CFITSIO supports an extended syntax when specifying the name of the
+data file to be opened or created that includes the following
+features:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+CFITSIO can read IRAF format images which have header file names that
+end with the &#X2019;.imh&#X2019; extension, as well as reading and writing FITS
+files, This feature is implemented in CFITSIO by first converting the
+IRAF image into a temporary FITS format file in memory, then opening
+the FITS file. Any of the usual CFITSIO routines then may be used to
+read the image header or data. Similarly, raw binary data arrays can
+be read by converting them on the fly into virtual FITS images.</LI><LI CLASS="li-itemize">FITS files on the Internet can be read (and sometimes written) using the FTP,
+HTTP, or ROOT protocols.</LI><LI CLASS="li-itemize">FITS files can be piped between tasks on the stdin and stdout streams.</LI><LI CLASS="li-itemize">FITS files can be read and written in shared memory. This can potentially
+achieve much better data I/O performance compared to reading and
+writing the same FITS files on magnetic disk.</LI><LI CLASS="li-itemize">Compressed FITS files in gzip or Unix COMPRESS format can be directly read.</LI><LI CLASS="li-itemize">Output FITS files can be written directly in compressed gzip format,
+thus saving disk space.</LI><LI CLASS="li-itemize">FITS table columns can be created, modified, or deleted &#X2019;on-the-fly&#X2019; as
+the table is opened by CFITSIO. This creates a virtual FITS file containing
+the modifications that is then opened by the application program.</LI><LI CLASS="li-itemize">Table rows may be selected, or filtered out, on the fly when the table
+is opened by CFITSIO, based on an arbitrary user-specified expression.
+Only rows for which the expression evaluates to &#X2019;TRUE&#X2019; are retained
+in the copy of the table that is opened by the application program.</LI><LI CLASS="li-itemize">Histogram images may be created on the fly by binning the values in
+table columns, resulting in a virtual N-dimensional FITS image. The
+application program then only sees the FITS image (in the primary
+array) instead of the original FITS table.
+</LI></UL><P>The latter 3 features in particular add very powerful data processing
+capabilities directly into CFITSIO, and hence into every task that uses
+CFITSIO to read or write FITS files. For example, these features
+transform a very simple program that just copies an input FITS file to
+a new output file (like the &#X2018;fitscopy&#X2019; program that is distributed with
+CFITSIO) into a multipurpose FITS file processing tool. By appending
+fairly simple qualifiers onto the name of the input FITS file, the user
+can perform quite complex table editing operations (e.g., create new
+columns, or filter out rows in a table) or create FITS images by
+binning or histogramming the values in table columns. In addition,
+these functions have been coded using new state-of-the art algorithms
+that are, in some cases, 10 - 100 times faster than previous widely
+used implementations.</P><P>Before describing the complete syntax for the extended FITS file names
+in the next section, here are a few examples of FITS file names that
+give a quick overview of the allowed syntax:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+<TT>&#X2019;myfile.fits&#X2019;</TT>: the simplest case of a FITS file on disk in the current
+directory.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.imh&#X2019;</TT>: opens an IRAF format image file and converts it on the
+fly into a temporary FITS format image in memory which can then be read with
+any other CFITSIO routine.</LI><LI CLASS="li-itemize"><TT>rawfile.dat[i512,512]</TT>: opens a raw binary data array (a 512 x 512
+short integer array in this case) and converts it on the fly into a
+temporary FITS format image in memory which can then be read with any
+other CFITSIO routine.</LI><LI CLASS="li-itemize"><TT>myfile.fits.gz</TT>: if this is the name of a new output file, the &#X2019;.gz&#X2019;
+suffix will cause it to be compressed in gzip format when it is written to
+disk.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits.gz[events, 2]&#X2019;</TT>: opens and uncompresses the gzipped file
+myfile.fits then moves to the extension which has the keywords EXTNAME
+= &#X2019;EVENTS&#X2019; and EXTVER = 2.</LI><LI CLASS="li-itemize"><TT>&#X2019;-&#X2019;</TT>: a dash (minus sign) signifies that the input file is to be read
+from the stdin file stream, or that the output file is to be written to
+the stdout stream.</LI><LI CLASS="li-itemize"><TT>&#X2019;ftp://legacy.gsfc.nasa.gov/test/vela.fits&#X2019;</TT>: FITS files in any ftp
+archive site on the Internet may be directly opened with read-only
+access.</LI><LI CLASS="li-itemize"><TT>&#X2019;http://legacy.gsfc.nasa.gov/software/test.fits&#X2019;</TT>: any valid URL to a
+FITS file on the Web may be opened with read-only access.</LI><LI CLASS="li-itemize"><TT>&#X2019;root://legacy.gsfc.nasa.gov/test/vela.fits&#X2019;</TT>: similar to ftp access
+except that it provides write as well as read access to the files
+across the network. This uses the root protocol developed at CERN.</LI><LI CLASS="li-itemize"><TT>&#X2019;shmem://h2[events]&#X2019;</TT>: opens the FITS file in a shared memory segment and
+moves to the EVENTS extension.</LI><LI CLASS="li-itemize"><TT>&#X2019;mem://&#X2019;</TT>: creates a scratch output file in core computer memory. The
+resulting &#X2019;file&#X2019; will disappear when the program exits, so this
+is mainly useful for testing purposes when one does not want a
+permanent copy of the output file.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits[3; Images(10)]&#X2019;</TT>: opens a copy of the image contained in the
+10th row of the &#X2019;Images&#X2019; column in the binary table in the 3th extension
+of the FITS file. The application just sees this single image as the
+primary array.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits[1:512:2, 1:512:2]&#X2019;</TT>: opens a section of the input image
+ranging from the 1st to the 512th pixel in X and Y, and selects every
+second pixel in both dimensions, resulting in a 256 x 256 pixel image
+in this case.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits[EVENTS][col Rad = sqrt(X**2 + Y**2)]&#X2019;</TT>: creates and opens
+a temporary file on the fly (in memory or on disk) that is identical to
+myfile.fits except that it will contain a new column in the EVENTS
+extension called &#X2019;Rad&#X2019; whose value is computed using the indicated
+expression which is a function of the values in the X and Y columns.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits[EVENTS][PHA &gt; 5]&#X2019;</TT>: creates and opens a temporary FITS
+files that is identical to &#X2019;myfile.fits&#X2019; except that the EVENTS table
+will only contain the rows that have values of the PHA column greater
+than 5. In general, any arbitrary boolean expression using a C or
+Fortran-like syntax, which may combine AND and OR operators,
+may be used to select rows from a table.</LI><LI CLASS="li-itemize"><TT>&#X2019;myfile.fits[EVENTS][bin (X,Y)=1,2048,4]&#X2019;</TT>: creates a temporary FITS
+primary array image which is computed on the fly by binning (i.e,
+computing the 2-dimensional histogram) of the values in the X and Y
+columns of the EVENTS extension. In this case the X and Y coordinates
+range from 1 to 2048 and the image pixel size is 4 units in both
+dimensions, so the resulting image is 512 x 512 pixels in size.</LI><LI CLASS="li-itemize">The final example combines many of these feature into one complex
+expression (it is broken into several lines for clarity):<PRE CLASS="verbatim">  'ftp://legacy.gsfc.nasa.gov/data/sample.fits.gz[EVENTS]
+   [col phacorr = pha * 1.1 - 0.3][phacorr &gt;= 5.0 &amp;&amp; phacorr &lt;= 14.0]
+   [bin (X,Y)=32]'
+</PRE><P>In this case, CFITSIO (1) copies and uncompresses the FITS file from
+the ftp site on the legacy machine, (2) moves to the &#X2019;EVENTS&#X2019;
+extension, (3) calculates a new column called &#X2019;phacorr&#X2019;, (4) selects
+the rows in the table that have phacorr in the range 5 to 14, and
+finally (5) bins the remaining rows on the X and Y column coordinates,
+using a pixel size = 32 to create a 2D image. All this processing is
+completely transparent to the application program, which simply sees
+the final 2-D image in the primary array of the opened file.
+</P></LI></UL><P>The full extended CFITSIO FITS file name can contain several different
+components depending on the context. These components are described in
+the following sections:</P><PRE CLASS="verbatim">When creating a new file:
+   filetype://BaseFilename(templateName)
+
+When opening an existing primary array or image HDU:
+   filetype://BaseFilename(outName)[HDUlocation][ImageSection]
+
+When opening an existing table HDU:
+   filetype://BaseFilename(outName)[HDUlocation][colFilter][rowFilter][binSpec]
+</PRE><P>The filetype, BaseFilename, outName, HDUlocation, and ImageSection
+components, if present, must be given in that order, but the colFilter,
+rowFilter, and binSpec specifiers may follow in any order. Regardless
+of the order, however, the colFilter specifier, if present, will be
+processed first by CFITSIO, followed by the rowFilter specifier, and
+finally by the binSpec specifier.</P><H2 CLASS="section"><A NAME="toc38"></A><A NAME="htoc63">8.2</A>&#XA0;&#XA0;Filetype</H2><P>The type of file determines the medium on which the file is located
+(e.g., disk or network) and, hence, which internal device driver is used by
+CFITSIO to read and/or write the file. Currently supported types are</P><PRE CLASS="verbatim">        file://  - file on local magnetic disk (default)
+        ftp://   - a readonly file accessed with the anonymous FTP protocol.
+                   It also supports  ftp://username:password@hostname/...
+                   for accessing password-protected ftp sites.
+        http://  - a readonly file accessed with the HTTP protocol.  It
+                   supports username:password just like the ftp driver.
+                   Proxy HTTP servers are supported using the http_proxy
+                   environment variable (see following note).
+        root://  - uses the CERN root protocol for writing as well as
+                   reading files over the network.
+        shmem:// - opens or creates a file which persists in the computer's
+                   shared memory.
+        mem://   - opens a temporary file in core memory.  The file
+                   disappears when the program exits so this is mainly
+                   useful for test purposes when a permanent output file
+                   is not desired.
+</PRE><P>If the filetype is not specified, then type file:// is assumed.
+The double slashes &#X2019;//&#X2019; are optional and may be omitted in most cases.</P><H3 CLASS="subsection"><A NAME="htoc64">8.2.1</A>&#XA0;&#XA0;Notes about HTTP proxy servers</H3><P>A proxy HTTP server may be used by defining the address (URL) and port
+number of the proxy server with the http_proxy environment variable.
+For example</P><PRE CLASS="verbatim">    setenv http_proxy http://heasarc.gsfc.nasa.gov:3128
+</PRE><P>will cause CFITSIO to use port 3128 on the heasarc proxy server whenever
+reading a FITS file with HTTP.</P><H3 CLASS="subsection"><A NAME="htoc65">8.2.2</A>&#XA0;&#XA0;Notes about the root filetype</H3><P>The original rootd server can be obtained from:
+<CODE>ftp://root.cern.ch/root/rootd.tar.gz</CODE>
+but, for it to work correctly with CFITSIO one has to use a modified
+version which supports a command to return the length of the file.
+This modified version is available in rootd subdirectory
+in the CFITSIO ftp area at</P><PRE CLASS="verbatim">      ftp://legacy.gsfc.nasa.gov/software/fitsio/c/root/rootd.tar.gz.
+</PRE><P>This small server is started either by inetd when a client requests a
+connection to a rootd server or by hand (i.e. from the command line).
+The rootd server works with the ROOT TNetFile class. It allows remote
+access to ROOT database files in either read or write mode. By default
+TNetFile assumes port 432 (which requires rootd to be started as root).
+To run rootd via inetd add the following line to /etc/services:</P><PRE CLASS="verbatim">  rootd     432/tcp
+</PRE><P>and to /etc/inetd.conf, add the following line:</P><PRE CLASS="verbatim">  rootd stream tcp nowait root /user/rdm/root/bin/rootd rootd -i
+</PRE><P>Force inetd to reread its conf file with "kill -HUP &lt;pid inetd&gt;".
+You can also start rootd by hand running directly under your private
+account (no root system privileges needed). For example to start
+rootd listening on port 5151 just type: <CODE>rootd -p 5151</CODE>
+Notice: no &amp; is needed. Rootd will go into background by itself.</P><PRE CLASS="verbatim">  Rootd arguments:
+    -i                says we were started by inetd
+    -p port#          specifies a different port to listen on
+    -d level          level of debug info written to syslog
+                      0 = no debug (default)
+                      1 = minimum
+                      2 = medium
+                      3 = maximum
+</PRE><P>Rootd can also be configured for anonymous usage (like anonymous ftp).
+To setup rootd to accept anonymous logins do the following (while being
+logged in as root):</P><PRE CLASS="verbatim">   - Add the following line to /etc/passwd:
+
+     rootd:*:71:72:Anonymous rootd:/var/spool/rootd:/bin/false
+
+     where you may modify the uid, gid (71, 72) and the home directory
+     to suite your system.
+
+   - Add the following line to /etc/group:
+
+     rootd:*:72:rootd
+
+     where the gid must match the gid in /etc/passwd.
+
+   - Create the directories:
+
+     mkdir /var/spool/rootd
+     mkdir /var/spool/rootd/tmp
+     chmod 777 /var/spool/rootd/tmp
+
+     Where /var/spool/rootd must match the rootd home directory as
+     specified in the rootd /etc/passwd entry.
+
+   - To make writeable directories for anonymous do, for example:
+
+     mkdir /var/spool/rootd/pub
+     chown rootd:rootd /var/spool/rootd/pub
+</PRE><P>That&#X2019;s all. Several additional remarks: you can login to an anonymous
+server either with the names "anonymous" or "rootd". The password should
+be of type user@host.do.main. Only the @ is enforced for the time
+being. In anonymous mode the top of the file tree is set to the rootd
+home directory, therefore only files below the home directory can be
+accessed. Anonymous mode only works when the server is started via
+inetd.</P><H3 CLASS="subsection"><A NAME="htoc66">8.2.3</A>&#XA0;&#XA0;Notes about the shmem filetype:</H3><P>Shared memory files are currently supported on most Unix platforms,
+where the shared memory segments are managed by the operating system
+kernel and &#X2018;live&#X2019; independently of processes. They are not deleted (by
+default) when the process which created them terminates, although they
+will disappear if the system is rebooted. Applications can create
+shared memory files in CFITSIO by calling:</P><PRE CLASS="verbatim">   fit_create_file(&amp;fitsfileptr, "shmem://h2", &amp;status);
+</PRE><P>where the root &#X2018;file&#X2019; names are currently restricted to be &#X2019;h0&#X2019;, &#X2019;h1&#X2019;,
+&#X2019;h2&#X2019;, &#X2019;h3&#X2019;, etc., up to a maximum number defined by the the value of
+SHARED_MAXSEG (equal to 16 by default). This is a prototype
+implementation of the shared memory interface and a more robust
+interface, which will have fewer restrictions on the number of files
+and on their names, may be developed in the future.</P><P>When opening an already existing FITS file in shared memory one calls
+the usual CFITSIO routine:</P><PRE CLASS="verbatim">   fits_open_file(&amp;fitsfileptr, "shmem://h7", mode, &amp;status)
+</PRE><P>The file mode can be READWRITE or READONLY just as with disk files.
+More than one process can operate on READONLY mode files at the same
+time. CFITSIO supports proper file locking (both in READONLY and
+READWRITE modes), so calls to fits_open_file may be locked out until
+another other process closes the file.</P><P>When an application is finished accessing a FITS file in a shared
+memory segment, it may close it (and the file will remain in the
+system) with fits_close_file, or delete it with fits_delete_file.
+Physical deletion is postponed until the last process calls
+ffclos/ffdelt. fits_delete_file tries to obtain a READWRITE lock on
+the file to be deleted, thus it can be blocked if the object was not
+opened in READWRITE mode.</P><P>A shared memory management utility program called &#X2018;smem&#X2019;, is included
+with the CFITSIO distribution. It can be built by typing &#X2018;make smem&#X2019;;
+then type &#X2018;smem -h&#X2019; to get a list of valid options. Executing smem
+without any options causes it to list all the shared memory segments
+currently residing in the system and managed by the shared memory
+driver. To get a list of all the shared memory objects, run the system
+utility program &#X2018;ipcs [-a]&#X2019;.</P><H2 CLASS="section"><A NAME="toc39"></A><A NAME="htoc67">8.3</A>&#XA0;&#XA0;Base Filename</H2><P>The base filename is the name of the file optionally including the
+director/subdirectory path, and in the case of &#X2018;ftp&#X2019;, &#X2018;http&#X2019;, and &#X2018;root&#X2019;
+filetypes, the machine identifier. Examples:</P><PRE CLASS="verbatim">    myfile.fits
+    !data.fits
+    /data/myfile.fits
+    fits.gsfc.nasa.gov/ftp/sampledata/myfile.fits.gz
+</PRE><P>When creating a new output file on magnetic disk (of type file://) if
+the base filename begins with an exclamation point (!) then any
+existing file with that same basename will be deleted prior to creating
+the new FITS file. Otherwise if the file to be created already exists,
+then CFITSIO will return an error and will not overwrite the existing
+file. Note that the exclamation point, &#X2019;!&#X2019;, is a special UNIX character,
+so if it is used on the command line rather than entered at a task
+prompt, it must be preceded by a backslash to force the UNIX
+shell to pass it verbatim to the application program.</P><P>If the output disk file name ends with the suffix &#X2019;.gz&#X2019;, then CFITSIO
+will compress the file using the gzip compression algorithm before
+writing it to disk. This can reduce the amount of disk space used by
+the file. Note that this feature requires that the uncompressed file
+be constructed in memory before it is compressed and written to disk,
+so it can fail if there is insufficient available memory.</P><P>An input FITS file may be compressed with the gzip or Unix compress
+algorithms, in which case CFITSIO will uncompress the file on the fly
+into a temporary file (in memory or on disk). Compressed files may
+only be opened with read-only permission. When specifying the name of
+a compressed FITS file it is not necessary to append the file suffix
+(e.g., &#X2018;.gz&#X2019; or &#X2018;.Z&#X2019;). If CFITSIO cannot find the input file name
+without the suffix, then it will automatically search for a compressed
+file with the same root name. In the case of reading ftp and http type
+files, CFITSIO generally looks for a compressed version of the file
+first, before trying to open the uncompressed file. By default,
+CFITSIO copies (and uncompressed if necessary) the ftp or http FITS
+file into memory on the local machine before opening it. This will
+fail if the local machine does not have enough memory to hold the whole
+FITS file, so in this case, the output filename specifier (see the next
+section) can be used to further control how CFITSIO reads ftp and http
+files.</P><P>If the input file is an IRAF image file (*.imh file) then CFITSIO will
+automatically convert it on the fly into a virtual FITS image before it
+is opened by the application program. IRAF images can only be opened
+with READONLY file access.</P><P>Similarly, if the input file is a raw binary data array, then CFITSIO
+will convert it on the fly into a virtual FITS image with the basic set
+of required header keywords before it is opened by the application
+program (with READONLY access). In this case the data type and
+dimensions of the image must be specified in square brackets following
+the filename (e.g. rawfile.dat[ib512,512]). The first character (case
+insensitive) defines the datatype of the array:</P><PRE CLASS="verbatim">     b         8-bit unsigned byte
+     i        16-bit signed integer
+     u        16-bit unsigned integer
+     j        32-bit signed integer
+     r or f   32-bit floating point
+     d        64-bit floating point
+</PRE><P>An optional second character specifies the byte order of the array
+values: b or B indicates big endian (as in FITS files and the native
+format of SUN UNIX workstations and Mac PCs) and l or L indicates
+little endian (native format of DEC OSF workstations and IBM PCs). If
+this character is omitted then the array is assumed to have the native
+byte order of the local machine. These datatype characters are then
+followed by a series of one or more integer values separated by commas
+which define the size of each dimension of the raw array. Arrays with
+up to 5 dimensions are currently supported. Finally, a byte offset to
+the position of the first pixel in the data file may be specified by
+separating it with a &#X2019;:&#X2019; from the last dimension value. If omitted, it
+is assumed that the offset = 0. This parameter may be used to skip
+over any header information in the file that precedes the binary data.
+Further examples:</P><PRE CLASS="verbatim">  raw.dat[b10000]           1-dimensional 10000 pixel byte array
+  raw.dat[rb400,400,12]     3-dimensional floating point big-endian array
+  img.fits[ib512,512:2880]  reads the 512 x 512 short integer array in
+                            a FITS file, skipping over the 2880 byte header
+</PRE><P>One special case of input file is where the filename = &#X2018;-&#X2019; (a dash or
+minus sign) or &#X2019;stdin&#X2019; or &#X2019;stdout&#X2019;, which signifies that the input file
+is to be read from the stdin stream, or written to the stdout stream if
+a new output file is being created. In the case of reading from stdin,
+CFITSIO first copies the whole stream into a temporary FITS file (in
+memory or on disk), and subsequent reading of the FITS file occurs in
+this copy. When writing to stdout, CFITSIO first constructs the whole
+file in memory (since random access is required), then flushes it out
+to the stdout stream when the file is closed. In addition, if the
+output filename = &#X2019;-.gz&#X2019; or &#X2019;stdout.gz&#X2019; then it will be gzip compressed
+before being written to stdout.</P><P>This ability to read and write on the stdin and stdout steams allows
+FITS files to be piped between tasks in memory rather than having to
+create temporary intermediate FITS files on disk. For example if task1
+creates an output FITS file, and task2 reads an input FITS file, the
+FITS file may be piped between the 2 tasks by specifying</P><PRE CLASS="verbatim">   task1 - | task2 -
+</PRE><P>where the vertical bar is the Unix piping symbol. This assumes that the 2
+tasks read the name of the FITS file off of the command line.</P><H2 CLASS="section"><A NAME="toc40"></A><A NAME="htoc68">8.4</A>&#XA0;&#XA0;Output File Name when Opening an Existing File</H2><P>An optional output filename may be specified in parentheses immediately
+following the base file name to be opened. This is mainly useful in
+those cases where CFITSIO creates a temporary copy of the input FITS
+file before it is opened and passed to the application program. This
+happens by default when opening a network FTP or HTTP-type file, when
+reading a compressed FITS file on a local disk, when reading from the
+stdin stream, or when a column filter, row filter, or binning specifier
+is included as part of the input file specification. By default this
+temporary file is created in memory. If there is not enough memory to
+create the file copy, then CFITSIO will exit with an error. In these
+cases one can force a permanent file to be created on disk, instead of
+a temporary file in memory, by supplying the name in parentheses
+immediately following the base file name. The output filename can
+include the &#X2019;!&#X2019; clobber flag.</P><P>Thus, if the input filename to CFITSIO is:
+<CODE>file1.fits.gz(file2.fits)</CODE>
+then CFITSIO will uncompress &#X2018;file1.fits.gz&#X2019; into the local disk file
+&#X2018;file2.fits&#X2019; before opening it. CFITSIO does not automatically delete
+the output file, so it will still exist after the application program
+exits.</P><P>In some cases, several different temporary FITS files will be created
+in sequence, for instance, if one opens a remote file using FTP, then
+filters rows in a binary table extension, then create an image by
+binning a pair of columns. In this case, the remote file will be
+copied to a temporary local file, then a second temporary file will be
+created containing the filtered rows of the table, and finally a third
+temporary file containing the binned image will be created. In cases
+like this where multiple files are created, the outfile specifier will
+be interpreted the name of the final file as described below, in descending
+priority:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+as the name of the final image file if an image within a single binary
+table cell is opened or if an image is created by binning a table column.
+</LI><LI CLASS="li-itemize">as the name of the file containing the filtered table if a column filter
+and/or a row filter are specified.
+</LI><LI CLASS="li-itemize">as the name of the local copy of the remote FTP or HTTP file.
+</LI><LI CLASS="li-itemize">as the name of the uncompressed version of the FITS file, if a
+compressed FITS file on local disk has been opened.
+</LI><LI CLASS="li-itemize">otherwise, the output filename is ignored.
+</LI></UL><P>The output file specifier is useful when reading FTP or HTTP-type
+FITS files since it can be used to create a local disk copy of the file
+that can be reused in the future. If the output file name = &#X2018;*&#X2019; then a
+local file with the same name as the network file will be created.
+Note that CFITSIO will behave differently depending on whether the
+remote file is compressed or not as shown by the following examples:
+</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+&#X2018;ftp://remote.machine/tmp/myfile.fits.gz(*)&#X2019; - the remote compressed
+file is copied to the local compressed file &#X2018;myfile.fits.gz&#X2019;, which
+is then uncompressed in local memory before being opened and passed
+to the application program.</LI><LI CLASS="li-itemize">&#X2018;ftp://remote.machine/tmp/myfile.fits.gz(myfile.fits)&#X2019; - the remote
+compressed file is copied and uncompressed into the local file
+&#X2018;myfile.fits&#X2019;. This example requires less local memory than the
+previous example since the file is uncompressed on disk instead of
+in memory.</LI><LI CLASS="li-itemize">&#X2018;ftp://remote.machine/tmp/myfile.fits(myfile.fits.gz)&#X2019; - this will
+usually produce an error since CFITSIO itself cannot compress files.
+</LI></UL><P>The exact behavior of CFITSIO in the latter case depends on the type of
+ftp server running on the remote machine and how it is configured. In
+some cases, if the file &#X2018;myfile.fits.gz&#X2019; exists on the remote machine,
+then the server will copy it to the local machine. In other cases the
+ftp server will automatically create and transmit a compressed version
+of the file if only the uncompressed version exists. This can get
+rather confusing, so users should use a certain amount of caution when
+using the output file specifier with FTP or HTTP file types, to make
+sure they get the behavior that they expect.</P><H2 CLASS="section"><A NAME="toc41"></A><A NAME="htoc69">8.5</A>&#XA0;&#XA0;Template File Name when Creating a New File</H2><P>When a new FITS file is created with a call to fits_create_file, the
+name of a template file may be supplied in parentheses immediately
+following the name of the new file to be created. This template is
+used to define the structure of one or more HDUs in the new file. The
+template file may be another FITS file, in which case the newly created
+file will have exactly the same keywords in each HDU as in the template
+FITS file, but all the data units will be filled with zeros. The
+template file may also be an ASCII text file, where each line (in
+general) describes one FITS keyword record. The format of the ASCII
+template file is described below.</P><H2 CLASS="section"><A NAME="toc42"></A><A NAME="htoc70">8.6</A>&#XA0;&#XA0;Image Tile-Compression Specification</H2><P>When specifying the name of the output FITS file to be created, the
+user can indicate that images should be written in tile-compressed
+format (see section 5.5, &#X201C;Primary Array or IMAGE Extension I/O
+Routines&#X201D;) by enclosing the compression parameters in square brackets
+following the root disk file name. Here are some examples of the
+syntax for specifying tile-compressed output images:</P><PRE CLASS="verbatim">    myfile.fit[compress]    - use Rice algorithm and default tile size
+
+    myfile.fit[compress GZIP] - use the specified compression algorithm;
+    myfile.fit[compress Rice]     only the first letter of the algorithm
+    myfile.fit[compress PLIO]     name is required.
+
+    myfile.fit[compress Rice 100,100]   - use 100 x 100 pixel tile size
+    myfile.fit[compress Rice 100,100;2] - as above, and use noisebits = 2
+</PRE><H2 CLASS="section"><A NAME="toc43"></A><A NAME="htoc71">8.7</A>&#XA0;&#XA0;HDU Location Specification</H2><P>The optional HDU location specifier defines which HDU (Header-Data
+Unit, also known as an &#X2018;extension&#X2019;) within the FITS file to initially
+open. It must immediately follow the base file name (or the output
+file name if present). If it is not specified then the first HDU (the
+primary array) is opened. The HDU location specifier is required if
+the colFilter, rowFilter, or binSpec specifiers are present, because
+the primary array is not a valid HDU for these operations. The HDU may
+be specified either by absolute position number, starting with 0 for
+the primary array, or by reference to the HDU name, and optionally, the
+version number and the HDU type of the desired extension. The location
+of an image within a single cell of a binary table may also be
+specified, as described below.</P><P>The absolute position of the extension is specified either by enclosed
+the number in square brackets (e.g., &#X2018;[1]&#X2019; = the first extension
+following the primary array) or by preceded the number with a plus sign
+(&#X2018;+1&#X2019;). To specify the HDU by name, give the name of the desired HDU
+(the value of the EXTNAME or HDUNAME keyword) and optionally the
+extension version number (value of the EXTVER keyword) and the
+extension type (value of the XTENSION keyword: IMAGE, ASCII or TABLE,
+or BINTABLE), separated by commas and all enclosed in square brackets.
+If the value of EXTVER and XTENSION are not specified, then the first
+extension with the correct value of EXTNAME is opened. The extension
+name and type are not case sensitive, and the extension type may be
+abbreviated to a single letter (e.g., I = IMAGE extension or primary
+array, A or T = ASCII table extension, and B = binary table BINTABLE
+extension). If the HDU location specifier is equal to &#X2018;[PRIMARY]&#X2019; or
+&#X2018;[P]&#X2019;, then the primary array (the first HDU) will be opened.</P><P>FITS images are most commonly stored in the primary array or an image
+extension, but images can also be stored as a vector in a single cell
+of a binary table (i.e. each row of the vector column contains a
+different image). Such an image can be opened with CFITSIO by
+specifying the desired column name and the row number after the binary
+table HDU specifier as shown in the following examples. The column name
+is separated from the HDU specifier by a semicolon and the row number
+is enclosed in parentheses. In this case CFITSIO copies the image from
+the table cell into a temporary primary array before it is opened. The
+application program then just sees the image in the primary array,
+without any extensions. The particular row to be opened may be
+specified either by giving an absolute integer row number (starting
+with 1 for the first row), or by specifying a boolean expression that
+evaluates to TRUE for the desired row. The first row that satisfies
+the expression will be used. The row selection expression has the same
+syntax as described in the Row Filter Specifier section, below.</P><P>Examples:</P><PRE CLASS="verbatim">   myfile.fits[3] - open the 3rd HDU following the primary array
+   myfile.fits+3  - same as above, but using the FTOOLS-style notation
+   myfile.fits[EVENTS] - open the extension that has EXTNAME = 'EVENTS'
+   myfile.fits[EVENTS, 2]  - same as above, but also requires EXTVER = 2
+   myfile.fits[events,2,b] - same, but also requires XTENSION = 'BINTABLE'
+   myfile.fits[3; images(17)] - opens the image in row 17 of the 'images'
+                                column in the 3rd extension of the file.
+   myfile.fits[3; images(exposure &gt; 100)] - as above, but opens the image
+                   in the first row that has an 'exposure' column value
+                   greater than 100.
+</PRE><H2 CLASS="section"><A NAME="toc44"></A><A NAME="htoc72">8.8</A>&#XA0;&#XA0;Image Section</H2><P>A virtual file containing a rectangular subsection of an image can be
+extracted and opened by specifying the range of pixels (start:end)
+along each axis to be extracted from the original image. One can also
+specify an optional pixel increment (start:end:step) for each axis of
+the input image. A pixel step = 1 will be assumed if it is not
+specified. If the start pixel is larger then the end pixel, then the
+image will be flipped (producing a mirror image) along that dimension.
+An asterisk, &#X2019;*&#X2019;, may be used to specify the entire range of an axis,
+and &#X2019;-*&#X2019; will flip the entire axis. The input image can be in the
+primary array, in an image extension, or contained in a vector cell of
+a binary table. In the later 2 cases the extension name or number must
+be specified before the image section specifier.</P><P>Examples:</P><PRE CLASS="verbatim">  myfile.fits[1:512:2, 2:512:2] -  open a 256x256 pixel image
+              consisting of the odd numbered columns (1st axis) and
+              the even numbered rows (2nd axis) of the image in the
+              primary array of the file.
+
+  myfile.fits[*, 512:256] - open an image consisting of all the columns
+              in the input image, but only rows 256 through 512.
+              The image will be flipped along the 2nd axis since
+              the starting pixel is greater than the ending pixel.
+
+  myfile.fits[*:2, 512:256:2] - same as above but keeping only
+              every other row and column in the input image.
+
+  myfile.fits[-*, *] - copy the entire image, flipping it along
+              the first axis.
+
+  myfile.fits[3][1:256,1:256] - opens a subsection of the image that
+              is in the 3rd extension of the file.
+
+  myfile.fits[4; images(12)][1:10,1:10] - open an image consisting
+       of the first 10 pixels in both dimensions. The original
+       image resides in the 12th row of the 'images' vector
+       column in the table in the 4th extension of the file.
+</PRE><P>When CFITSIO opens an image section it first creates a temporary file
+containing the image section plus a copy of any other HDUs in the
+file. This temporary file is then opened by the application program,
+so it is not possible to write to or modify the input file when
+specifying an image section. Note that CFITSIO automatically updates
+the world coordinate system keywords in the header of the image
+section, if they exist, so that the coordinate associated with each
+pixel in the image section will be computed correctly.</P><H2 CLASS="section"><A NAME="toc45"></A><A NAME="htoc73">8.9</A>&#XA0;&#XA0;Image Transform Filters</H2><P>CFITSIO can apply a user-specified mathematical function to the value
+of every pixel in a FITS image, thus creating a new virtual image
+in computer memory that is then opened and read by the application
+program. The original FITS image is not modified by this process.</P><P>The image transformation specifier is appended to the input
+FITS file name and is enclosed in square brackets. It begins with the
+letters &#X2019;PIX&#X2019; to distinguish it from other types of FITS file filters
+that are recognized by CFITSIO. The image transforming function may
+use any of the mathematical operators listed in the following
+&#X2019;Row Filtering Specification&#X2019; section of this document.
+Some examples of image transform filters are:</P><PRE CLASS="verbatim"> [pix X * 2.0]               - multiply each pixel by 2.0
+ [pix sqrt(X)]               - take the square root of each pixel
+ [pix X + #ZEROPT            - add the value of the ZEROPT keyword
+ [pix X&gt;0 ? log10(X) : -99.] - if the pixel value is greater
+                               than 0, compute the base 10 log,
+                               else set the pixel = -99.
+</PRE><P>Use the letter &#X2019;X&#X2019; in the expression to represent the current pixel value
+in the image. The expression is evaluated
+independently for each pixel in the image and may be a function of 1) the
+original pixel value, 2) the value of other pixels in the image at
+a given relative offset from the position of the pixel that is being
+evaluated, and 3) the value of
+any header keywords. Header keyword values are represented
+by the name of the keyword preceded by the &#X2019;#&#X2019; sign.</P><P>To access the the value of adjacent pixels in the image,
+specify the (1-D) offset from the current pixel in curly brackets.
+For example</P><PRE CLASS="verbatim"> [pix  (x{-1} + x + x{+1}) / 3]
+</PRE><P>will replace each pixel value with the running mean of the values of that
+pixel and it&#X2019;s 2 neighboring pixels. Note that in this notation the image
+is treated as a 1-D array, where each row of the image (or higher dimensional
+cube) is appended one after another in one long array of pixels.
+It is possible to refer to pixels
+in the rows above or below the current pixel by using the value of the
+NAXIS1 header keyword. For example</P><PRE CLASS="verbatim"> [pix (x{-#NAXIS1} + x + x{#NAXIS1}) / 3]
+</PRE><P>will compute the mean of each image pixel and the pixels immediately
+above and below it in the adjacent rows of the image.
+The following more complex example
+creates a smoothed virtual image where each pixel
+is a 3 x 3 boxcar average of the input image pixels:</P><PRE CLASS="verbatim">  [pix (X + X{-1} + X{+1}
+      + X{-#NAXIS1} + X{-#NAXIS1 - 1} + X{-#NAXIS1 + 1}
+      + X{#NAXIS1} + X{#NAXIS1 - 1} + X{#NAXIS1 + 1}) / 9.]
+</PRE><P>If the pixel offset
+extends beyond the first or last pixel in the image, the function will
+evaluate to undefined, or NULL.</P><P>For complex or commonly used image filtering operations,
+one can write the expression into an external text file and
+then import it into the
+filter using the syntax &#X2019;[pix @filename.txt]&#X2019;. The mathematical
+expression can
+extend over multiple lines of text in the file.
+Any lines in the external text file
+that begin with 2 slash characters (&#X2019;//&#X2019;) will be ignored and may be
+used to add comments into the file.</P><P>By default, the datatype of the resulting image will be the same as
+the original image, but one may force a different datatype by appended
+a code letter to the &#X2019;pix&#X2019; keyword:</P><PRE CLASS="verbatim">      pixb  -  8-bit byte    image with BITPIX =   8
+      pixi  - 16-bit integer image with BITPIX =  16
+      pixj  - 32-bit integer image with BITPIX =  32
+      pixr  - 32-bit float   image with BITPIX = -32
+      pixd  - 64-bit float   image with BITPIX = -64
+</PRE><P>Also by default, any other HDUs in the input file will be copied without
+change to the
+output virtual FITS file, but one may discard the other HDUs by adding
+the number &#X2019;1&#X2019; to the &#X2019;pix&#X2019; keyword (and following any optional datatype code
+letter). For example:</P><PRE CLASS="verbatim">     myfile.fits[3][pixr1  sqrt(X)]
+</PRE><P>will create a virtual FITS file containing only a primary array image
+with 32-bit floating point pixels that have a value equal to the square
+root of the pixels in the image that is in the 3rd extension
+of the &#X2019;myfile.fits&#X2019; file.</P><H2 CLASS="section"><A NAME="toc46"></A><A NAME="htoc74">8.10</A>&#XA0;&#XA0;Column and Keyword Filtering Specification</H2><P>The optional column/keyword filtering specifier is used to modify the
+column structure and/or the header keywords in the HDU that was
+selected with the previous HDU location specifier. This filtering
+specifier must be enclosed in square brackets and can be distinguished
+from a general row filter specifier (described below) by the fact that
+it begins with the string &#X2019;col &#X2019; and is not immediately followed by an
+equals sign. The original file is not changed by this filtering
+operation, and instead the modifications are made on a copy of the
+input FITS file (usually in memory), which also contains a copy of all
+the other HDUs in the file. This temporary file is passed to the
+application program and will persist only until the file is closed or
+until the program exits, unless the outfile specifier (see above) is
+also supplied.</P><P>The column/keyword filter can be used to perform the following
+operations. More than one operation may be specified by separating
+them with semi-colons.</P><UL CLASS="itemize"><LI CLASS="li-itemize">Copy only a specified list of columns columns to the filtered input file.
+The list of column name should be separated by semi-colons. Wild card
+characters may be used in the column names to match multiple columns.
+If the expression contains both a list of columns to be included and
+columns to be deleted, then all the columns in the original table
+except the explicitly deleted columns will appear in the filtered
+table (i.e., there is no need to explicitly list the columns to
+be included if any columns are being deleted).</LI><LI CLASS="li-itemize">Delete a column or keyword by listing the name preceded by a minus
+sign or an exclamation mark (!), e.g., &#X2019;-TIME&#X2019; will delete the TIME
+column if it exists, otherwise the TIME keyword. An error is returned
+if neither a column nor keyword with this name exists. Note that the
+exclamation point, &#X2019;!&#X2019;, is a special UNIX character, so if it is used
+on the command line rather than entered at a task prompt, it must be
+preceded by a backslash to force the UNIX shell to ignore it.</LI><LI CLASS="li-itemize">Rename an existing column or keyword with the syntax &#X2019;NewName ==
+OldName&#X2019;. An error is returned if neither a column nor keyword with
+this name exists.</LI><LI CLASS="li-itemize">Append a new column or keyword to the table. To create a column,
+give the new name, optionally followed by the datatype in parentheses,
+followed by a single equals sign and an expression to be used to
+compute the value (e.g., &#X2019;newcol(1J) = 0&#X2019; will create a new 32-bit
+integer column called &#X2019;newcol&#X2019; filled with zeros). The datatype is
+specified using the same syntax that is allowed for the value of the
+FITS TFORMn keyword (e.g., &#X2019;I&#X2019;, &#X2019;J&#X2019;, &#X2019;E&#X2019;, &#X2019;D&#X2019;, etc. for binary tables,
+and &#X2019;I8&#X2019;, F12.3&#X2019;, &#X2019;E20.12&#X2019;, etc. for ASCII tables). If the datatype is
+not specified then an appropriate datatype will be chosen depending on
+the form of the expression (may be a character string, logical, bit, long
+integer, or double column). An appropriate vector count (in the case
+of binary tables) will also be added if not explicitly specified.<P>When creating a new keyword, the keyword name must be preceded by a
+pound sign &#X2019;#&#X2019;, and the expression must evaluate to a scalar
+(i.e., cannot have a column name in the expression). The comment
+string for the keyword may be specified in parentheses immediately
+following the keyword name (instead of supplying a datatype as in
+the case of creating a new column). If the keyword name ends with a
+pound sign &#X2019;#&#X2019;, then cfitsio will substitute the number of the
+most recently referenced column for the # character .
+This is especially useful when writing
+a column-related keyword like TUNITn for a newly created column,
+as shown in the following examples.</P></LI><LI CLASS="li-itemize">Recompute (overwrite) the values in an existing column or keyword by
+giving the name followed by an equals sign and an arithmetic
+expression.
+</LI></UL><P>The expression that is used when appending or recomputing columns or
+keywords can be arbitrarily complex and may be a function of other
+header keyword values and other columns (in the same row). The full
+syntax and available functions for the expression are described below
+in the row filter specification section.</P><P>If the expression contains both a list of columns to be included and
+columns to be deleted, then all the columns in the original table
+except the explicitly deleted columns will appear in the filtered
+table. If no columns to be deleted are specified, then only the
+columns that are explicitly listed will be included in the filtered
+output table. To include all the columns, add the &#X2019;*&#X2019; wildcard
+specifier at the end of the list, as shown in the examples.</P><P>For complex or commonly used operations, one can also place the
+operations into an external text file and import it into the column
+filter using the syntax &#X2019;[col @filename.txt]&#X2019;. The operations can
+extend over multiple lines of the file, but multiple operations must
+still be separated by semicolons. Any lines in the external text file
+that begin with 2 slash characters (&#X2019;//&#X2019;) will be ignored and may be
+used to add comments into the file.</P><P>Examples:</P><PRE CLASS="verbatim">   [col Time;rate]               - only the Time and rate columns will
+                                   appear in the filtered input file.
+
+   [col Time;*raw]               - include the Time column and any other
+                                   columns whose name ends with 'raw'.
+
+   [col -TIME; Good == STATUS]   - deletes the TIME column and
+                                   renames the status column to 'Good'
+
+   [col PI=PHA * 1.1 + 0.2; #TUNIT#(column units) = 'counts';*]
+                                 - creates new PI column from PHA values
+                                   and also writes the TUNITn keyword
+                                   for the new column.  The final '*'
+                                   expression means preserve all the
+                                   columns in the input table in the
+                                   virtual output table;  without the '*'
+                                   the output table would only contain
+                                   the single 'PI' column.
+
+   [col rate = rate/exposure; TUNIT#(&amp;) = 'counts/s';*]
+                                 - recomputes the rate column by dividing
+                                   it by the EXPOSURE keyword value. This
+                                   also modifies the value of the TUNITn
+                                   keyword for this column. The use of the
+                                   '&amp;' character for the keyword comment
+                                   string means preserve the existing
+                                   comment string for that keyword. The
+                                   final '*' preserves all the columns
+                                   in the input table in the virtual
+                                   output table.
+</PRE><H2 CLASS="section"><A NAME="toc47"></A><A NAME="htoc75">8.11</A>&#XA0;&#XA0;Row Filtering Specification</H2><P>When entering the name of a FITS table that is to be opened by a
+program, an optional row filter may be specified to select a subset
+of the rows in the table. A temporary new FITS file is created on
+the fly which contains only those rows for which the row filter
+expression evaluates to true. (The primary array and any other
+extensions in the input file are also copied to the temporary
+file). The original FITS file is closed and the new virtual file
+is opened by the application program. The row filter expression is
+enclosed in square brackets following the file name and extension
+name (e.g., &#X2019;file.fits[events][GRADE==50]&#X2019; selects only those rows
+where the GRADE column value equals 50). When dealing with tables
+where each row has an associated time and/or 2D spatial position,
+the row filter expression can also be used to select rows based on
+the times in a Good Time Intervals (GTI) extension, or on spatial
+position as given in a SAO-style region file.</P><H3 CLASS="subsection"><A NAME="htoc76">8.11.1</A>&#XA0;&#XA0;General Syntax</H3><P>The row filtering expression can be an arbitrarily complex series
+of operations performed on constants, keyword values, and column
+data taken from the specified FITS TABLE extension. The expression
+must evaluate to a boolean value for each row of the table, where
+a value of FALSE means that the row will be excluded.</P><P>For complex or commonly used filters, one can place the expression
+into a text file and import it into the row filter using the syntax
+&#X2019;[@filename.txt]&#X2019;. The expression can be arbitrarily complex and
+extend over multiple lines of the file. Any lines in the external
+text file that begin with 2 slash characters (&#X2019;//&#X2019;) will be ignored
+and may be used to add comments into the file.</P><P>Keyword and column data are referenced by name. Any string of
+characters not surrounded by quotes (ie, a constant string) or
+followed by an open parentheses (ie, a function name) will be
+initially interpreted as a column name and its contents for the
+current row inserted into the expression. If no such column exists,
+a keyword of that name will be searched for and its value used, if
+found. To force the name to be interpreted as a keyword (in case
+there is both a column and keyword with the same name), precede the
+keyword name with a single pound sign, &#X2019;#&#X2019;, as in &#X2019;#NAXIS2&#X2019;. Due to
+the generalities of FITS column and keyword names, if the column or
+keyword name contains a space or a character which might appear as
+an arithmetic term then enclose the name in &#X2019;$&#X2019; characters as in
+$MAX PHA$ or #$MAX-PHA$. Names are case insensitive.</P><P>To access a table entry in a row other than the current one, follow
+the column&#X2019;s name with a row offset within curly braces. For
+example, &#X2019;PHA{-3}&#X2019; will evaluate to the value of column PHA, 3 rows
+above the row currently being processed. One cannot specify an
+absolute row number, only a relative offset. Rows that fall outside
+the table will be treated as undefined, or NULLs.</P><P>Boolean operators can be used in the expression in either their
+Fortran or C forms. The following boolean operators are available:</P><PRE CLASS="verbatim">    "equal"         .eq. .EQ. ==  "not equal"          .ne.  .NE.  !=
+    "less than"     .lt. .LT. &lt;   "less than/equal"    .le.  .LE.  &lt;= =&lt;
+    "greater than"  .gt. .GT. &gt;   "greater than/equal" .ge.  .GE.  &gt;= =&gt;
+    "or"            .or. .OR. ||  "and"                .and. .AND. &amp;&amp;
+    "negation"     .not. .NOT. !  "approx. equal(1e-7)"  ~
+</PRE><P>Note that the exclamation
+point, &#X2019;!&#X2019;, is a special UNIX character, so if it is used on the
+command line rather than entered at a task prompt, it must be preceded
+by a backslash to force the UNIX shell to ignore it.</P><P>The expression may also include arithmetic operators and functions.
+Trigonometric functions use radians, not degrees. The following
+arithmetic operators and functions can be used in the expression
+(function names are case insensitive). A null value will be returned
+in case of illegal operations such as divide by zero, sqrt(negative)
+log(negative), log10(negative), arccos(.gt. 1), arcsin(.gt. 1).</P><PRE CLASS="verbatim">    "addition"           +          "subtraction"          -
+    "multiplication"     *          "division"             /
+    "negation"           -          "exponentiation"       **   ^
+    "absolute value"     abs(x)     "cosine"               cos(x)
+    "sine"               sin(x)     "tangent"              tan(x)
+    "arc cosine"         arccos(x)  "arc sine"             arcsin(x)
+    "arc tangent"        arctan(x)  "arc tangent"          arctan2(y,x)
+    "hyperbolic cos"     cosh(x)    "hyperbolic sin"       sinh(x)
+    "hyperbolic tan"     tanh(x)    "round to nearest int" round(x)
+    "round down to int"  floor(x)   "round up to int"      ceil(x)
+    "exponential"        exp(x)     "square root"          sqrt(x)
+    "natural log"        log(x)     "common log"           log10(x)
+    "modulus"            x % y      "random # [0.0,1.0)"   random()
+    "random Gaussian"    randomn()  "random Poisson"       randomp(x)
+    "minimum"            min(x,y)   "maximum"              max(x,y)
+    "cumulative sum"     accum(x)  "sequential difference" seqdiff(x)
+    "if-then-else"       b?x:y
+    "angular separation"  angsep(ra1,dec1,ra2,de2) (all in degrees)
+    "substring"      strmid(s,p,n) "string search"         strstr(s,r)
+</PRE><P>Three different random number functions are provided: random(), with no
+arguments, produces a uniform random deviate between 0 and 1; randomn(),
+also with no arguments, produces a normal (Gaussian) random deviate with
+zero mean and unit standard deviation; randomp(x) produces a Poisson random
+deviate whose expected number of counts is X. X may be any positive real
+number of expected counts, including fractional values, but the return value
+is an integer.</P><P>When the random functions are used in a vector expression, by default
+the same random value will be used when evaluating each element of the vector.
+If different random numbers are desired, then the name of a vector
+column should be supplied as the single argument to the random
+function (e.g., "flux + 0.1 * random(flux)", where "flux&#X2019; is the
+name of a vector column). This will create a vector of
+random numbers that will be used in sequence when evaluating each
+element of the vector expression.</P><P>An alternate syntax for the min and max functions has only a single
+argument which should be a vector value (see below). The result
+will be the minimum/maximum element contained within the vector.</P><P>The accum(x) function forms the cumulative sum of x, element by element.
+Vector columns are supported simply by performing the summation process
+through all the values. Null values are treated as 0. The seqdiff(x)
+function forms the sequential difference of x, element by element.
+The first value of seqdiff is the first value of x. A single null
+value in x causes a pair of nulls in the output. The seqdiff and
+accum functions are functional inverses, i.e., seqdiff(accum(x)) == x
+as long as no null values are present.</P><P>The angsep function computes the angular separation in degrees
+between 2 celestial positions, where the first 2 parameters
+give the RA-like and Dec-like coordinates (in decimal degrees)
+of the first position, and the 3rd and 4th parameters give the
+coordinates of the second position.</P><P>The substring function strmid(S,P,N) extracts a substring from S,
+starting at string position P, with a substring length N. The first
+character position in S is labeled as 1. If P is 0, or refers to a
+position beyond the end of S, then the extracted substring will be
+NULL. S, P, and N may be functions of other columns.</P><P>The string search function strstr(S,R) searches for the first occurrence
+of the substring R in S. The result is an integer, indicating the
+character position of the first match (where 1 is the first character
+position of S). If no match is found, then strstr() returns a NULL
+value.</P><P>The following type casting operators are available, where the
+enclosing parentheses are required and taken from the C language
+usage. Also, the integer to real casts values to double precision:</P><PRE CLASS="verbatim">                "real to integer"    (int) x     (INT) x
+                "integer to real"    (float) i   (FLOAT) i
+</PRE><P>In addition, several constants are built in for use in numerical
+expressions:</P><PRE CLASS="verbatim">        #pi              3.1415...      #e             2.7182...
+        #deg             #pi/180        #row           current row number
+        #null         undefined value   #snull         undefined string
+</PRE><P>A string constant must be enclosed in quotes as in &#X2019;Crab&#X2019;. The
+"null" constants are useful for conditionally setting table values
+to a NULL, or undefined, value (eg., "col1==-99 ? #NULL : col1").</P><P>There is also a function for testing if two values are close to
+each other, i.e., if they are "near" each other to within a user
+specified tolerance. The arguments, value_1 and value_2 can be
+integer or real and represent the two values who&#X2019;s proximity is
+being tested to be within the specified tolerance, also an integer
+or real:</P><PRE CLASS="verbatim">                    near(value_1, value_2, tolerance)
+</PRE><P>When a NULL, or undefined, value is encountered in the FITS table,
+the expression will evaluate to NULL unless the undefined value is
+not actually required for evaluation, e.g. "TRUE .or. NULL"
+evaluates to TRUE. The following two functions allow some NULL
+detection and handling:</P><PRE CLASS="verbatim">         "a null value?"              ISNULL(x)
+         "define a value for null"    DEFNULL(x,y)
+</PRE><P>The former
+returns a boolean value of TRUE if the argument x is NULL. The
+later "defines" a value to be substituted for NULL values; it
+returns the value of x if x is not NULL, otherwise it returns the
+value of y.</P><H3 CLASS="subsection"><A NAME="htoc77">8.11.2</A>&#XA0;&#XA0;Bit Masks</H3><P>Bit masks can be used to select out rows from bit columns (TFORMn =
+#X) in FITS files. To represent the mask, binary, octal, and hex
+formats are allowed:</P><PRE CLASS="verbatim">                 binary:   b0110xx1010000101xxxx0001
+                 octal:    o720x1 -&gt; (b111010000xxx001)
+                 hex:      h0FxD  -&gt; (b00001111xxxx1101)
+</PRE><P>In all the representations, an x or X is allowed in the mask as a
+wild card. Note that the x represents a different number of wild
+card bits in each representation. All representations are case
+insensitive.</P><P>To construct the boolean expression using the mask as the boolean
+equal operator described above on a bit table column. For example,
+if you had a 7 bit column named flags in a FITS table and wanted
+all rows having the bit pattern 0010011, the selection expression
+would be:</P><PRE CLASS="verbatim">                            flags == b0010011
+    or
+                            flags .eq. b10011
+</PRE><P>It is also possible to test if a range of bits is less than, less
+than equal, greater than and greater than equal to a particular
+boolean value:</P><PRE CLASS="verbatim">                            flags &lt;= bxxx010xx
+                            flags .gt. bxxx100xx
+                            flags .le. b1xxxxxxx
+</PRE><P>Notice the use of the x bit value to limit the range of bits being
+compared.</P><P>It is not necessary to specify the leading (most significant) zero
+(0) bits in the mask, as shown in the second expression above.</P><P>Bit wise AND, OR and NOT operations are also possible on two or
+more bit fields using the &#X2019;&amp;&#X2019;(AND), &#X2019;|&#X2019;(OR), and the &#X2019;!&#X2019;(NOT)
+operators. All of these operators result in a bit field which can
+then be used with the equal operator. For example:</P><PRE CLASS="verbatim">                          (!flags) == b1101100
+                          (flags &amp; b1000001) == bx000001
+</PRE><P>Bit fields can be appended as well using the &#X2019;+&#X2019; operator. Strings
+can be concatenated this way, too.</P><H3 CLASS="subsection"><A NAME="htoc78">8.11.3</A>&#XA0;&#XA0;Vector Columns</H3><P>Vector columns can also be used in building the expression. No
+special syntax is required if one wants to operate on all elements
+of the vector. Simply use the column name as for a scalar column.
+Vector columns can be freely intermixed with scalar columns or
+constants in virtually all expressions. The result will be of the
+same dimension as the vector. Two vectors in an expression, though,
+need to have the same number of elements and have the same
+dimensions. The only places a vector column cannot be used (for
+now, anyway) are the SAO region functions and the NEAR boolean
+function.</P><P>Arithmetic and logical operations are all performed on an element by
+element basis. Comparing two vector columns, eg "COL1 == COL2",
+thus results in another vector of boolean values indicating which
+elements of the two vectors are equal.</P><P>Eight functions are available that operate on a vector and return a
+scalar result:</P><PRE CLASS="verbatim">    "minimum"      MIN(V)          "maximum"               MAX(V)
+    "average"      AVERAGE(V)      "median"                MEDIAN(V)
+    "summation"    SUM(V)          "standard deviation"    STDDEV(V)
+    "# of values"  NELEM(V)        "# of non-null values"  NVALID(V)
+</PRE><P>where V represents the name of a vector column or a manually
+constructed vector using curly brackets as described below. The
+first 6 of these functions ignore any null values in the vector when
+computing the result. The STDDEV() function computes the sample
+standard deviation, i.e. it is proportional to 1/SQRT(N-1) instead
+of 1/SQRT(N), where N is NVALID(V).</P><P>The SUM function literally sums all the elements in x, returning a
+scalar value. If x is a boolean vector, SUM returns the number
+of TRUE elements. The NELEM function returns the number of elements
+in vector x whereas NVALID return the number of non-null elements in
+the vector. (NELEM also operates on bit and string columns,
+returning their column widths.) As an example, to test whether all
+elements of two vectors satisfy a given logical comparison, one can
+use the expression</P><PRE CLASS="verbatim">              SUM( COL1 &gt; COL2 ) == NELEM( COL1 )
+</PRE><P>which will return TRUE if all elements of COL1 are greater than
+their corresponding elements in COL2.</P><P>To specify a single element of a vector, give the column name
+followed by a comma-separated list of coordinates enclosed in
+square brackets. For example, if a vector column named PHAS exists
+in the table as a one dimensional, 256 component list of numbers
+from which you wanted to select the 57th component for use in the
+expression, then PHAS[57] would do the trick. Higher dimensional
+arrays of data may appear in a column. But in order to interpret
+them, the TDIMn keyword must appear in the header. Assuming that a
+(4,4,4,4) array is packed into each row of a column named ARRAY4D,
+the (1,2,3,4) component element of each row is accessed by
+ARRAY4D[1,2,3,4]. Arrays up to dimension 5 are currently
+supported. Each vector index can itself be an expression, although
+it must evaluate to an integer value within the bounds of the
+vector. Vector columns which contain spaces or arithmetic operators
+must have their names enclosed in "$" characters as with
+$ARRAY-4D$[1,2,3,4].</P><P>A more C-like syntax for specifying vector indices is also
+available. The element used in the preceding example alternatively
+could be specified with the syntax ARRAY4D[4][3][2][1]. Note the
+reverse order of indices (as in C), as well as the fact that the
+values are still ones-based (as in Fortran &#X2013; adopted to avoid
+ambiguity for 1D vectors). With this syntax, one does not need to
+specify all of the indices. To extract a 3D slice of this 4D
+array, use ARRAY4D[4].</P><P>Variable-length vector columns are not supported.</P><P>Vectors can be manually constructed within the expression using a
+comma-separated list of elements surrounded by curly braces (&#X2019;{}&#X2019;).
+For example, &#X2019;{1,3,6,1}&#X2019; is a 4-element vector containing the values
+1, 3, 6, and 1. The vector can contain only boolean, integer, and
+real values (or expressions). The elements will be promoted to the
+highest datatype present. Any elements which are themselves
+vectors, will be expanded out with each of its elements becoming an
+element in the constructed vector.</P><H3 CLASS="subsection"><A NAME="htoc79">8.11.4</A>&#XA0;&#XA0;Good Time Interval Filtering</H3><P>A common filtering method involves selecting rows which have a time
+value which lies within what is called a Good Time Interval or GTI.
+The time intervals are defined in a separate FITS table extension
+which contains 2 columns giving the start and stop time of each
+good interval. The filtering operation accepts only those rows of
+the input table which have an associated time which falls within
+one of the time intervals defined in the GTI extension. A high
+level function, gtifilter(a,b,c,d), is available which evaluates
+each row of the input table and returns TRUE or FALSE depending
+whether the row is inside or outside the good time interval. The
+syntax is</P><PRE CLASS="verbatim">      gtifilter( [ "gtifile" [, expr [, "STARTCOL", "STOPCOL" ] ] ] )
+</PRE><P>where each "[]" demarks optional parameters. Note that the quotes
+around the gtifile and START/STOP column are required. Either single
+or double quotes may be used. In cases where this expression is
+entered on the Unix command line, enclose the entire expression in
+double quotes, and then use single quotes within the expression to
+enclose the &#X2019;gtifile&#X2019; and other terms. It is also usually possible
+to do the reverse, and enclose the whole expression in single quotes
+and then use double quotes within the expression. The gtifile,
+if specified, can be blank ("") which will mean to use the first
+extension with the name "*GTI*" in the current file, a plain
+extension specifier (eg, "+2", "[2]", or "[STDGTI]") which will be
+used to select an extension in the current file, or a regular
+filename with or without an extension specifier which in the latter
+case will mean to use the first extension with an extension name
+"*GTI*". Expr can be any arithmetic expression, including simply
+the time column name. A vector time expression will produce a
+vector boolean result. STARTCOL and STOPCOL are the names of the
+START/STOP columns in the GTI extension. If one of them is
+specified, they both must be.</P><P>In its simplest form, no parameters need to be provided &#X2013; default
+values will be used. The expression "gtifilter()" is equivalent to</P><PRE CLASS="verbatim">       gtifilter( "", TIME, "*START*", "*STOP*" )
+</PRE><P>This will search the current file for a GTI extension, filter the
+TIME column in the current table, using START/STOP times taken from
+columns in the GTI extension with names containing the strings
+"START" and "STOP". The wildcards (&#X2019;*&#X2019;) allow slight variations in
+naming conventions such as "TSTART" or "STARTTIME". The same
+default values apply for unspecified parameters when the first one
+or two parameters are specified. The function automatically
+searches for TIMEZERO/I/F keywords in the current and GTI
+extensions, applying a relative time offset, if necessary.</P><H3 CLASS="subsection"><A NAME="htoc80">8.11.5</A>&#XA0;&#XA0;Spatial Region Filtering</H3><P>Another common filtering method selects rows based on whether the
+spatial position associated with each row is located within a given
+2-dimensional region. The syntax for this high-level filter is</P><PRE CLASS="verbatim">       regfilter( "regfilename" [ , Xexpr, Yexpr [ , "wcs cols" ] ] )
+</PRE><P>where each "[]" demarks optional parameters. The region file name
+is required and must be enclosed in quotes. The remaining
+parameters are optional. The region file is an ASCII text file
+which contains a list of one or more geometric shapes (circle,
+ellipse, box, etc.) which defines a region on the celestial sphere
+or an area within a particular 2D image. The region file is
+typically generated using an image display program such as fv/POW
+(distribute by the HEASARC), or ds9 (distributed by the Smithsonian
+Astrophysical Observatory). Users should refer to the documentation
+provided with these programs for more details on the syntax used in
+the region files.</P><P>In its simplest form, (e.g., regfilter("region.reg") ) the
+coordinates in the default &#X2019;X&#X2019; and &#X2019;Y&#X2019; columns will be used to
+determine if each row is inside or outside the area specified in
+the region file. Alternate position column names, or expressions,
+may be entered if needed, as in</P><PRE CLASS="verbatim">        regfilter("region.reg", XPOS, YPOS)
+</PRE><P>Region filtering can be applied most unambiguously if the positions
+in the region file and in the table to be filtered are both give in
+terms of absolute celestial coordinate units. In this case the
+locations and sizes of the geometric shapes in the region file are
+specified in angular units on the sky (e.g., positions given in
+R.A. and Dec. and sizes in arcseconds or arcminutes). Similarly,
+each row of the filtered table will have a celestial coordinate
+associated with it. This association is usually implemented using
+a set of so-called &#X2019;World Coordinate System&#X2019; (or WCS) FITS keywords
+that define the coordinate transformation that must be applied to
+the values in the &#X2019;X&#X2019; and &#X2019;Y&#X2019; columns to calculate the coordinate.</P><P>Alternatively, one can perform spatial filtering using unitless
+&#X2019;pixel&#X2019; coordinates for the regions and row positions. In this
+case the user must be careful to ensure that the positions in the 2
+files are self-consistent. A typical problem is that the region
+file may be generated using a binned image, but the unbinned
+coordinates are given in the event table. The ROSAT events files,
+for example, have X and Y pixel coordinates that range from 1 -
+15360. These coordinates are typically binned by a factor of 32 to
+produce a 480x480 pixel image. If one then uses a region file
+generated from this image (in image pixel units) to filter the
+ROSAT events file, then the X and Y column values must be converted
+to corresponding pixel units as in:</P><PRE CLASS="verbatim">        regfilter("rosat.reg", X/32.+.5, Y/32.+.5)
+</PRE><P>Note that this binning conversion is not necessary if the region
+file is specified using celestial coordinate units instead of pixel
+units because CFITSIO is then able to directly compare the
+celestial coordinate of each row in the table with the celestial
+coordinates in the region file without having to know anything
+about how the image may have been binned.</P><P>The last "wcs cols" parameter should rarely be needed. If supplied,
+this string contains the names of the 2 columns (space or comma
+separated) which have the associated WCS keywords. If not supplied,
+the filter will scan the X and Y expressions for column names.
+If only one is found in each expression, those columns will be
+used, otherwise an error will be returned.</P><P>These region shapes are supported (names are case insensitive):</P><PRE CLASS="verbatim">       Point         ( X1, Y1 )               &lt;- One pixel square region
+       Line          ( X1, Y1, X2, Y2 )       &lt;- One pixel wide region
+       Polygon       ( X1, Y1, X2, Y2, ... )  &lt;- Rest are interiors with
+       Rectangle     ( X1, Y1, X2, Y2, A )       | boundaries considered
+       Box           ( Xc, Yc, Wdth, Hght, A )   V within the region
+       Diamond       ( Xc, Yc, Wdth, Hght, A )
+       Circle        ( Xc, Yc, R )
+       Annulus       ( Xc, Yc, Rin, Rout )
+       Ellipse       ( Xc, Yc, Rx, Ry, A )
+       Elliptannulus ( Xc, Yc, Rinx, Riny, Routx, Routy, Ain, Aout )
+       Sector        ( Xc, Yc, Amin, Amax )
+</PRE><P>where (Xc,Yc) is the coordinate of the shape&#X2019;s center; (X#,Y#) are
+the coordinates of the shape&#X2019;s edges; Rxxx are the shapes&#X2019; various
+Radii or semi-major/minor axes; and Axxx are the angles of rotation
+(or bounding angles for Sector) in degrees. For rotated shapes, the
+rotation angle can be left off, indicating no rotation. Common
+alternate names for the regions can also be used: rotbox = box;
+rotrectangle = rectangle; (rot)rhombus = (rot)diamond; and pie
+= sector. When a shape&#X2019;s name is preceded by a minus sign, &#X2019;-&#X2019;,
+the defined region is instead the area *outside* its boundary (ie,
+the region is inverted). All the shapes within a single region
+file are OR&#X2019;d together to create the region, and the order is
+significant. The overall way of looking at region files is that if
+the first region is an excluded region then a dummy included region
+of the whole detector is inserted in the front. Then each region
+specification as it is processed overrides any selections inside of
+that region specified by previous regions. Another way of thinking
+about this is that if a previous excluded region is completely
+inside of a subsequent included region the excluded region is
+ignored.</P><P>The positional coordinates may be given either in pixel units,
+decimal degrees or hh:mm:ss.s, dd:mm:ss.s units. The shape sizes
+may be given in pixels, degrees, arcminutes, or arcseconds. Look
+at examples of region file produced by fv/POW or ds9 for further
+details of the region file format.</P><P>There are three functions that are primarily for use with SAO region
+files and the FSAOI task, but they can be used directly. They
+return a boolean true or false depending on whether a two
+dimensional point is in the region or not:</P><PRE CLASS="verbatim">    "point in a circular region"
+          circle(xcntr,ycntr,radius,Xcolumn,Ycolumn)
+
+    "point in an elliptical region"
+         ellipse(xcntr,ycntr,xhlf_wdth,yhlf_wdth,rotation,Xcolumn,Ycolumn)
+
+    "point in a rectangular region"
+             box(xcntr,ycntr,xfll_wdth,yfll_wdth,rotation,Xcolumn,Ycolumn)
+
+    where
+       (xcntr,ycntr) are the (x,y) position of the center of the region
+       (xhlf_wdth,yhlf_wdth) are the (x,y) half widths of the region
+       (xfll_wdth,yfll_wdth) are the (x,y) full widths of the region
+       (radius) is half the diameter of the circle
+       (rotation) is the angle(degrees) that the region is rotated with
+             respect to (xcntr,ycntr)
+       (Xcoord,Ycoord) are the (x,y) coordinates to test, usually column
+             names
+       NOTE: each parameter can itself be an expression, not merely a
+             column name or constant.
+</PRE><H3 CLASS="subsection"><A NAME="htoc81">8.11.6</A>&#XA0;&#XA0;Example Row Filters</H3><PRE CLASS="verbatim">    [ binary &amp;&amp; mag &lt;= 5.0]        - Extract all binary stars brighter
+                                     than  fifth magnitude (note that
+                                     the initial space is necessary to
+                                     prevent it from being treated as a
+                                     binning specification)
+
+    [#row &gt;= 125 &amp;&amp; #row &lt;= 175]   - Extract row numbers 125 through 175
+
+    [IMAGE[4,5] .gt. 100]          - Extract all rows that have the
+                                     (4,5) component of the IMAGE column
+                                     greater than 100
+
+    [abs(sin(theta * #deg)) &lt; 0.5] - Extract all rows having the
+                                     absolute value of the sine of theta
+                                     less  than a half where the angles
+                                     are tabulated in degrees
+
+    [SUM( SPEC &gt; 3*BACKGRND )&gt;=1]  - Extract all rows containing a
+                                     spectrum, held in vector column
+                                     SPEC, with at least one value 3
+                                     times greater than the background
+                                     level held in a keyword, BACKGRND
+
+    [VCOL=={1,4,2}]                - Extract all rows whose vector column
+                                     VCOL contains the 3-elements 1, 4, and
+                                     2.
+
+    [@rowFilter.txt]               - Extract rows using the expression
+                                     contained within the text file
+                                     rowFilter.txt
+
+    [gtifilter()]                  - Search the current file for a GTI
+         extension,  filter  the TIME
+         column in the current table, using
+         START/STOP times taken from
+         columns in the GTI  extension
+
+    [regfilter("pow.reg")]         - Extract rows which have a coordinate
+                                     (as given in the X and Y columns)
+                                     within the spatial region specified
+                                     in the pow.reg region file.
+
+    [regfilter("pow.reg", Xs, Ys)] - Same as above, except that the
+                                     Xs and Ys columns will be used to
+                                     determine the coordinate of each
+                                     row in the table.
+</PRE><H2 CLASS="section"><A NAME="toc48"></A><A NAME="htoc82">8.12</A>&#XA0;&#XA0; Binning or Histogramming Specification</H2><P>The optional binning specifier is enclosed in square brackets and can
+be distinguished from a general row filter specification by the fact
+that it begins with the keyword &#X2019;bin&#X2019; not immediately followed by an
+equals sign. When binning is specified, a temporary N-dimensional FITS
+primary array is created by computing the histogram of the values in
+the specified columns of a FITS table extension. After the histogram
+is computed the input FITS file containing the table is then closed and
+the temporary FITS primary array is opened and passed to the
+application program. Thus, the application program never sees the
+original FITS table and only sees the image in the new temporary file
+(which has no additional extensions). Obviously, the application
+program must be expecting to open a FITS image and not a FITS table in
+this case.</P><P>The data type of the FITS histogram image may be specified by appending
+&#X2019;b&#X2019; (for 8-bit byte), &#X2019;i&#X2019; (for 16-bit integers), &#X2019;j&#X2019; (for 32-bit
+integer), &#X2019;r&#X2019; (for 32-bit floating points), or &#X2019;d&#X2019; (for 64-bit double
+precision floating point) to the &#X2019;bin&#X2019; keyword (e.g. &#X2019;[binr X]&#X2019;
+creates a real floating point image). If the datatype is not
+explicitly specified then a 32-bit integer image will be created by
+default, unless the weighting option is also specified in which case
+the image will have a 32-bit floating point data type by default.</P><P>The histogram image may have from 1 to 4 dimensions (axes), depending
+on the number of columns that are specified. The general form of the
+binning specification is:</P><PRE CLASS="verbatim"> [bin{bijrd}  Xcol=min:max:binsize, Ycol= ..., Zcol=..., Tcol=...; weight]
+</PRE><P>in which up to 4 columns, each corresponding to an axis of the image,
+are listed. The column names are case insensitive, and the column
+number may be given instead of the name, preceded by a pound sign
+(e.g., [bin #4=1:512]). If the column name is not specified, then
+CFITSIO will first try to use the &#X2019;preferred column&#X2019; as specified by
+the CPREF keyword if it exists (e.g., &#X2019;CPREF = &#X2019;DETX,DETY&#X2019;), otherwise
+column names &#X2019;X&#X2019;, &#X2019;Y&#X2019;, &#X2019;Z&#X2019;, and &#X2019;T&#X2019; will be assumed for each of the 4
+axes, respectively. In cases where the column name could be confused
+with an arithmetic expression, enclose the column name in parentheses to
+force the name to be interpreted literally.</P><P>Each column name may be followed by an equals sign and then the lower
+and upper range of the histogram, and the size of the histogram bins,
+separated by colons. Spaces are allowed before and after the equals
+sign but not within the &#X2019;min:max:binsize&#X2019; string. The min, max and
+binsize values may be integer or floating point numbers, or they may be
+the names of keywords in the header of the table. If the latter, then
+the value of that keyword is substituted into the expression.</P><P>Default values for the min, max and binsize quantities will be
+used if not explicitly given in the binning expression as shown
+in these examples:</P><PRE CLASS="verbatim">    [bin x = :512:2]  - use default minimum value
+    [bin x = 1::2]    - use default maximum value
+    [bin x = 1:512]   - use default bin size
+    [bin x = 1:]      - use default maximum value and bin size
+    [bin x = :512]    - use default minimum value and bin size
+    [bin x = 2]       - use default minimum and maximum values
+    [bin x]           - use default minimum, maximum and bin size
+    [bin 4]           - default 2-D image, bin size = 4 in both axes
+    [bin]             - default 2-D image
+</PRE><P>CFITSIO will use the value of the TLMINn, TLMAXn, and TDBINn keywords,
+if they exist, for the default min, max, and binsize, respectively. If
+they do not exist then CFITSIO will use the actual minimum and maximum
+values in the column for the histogram min and max values. The default
+binsize will be set to 1, or (max - min) / 10., whichever is smaller,
+so that the histogram will have at least 10 bins along each axis.</P><P>A shortcut notation is allowed if all the columns/axes have the same
+binning specification. In this case all the column names may be listed
+within parentheses, followed by the (single) binning specification, as
+in:</P><PRE CLASS="verbatim">    [bin (X,Y)=1:512:2]
+    [bin (X,Y) = 5]
+</PRE><P>The optional weighting factor is the last item in the binning specifier
+and, if present, is separated from the list of columns by a
+semi-colon. As the histogram is accumulated, this weight is used to
+incremented the value of the appropriated bin in the histogram. If the
+weighting factor is not specified, then the default weight = 1 is
+assumed. The weighting factor may be a constant integer or floating
+point number, or the name of a keyword containing the weighting value.
+Or the weighting factor may be the name of a table column in which case
+the value in that column, on a row by row basis, will be used.</P><P>In some cases, the column or keyword may give the reciprocal of the
+actual weight value that is needed. In this case, precede the weight
+keyword or column name by a slash &#X2019;/&#X2019; to tell CFITSIO to use the
+reciprocal of the value when constructing the histogram.</P><P>For complex or commonly used histograms, one can also place its
+description into a text file and import it into the binning
+specification using the syntax &#X2019;[bin @filename.txt]&#X2019;. The file&#X2019;s
+contents can extend over multiple lines, although it must still
+conform to the no-spaces rule for the min:max:binsize syntax and each
+axis specification must still be comma-separated. Any lines in the
+external text file that begin with 2 slash characters (&#X2019;//&#X2019;) will be
+ignored and may be used to add comments into the file.</P><P>Examples:</P><PRE CLASS="verbatim">    [bini detx, dety]                - 2-D, 16-bit integer histogram
+                                       of DETX and DETY columns, using
+                                       default values for the histogram
+                                       range and binsize
+
+    [bin (detx, dety)=16; /exposure] - 2-D, 32-bit real histogram of DETX
+                                       and DETY columns with a bin size = 16
+                                       in both axes. The histogram values
+                                       are divided by the EXPOSURE keyword
+                                       value.
+
+    [bin time=TSTART:TSTOP:0.1]      - 1-D lightcurve, range determined by
+                                       the TSTART and TSTOP keywords,
+                                       with 0.1 unit size bins.
+
+    [bin pha, time=8000.:8100.:0.1]  - 2-D image using default binning
+                                       of the PHA column for the X axis,
+                                       and 1000 bins in the range
+                                       8000. to 8100. for the Y axis.
+
+    [bin @binFilter.txt]             - Use the contents of the text file
+                                       binFilter.txt for the binning
+                                       specifications.
+
+</PRE><P>
+</P><HR>
+<A HREF="fitsio008.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio010.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

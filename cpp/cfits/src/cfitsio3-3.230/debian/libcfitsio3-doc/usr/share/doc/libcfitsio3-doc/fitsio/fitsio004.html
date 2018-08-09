@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>A FITS Primer </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio003.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio005.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc10">Chapter&#XA0;3</A>&#XA0;&#XA0; A FITS Primer </H1><P>This section gives a brief overview of the structure of FITS files.
+Users should refer to the documentation available from the NOST, as
+described in the introduction, for more detailed information on FITS
+formats.</P><P>FITS was first developed in the late 1970&#X2019;s as a standard data
+interchange format between various astronomical observatories. Since
+then FITS has become the defacto standard data format supported by most
+astronomical data analysis software packages.</P><P>A FITS file consists of one or more Header + Data Units (HDUs), where
+the first HDU is called the &#X2018;Primary HDU&#X2019;, or &#X2018;Primary Array&#X2019;. The
+primary array contains an N-dimensional array of pixels, such as a 1-D
+spectrum, a 2-D image, or a 3-D data cube. Six different primary
+datatypes are supported: Unsigned 8-bit bytes, 16, 32, and 64-bit signed
+integers, and 32 and 64-bit floating point reals. FITS also has a
+convention for storing unsigned integers (see the later
+section entitled &#X2018;Unsigned Integers&#X2019; for more details). The primary HDU
+may also consist of only a header with a null array containing no
+data pixels.</P><P>Any number of additional HDUs may follow the primary array; these
+additional HDUs are called FITS &#X2018;extensions&#X2019;. There are currently 3
+types of extensions defined by the FITS standard:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+Image Extension - a N-dimensional array of pixels, like in a primary array
+</LI><LI CLASS="li-itemize">ASCII Table Extension - rows and columns of data in ASCII character format
+</LI><LI CLASS="li-itemize">Binary Table Extension - rows and columns of data in binary representation
+</LI></UL><P>In each case the HDU consists of an ASCII Header Unit followed by an optional
+Data Unit. For historical reasons, each Header or Data unit must be an
+exact multiple of 2880 8-bit bytes long. Any unused space is padded
+with fill characters (ASCII blanks or zeros).</P><P>Each Header Unit consists of any number of 80-character keyword records
+or &#X2018;card images&#X2019; which have the general form:</P><PRE CLASS="verbatim">  KEYNAME = value / comment string
+  NULLKEY =       / comment: This keyword has no value
+</PRE><P>The keyword names may be up to 8 characters long and can only contain
+uppercase letters, the digits 0-9, the hyphen, and the underscore
+character. The keyword name is (usually) followed by an equals sign and
+a space character (= ) in columns 9 - 10 of the record, followed by the
+value of the keyword which may be either an integer, a floating point
+number, a character string (enclosed in single quotes), or a boolean
+value (the letter T or F). A keyword may also have a null or undefined
+value if there is no specified value string, as in the second example.</P><P>The last keyword in the header is always the &#X2018;END&#X2019; keyword which has no
+value or comment fields. There are many rules governing the exact
+format of a keyword record (see the NOST FITS Standard) so it is better
+to rely on standard interface software like FITSIO to correctly
+construct or to parse the keyword records rather than try to deal
+directly with the raw FITS formats.</P><P>Each Header Unit begins with a series of required keywords which depend
+on the type of HDU. These required keywords specify the size and
+format of the following Data Unit. The header may contain other
+optional keywords to describe other aspects of the data, such as the
+units or scaling values. Other COMMENT or HISTORY keywords are also
+frequently added to further document the data file.</P><P>The optional Data Unit immediately follows the last 2880-byte block in
+the Header Unit. Some HDUs do not have a Data Unit and only consist of
+the Header Unit.</P><P>If there is more than one HDU in the FITS file, then the Header Unit of
+the next HDU immediately follows the last 2880-byte block of the
+previous Data Unit (or Header Unit if there is no Data Unit).</P><P>The main required keywords in FITS primary arrays or image extensions are:
+</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+BITPIX &#X2013; defines the datatype of the array: 8, 16, 32, 64, -32, -64 for
+unsigned 8&#X2013;bit byte, 16&#X2013;bit signed integer, 32&#X2013;bit signed integer,
+64&#X2013;bit signed integer,
+32&#X2013;bit IEEE floating point, and 64&#X2013;bit IEEE double precision floating
+point, respectively.
+</LI><LI CLASS="li-itemize">NAXIS &#X2013; the number of dimensions in the array, usually 0, 1, 2, 3, or 4.
+</LI><LI CLASS="li-itemize">NAXISn &#X2013; (n ranges from 1 to NAXIS) defines the size of each dimension.
+</LI></UL><P>FITS tables start with the keyword XTENSION = &#X2018;TABLE&#X2019; (for ASCII
+tables) or XTENSION = &#X2018;BINTABLE&#X2019; (for binary tables) and have the
+following main keywords:
+</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+TFIELDS &#X2013; number of fields or columns in the table
+</LI><LI CLASS="li-itemize">NAXIS2 &#X2013; number of rows in the table
+</LI><LI CLASS="li-itemize">TTYPEn &#X2013; for each column (n ranges from 1 to TFIELDS) gives the
+name of the column
+</LI><LI CLASS="li-itemize">TFORMn &#X2013; the datatype of the column
+</LI><LI CLASS="li-itemize">TUNITn &#X2013; the physical units of the column (optional)
+</LI></UL><P>Users should refer to the FITS Support Office at <TT>http://fits.gsfc.nasa.gov</TT>
+for further information about the FITS format and related software
+packages.
+</P><HR>
+<A HREF="fitsio003.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio005.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

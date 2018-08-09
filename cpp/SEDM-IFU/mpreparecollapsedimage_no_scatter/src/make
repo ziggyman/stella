@@ -1,0 +1,7 @@
+make delete
+make ../bin/preparecollapsedimage_no_scatter
+chmod a+x ../bin/preparecollapsedimage_no_scatter
+rm ~/bin/preparecollapsedimage_no_scatter
+cp -p ../bin/preparecollapsedimage_no_scatter ~/bin/
+rm ~/stella/bin/preparecollapsedimage_no_scatter
+ln -s ~/bin/preparecollapsedimage_no_scatter ~/stella/bin/

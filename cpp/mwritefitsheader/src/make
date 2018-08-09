@@ -1,0 +1,7 @@
+make delete
+make ../bin/writefitsheader
+chmod a+x ../bin/writefitsheader
+rm ~/bin/writefitsheader
+cp -p ../bin/writefitsheader ~/bin/
+rm ~/stella/bin/writefitsheader
+ln -s ~/bin/writefitsheader ~/stella/bin/

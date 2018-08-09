@@ -1,0 +1,92 @@
+# Parameterfile for the STELLA-Pipeline
+#
+# general parameters
+echelledispaxis        2                           (1-horizontal 2-vertical)
+badpixelfile           /rhome/aritter/daten/badpixelmasks/badpix_UVES_red_l_2148x2048.mask     (file containing bad pixels)
+reference              refFlat                     (reference Flatfield for aperture definition)
+refThAr                refThar_identified          (reference ThAr for reidentifying ThArs)
+rdnoise                3.69                        (readout noise produced by the CCD)
+gain                   0.68                        (CCD gain)
+#
+# stbadovertrim
+biassec                [2110:2147,*]               (overscan section)
+trimsec                [51:2098,10:1950]           (section of the object images containing good data)
+overscan_high_rej      0.4
+overscan_high_rej_flat 0.01
+overscan_low_rej       5.
+#
+# stzero
+normalbiasmean         220.5
+normalbiasstddev       450.3
+maxmeanbiasfailure     2.
+maxstddevbiasfailure   3.
+#
+# stflat
+normalflatmean         5244.
+maxmeanflatfailure     15.
+maxstddevflatfailure   30.
+#
+# stnflat (apfind, apresize)
+nsum                   20
+nfind                  15
+minsep                 60
+maxsep                 200
+ylevel                 0.05
+#
+# stscatter
+subscatter             YES
+scinteractive          NO
+screcenter             NO
+scresize               NO
+scedit                 NO
+sctrace                NO
+scsubtract             YES
+nsumscatter            10
+buffer                 1
+apscat1function        chebyshev
+apscat1order           1
+apscat1sample          *
+apscat1naverag         1
+apscat1low_rej         4.5
+apscat1high_rej        0.1
+apscat1niterat         9
+apscat2function        spline3
+apscat2order           4
+apscat2sample          1:30,56:326,458:522,645:736,980:1070,1090:1180,1230:1380,1420:1820,1845:1930
+apscat2naverag         1
+apscat2low_rej         4
+apscat2high_rej        0.001
+apscat2niterat         4
+#
+# stcosmics
+cosmicthreshold        800.
+cosmicfluxratio        13.6
+cosmicnpasses          10
+cosmicwindow           7
+#
+# stextract
+slicer                 YES
+extinteract            YES
+extrecenter            YES
+extresize              YES
+extedit                NO
+extnsum                100
+extylevel              0.2
+extlower               -24.3
+extupper               22.
+extlsigma              4.
+extusigma              4.
+shift                  0.
+cradius                5.
+#
+# stidentify
+thar_threshold         10000.
+refit                  YES
+logfiles               STDOUT,logfile.log,stident.log
+#
+# strefspec
+refselect              interp
+sort                   jd
+group                  ljd
+
+

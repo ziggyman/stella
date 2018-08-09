@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Introduction </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc1">Chapter&#XA0;1</A>&#XA0;&#XA0;Introduction </H1><H2 CLASS="section"><A NAME="toc1"></A><A NAME="htoc2">1.1</A>&#XA0;&#XA0; A Brief Overview</H2><P>CFITSIO is a machine-independent library of routines for reading and
+writing data files in the FITS (Flexible Image Transport System) data
+format. It can also read IRAF format image files and raw binary data
+arrays by converting them on the fly into a virtual FITS format file.
+This library is written in ANSI C and provides a powerful yet simple
+interface for accessing FITS files which will run on most commonly used
+computers and workstations. CFITSIO supports all the features
+described in the official NOST definition of the FITS format and can
+read and write all the currently defined types of extensions, including
+ASCII tables (TABLE), Binary tables (BINTABLE) and IMAGE extensions.
+The CFITSIO routines insulate the programmer from having to deal with
+the complicated formatting details in the FITS file, however, it is
+assumed that users have a general knowledge about the structure and
+usage of FITS files.</P><P>CFITSIO also contains a set of Fortran callable wrapper routines which
+allow Fortran programs to call the CFITSIO routines. See the companion
+&#X201C;FITSIO User&#X2019;s Guide&#X201D; for the definition of the Fortran subroutine
+calling sequences. These wrappers replace the older Fortran FITSIO
+library which is no longer supported.</P><P>The CFITSIO package was initially developed by the HEASARC (High Energy
+Astrophysics Science Archive Research Center) at the NASA Goddard Space
+Flight Center to convert various existing and newly acquired
+astronomical data sets into FITS format and to further analyze data
+already in FITS format. New features continue to be added to CFITSIO
+in large part due to contributions of ideas or actual code from
+users of the package. The Integral Science Data Center in Switzerland,
+and the XMM/ESTEC project in The Netherlands made especially significant
+contributions that resulted in many of the new features that appeared
+in v2.0 of CFITSIO.</P><H2 CLASS="section"><A NAME="toc2"></A><A NAME="htoc3">1.2</A>&#XA0;&#XA0;Sources of FITS Software and Information</H2><P>The latest version of the CFITSIO source code,
+documentation, and example programs are available on the World-Wide
+Web or via anonymous ftp from:</P><PRE CLASS="verbatim">        http://heasarc.gsfc.nasa.gov/fitsio
+        ftp://legacy.gsfc.nasa.gov/software/fitsio/c
+</PRE><P>Any questions, bug reports, or suggested enhancements related to the CFITSIO
+package should be sent to the primary author:</P><PRE CLASS="verbatim">        Dr. William Pence                 Telephone:  (301) 286-4599
+        HEASARC, Code 662                 E-mail: William.D.Pence@nasa.gov
+        NASA/Goddard Space Flight Center
+        Greenbelt, MD 20771, USA
+</PRE><P>This User&#X2019;s Guide assumes that readers already have a general
+understanding of the definition and structure of FITS format files.
+Further information about FITS formats is available from the FITS Support
+Office at <TT>http://fits.gsfc.nasa.gov</TT>. In particular, the
+&#X2019;NOST FITS Standard&#X2019; gives the authoritative definition of the FITS data
+format, and the &#X2018;FITS User&#X2019;s Guide&#X2019; provides additional historical background
+and practical advice on using FITS files.</P><P>The HEASARC also provides a very sophisticated FITS file analysis
+program called &#X2018;Fv&#X2019; which can be used to display and edit the contents
+of any FITS file as well as construct new FITS files from scratch. The
+display functions in Fv allow users to interactively adjust the
+brightness and contrast of images, pan, zoom, and blink images, and
+measure the positions and brightnesses of objects within images. FITS
+tables can be displayed like a spread sheet, and then modified using
+powerful calculator and sorting functions. Fv is freely available for
+most Unix platforms, Mac PCs, and Windows PCs.
+CFITSIO users may also be interested in the FTOOLS package of programs
+that can be used to manipulate and analyze FITS format files.
+Fv and FTOOLS are available from their respective Web sites at:</P><PRE CLASS="verbatim">        http://fv.gsfc.nasa.gov
+        http://heasarc.gsfc.nasa.gov/ftools
+</PRE><H2 CLASS="section"><A NAME="toc3"></A><A NAME="htoc4">1.3</A>&#XA0;&#XA0;Acknowledgments</H2><P>The development of the many powerful features in CFITSIO was made
+possible through collaborations with many people or organizations from
+around the world. The following in particular have made especially
+significant contributions:</P><P>Programmers from the Integral Science Data Center, Switzerland (namely,
+Jurek Borkowski, Bruce O&#X2019;Neel, and Don Jennings), designed the concept
+for the plug-in I/O drivers that was introduced with CFITSIO 2.0. The
+use of &#X2018;drivers&#X2019; greatly simplified the low-level I/O, which in turn
+made other new features in CFITSIO (e.g., support for compressed FITS
+files and support for IRAF format image files) much easier to
+implement. Jurek Borkowski wrote the Shared Memory driver, and Bruce
+O&#X2019;Neel wrote the drivers for accessing FITS files over the network
+using the FTP, HTTP, and ROOT protocols. Also, in 2009, Bruce O&#X2019;Neel
+was the key developer of the thread-safe version of CFITSIO.</P><P>The ISDC also provided the template parsing routines (written by Jurek
+Borkowski) and the hierarchical grouping routines (written by Don
+Jennings). The ISDC DAL (Data Access Layer) routines are layered on
+top of CFITSIO and make extensive use of these features.</P><P>Giuliano Taffoni and Andrea Barisani, at INAF, University of Trieste,
+Italy, implemented the I/O driver routines for accessing FITS files
+on the computational grids using the gridftp protocol.</P><P>Uwe Lammers (XMM/ESA/ESTEC, The Netherlands) designed the
+high-performance lexical parsing algorithm that is used to do
+on-the-fly filtering of FITS tables. This algorithm essentially
+pre-compiles the user-supplied selection expression into a form that
+can be rapidly evaluated for each row. Peter Wilson (RSTX, NASA/GSFC)
+then wrote the parsing routines used by CFITSIO based on Lammers&#X2019;
+design, combined with other techniques such as the CFITSIO iterator
+routine to further enhance the data processing throughput. This effort
+also benefited from a much earlier lexical parsing routine that was
+developed by Kent Blackburn (NASA/GSFC). More recently, Craig Markwardt
+(NASA/GSFC) implemented additional functions (median, average, stddev)
+and other enhancements to the lexical parser.</P><P>The CFITSIO iterator function is loosely based on similar ideas
+developed for the XMM Data Access Layer.</P><P>Peter Wilson (RSTX, NASA/GSFC) wrote the complete set of
+Fortran-callable wrappers for all the CFITSIO routines, which in turn
+rely on the CFORTRAN macro developed by Burkhard Burow.</P><P>The syntax used by CFITSIO for filtering or binning input FITS files is
+based on ideas developed for the AXAF Science Center Data Model by
+Jonathan McDowell, Antonella Fruscione, Aneta Siemiginowska and Bill
+Joye. See http://heasarc.gsfc.nasa.gov/docs/journal/axaf7.html for
+further description of the AXAF Data Model.</P><P>The file decompression code were taken directly from the gzip (GNU zip)
+program developed by Jean-loup Gailly and others.</P><P>The new compressed image data format (where the image is tiled and
+the compressed byte stream from each tile is stored in a binary table)
+was implemented in collaboration with Richard White (STScI), Perry
+Greenfield (STScI) and Doug Tody (NOAO).</P><P>Doug Mink (SAO) provided the routines for converting IRAF format
+images into FITS format.</P><P>Martin Reinecke (Max Planck Institute, Garching)) provided the modifications to
+cfortran.h that are necessary to support 64-bit integer values when calling
+C routines from fortran programs. The cfortran.h macros were originally developed
+by Burkhard Burow (CERN).</P><P>In addition, many other people have made valuable contributions to the
+development of CFITSIO. These include (with apologies to others that may
+have inadvertently been omitted):</P><P>Steve Allen, Carl Akerlof, Keith Arnaud, Morten Krabbe Barfoed, Kent
+Blackburn, G Bodammer, Romke Bontekoe, Lucio Chiappetti, Keith Costorf,
+Robin Corbet, John Davis, Richard Fink, Ning Gan, Emily Greene, Gretchen
+Green, Joe Harrington, Cheng Ho, Phil Hodge, Jim Ingham, Yoshitaka
+Ishisaki, Diab Jerius, Mark Levine, Todd Karakaskian, Edward King,
+Scott Koch, Claire Larkin, Rob Managan, Eric Mandel, Richard Mathar,
+John Mattox, Carsten Meyer, Emi Miyata, Stefan Mochnacki, Mike Noble,
+Oliver Oberdorf, Clive Page, Arvind Parmar, Jeff Pedelty, Tim Pearson,
+Philippe Prugniel, Maren Purves, Scott Randall, Chris Rogers, Arnold Rots,
+Rob Seaman, Barry Schlesinger, Robin Stebbins, Andrew Szymkowiak, Allyn Tennant,
+Peter Teuben, James Theiler, Doug Tody, Shiro Ueno, Steve Walton, Archie
+Warnock, Alan Watson, Dan Whipple, Wim Wimmers, Peter Young, Jianjun Xu,
+and Nelson Zarate.</P><H2 CLASS="section"><A NAME="toc4"></A><A NAME="htoc5">1.4</A>&#XA0;&#XA0;Legal Stuff</H2><P>Copyright (Unpublished&#X2013;all rights reserved under the copyright laws of
+the United States), U.S. Government as represented by the Administrator
+of the National Aeronautics and Space Administration. No copyright is
+claimed in the United States under Title 17, U.S. Code.</P><P>Permission to freely use, copy, modify, and distribute this software
+and its documentation without fee is hereby granted, provided that this
+copyright notice and disclaimer of warranty appears in all copies.
+(However, see the restriction on the use of the gzip compression code,
+below).</P><P>DISCLAIMER:</P><P>THE SOFTWARE IS PROVIDED &#X2019;AS IS&#X2019; WITHOUT ANY WARRANTY OF ANY KIND,
+EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO,
+ANY WARRANTY THAT THE SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND FREEDOM FROM INFRINGEMENT, AND ANY WARRANTY THAT THE
+DOCUMENTATION WILL CONFORM TO THE SOFTWARE, OR ANY WARRANTY THAT THE
+SOFTWARE WILL BE ERROR FREE. IN NO EVENT SHALL NASA BE LIABLE FOR ANY
+DAMAGES, INCLUDING, BUT NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES, ARISING OUT OF, RESULTING FROM, OR IN ANY WAY
+CONNECTED WITH THIS SOFTWARE, WHETHER OR NOT BASED UPON WARRANTY,
+CONTRACT, TORT , OR OTHERWISE, WHETHER OR NOT INJURY WAS SUSTAINED BY
+PERSONS OR PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED
+FROM, OR AROSE OUT OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR
+SERVICES PROVIDED HEREUNDER."</P><P>The file compress.c contains (slightly modified) source code that
+originally came from gzip-1.2.4, copyright (C) 1992-1993 by Jean-loup
+Gailly. This gzip code is distributed under the GNU General Public
+License and thus requires that any software that uses the CFITSIO
+library (which in turn uses the gzip code) must conform to the
+provisions in the GNU General Public License. A copy of the GNU
+license is included at the beginning of compress.c file.</P><P>Similarly, the file wcsutil.c contains 2 slightly modified routines
+from the Classic AIPS package that are also distributed under the GNU
+General Public License.</P><P>Alternate versions of the compress.c and wcsutil.c files (called
+compress_alternate.c and wcsutil_alternate.c) are provided for users
+who want to use the CFITSIO
+library but are unwilling or unable to publicly release their software
+under the terms of the GNU General Public License. These alternate
+versions contains non-functional stubs for the file compression and
+uncompression routines and the world coordinate transformation routines
+used by CFITSIO. Replace the file &#X2018;compress.c&#X2019;
+with &#X2018;compress_alternate.c&#X2019; and &#X2019;wcsutil.c&#X2019; with &#X2019;wcsutil_alternate.c
+before compiling the CFITSIO library. This
+will produce a version of CFITSIO which does not support reading or
+writing compressed FITS files, or doing image coordinate transformations,
+but is otherwise identical to the standard version.</P><HR>
+<A HREF="cfitsio001.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio003.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

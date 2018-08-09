@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractmpfitthreegauss
+chmod a+x ../bin/extractmpfitthreegauss
+rm ~/bin/extractmpfitthreegauss
+cp -p ../bin/extractmpfitthreegauss ~/bin/
+rm ~/stella/bin/extractmpfitthreegauss
+ln -s ~/bin/extractmpfitthreegauss ~/stella/bin/

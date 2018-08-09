@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractspecfromprofile
+chmod a+x ../bin/extractspecfromprofile
+rm ~/bin/extractspecfromprofile
+cp -p ../bin/extractspecfromprofile ~/bin/
+rm ~/stella/bin/extractspecfromprofile
+ln -s ~/bin/extractspecfromprofile ~/stella/bin/

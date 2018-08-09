@@ -1,0 +1,7 @@
+make delete
+make ../bin/imtranspose
+chmod a+x ../bin/imtranspose
+rm ~/bin/imtranspose
+cp -p ../bin/imtranspose ~/bin/
+rm ~/stella/bin/imtranspose
+ln -s ~/bin/imtranspose ~/stella/bin/

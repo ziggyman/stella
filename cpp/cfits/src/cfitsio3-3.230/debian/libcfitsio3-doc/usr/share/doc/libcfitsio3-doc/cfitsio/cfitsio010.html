@@ -1,0 +1,1237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Specialized CFITSIO Interface Routines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio009.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio011.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc62">Chapter&#XA0;9</A>&#XA0;&#XA0; Specialized CFITSIO Interface Routines </H1><P>The basic interface routines described previously are recommended
+for most uses, but the routines described in this chapter
+are also available if necessary. Some of these routines perform more
+specialized function that cannot easily be done with the basic
+interface routines while others duplicate the functionality of the
+basic routines but have a slightly different calling sequence.
+See Appendix B for the definition of each function parameter.</P><H2 CLASS="section"><A NAME="toc39"></A><A NAME="htoc63">9.1</A>&#XA0;&#XA0;FITS File Access Routines</H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Open an existing FITS file residing in core computer memory. This
+routine is analogous to fits_open_file. The &#X2019;filename&#X2019; is
+currently ignored by this routine and may be any arbitrary string. In
+general, the application must have preallocated an initial block of
+memory to hold the FITS file prior to calling this routine: &#X2019;memptr&#X2019;
+points to the starting address and &#X2019;memsize&#X2019; gives the initial size of
+the block of memory. &#X2019;mem_realloc&#X2019; is a pointer to an optional
+function that CFITSIO can call to allocate additional memory, if needed
+(only if mode = READWRITE), and is modeled after the standard C
+&#X2019;realloc&#X2019; function; a null pointer may be given if the initial
+allocation of memory is all that will be required (e.g., if the file is
+opened with mode = READONLY). The &#X2019;deltasize&#X2019; parameter may be used to
+suggest a minimum amount of additional memory that should be allocated
+during each call to the memory reallocation function. By default,
+CFITSIO will reallocate enough additional space to hold the entire
+currently defined FITS file (as given by the NAXISn keywords) or 1 FITS
+block (= 2880 bytes), which ever is larger. Values of deltasize less
+than 2880 will be ignored. Since the memory reallocation operation can
+be computationally expensive, allocating a larger initial block of
+memory, and/or specifying a larger deltasize value may help to reduce
+the number of reallocation calls and make the application program run
+faster. <A NAME="ffomem"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_open_memfile / ffomem
+      (fitsfile **fptr, const char *filename, int mode, void **memptr,
+       size_t *memsize, size_t deltasize,
+       void *(*mem_realloc)(void *p, size_t newsize), int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Create a new FITS file residing in core computer memory. This
+routine is analogous to fits_create_file. In general, the
+application must have preallocated an initial block of memory to hold
+the FITS file prior to calling this routine: &#X2019;memptr&#X2019; points to the
+starting address and &#X2019;memsize&#X2019; gives the initial size of the block of
+memory. &#X2019;mem_realloc&#X2019; is a pointer to an optional function that
+CFITSIO can call to allocate additional memory, if needed, and is
+modeled after the standard C &#X2019;realloc&#X2019; function; a null pointer may be
+given if the initial allocation of memory is all that will be
+required. The &#X2019;deltasize&#X2019; parameter may be used to suggest a minimum
+amount of additional memory that should be allocated during each call
+to the memory reallocation function. By default, CFITSIO will
+reallocate enough additional space to hold 1 FITS block (= 2880 bytes)
+and values of deltasize less than 2880 will be ignored. Since the
+memory reallocation operation can be computationally expensive,
+allocating a larger initial block of memory, and/or specifying a larger
+deltasize value may help to reduce the number of reallocation calls
+and make the application program run
+faster. <A NAME="ffimem"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_create_memfile / ffimem
+      (fitsfile **fptr, void **memptr,
+       size_t *memsize, size_t deltasize,
+       void *(*mem_realloc)(void *p, size_t newsize), int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Reopen a FITS file that was previously opened with
+fits_open_file or fits_create_file. The new fitsfile
+pointer may then be treated as a separate file, and one may
+simultaneously read or write to 2 (or more) different extensions in
+the same file. The fits_open_file routine (above) automatically
+detects cases where a previously opened file is being opened again,
+and then internally call fits_reopen_file, so programs should rarely
+need to explicitly call this routine.
+<A NAME="ffreopen"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_reopen_file / ffreopen
+      (fitsfile *openfptr, fitsfile **newfptr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Create a new FITS file, using a template file to define its
+initial size and structure. The template may be another FITS HDU
+or an ASCII template file. If the input template file name pointer
+is null, then this routine behaves the same as fits_create_file.
+The currently supported format of the ASCII template file is described
+under the fits_parse_template routine (in the general Utilities
+section)
+<A NAME="fftplt"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_create_template / fftplt
+      (fitsfile **fptr, char *filename, char *tpltfile &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Parse the input filename or URL into its component parts, namely:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+the file type (file://, ftp://, http://, etc),
+</LI><LI CLASS="li-itemize">the base input file name,
+</LI><LI CLASS="li-itemize">the name of the output file that the input file is to be copied to prior
+to opening,
+</LI><LI CLASS="li-itemize">the HDU or extension specification,
+</LI><LI CLASS="li-itemize">the filtering specifier,
+</LI><LI CLASS="li-itemize">the binning specifier,
+</LI><LI CLASS="li-itemize">the column specifier,
+</LI><LI CLASS="li-itemize">and the
+image pixel filtering specifier.
+</LI></UL>
+Null strings will be returned for any components that are not present
+in the input file name. These routines are mainly for internal use
+by other CFITSIO routines. <A NAME="ffiurl"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_parse_input_url / ffiurl
+      (char *filename, &gt; char *filetype, char *infile, char *outfile, char
+       *extspec, char *filter, char *binspec, char *colspec, int *status)
+
+  int fits_parse_input_filename / ffifile
+      (char *filename, &gt; char *filetype, char *infile, char *outfile, char
+       *extspec, char *filter, char *binspec, char *colspec, char *pixspec,
+       int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Parse the input filename and return the HDU number that would be
+moved to if the file were opened with fits_open_file. The returned
+HDU number begins with 1 for the primary array, so for example, if the
+input filename = &#X2018;myfile.fits[2]&#X2019; then hdunum = 3 will be returned.
+CFITSIO does not open the file to check if the extension actually
+exists if an extension number is specified. If an extension name is
+included in the file name specification (e.g. &#X2018;myfile.fits[EVENTS]&#X2019;
+then this routine will have to open the FITS file and look for the
+position of the named extension, then close file again. This is not
+possible if the file is being read from the stdin stream, and an error
+will be returned in this case. If the filename does not specify an
+explicit extension (e.g. &#X2019;myfile.fits&#X2019;) then hdunum = -99 will be
+returned, which is functionally equivalent to hdunum = 1. This routine
+is mainly used for backward compatibility in the ftools software
+package and is not recommended for general use. It is generally better
+and more efficient to first open the FITS file with fits_open_file,
+then use fits_get_hdu_num to determine which HDU in the file has
+been opened, rather than calling fits_parse_input_url followed by a
+call to fits_open_file.
+<A NAME="ffextn"></A>
+</DD></DL><PRE CLASS="verbatim">   int fits_parse_extnum / ffextn
+       (char *filename, &gt; int *hdunum, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description">Parse the input file name and return the root file name. The root
+name includes the file type if specified, (e.g. &#X2019;ftp://&#X2019; or &#X2019;http://&#X2019;)
+and the full path name, to the extent that it is specified in the input
+filename. It does not include the HDU name or number, or any filtering
+specifications.
+<A NAME="ffrtnm"></A>
+</DD></DL><PRE CLASS="verbatim">   int fits_parse_rootname / ffrtnm
+       (char *filename, &gt; char *rootname, int *status);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description">Test if the input file or a compressed version of the file (with
+a .gz, .Z, .z, or .zip extension) exists on disk. The returned value of
+the &#X2019;exists&#X2019; parameter will have 1 of the 4 following values:<PRE CLASS="verbatim">   2:  the file does not exist, but a compressed version does exist
+   1:  the disk file does exist
+   0:  neither the file nor a compressed version of the file exist
+  -1:  the input file name is not a disk file (could be a ftp, http,
+       smem, or mem file, or a file piped in on the STDIN stream)
+</PRE><P><A NAME="ffexist"></A>
+</P></DD></DL><PRE CLASS="verbatim">   int fits_file_exists / ffexist
+       (char *filename, &gt; int *exists, int *status);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description">Flush any internal buffers of data to the output FITS file. These
+routines rarely need to be called, but can be useful in cases where
+other processes need to access the same FITS file in real time,
+either on disk or in memory. These routines also help to ensure
+that if the application program subsequently aborts then the FITS
+file will have been closed properly. The first routine,
+fits_flush_file is more rigorous and completely closes, then
+reopens, the current HDU, before flushing the internal buffers, thus
+ensuring that the output FITS file is identical to what would be
+produced if the FITS was closed at that point (i.e., with a call to
+fits_close_file). The second routine, fits_flush_buffer simply
+flushes the internal CFITSIO buffers of data to the output FITS
+file, without updating and closing the current HDU. This is much
+faster, but there may be circumstances where the flushed file does
+not completely reflect the final state of the file as it will exist
+when the file is actually closed.<P>A typical use of these routines would be to flush the state of a
+FITS table to disk after each row of the table is written. It is
+recommend that fits_flush_file be called after the first row is
+written, then fits_flush_buffer may be called after each
+subsequent row is written. Note that this latter routine will not
+automatically update the NAXIS2 keyword which records the number of
+rows of data in the table, so this keyword must be explicitly
+updated by the application program after each row is written.
+<A NAME="ffflus"></A>
+</P></DD></DL><PRE CLASS="verbatim">  int fits_flush_file / ffflus
+      (fitsfile *fptr, &gt; int *status)
+
+  int fits_flush_buffer / ffflsh
+      (fitsfile *fptr, 0, &gt; int *status)
+
+      (Note:  The second argument must be 0).
+</PRE><H2 CLASS="section"><A NAME="toc40"></A><A NAME="htoc64">9.2</A>&#XA0;&#XA0;HDU Access Routines</H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the byte offsets in the FITS file to the start of the header
+and the start and end of the data in the CHDU. The difference
+between headstart and dataend equals the size of the CHDU. If the
+CHDU is the last HDU in the file, then dataend is also equal to the
+size of the entire FITS file. Null pointers may be input for any
+of the address parameters if their values are not needed. <A NAME="ffghad"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_get_hduaddr / ffghad  (only supports files up to 2.1 GB in size)
+       (fitsfile *fptr, &gt; long *headstart, long *datastart, long *dataend,
+        int *status)
+
+  int fits_get_hduaddrll / ffghadll  (supports large files)
+       (fitsfile *fptr, &gt; long *headstart, long *datastart, long *dataend,
+        int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Create (append) a new empty HDU at the end of the FITS file.
+This is now the CHDU but it is completely empty and has
+no header keywords. It is recommended that fits_create_img or
+fits_create_tbl be used instead of this routine. <A NAME="ffcrhd"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_create_hdu / ffcrhd
+      (fitsfile *fptr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Insert a new IMAGE extension immediately following the CHDU, or
+insert a new Primary Array at the beginning of the file. Any
+following extensions in the file will be shifted down to make room
+for the new extension. If the CHDU is the last HDU in the file
+then the new image extension will simply be appended to the end of
+the file. One can force a new primary array to be inserted at the
+beginning of the FITS file by setting status = PREPEND_PRIMARY prior
+to calling the routine. In this case the old primary array will be
+converted to an IMAGE extension. The new extension (or primary
+array) will become the CHDU. Refer to Chapter 9 for a list of
+pre-defined bitpix values. <A NAME="ffiimg"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_insert_img / ffiimg
+      (fitsfile *fptr, int bitpix, int naxis, long *naxes, &gt; int *status)
+
+  int fits_insert_imgll / ffiimgll
+      (fitsfile *fptr, int bitpix, int naxis, LONGLONG *naxes, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Insert a new ASCII or binary table extension immediately following the CHDU.
+Any following extensions will be shifted down to make room for the
+new extension. If there are no other following extensions then the
+new table extension will simply be appended to the end of the
+file. If the FITS file is currently empty then this routine will
+create a dummy primary array before appending the table to it. The
+new extension will become the CHDU. The tunit and extname
+parameters are optional and a null pointer may be given if they are
+not defined. When inserting an ASCII table with
+fits_insert_atbl, a null pointer may given for the *tbcol
+parameter in which case each column of the table will be separated
+by a single space character. Similarly, if the input value of
+rowlen is 0, then CFITSIO will calculate the default rowlength
+based on the tbcol and ttype values. When inserting a binary table
+with fits_insert_btbl, if there are following extensions in the
+file and if the table contains variable length array columns then
+pcount must specify the expected final size of the data heap,
+otherwise pcount must = 0. <A NAME="ffitab"></A> <A NAME="ffibin"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_insert_atbl / ffitab
+      (fitsfile *fptr, LONGLONG rowlen, LONGLONG nrows, int tfields, char *ttype[],
+       long *tbcol, char *tform[], char *tunit[], char *extname, &gt; int *status)
+
+  int fits_insert_btbl / ffibin
+      (fitsfile *fptr, LONGLONG nrows, int tfields, char **ttype,
+      char **tform, char **tunit, char *extname, long pcount, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Modify the size, dimensions, and/or data type of the current
+primary array or image extension. If the new image, as specified
+by the input arguments, is larger than the current existing image
+in the FITS file then zero fill data will be inserted at the end
+of the current image and any following extensions will be moved
+further back in the file. Similarly, if the new image is
+smaller than the current image then any following extensions
+will be shifted up towards the beginning of the FITS file
+and the image data will be truncated to the new size.
+This routine rewrites the BITPIX, NAXIS, and NAXISn keywords
+with the appropriate values for the new image. <A NAME="ffrsim"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_resize_img / ffrsim
+      (fitsfile *fptr, int bitpix, int naxis, long *naxes, &gt; int *status)
+
+  int fits_resize_imgll / ffrsimll
+      (fitsfile *fptr, int bitpix, int naxis, LONGLONG *naxes, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Copy the data (and not the header) from the CHDU associated with infptr
+to the CHDU associated with outfptr. This will overwrite any data
+previously in the output CHDU. This low level routine is used by
+fits_copy_hdu, but it may also be useful in certain application programs
+that want to copy the data from one FITS file to another but also
+want to modify the header keywords. The required FITS header keywords
+which define the structure of the HDU must be written to the
+output CHDU before calling this routine. <A NAME="ffcpdt"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_copy_data / ffcpdt
+      (fitsfile *infptr, fitsfile *outfptr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Read or write a specified number of bytes starting at the specified byte
+offset from the start of the extension data unit. These low
+level routine are intended mainly for accessing the data in
+non-standard, conforming extensions, and should not be used for standard
+IMAGE, TABLE, or BINTABLE extensions. <A NAME="ffgextn"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_ext / ffgextn
+      (fitsfile *fptr, LONGLONG offset, LONGLONG nbytes, void *buffer)
+  int fits_write_ext / ffpextn
+      (fitsfile *fptr, LONGLONG offset, LONGLONG nbytes, void *buffer)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> This routine forces CFITSIO to rescan the current header keywords that
+define the structure of the HDU (such as the NAXIS and BITPIX
+keywords) so that it reinitializes the internal buffers that
+describe the HDU structure. This routine is useful for
+reinitializing the structure of an HDU if any of the required
+keywords (e.g., NAXISn) have been modified. In practice it should
+rarely be necessary to call this routine because CFITSIO
+internally calls it in most situations. <A NAME="ffrdef"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_hdustruc / ffrdef
+      (fitsfile *fptr, &gt; int *status)   (DEPRECATED)
+</PRE><H2 CLASS="section"><A NAME="toc41"></A><A NAME="htoc65">9.3</A>&#XA0;&#XA0;Specialized Header Keyword Routines</H2><H3 CLASS="subsection"><A NAME="htoc66">9.3.1</A>&#XA0;&#XA0;Header Information Routines</H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Reserve space in the CHU for MOREKEYS more header keywords.
+This routine may be called to allocate space for additional keywords
+at the time the header is created (prior to writing any data).
+CFITSIO can dynamically add more space to the header when needed,
+however it is more efficient to preallocate the required space
+if the size is known in advance. <A NAME="ffhdef"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_hdrsize / ffhdef
+      (fitsfile *fptr, int morekeys, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Return the number of keywords in the header (not counting the END
+keyword) and the current position
+in the header. The position is the number of the keyword record that
+will be read next (or one greater than the position of the last keyword
+that was read). A value of 1 is returned if the pointer is
+positioned at the beginning of the header. <A NAME="ffghps"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_get_hdrpos / ffghps
+      (fitsfile *fptr, &gt; int *keysexist, int *keynum, int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc67">9.3.2</A>&#XA0;&#XA0;Read and Write the Required Keywords</H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Write the required extension header keywords into the CHU.
+These routines are not required, and instead the appropriate
+header may be constructed by writing each individual keyword in the
+proper sequence.<P>The simpler fits_write_imghdr routine is equivalent to calling
+fits_write_grphdr with the default values of simple = TRUE, pcount
+= 0, gcount = 1, and extend = TRUE. The PCOUNT, GCOUNT and EXTEND
+keywords are not required in the primary header and are only written
+if pcount is not equal to zero, gcount is not equal to zero or one,
+and if extend is TRUE, respectively. When writing to an IMAGE
+extension, the SIMPLE and EXTEND parameters are ignored. It is
+recommended that fits_create_image or fits_create_tbl be used
+instead of these routines to write the
+required header keywords. The general fits_write_exthdr routine
+may be used to write the header of any conforming FITS
+extension. <A NAME="ffphpr"></A> <A NAME="ffphps"></A>
+</P></DD></DL><PRE CLASS="verbatim">  int fits_write_imghdr / ffphps
+      (fitsfile *fptr, int bitpix, int naxis, long *naxes, &gt; int *status)
+
+  int fits_write_imghdrll / ffphpsll
+      (fitsfile *fptr, int bitpix, int naxis, LONGLONG *naxes, &gt; int *status)
+
+  int fits_write_grphdr / ffphpr
+      (fitsfile *fptr, int simple, int bitpix, int naxis, long *naxes,
+       LONGLONG pcount, LONGLONG gcount, int extend, &gt; int *status)
+
+  int fits_write_grphdrll / ffphprll
+      (fitsfile *fptr, int simple, int bitpix, int naxis, LONGLONG *naxes,
+       LONGLONG pcount, LONGLONG gcount, int extend, &gt; int *status)
+
+  int fits_write_exthdr /ffphext
+      (fitsfile *fptr, char *xtension, int bitpix, int naxis, long *naxes,
+       LONGLONG pcount, LONGLONG gcount, &gt; int *status)
+
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Write the ASCII table header keywords into the CHU. The optional
+TUNITn and EXTNAME keywords are written only if the input pointers
+are not null. A null pointer may given for the
+*tbcol parameter in which case a single space will be inserted
+between each column of the table. Similarly, if rowlen is
+given = 0, then CFITSIO will calculate the default rowlength based on
+the tbcol and ttype values. <A NAME="ffphtb"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_atblhdr / ffphtb
+      (fitsfile *fptr, LONGLONG rowlen, LONGLONG nrows, int tfields, char **ttype,
+       long *tbcol, char **tform, char **tunit, char *extname, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Write the binary table header keywords into the CHU. The optional
+TUNITn and EXTNAME keywords are written only if the input pointers
+are not null. The pcount parameter, which specifies the
+size of the variable length array heap, should initially = 0;
+CFITSIO will automatically update the PCOUNT keyword value if any
+variable length array data is written to the heap. The TFORM keyword
+value for variable length vector columns should have the form &#X2019;Pt(len)&#X2019;
+or &#X2019;1Pt(len)&#X2019; where &#X2018;t&#X2019; is the data type code letter (A,I,J,E,D, etc.)
+and &#X2018;len&#X2019; is an integer specifying the maximum length of the vectors
+in that column (len must be greater than or equal to the longest
+vector in the column). If &#X2018;len&#X2019; is not specified when the table is
+created (e.g., the input TFORMn value is just &#X2019;1Pt&#X2019;) then CFITSIO will
+scan the column when the table is first closed and will append the
+maximum length to the TFORM keyword value. Note that if the table
+is subsequently modified to increase the maximum length of the vectors
+then the modifying program is responsible for also updating the TFORM
+keyword value. <A NAME="ffphbn"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_btblhdr / ffphbn
+      (fitsfile *fptr, LONGLONG nrows, int tfields, char **ttype,
+       char **tform, char **tunit, char *extname, LONGLONG pcount, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Read the required keywords from the CHDU (image or table). When
+reading from an IMAGE extension the SIMPLE and EXTEND parameters are
+ignored. A null pointer may be supplied for any of the returned
+parameters that are not needed. <A NAME="ffghpr"></A> <A NAME="ffghtb"></A> <A NAME="ffghbn"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_imghdr / ffghpr
+      (fitsfile *fptr, int maxdim, &gt; int *simple, int *bitpix, int *naxis,
+       long *naxes, long *pcount, long *gcount, int *extend, int *status)
+
+  int fits_read_imghdrll / ffghprll
+      (fitsfile *fptr, int maxdim, &gt; int *simple, int *bitpix, int *naxis,
+       LONGLONG *naxes, long *pcount, long *gcount, int *extend, int *status)
+
+  int fits_read_atblhdr / ffghtb
+      (fitsfile *fptr,int maxdim, &gt; long *rowlen, long *nrows,
+       int *tfields, char **ttype, LONGLONG *tbcol, char **tform, char **tunit,
+       char *extname,  int *status)
+
+  int fits_read_atblhdrll / ffghtbll
+      (fitsfile *fptr,int maxdim, &gt; LONGLONG *rowlen, LONGLONG *nrows,
+       int *tfields, char **ttype, long *tbcol, char **tform, char **tunit,
+       char *extname,  int *status)
+
+  int fits_read_btblhdr / ffghbn
+      (fitsfile *fptr, int maxdim, &gt; long *nrows, int *tfields,
+       char **ttype, char **tform, char **tunit, char *extname,
+       long *pcount, int *status)
+
+  int fits_read_btblhdrll / ffghbnll
+      (fitsfile *fptr, int maxdim, &gt; LONGLONG *nrows, int *tfields,
+       char **ttype, char **tform, char **tunit, char *extname,
+       long *pcount, int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc68">9.3.3</A>&#XA0;&#XA0;Write Keyword Routines</H3><P>These routines simply append a new keyword to the header and do not
+check to see if a keyword with the same name already exists. In
+general it is preferable to use the fits_update_key routine to ensure
+that the same keyword is not written more than once to the header. See
+Appendix B for the definition of the parameters used in these
+routines.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Write (append) a new keyword of the appropriate data type into the CHU.
+A null pointer may be entered for the comment parameter, which
+will cause the comment field of the keyword to be left blank. The
+flt, dbl, cmp, and dblcmp versions of this routine have the added
+feature that if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019;
+display format rather then the &#X2019;E&#X2019; format will be used when
+constructing the keyword value, taking the absolute value of
+&#X2019;decimals&#X2019; for the precision. This will suppress trailing zeros,
+and will use a fixed format rather than an exponential format,
+depending on the magnitude of the value. <A NAME="ffpkyx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_key_str / ffpkys
+      (fitsfile *fptr, char *keyname, char *value, char *comment,
+       &gt; int *status)
+
+  int fits_write_key_[log, lng] /  ffpky[lj]
+      (fitsfile *fptr, char *keyname, DTYPE numval, char *comment,
+       &gt; int *status)
+
+  int fits_write_key_[flt, dbl, fixflg, fixdbl] / ffpky[edfg]
+      (fitsfile *fptr, char *keyname, DTYPE numval, int decimals,
+      char *comment, &gt; int *status)
+
+  int fits_write_key_[cmp, dblcmp, fixcmp, fixdblcmp] / ffpk[yc,ym,fc,fm]
+      (fitsfile *fptr, char *keyname, DTYPE *numval, int decimals,
+      char *comment, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Write (append) a string valued keyword into the CHU which may be longer
+than 68 characters in length. This uses the Long String Keyword
+convention that is described in the&#X2018;Local FITS Conventions&#X2019; section
+in Chapter 4. Since this uses a non-standard FITS convention to
+encode the long keyword string, programs which use this routine
+should also call the fits_write_key_longwarn routine to add some
+COMMENT keywords to warn users of the FITS file that this
+convention is being used. The fits_write_key_longwarn routine
+also writes a keyword called LONGSTRN to record the version of the
+longstring convention that has been used, in case a new convention
+is adopted at some point in the future. If the LONGSTRN keyword
+is already present in the header, then fits_write_key_longwarn
+will
+simply return without doing anything. <A NAME="ffpkls"></A> <A NAME="ffplsw"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_key_longstr / ffpkls
+      (fitsfile *fptr, char *keyname, char *longstr, char *comment,
+       &gt; int *status)
+
+  int fits_write_key_longwarn / ffplsw
+      (fitsfile *fptr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Write (append) a numbered sequence of keywords into the CHU. The
+starting index number (nstart) must be greater than 0. One may
+append the same comment to every keyword (and eliminate the need
+to have an array of identical comment strings, one for each keyword) by
+including the ampersand character as the last non-blank character in the
+(first) COMMENTS string parameter. This same string
+will then be used for the comment field in all the keywords.
+One may also enter a null pointer for the comment parameter to
+leave the comment field of the keyword blank. <A NAME="ffpknx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_keys_str / ffpkns
+      (fitsfile *fptr, char *keyroot, int nstart, int nkeys,
+       char **value, char **comment, &gt; int *status)
+
+  int fits_write_keys_[log, lng] / ffpkn[lj]
+      (fitsfile *fptr, char *keyroot, int nstart, int nkeys,
+       DTYPE *numval, char **comment, int *status)
+
+  int fits_write_keys_[flt, dbl, fixflg, fixdbl] / ffpkne[edfg]
+      (fitsfile *fptr, char *keyroot, int nstart, int nkey,
+       DTYPE *numval, int decimals, char **comment, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description">Copy an indexed keyword from one HDU to another, modifying
+the index number of the keyword name in the process. For example,
+this routine could read the TLMIN3 keyword from the input HDU
+(by giving keyroot = &#X2018;TLMIN&#X2019; and innum = 3) and write it to the
+output HDU with the keyword name TLMIN4 (by setting outnum = 4).
+If the input keyword does not exist, then this routine simply
+returns without indicating an error. <A NAME="ffcpky"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_copy_key / ffcpky
+      (fitsfile *infptr, fitsfile *outfptr, int innum, int outnum,
+       char *keyroot, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description">Write (append) a &#X2018;triple precision&#X2019; keyword into the CHU in F28.16 format.
+The floating point keyword value is constructed by concatenating the
+input integer value with the input double precision fraction value
+(which must have a value between 0.0 and 1.0). The ffgkyt routine should
+be used to read this keyword value, because the other keyword reading
+routines will not preserve the full precision of the value. <A NAME="ffpkyt"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_key_triple / ffpkyt
+      (fitsfile *fptr, char *keyname, long intval, double frac,
+       char *comment, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description">Write keywords to the CHDU that are defined in an ASCII template file.
+The format of the template file is described under the fits_parse_template
+routine. <A NAME="ffpktp"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_key_template / ffpktp
+      (fitsfile *fptr, const char *filename, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc69">9.3.4</A>&#XA0;&#XA0;Insert Keyword Routines</H3><P>These insert routines are somewhat less efficient than the &#X2018;update&#X2019; or
+&#X2018;write&#X2019; keyword routines because the following keywords in the header
+must be shifted down to make room for the inserted keyword. See
+Appendix B for the definition of the parameters used in these
+routines.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Insert a new keyword record into the CHU at the specified position
+(i.e., immediately preceding the (keynum)th keyword in the header.)
+<A NAME="ffirec"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_insert_record / ffirec
+      (fitsfile *fptr, int keynum, char *card, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Insert a new keyword into the CHU. The new keyword is inserted
+immediately following the last keyword that has been read from the
+header. The &#X2018;longstr&#X2019; version has the same functionality as the
+&#X2018;str&#X2019; version except that it also supports the local long string
+keyword convention for strings longer than 68 characters. A null
+pointer may be entered for the comment parameter which will cause
+the comment field to be left blank. The flt, dbl, cmp, and dblcmp
+versions of this routine have the added
+feature that if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019;
+display format rather then the &#X2019;E&#X2019; format will be used when
+constructing the keyword value, taking the absolute value of
+&#X2019;decimals&#X2019; for the precision. This will suppress trailing zeros,
+and will use a fixed format rather than an exponential format,
+depending on the magnitude of the value. <A NAME="ffikyx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_insert_card / ffikey
+      (fitsfile *fptr, char *card, &gt; &amp;status)
+
+  int fits_insert_key_[str, longstr] / ffi[kys, kls]
+      (fitsfile *fptr, char *keyname, char *value, char *comment,
+       &gt; int *status)
+
+  int fits_insert_key_[log, lng] / ffiky[lj]
+      (fitsfile *fptr, char *keyname, DTYPE numval, char *comment,
+       &gt; int *status)
+
+  int fits_insert_key_[flt, fixflt, dbl, fixdbl] / ffiky[edfg]
+      (fitsfile *fptr, char *keyname, DTYPE numval, int decimals,
+       char *comment, &gt; int *status)
+
+  int fits_insert_key_[cmp, dblcmp, fixcmp, fixdblcmp] / ffik[yc,ym,fc,fm]
+      (fitsfile *fptr, char *keyname, DTYPE *numval, int decimals,
+       char *comment, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Insert a new keyword with an undefined, or null, value into the CHU.
+The value string of the keyword is left blank in this case. <A NAME="ffikyu"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_insert_key_null / ffikyu
+      (fitsfile *fptr, char *keyname, char *comment, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc70">9.3.5</A>&#XA0;&#XA0;Read Keyword Routines</H3><P>Wild card characters may be used when specifying the name of the
+keyword to be read.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Read a keyword value (with the appropriate data type) and comment from
+the CHU. If a NULL comment pointer is given on input, then the comment
+string will not be returned. If the value of the keyword is not defined
+(i.e., the value field is blank) then an error status = VALUE_UNDEFINED
+will be returned and the input value will not be changed (except that
+ffgkys will reset the value to a null string).
+<A NAME="ffgkyx"></A> <A NAME="ffgkls"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_key_str / ffgkys
+      (fitsfile *fptr, char *keyname, &gt; char *value, char *comment,
+       int *status);
+
+  NOTE: after calling the following routine, programs must explicitly free
+        the memory allocated for 'longstr' after it is no longer needed.
+
+  int fits_read_key_longstr / ffgkls
+      (fitsfile *fptr, char *keyname, &gt; char **longstr, char *comment,
+             int *status)
+
+  int fits_read_key_[log, lng, flt, dbl, cmp, dblcmp] / ffgky[ljedcm]
+      (fitsfile *fptr, char *keyname, &gt; DTYPE *numval, char *comment,
+       int *status)
+
+  int fits_read_key_lnglng / ffgkyjj
+      (fitsfile *fptr, char *keyname, &gt; LONGLONG *numval, char *comment,
+       int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Read a sequence of indexed keyword values (e.g., NAXIS1, NAXIS2, ...).
+The input starting index number (nstart) must be greater than 0.
+If the value of any of the keywords is not defined (i.e., the value
+field is blank) then an error status = VALUE_UNDEFINED will be
+returned and the input value for the undefined keyword(s) will not
+be changed. These routines do not support wild card characters in
+the root name. If there are no indexed keywords in the header with
+the input root name then these routines do not return a non-zero
+status value and instead simply return nfound = 0. <A NAME="ffgknx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_keys_str / ffgkns
+      (fitsfile *fptr, char *keyname, int nstart, int nkeys,
+       &gt; char **value, int *nfound,  int *status)
+
+  int fits_read_keys_[log, lng, flt, dbl] / ffgkn[ljed]
+      (fitsfile *fptr, char *keyname, int nstart, int nkeys,
+       &gt; DTYPE *numval, int *nfound, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Read the value of a floating point keyword, returning the integer and
+fractional parts of the value in separate routine arguments.
+This routine may be used to read any keyword but is especially
+useful for reading the &#X2019;triple precision&#X2019; keywords written by ffpkyt.
+<A NAME="ffgkyt"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_key_triple / ffgkyt
+      (fitsfile *fptr, char *keyname, &gt; long *intval, double *frac,
+       char *comment, int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc71">9.3.6</A>&#XA0;&#XA0;Modify Keyword Routines</H3><P>These routines modify the value of an existing keyword. An error is
+returned if the keyword does not exist. Wild card characters may be
+used when specifying the name of the keyword to be modified. See
+Appendix B for the definition of the parameters used in these
+routines.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the nth 80-character header record in the CHU. <A NAME="ffmrec"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_modify_record / ffmrec
+      (fitsfile *fptr, int keynum, char *card, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Modify (overwrite) the 80-character header record for the named keyword
+in the CHU. This can be used to overwrite the name of the keyword as
+well as its value and comment fields. <A NAME="ffmcrd"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_modify_card / ffmcrd
+      (fitsfile *fptr, char *keyname, char *card, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Modify the value and comment fields of an existing keyword in the CHU.
+The &#X2018;longstr&#X2019; version has the same functionality as the &#X2018;str&#X2019;
+version except that it also supports the local long string keyword
+convention for strings longer than 68 characters. Optionally, one
+may modify only the value field and leave the comment field
+unchanged by setting the input COMMENT parameter equal to the
+ampersand character (&amp;) or by entering a null pointer for the
+comment parameter. The flt, dbl, cmp, and dblcmp versions of this
+routine have the added feature that if the &#X2019;decimals&#X2019; parameter is
+negative, then the &#X2019;G&#X2019; display format rather then the &#X2019;E&#X2019; format
+will be used when constructing the keyword value, taking the
+absolute value of &#X2019;decimals&#X2019; for the precision. This will suppress
+trailing zeros, and will use a fixed format rather than an
+exponential format,
+depending on the magnitude of the value. <A NAME="ffmkyx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_modify_key_[str, longstr] / ffm[kys, kls]
+      (fitsfile *fptr, char *keyname, char *value, char *comment,
+       &gt; int *status);
+
+  int fits_modify_key_[log, lng] / ffmky[lj]
+      (fitsfile *fptr, char *keyname, DTYPE numval, char *comment,
+       &gt; int *status)
+
+  int fits_modify_key_[flt, dbl, fixflt, fixdbl] / ffmky[edfg]
+      (fitsfile *fptr, char *keyname, DTYPE numval, int decimals,
+       char *comment, &gt; int *status)
+
+  int fits_modify_key_[cmp, dblcmp, fixcmp, fixdblcmp] / ffmk[yc,ym,fc,fm]
+      (fitsfile *fptr, char *keyname, DTYPE *numval, int decimals,
+       char *comment, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Modify the value of an existing keyword to be undefined, or null.
+The value string of the keyword is set to blank.
+Optionally, one may leave the comment field unchanged by setting the
+input COMMENT parameter equal to
+the ampersand character (&amp;) or by entering a null pointer. <A NAME="ffmkyu"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_modify_key_null / ffmkyu
+      (fitsfile *fptr, char *keyname, char *comment, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc72">9.3.7</A>&#XA0;&#XA0;Update Keyword Routines</H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> These update routines modify the value, and optionally the comment field,
+of the keyword if it already exists, otherwise the new keyword is
+appended to the header. A separate routine is provided for each
+keyword data type. The &#X2018;longstr&#X2019; version has the same functionality
+as the &#X2018;str&#X2019; version except that it also supports the local long
+string keyword convention for strings longer than 68 characters. A
+null pointer may be entered for the comment parameter which will
+leave the comment field unchanged or blank. The flt, dbl, cmp, and
+dblcmp versions of this routine have the added feature that if the
+&#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019; display format
+rather then the &#X2019;E&#X2019; format will be used when constructing the
+keyword value, taking the absolute value of &#X2019;decimals&#X2019; for the
+precision. This will suppress trailing zeros, and will use a fixed
+format rather than an exponential format,
+depending on the magnitude of the value. <A NAME="ffukyx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_update_key_[str, longstr] / ffu[kys, kls]
+      (fitsfile *fptr, char *keyname, char *value, char *comment,
+       &gt; int *status)
+
+  int fits_update_key_[log, lng] / ffuky[lj]
+      (fitsfile *fptr, char *keyname, DTYPE numval, char *comment,
+       &gt; int *status)
+
+  int fits_update_key_[flt, dbl, fixflt, fixdbl] / ffuky[edfg]
+      (fitsfile *fptr, char *keyname, DTYPE numval, int decimals,
+       char *comment, &gt; int *status)
+
+  int fits_update_key_[cmp, dblcmp, fixcmp, fixdblcmp] / ffuk[yc,ym,fc,fm]
+      (fitsfile *fptr, char *keyname, DTYPE *numval, int decimals,
+       char *comment, &gt; int *status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc42"></A><A NAME="htoc73">9.4</A>&#XA0;&#XA0;Define Data Scaling and Undefined Pixel Parameters</H2><P>These routines set or modify the internal parameters used by CFITSIO
+to either scale the data or to represent undefined pixels. Generally
+CFITSIO will scale the data according to the values of the BSCALE and
+BZERO (or TSCALn and TZEROn) keywords, however these routines may be
+used to override the keyword values. This may be useful when one wants
+to read or write the raw unscaled values in the FITS file. Similarly,
+CFITSIO generally uses the value of the BLANK or TNULLn keyword to
+signify an undefined pixel, but these routines may be used to override
+this value. These routines do not create or modify the corresponding
+header keyword values. See Appendix B for the definition of the
+parameters used in these routines.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Reset the scaling factors in the primary array or image extension; does
+not change the BSCALE and BZERO keyword values and only affects the
+automatic scaling performed when the data elements are written/read
+to/from the FITS file. When reading from a FITS file the returned
+data value = (the value given in the FITS array) * BSCALE + BZERO.
+The inverse formula is used when writing data values to the FITS
+file. <A NAME="ffpscl"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_bscale / ffpscl
+      (fitsfile *fptr, double scale, double zero, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Reset the scaling parameters for a table column; does not change
+the TSCALn or TZEROn keyword values and only affects the automatic
+scaling performed when the data elements are written/read to/from
+the FITS file. When reading from a FITS file the returned data
+value = (the value given in the FITS array) * TSCAL + TZERO. The
+inverse formula is used when writing data values to the FITS file.
+<A NAME="fftscl"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_tscale / fftscl
+      (fitsfile *fptr, int colnum, double scale, double zero,
+       &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Define the integer value to be used to signify undefined pixels in the
+primary array or image extension. This is only used if BITPIX = 8, 16,
+or 32. This does not create or change the value of the BLANK keyword in
+the header. <A NAME="ffpnul"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_imgnull / ffpnul
+      (fitsfile *fptr, LONGLONG nulval, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Define the string to be used to signify undefined pixels in
+a column in an ASCII table. This does not create or change the value
+of the TNULLn keyword. <A NAME="ffsnul"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_atblnull / ffsnul
+      (fitsfile *fptr, int colnum, char *nulstr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Define the value to be used to signify undefined pixels in
+an integer column in a binary table (where TFORMn = &#X2019;B&#X2019;, &#X2019;I&#X2019;, or &#X2019;J&#X2019;).
+This does not create or change the value of the TNULLn keyword.
+<A NAME="fftnul"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_set_btblnull / fftnul
+      (fitsfile *fptr, int colnum, LONGLONG nulval, &gt; int *status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc43"></A><A NAME="htoc74">9.5</A>&#XA0;&#XA0;Specialized FITS Primary Array or IMAGE Extension I/O Routines</H2><P>These routines read or write data values in the primary data array
+(i.e., the first HDU in the FITS file) or an IMAGE extension.
+Automatic data type conversion is performed for if the data type of the
+FITS array (as defined by the BITPIX keyword) differs from the data
+type of the array in the calling routine. The data values are
+automatically scaled by the BSCALE and BZERO header values as they are
+being written or read from the FITS array. Unlike the basic routines
+described in the previous chapter, most of these routines specifically
+support the FITS random groups format. See Appendix B for the
+definition of the parameters used in these routines.</P><P>The more primitive reading and writing routines (i. e., ffppr_,
+ffppn_, ffppn, ffgpv_, or ffgpf_) simply treat the primary array as
+a long 1-dimensional array of pixels, ignoring the intrinsic
+dimensionality of the array. When dealing with a 2D image, for
+example, the application program must calculate the pixel offset in the
+1-D array that corresponds to any particular X, Y coordinate in the
+image. C programmers should note that the ordering of arrays in FITS
+files, and hence in all the CFITSIO calls, is more similar to the
+dimensionality of arrays in Fortran rather than C. For instance if a
+FITS image has NAXIS1 = 100 and NAXIS2 = 50, then a 2-D array just
+large enough to hold the image should be declared as array[50][100] and
+not as array[100][50].</P><P>For convenience, higher-level routines are also provided to specifically
+deal with 2D images (ffp2d_ and ffg2d_) and 3D data cubes (ffp3d_
+and ffg3d_). The dimensionality of the FITS image is passed by the
+naxis1, naxis2, and naxis3 parameters and the declared dimensions of
+the program array are passed in the dim1 and dim2 parameters. Note
+that the dimensions of the program array may be larger than the
+dimensions of the FITS array. For example if a FITS image with NAXIS1
+= NAXIS2 = 400 is read into a program array which is dimensioned as 512
+x 512 pixels, then the image will just fill the lower left corner of
+the array with pixels in the range 1 - 400 in the X an Y directions.
+This has the effect of taking a contiguous set of pixel value in the
+FITS array and writing them to a non-contiguous array in program memory
+(i.e., there are now some blank pixels around the edge of the image in
+the program array).</P><P>The most general set of routines (ffpss_, ffgsv_, and ffgsf_) may be
+used to transfer a rectangular subset of the pixels in a FITS
+N-dimensional image to or from an array which has been declared in the
+calling program. The fpixel and lpixel parameters are integer arrays
+which specify the starting and ending pixel coordinate in each dimension
+(starting with 1, not 0) of the FITS image that is to be read or
+written. It is important to note that these are the starting and
+ending pixels in the FITS image, not in the declared array in the
+program. The array parameter in these routines is treated simply as a
+large one-dimensional array of the appropriate data type containing the
+pixel values; The pixel values in the FITS array are read/written
+from/to this program array in strict sequence without any gaps; it is
+up to the calling routine to correctly interpret the dimensionality of
+this array. The two FITS reading routines (ffgsv_ and ffgsf_ ) also
+have an &#X2018;inc&#X2019; parameter which defines the data sampling interval in
+each dimension of the FITS array. For example, if inc[0]=2 and
+inc[1]=3 when reading a 2-dimensional FITS image, then only every other
+pixel in the first dimension and every 3rd pixel in the second
+dimension will be returned to the &#X2019;array&#X2019; parameter.</P><P>Two types of routines are provided to read the data array which differ in
+the way undefined pixels are handled. The first type of routines (e.g.,
+ffgpv_) simply return an array of data elements in which undefined
+pixels are set equal to a value specified by the user in the &#X2018;nulval&#X2019;
+parameter. An additional feature of these routines is that if the user
+sets nulval = 0, then no checks for undefined pixels will be performed,
+thus reducing the amount of CPU processing. The second type of routines
+(e.g., ffgpf_) returns the data element array and, in addition, a char
+array that indicates whether the value of the corresponding data pixel
+is undefined (= 1) or defined (= 0). The latter type of routines may
+be more convenient to use in some circumstances, however, it requires
+an additional array of logical values which can be unwieldy when working
+with large data arrays.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Write elements into the FITS data array.
+<A NAME="ffppr"></A> <A NAME="ffpprx"></A> <A NAME="ffppn"></A> <A NAME="ffppnx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_img / ffppr
+      (fitsfile *fptr, int datatype, LONGLONG firstelem, LONGLONG nelements,
+       DTYPE *array, int *status);
+
+  int fits_write_img_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffppr[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, LONGLONG firstelem, LONGLONG nelements,
+       DTYPE *array, &gt; int *status);
+
+  int fits_write_imgnull / ffppn
+      (fitsfile *fptr, int datatype, LONGLONG firstelem, LONGLONG nelements,
+       DTYPE *array, DTYPE *nulval, &gt; int *status);
+
+  int fits_write_imgnull_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffppn[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, LONGLONG firstelem,
+           LONGLONG nelements, DTYPE *array, DTYPE nulval, &gt; int *status);
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description">Set data array elements as undefined. <A NAME="ffppru"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_img_null / ffppru
+      (fitsfile *fptr, long group, LONGLONG firstelem, LONGLONG nelements,
+       &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Write values into group parameters. This routine only applies
+to the &#X2018;Random Grouped&#X2019; FITS format which has been used for
+applications in radio interferometry, but is officially deprecated
+for future use. <A NAME="ffpgpx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_grppar_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffpgp[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, long firstelem, long nelements,
+       &gt; DTYPE *array, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Write a 2-D or 3-D image into the data array. <A NAME="ffp2dx"></A> <A NAME="ffp3dx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_2d_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffp2d[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, LONGLONG dim1, LONGLONG naxis1,
+       LONGLONG naxis2, DTYPE *array, &gt; int *status)
+
+  int fits_write_3d_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffp3d[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, LONGLONG dim1, LONGLONG dim2, LONGLONG naxis1,
+       LONGLONG naxis2, LONGLONG naxis3, DTYPE *array, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Write an arbitrary data subsection into the data array. <A NAME="ffpssx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_subset_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffpss[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, long naxis, long *naxes,
+       long *fpixel, long *lpixel, DTYPE *array, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Read elements from the FITS data array.
+<A NAME="ffgpv"></A> <A NAME="ffgpvx"></A> <A NAME="ffgpf"></A> <A NAME="ffgpfx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_img / ffgpv
+      (fitsfile *fptr, int  datatype, long firstelem, long nelements,
+       DTYPE *nulval, &gt; DTYPE *array, int *anynul, int *status)
+
+  int fits_read_img_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffgpv[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, long group, long firstelem, long nelements,
+       DTYPE nulval, &gt; DTYPE *array, int *anynul, int *status)
+
+  int fits_read_imgnull / ffgpf
+      (fitsfile *fptr, int  datatype, long firstelem, long nelements,
+       &gt; DTYPE *array, char *nullarray, int *anynul, int *status)
+
+  int  fits_read_imgnull_[byt, sht, usht, int, uint, lng, ulng, flt, dbl] /
+       ffgpf[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, long group, long firstelem, long nelements,
+       &gt; DTYPE *array, char *nullarray, int *anynul, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Read values from group parameters. This routine only applies
+to the &#X2018;Random Grouped&#X2019; FITS format which has been used for
+applications in radio interferometry, but is officially deprecated
+for future use. <A NAME="ffggpx"></A>
+</DD></DL><PRE CLASS="verbatim">  int  fits_read_grppar_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+       ffggp[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, long group, long firstelem, long nelements,
+       &gt; DTYPE *array, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Read 2-D or 3-D image from the data array. Undefined
+pixels in the array will be set equal to the value of &#X2019;nulval&#X2019;,
+unless nulval=0 in which case no testing for undefined pixels will
+be performed. <A NAME="ffg2dx"></A> <A NAME="ffg3dx"></A>
+</DD></DL><PRE CLASS="verbatim">  int  fits_read_2d_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+       ffg2d[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, long group, DTYPE nulval, LONGLONG dim1, LONGLONG naxis1,
+       LONGLONG naxis2, &gt; DTYPE *array, int *anynul, int *status)
+
+  int  fits_read_3d_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+       ffg3d[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, long group, DTYPE nulval, LONGLONG dim1,
+       LONGLONG dim2, LONGLONG naxis1, LONGLONG naxis2, LONGLONG naxis3,
+       &gt; DTYPE *array, int *anynul, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Read an arbitrary data subsection from the data array.
+<A NAME="ffgsvx"></A> <A NAME="ffgsfx"></A>
+</DD></DL><PRE CLASS="verbatim">  int  fits_read_subset_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+       ffgsv[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, int group, int naxis, long *naxes,
+       long *fpixel, long *lpixel, long *inc, DTYPE nulval,
+       &gt; DTYPE *array, int *anynul, int *status)
+
+  int  fits_read_subsetnull_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+       ffgsf[b,i,ui,k,uk,j,uj,jj,e,d]
+       (fitsfile *fptr, int group, int naxis, long *naxes,
+       long *fpixel, long *lpixel, long *inc, &gt; DTYPE *array,
+       char *nullarray, int *anynul, int *status)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc44"></A><A NAME="htoc75">9.6</A>&#XA0;&#XA0;Specialized FITS ASCII and Binary Table Routines</H2><H3 CLASS="subsection"><A NAME="htoc76">9.6.1</A>&#XA0;&#XA0;General Column Routines</H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get information about an existing ASCII or binary table column. A null
+pointer may be given for any of the output parameters that are not
+needed. DATATYPE is a character string which returns the data type
+of the column as defined by the TFORMn keyword (e.g., &#X2019;I&#X2019;, &#X2019;J&#X2019;,&#X2019;E&#X2019;,
+&#X2019;D&#X2019;, etc.). In the case of an ASCII character column, typecode
+will have a value of the form &#X2019;An&#X2019; where &#X2019;n&#X2019; is an integer
+expressing the width of the field in characters. For example, if
+TFORM = &#X2019;160A8&#X2019; then ffgbcl will return typechar=&#X2019;A8&#X2019; and
+repeat=20. All the returned parameters are scalar quantities.
+<A NAME="ffgacl"></A> <A NAME="ffgbcl"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_get_acolparms / ffgacl
+    (fitsfile *fptr, int colnum, &gt; char *ttype, long *tbcol,
+     char *tunit, char *tform, double *scale, double *zero,
+     char *nulstr, char *tdisp, int *status)
+
+  int fits_get_bcolparms / ffgbcl
+      (fitsfile *fptr, int colnum, &gt; char *ttype, char *tunit,
+       char *typechar, long *repeat, double *scale, double *zero,
+       long *nulval, char *tdisp, int  *status)
+
+  int fits_get_bcolparmsll / ffgbclll
+      (fitsfile *fptr, int colnum, &gt; char *ttype, char *tunit,
+       char *typechar, LONGLONG *repeat, double *scale, double *zero,
+       LONGLONG *nulval, char *tdisp, int  *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Return optimal number of rows to read or write at one time for
+maximum I/O efficiency. Refer to the
+&#X201C;Optimizing Code&#X201D; section in Chapter 5 for more discussion on how
+to use this routine. <A NAME="ffgrsz"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_get_rowsize / ffgrsz
+      (fitsfile *fptr, long *nrows, *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Define the zero indexed byte offset of the &#X2019;heap&#X2019; measured from
+the start of the binary table data. By default the heap is assumed
+to start immediately following the regular table data, i.e., at
+location NAXIS1 x NAXIS2. This routine is only relevant for
+binary tables which contain variable length array columns (with
+TFORMn = &#X2019;Pt&#X2019;). This routine also automatically writes
+the value of theap to a keyword in the extension header. This
+routine must be called after the required keywords have been
+written (with ffphbn)
+but before any data is written to the table. <A NAME="ffpthp"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_theap / ffpthp
+      (fitsfile *fptr, long theap, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Test the contents of the binary table variable array heap, returning
+the size of the heap, the number of unused bytes that are not currently
+pointed to by any of the descriptors, and the number of bytes which are
+pointed to by multiple descriptors. It also returns valid = FALSE if
+any of the descriptors point to invalid addresses out of range of the
+heap. <A NAME="fftheap"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_test_heap / fftheap
+      (fitsfile *fptr, &gt; LONGLONG *heapsize, LONGLONG *unused, LONGLONG *overlap,
+       int *validheap, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Re-pack the vectors in the binary table variable array heap to recover
+any unused space. Normally, when a vector in a variable length
+array column is rewritten the previously written array remains in
+the heap as wasted unused space. This routine will repack the
+arrays that are still in use, thus eliminating any bytes in the
+heap that are no longer in use. Note that if several vectors point
+to the same bytes in the heap, then this routine will make
+duplicate copies of the bytes for each vector, which will actually
+expand the size of the heap. <A NAME="ffcmph"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_compress_heap / ffcmph
+      (fitsfile *fptr, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc77">9.6.2</A>&#XA0;&#XA0;Low-Level Table Access Routines</H3><P>The following 2 routines provide low-level access to the data in ASCII
+or binary tables and are mainly useful as an efficient way to copy all
+or part of a table from one location to another. These routines simply
+read or write the specified number of consecutive bytes in an ASCII or
+binary table, without regard for column boundaries or the row length in
+the table. These routines do not perform any machine dependent data
+conversion or byte swapping. See Appendix B for the definition of the
+parameters used in these routines.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Read or write a consecutive array of bytes from an ASCII or binary
+table <A NAME="ffgtbb"></A> <A NAME="ffptbb"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_tblbytes / ffgtbb
+      (fitsfile *fptr, LONGLONG firstrow, LONGLONG firstchar, LONGLONG nchars,
+       &gt; unsigned char *values, int *status)
+
+  int fits_write_tblbytes / ffptbb
+      (fitsfile *fptr, LONGLONG firstrow, LONGLONG firstchar, LONGLONG nchars,
+       unsigned char *values, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc78">9.6.3</A>&#XA0;&#XA0;Write Column Data Routines</H3><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Write elements into an ASCII or binary table column (in the CDU).
+The data type of the array is implied by the suffix of the
+routine name. <A NAME="ffpcls"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_col_str / ffpcls
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, char **array, &gt; int *status)
+
+  int fits_write_col_[log,byt,sht,usht,int,uint,lng,ulng,lnglng,flt,dbl,cmp,dblcmp] /
+      ffpcl[l,b,i,ui,k,uk,j,uj,jj,e,d,c,m]
+      (fitsfile *fptr, int colnum, LONGLONG firstrow,
+           LONGLONG firstelem, LONGLONG nelements, DTYPE *array, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Write elements into an ASCII or binary table column
+substituting the appropriate FITS null value for any elements that
+are equal to the nulval parameter. <A NAME="ffpcnx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_colnull_[log, byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffpcn[l,b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, DTYPE *array, DTYPE nulval, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Write string elements into a binary table column (in the CDU)
+substituting the FITS null value for any elements that
+are equal to the nulstr string. <A NAME="ffpcns"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_colnull_str / ffpcns
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, char **array, char *nulstr, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Write bit values into a binary byte (&#X2019;B&#X2019;) or bit (&#X2019;X&#X2019;) table column (in
+the CDU). Larray is an array of characters corresponding to the
+sequence of bits to be written. If an element of larray is true
+(not equal to zero) then the corresponding bit in the FITS table is
+set to 1, otherwise the bit is set to 0. The &#X2019;X&#X2019; column in a FITS
+table is always padded out to a multiple of 8 bits where the bit
+array starts with the most significant bit of the byte and works
+down towards the 1&#X2019;s bit. For example, a &#X2019;4X&#X2019; array, with the
+first bit = 1 and the remaining 3 bits = 0 is equivalent to the 8-bit
+unsigned byte decimal value of 128 (&#X2019;1000 0000B&#X2019;). In the case of
+&#X2019;X&#X2019; columns, CFITSIO can write to all 8 bits of each byte whether
+they are formally valid or not. Thus if the column is defined as
+&#X2019;4X&#X2019;, and one calls ffpclx with firstbit=1 and nbits=8, then all
+8 bits will be written into the first byte (as opposed to writing
+the first 4 bits into the first row and then the next 4 bits into
+the next row), even though the last 4 bits of each byte are formally
+not defined and should all be set = 0. It should also be noted that
+it is more efficient to write &#X2019;X&#X2019; columns an entire byte at a time,
+instead of bit by bit. Any of the CFITSIO routines that write to
+columns (e.g. fits_write_col_byt) may be used for this purpose.
+These routines will interpret &#X2019;X&#X2019; columns as though they were &#X2019;B&#X2019;
+columns (e.g., &#X2019;1X&#X2019; through &#X2019;8X&#X2019; is equivalent
+to &#X2019;1B&#X2019;, and &#X2019;9X&#X2019; through &#X2019;16X&#X2019; is equivalent to &#X2019;2B&#X2019;). <A NAME="ffpclx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_write_col_bit / ffpclx
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, long firstbit,
+       long nbits, char *larray, &gt; int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Write the descriptor for a variable length column in a binary table.
+This routine can be used in conjunction with ffgdes to enable
+2 or more arrays to point to the same storage location to save
+storage space if the arrays are identical. <A NAME="ffpdes"></A>
+</DD></DL><PRE CLASS="verbatim">    int fits_write_descript / ffpdes
+        (fitsfile *fptr, int colnum, LONGLONG rownum, LONGLONG repeat,
+         LONGLONG offset, &gt; int *status)
+</PRE><H3 CLASS="subsection"><A NAME="htoc79">9.6.4</A>&#XA0;&#XA0;Read Column Data Routines</H3><P>Two types of routines are provided to get the column data which differ
+in the way undefined pixels are handled. The first set of routines
+(ffgcv) simply return an array of data elements in which undefined
+pixels are set equal to a value specified by the user in the &#X2019;nullval&#X2019;
+parameter. If nullval = 0, then no checks for undefined pixels will be
+performed, thus increasing the speed of the program. The second set of
+routines (ffgcf) returns the data element array and in addition a
+logical array of flags which defines whether the corresponding data
+pixel is undefined. See Appendix B for the definition of the
+parameters used in these routines.</P><P>Any column, regardless of it&#X2019;s intrinsic data type, may be read as a
+string. It should be noted however that reading a numeric column as
+a string is 10 - 100 times slower than reading the same column as a number
+due to the large overhead in constructing the formatted strings.
+The display format of the returned strings will be
+determined by the TDISPn keyword, if it exists, otherwise by the
+data type of the column. The length of the returned strings (not
+including the null terminating character) can be determined with
+the fits_get_col_display_width routine. The following TDISPn
+display formats are currently supported:</P><PRE CLASS="verbatim">    Iw.m   Integer
+    Ow.m   Octal integer
+    Zw.m   Hexadecimal integer
+    Fw.d   Fixed floating point
+    Ew.d   Exponential floating point
+    Dw.d   Exponential floating point
+    Gw.d   General; uses Fw.d if significance not lost, else Ew.d
+</PRE><P>where w is the width in characters of the displayed values, m is
+the minimum number of digits displayed, and d is the number of
+digits to the right of the decimal. The .m field is optional.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Read elements from an ASCII or binary table column (in the CDU). These
+routines return the values of the table column array elements. Undefined
+array elements will be returned with a value = nulval, unless nulval = 0
+(or = &#X2019; &#X2019; for ffgcvs) in which case no checking for undefined values will
+be performed. The ANYF parameter is set to true if any of the returned
+elements are undefined. <A NAME="ffgcvx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_col_str / ffgcvs
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, char *nulstr, &gt; char **array, int *anynul,
+       int *status)
+
+  int fits_read_col_[log,byt,sht,usht,int,uint,lng,ulng, lnglng, flt, dbl, cmp, dblcmp] /
+      ffgcv[l,b,i,ui,k,uk,j,uj,jj,e,d,c,m]
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, DTYPE nulval, &gt; DTYPE *array, int *anynul,
+       int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Read elements and null flags from an ASCII or binary table column (in the
+CHDU). These routines return the values of the table column array elements.
+Any undefined array elements will have the corresponding nullarray element
+set equal to TRUE. The anynul parameter is set to true if any of the
+returned elements are undefined. <A NAME="ffgcfx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_colnull_str / ffgcfs
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem,
+       LONGLONG nelements, &gt; char **array, char *nullarray, int *anynul,
+       int *status)
+
+  int fits_read_colnull_[log,byt,sht,usht,int,uint,lng,ulng,lnglng,flt,dbl,cmp,dblcmp] /
+      ffgcf[l,b,i,ui,k,uk,j,uj,jj,e,d,c,m]
+      (fitsfile *fptr, int colnum, LONGLONG firstrow,
+       LONGLONG firstelem, LONGLONG nelements, &gt; DTYPE *array,
+       char *nullarray, int *anynul, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Read an arbitrary data subsection from an N-dimensional array
+in a binary table vector column. Undefined pixels
+in the array will be set equal to the value of &#X2019;nulval&#X2019;,
+unless nulval=0 in which case no testing for undefined pixels will
+be performed. The first and last rows in the table to be read
+are specified by fpixel(naxis+1) and lpixel(naxis+1), and hence
+are treated as the next higher dimension of the FITS N-dimensional
+array. The INC parameter specifies the sampling interval in
+each dimension between the data elements that will be returned. <A NAME="ffgsvx2"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_subset_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffgsv[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, int colnum, int naxis, long *naxes, long *fpixel,
+       long *lpixel, long *inc, DTYPE nulval, &gt; DTYPE *array, int *anynul,
+       int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Read an arbitrary data subsection from an N-dimensional array
+in a binary table vector column. Any Undefined
+pixels in the array will have the corresponding &#X2019;nullarray&#X2019;
+element set equal to TRUE. The first and last rows in the table
+to be read are specified by fpixel(naxis+1) and lpixel(naxis+1),
+and hence are treated as the next higher dimension of the FITS
+N-dimensional array. The INC parameter specifies the sampling
+interval in each dimension between the data elements that will be
+returned. <A NAME="ffgsfx2"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_subsetnull_[byt, sht, usht, int, uint, lng, ulng, lnglng, flt, dbl] /
+      ffgsf[b,i,ui,k,uk,j,uj,jj,e,d]
+      (fitsfile *fptr, int colnum, int naxis, long *naxes,
+       long *fpixel, long *lpixel, long *inc, &gt; DTYPE *array,
+       char *nullarray, int *anynul, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Read bit values from a byte (&#X2019;B&#X2019;) or bit (&#X2018;X&#X2018;) table column (in the
+CDU). Larray is an array of logical values corresponding to the
+sequence of bits to be read. If larray is true then the
+corresponding bit was set to 1, otherwise the bit was set to 0.
+The &#X2019;X&#X2019; column in a FITS table is always padded out to a multiple
+of 8 bits where the bit array starts with the most significant bit
+of the byte and works down towards the 1&#X2019;s bit. For example, a
+&#X2019;4X&#X2019; array, with the first bit = 1 and the remaining 3 bits = 0 is
+equivalent to the 8-bit unsigned byte value of 128.
+Note that in the case of &#X2019;X&#X2019; columns, CFITSIO can read all 8 bits
+of each byte whether they are formally valid or not. Thus if the
+column is defined as &#X2019;4X&#X2019;, and one calls ffgcx with firstbit=1 and
+nbits=8, then all 8 bits will be read from the first byte (as
+opposed to reading the first 4 bits from the first row and then the
+first 4 bits from the next row), even though the last 4 bits of
+each byte are formally not defined. It should also be noted that
+it is more efficient to read &#X2019;X&#X2019; columns an entire byte at a time,
+instead of bit by bit. Any of the CFITSIO routines that read
+columns (e.g. fits_read_col_byt) may be used for this
+purpose. These routines will interpret &#X2019;X&#X2019; columns as though they
+were &#X2019;B&#X2019; columns (e.g., &#X2019;8X&#X2019; is equivalent to &#X2019;1B&#X2019;, and &#X2019;16X&#X2019; is
+equivalent to &#X2019;2B&#X2019;). <A NAME="ffgcx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_col_bit / ffgcx
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstbit,
+       LONGLONG nbits, &gt; char *larray, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Read any consecutive set of bits from an &#X2019;X&#X2019; or &#X2019;B&#X2019; column and
+interpret them as an unsigned n-bit integer. nbits must be less
+than 16 or 32 in ffgcxui and ffgcxuk, respectively. If nrows
+is greater than 1, then the same set of bits will be read from
+each row, starting with firstrow. The bits are numbered with
+1 = the most significant bit of the first element of the column.
+<A NAME="ffgcxui"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_col_bit_[usht, uint] / ffgcx[ui,uk]
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG, nrows,
+       long firstbit, long nbits, &gt; DTYPE *array, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Return the descriptor for a variable length column in a binary table.
+The descriptor consists of 2 integer parameters: the number of elements
+in the array and the starting offset relative to the start of the heap.
+The first pair of routine returns a single descriptor whereas the second
+pair of routine
+returns the descriptors for a range of rows in the table. The only
+difference between the 2 routines in each pair is that one returns
+the parameters as &#X2019;long&#X2019; integers, whereas the other returns the values
+as 64-bit &#X2019;LONGLONG&#X2019; integers.
+<A NAME="ffgdes"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_descript / ffgdes
+      (fitsfile *fptr, int colnum, LONGLONG rownum, &gt; long *repeat,
+           long *offset, int *status)
+
+  int fits_read_descriptll / ffgdesll
+      (fitsfile *fptr, int colnum, LONGLONG rownum, &gt; LONGLONG *repeat,
+           LONGLONG *offset, int *status)
+
+  int fits_read_descripts / ffgdess
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG nrows
+       &gt; long *repeat, long *offset, int *status)
+
+  int fits_read_descriptsll / ffgdessll
+      (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG nrows
+       &gt; LONGLONG *repeat, LONGLONG *offset, int *status)
+</PRE><HR>
+<A HREF="cfitsio009.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio011.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

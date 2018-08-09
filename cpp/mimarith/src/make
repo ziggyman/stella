@@ -1,0 +1,7 @@
+make delete
+make ../bin/imarith
+chmod a+x ../bin/imarith
+rm ~/bin/imarith
+cp -p ../bin/imarith ~/bin/
+rm ~/stella/bin/imarith
+ln -s ~/bin/imarith ~/stella/bin/

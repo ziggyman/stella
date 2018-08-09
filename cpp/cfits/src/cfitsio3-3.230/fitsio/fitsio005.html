@@ -1,0 +1,590 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>FITSIO Conventions and Guidelines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio004.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio006.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc11">Chapter&#XA0;4</A>&#XA0;&#XA0;FITSIO Conventions and Guidelines </H1><H2 CLASS="section"><A NAME="toc8"></A><A NAME="htoc12">4.1</A>&#XA0;&#XA0;CFITSIO Size Limitations</H2><P>CFITSIO places few restrictions on the size of FITS files that it
+reads or writes. There are a few limits, however, which may affect
+some extreme cases:</P><P>1. The maximum number of FITS files that may be simultaneously opened
+by CFITSIO is set by NMAXFILES as defined in fitsio2.h. It is currently
+set = 300 by default. CFITSIO will allocate about 80 * NMAXFILES bytes
+of memory for internal use. Note that the underlying C compiler or
+operating system, may have a smaller limit on the number of opened files.
+The C symbolic constant FOPEN_MAX is intended to define the maximum
+number of files that may open at once (including any other text or
+binary files that may be open, not just FITS files). On some systems it
+has been found that gcc supports a maximum of 255 opened files.</P><P>2. By default, CFITSIO can handle FITS files up to 2.1 GB in size (2**31
+bytes). This file size limit is often imposed by 32-bit operating
+systems. More recently, as 64-bit operating systems become more common, an
+industry-wide standard (at least on Unix systems) has been developed to
+support larger sized files (see http://ftp.sas.com/standards/large.file/).
+Starting with version 2.1 of CFITSIO, larger FITS files up to 6 terabytes
+in size may be read and written on supported platforms. In order
+to support these larger files, CFITSIO must be compiled with the
+&#X2019;-D_LARGEFILE_SOURCE&#X2019; and &#X2018;-D_FILE_OFFSET_BITS=64&#X2019; compiler flags.
+Some platforms may also require the &#X2018;-D_LARGE_FILES&#X2019; compiler flag.
+This causes the compiler to allocate 8-bytes instead of
+4-bytes for the &#X2018;off_t&#X2019; datatype which is used to store file offset
+positions. It appears that in most cases it is not necessary to
+also include these compiler flags when compiling programs that link to
+the CFITSIO library.</P><P>If CFITSIO is compiled with the -D_LARGEFILE_SOURCE
+and -D_FILE_OFFSET_BITS=64 flags on a
+platform that supports large files, then it can read and write FITS
+files that contain up to 2**31 2880-byte FITS records, or approximately
+6 terabytes in size. It is still required that the value of the NAXISn
+and PCOUNT keywords in each extension be within the range of a signed
+4-byte integer (max value = 2,147,483,648). Thus, each dimension of an
+image (given by the NAXISn keywords), the total width of a table
+(NAXIS1 keyword), the number of rows in a table (NAXIS2 keyword), and
+the total size of the variable-length array heap in binary tables
+(PCOUNT keyword) must be less than this limit.</P><P>Currently, support for large files within CFITSIO has been tested
+on the Linux, Solaris, and IBM AIX operating systems.</P><H2 CLASS="section"><A NAME="toc9"></A><A NAME="htoc13">4.2</A>&#XA0;&#XA0;Multiple Access to the Same FITS File</H2><P>CFITSIO supports simultaneous read and write access to multiple HDUs in
+the same FITS file. Thus, one can open the same FITS file twice within
+a single program and move to 2 different HDUs in the file, and then
+read and write data or keywords to the 2 extensions just as if one were
+accessing 2 completely separate FITS files. Since in general it is
+not possible to physically open the same file twice and then expect to
+be able to simultaneously (or in alternating succession) write to 2
+different locations in the file, CFITSIO recognizes when the file to be
+opened (in the call to fits_open_file) has already been opened and
+instead of actually opening the file again, just logically links the
+new file to the old file. (This only applies if the file is opened
+more than once within the same program, and does not prevent the same
+file from being simultaneously opened by more than one program). Then
+before CFITSIO reads or writes to either (logical) file, it makes sure
+that any modifications made to the other file have been completely
+flushed from the internal buffers to the file. Thus, in principle, one
+could open a file twice, in one case pointing to the first extension
+and in the other pointing to the 2nd extension and then write data to
+both extensions, in any order, without danger of corrupting the file,
+There may be some efficiency penalties in doing this however, since
+CFITSIO has to flush all the internal buffers related to one file
+before switching to the other, so it would still be prudent to
+minimize the number of times one switches back and forth between doing
+I/O to different HDUs in the same file.</P><H2 CLASS="section"><A NAME="toc10"></A><A NAME="htoc14">4.3</A>&#XA0;&#XA0;Current Header Data Unit (CHDU)</H2><P>In general, a FITS file can contain multiple Header Data Units, also
+called extensions. CFITSIO only operates within one HDU at any given
+time, and the currently selected HDU is called the Current Header Data
+Unit (CHDU). When a FITS file is first created or opened the CHDU is
+automatically defined to be the first HDU (i.e., the primary array).
+CFITSIO routines are provided to move to and open any other existing
+HDU within the FITS file or to append or insert a new HDU in the FITS
+file which then becomes the CHDU.</P><H2 CLASS="section"><A NAME="toc11"></A><A NAME="htoc15">4.4</A>&#XA0;&#XA0;Subroutine Names</H2><P>All FITSIO subroutine names begin with the letters &#X2019;ft&#X2019; to distinguish
+them from other subroutines and are 5 or 6 characters long. Users should
+not name their own subroutines beginning with &#X2019;ft&#X2019; to avoid conflicts.
+(The SPP interface routines all begin with &#X2019;fs&#X2019;). Subroutines which read
+or get information from the FITS file have names beginning with
+&#X2019;ftg...&#X2019;. Subroutines which write or put information into the FITS file
+have names beginning with &#X2019;ftp...&#X2019;.</P><H2 CLASS="section"><A NAME="toc12"></A><A NAME="htoc16">4.5</A>&#XA0;&#XA0;Subroutine Families and Datatypes</H2><P>Many of the subroutines come in families which differ only in the
+datatype of the associated parameter(s) . The datatype of these
+subroutines is indicated by the last letter of the subroutine name
+(e.g., &#X2019;j&#X2019; in &#X2019;ftpkyj&#X2019;) as follows:</P><PRE CLASS="verbatim">        x - bit
+        b - character*1 (unsigned byte)
+        i - short integer (I*2)
+        j - integer (I*4, 32-bit integer)
+        k - long long integer (I*8, 64-bit integer)
+        e - real exponential floating point (R*4)
+        f - real fixed-format floating point (R*4)
+        d - double precision real floating-point (R*8)
+        g - double precision fixed-format floating point (R*8)
+        c - complex reals (pairs of R*4 values)
+        m - double precision complex (pairs of R*8 values)
+        l - logical (L*4)
+        s - character string
+</PRE><P>When dealing with the FITS byte datatype, it is important to remember
+that the raw values (before any scaling by the BSCALE and BZERO, or
+TSCALn and TZEROn keyword values) in byte arrays (BITPIX = 8) or byte
+columns (TFORMn = &#X2019;B&#X2019;) are interpreted as unsigned bytes with values
+ranging from 0 to 255. Some Fortran compilers support a non-standard
+byte datatype such as INTEGER*1, LOGICAL*1, or BYTE, which can sometimes
+be used instead of CHARACTER*1 variables. Many machines permit passing a
+numeric datatype (such as INTEGER*1) to the FITSIO subroutines which are
+expecting a CHARACTER*1 datatype, but this technically violates the
+Fortran-77 standard and is not supported on all machines (e.g., on a VAX/VMS
+machine one must use the VAX-specific %DESCR function).</P><P>One feature of the CFITSIO routines is that they can operate on a &#X2018;X&#X2019;
+(bit) column in a binary table as though it were a &#X2018;B&#X2019; (byte) column.
+For example a &#X2018;11X&#X2019; datatype column can be interpreted the same as a
+&#X2018;2B&#X2019; column (i.e., 2 unsigned 8-bit bytes). In some instances, it can
+be more efficient to read and write whole bytes at a time, rather than
+reading or writing each individual bit.</P><P>The double precision complex datatype is not a standard Fortran-77
+datatype. If a particular Fortran compiler does not directly support
+this datatype, then one may instead pass an array of pairs of double
+precision values to these subroutines. The first value in each pair
+is the real part, and the second is the imaginary part.</P><H2 CLASS="section"><A NAME="toc13"></A><A NAME="htoc17">4.6</A>&#XA0;&#XA0;Implicit Data Type Conversion</H2><P>The FITSIO routines that read and write numerical data can perform
+implicit data type conversion. This means that the data type of the
+variable or array in the program does not need to be the same as the
+data type of the value in the FITS file. Data type conversion is
+supported for numerical and string data types (if the string contains a
+valid number enclosed in quotes) when reading a FITS header keyword
+value and for numeric values when reading or writing values in the
+primary array or a table column. CFITSIO returns status =
+NUM_OVERFLOW if the converted data value exceeds the range of the
+output data type. Implicit data type conversion is not supported
+within binary tables for string, logical, complex, or double complex
+data types.</P><P>In addition, any table column may be read as if it contained string values.
+In the case of numeric columns the returned string will be formatted
+using the TDISPn display format if it exists.</P><H2 CLASS="section"><A NAME="toc14"></A><A NAME="htoc18">4.7</A>&#XA0;&#XA0;Data Scaling</H2><P>When reading numerical data values in the primary array or a
+table column, the values will be scaled automatically by the BSCALE and
+BZERO (or TSCALn and TZEROn) header keyword values if they are
+present in the header. The scaled data that is returned to the reading
+program will have</P><PRE CLASS="verbatim">        output value = (FITS value) * BSCALE + BZERO
+</PRE><P>(a corresponding formula using TSCALn and TZEROn is used when reading
+from table columns). In the case of integer output values the floating
+point scaled value is truncated to an integer (not rounded to the
+nearest integer). The ftpscl and fttscl subroutines may be used to
+override the scaling parameters defined in the header (e.g., to turn
+off the scaling so that the program can read the raw unscaled values
+from the FITS file).</P><P>When writing numerical data to the primary array or to a table
+column the data values will generally be automatically inversely scaled
+by the value of the BSCALE and BZERO (or TSCALn and TZEROn) header
+keyword values if they they exist in the header. These keywords must
+have been written to the header before any data is written for them to
+have any effect. Otherwise, one may use the ftpscl and fttscl
+subroutines to define or override the scaling keywords in the header
+(e.g., to turn off the scaling so that the program can write the raw
+unscaled values into the FITS file). If scaling is performed, the
+inverse scaled output value that is written into the FITS file will
+have</P><PRE CLASS="verbatim">         FITS value = ((input value) - BZERO) / BSCALE
+</PRE><P>(a corresponding formula using TSCALn and TZEROn is used when
+writing to table columns). Rounding to the nearest integer, rather
+than truncation, is performed when writing integer datatypes to the
+FITS file.</P><H2 CLASS="section"><A NAME="toc15"></A><A NAME="htoc19">4.8</A>&#XA0;&#XA0;Error Status Values and the Error Message Stack</H2><P>The last parameter in nearly every FITSIO subroutine is the error
+status value which is both an input and an output parameter. A
+returned positive value for this parameter indicates an error was
+detected. A listing of all the FITSIO status code values is given at
+the end of this document.</P><P>The FITSIO library uses an &#X2018;inherited status&#X2019; convention for the status
+parameter which means that if a subroutine is called with a positive
+input value of the status parameter, then the subroutine will exit
+immediately without changing the value of the status parameter. Thus,
+if one passes the status value returned from each FITSIO routine as
+input to the next FITSIO subroutine, then whenever an error is detected
+all further FITSIO processing will cease. This convention can simplify
+the error checking in application programs because it is not necessary
+to check the value of the status parameter after every single FITSIO
+subroutine call. If a program contains a sequence of several FITSIO
+calls, one can just check the status value after the last call. Since
+the returned status values are generally distinctive, it should be
+possible to determine which subroutine originally returned the error
+status.</P><P>FITSIO also maintains an internal stack of error messages (80-character
+maximum length) which in many cases provide a more detailed explanation
+of the cause of the error than is provided by the error status number
+alone. It is recommended that the error message stack be printed out
+whenever a program detects a FITSIO error. To do this, call the FTGMSG
+routine repeatedly to get the successive messages on the stack. When the
+stack is empty FTGMSG will return a blank string. Note that this is a
+&#X2018;First In &#X2013; First Out&#X2019; stack, so the oldest error message is returned
+first by ftgmsg.</P><H2 CLASS="section"><A NAME="toc16"></A><A NAME="htoc20">4.9</A>&#XA0;&#XA0;Variable-Length Array Facility in Binary Tables</H2><P>FITSIO provides easy-to-use support for reading and writing data in
+variable length fields of a binary table. The variable length columns
+have TFORMn keyword values of the form &#X2018;1Pt(len)&#X2019; or &#X2018;1Qt(len)&#X2019; where &#X2018;t&#X2019; is the
+datatype code (e.g., I, J, E, D, etc.) and &#X2018;len&#X2019; is an integer
+specifying the maximum length of the vector in the table. If the value
+of &#X2018;len&#X2019; is not specified when the table is created (e.g., if the TFORM
+keyword value is simply specified as &#X2019;1PE&#X2019; instead of &#X2019;1PE(400) ), then
+FITSIO will automatically scan the table when it is closed to
+determine the maximum length of the vector and will append this value
+to the TFORMn value.</P><P>The same routines which read and write data in an ordinary fixed length
+binary table extension are also used for variable length fields,
+however, the subroutine parameters take on a slightly different
+interpretation as described below.</P><P>All the data in a variable length field is written into an area called
+the &#X2018;heap&#X2019; which follows the main fixed-length FITS binary table. The
+size of the heap, in bytes, is specified with the PCOUNT keyword in the
+FITS header. When creating a new binary table, the initial value of
+PCOUNT should usually be set to zero. FITSIO will recompute the size
+of the heap as the data is written and will automatically update the
+PCOUNT keyword value when the table is closed. When writing variable
+length data to a table, CFITSIO will automatically extend the size
+of the heap area if necessary, so that any following HDUs do not
+get overwritten.</P><P>By default the heap data area starts immediately after the last row of
+the fixed-length table. This default starting location may be
+overridden by the THEAP keyword, but this is not recommended.
+If additional rows of data are added to the table, CFITSIO will
+automatically shift the the heap down to make room for the new
+rows, but it is obviously be more efficient to initially
+create the table with the necessary number of blank rows, so that
+the heap does not needed to be constantly moved.</P><P>When writing to a variable length field, the entire array of values for
+a given row of the table must be written with a single call to FTPCLx.
+The total length of the array is calculated from (NELEM+FELEM-1). One
+cannot append more elements to an existing field at a later time; any
+attempt to do so will simply overwrite all the data which was previously
+written. Note also that the new data will be written to a new area of
+the heap and the heap space used by the previous write cannot be
+reclaimed. For this reason it is advised that each row of a variable
+length field only be written once. An exception to this general rule
+occurs when setting elements of an array as undefined. One must first
+write a dummy value into the array with FTPCLx, and then call FTPCLU to
+flag the desired elements as undefined. (Do not use the FTPCNx family
+of routines with variable length fields). Note that the rows of a table,
+whether fixed or variable length, do not have to be written
+consecutively and may be written in any order.</P><P>When writing to a variable length ASCII character field (e.g., TFORM =
+&#X2019;1PA&#X2019;) only a single character string written. FTPCLS writes the whole
+length of the input string (minus any trailing blank characters), thus
+the NELEM and FELEM parameters are ignored. If the input string is
+completely blank then FITSIO will write one blank character to the FITS
+file. Similarly, FTGCVS and FTGCFS read the entire string (truncated
+to the width of the character string argument in the subroutine call)
+and also ignore the NELEM and FELEM parameters.</P><P>The FTPDES subroutine is useful in situations where multiple rows of a
+variable length column have the identical array of values. One can
+simply write the array once for the first row, and then use FTPDES to
+write the same descriptor values into the other rows (use the FTGDES
+routine to read the first descriptor value); all the rows will then
+point to the same storage location thus saving disk space.</P><P>When reading from a variable length array field one can only read as
+many elements as actually exist in that row of the table; reading does
+not automatically continue with the next row of the table as occurs
+when reading an ordinary fixed length table field. Attempts to read
+more than this will cause an error status to be returned. One can
+determine the number of elements in each row of a variable column with
+the FTGDES subroutine.</P><H2 CLASS="section"><A NAME="toc17"></A><A NAME="htoc21">4.10</A>&#XA0;&#XA0;Support for IEEE Special Values</H2><P>The ANSI/IEEE-754 floating-point number standard defines certain
+special values that are used to represent such quantities as
+Not-a-Number (NaN), denormalized, underflow, overflow, and infinity.
+(See the Appendix in the NOST FITS standard or the NOST FITS User&#X2019;s
+Guide for a list of these values). The FITSIO subroutines that read
+floating point data in FITS files recognize these IEEE special values
+and by default interpret the overflow and infinity values as being
+equivalent to a NaN, and convert the underflow and denormalized values
+into zeros. In some cases programmers may want access to the raw IEEE
+values, without any modification by FITSIO. This can be done by
+calling the FTGPVx or FTGCVx routines while specifying 0.0 as the value
+of the NULLVAL parameter. This will force FITSIO to simply pass the
+IEEE values through to the application program, without any
+modification. This does not work for double precision values on
+VAX/VMS machines, however, where there is no easy way to bypass the
+default interpretation of the IEEE special values.</P><H2 CLASS="section"><A NAME="toc18"></A><A NAME="htoc22">4.11</A>&#XA0;&#XA0;When the Final Size of the FITS HDU is Unknown</H2><P>It is not required to know the total size of a FITS data array or table
+before beginning to write the data to the FITS file. In the case of
+the primary array or an image extension, one should initially create
+the array with the size of the highest dimension (largest NAXISn
+keyword) set to a dummy value, such as 1. Then after all the data have
+been written and the true dimensions are known, then the NAXISn value
+should be updated using the fits_ update_key routine before moving to
+another extension or closing the FITS file.</P><P>When writing to FITS tables, CFITSIO automatically keeps track of the
+highest row number that is written to, and will increase the size of
+the table if necessary. CFITSIO will also automatically insert space
+in the FITS file if necessary, to ensure that the data &#X2019;heap&#X2019;, if it
+exists, and/or any additional HDUs that follow the table do not get
+overwritten as new rows are written to the table.</P><P>As a general rule it is best to specify the initial number of rows = 0
+when the table is created, then let CFITSIO keep track of the number of
+rows that are actually written. The application program should not
+manually update the number of rows in the table (as given by the NAXIS2
+keyword) since CFITSIO does this automatically. If a table is
+initially created with more than zero rows, then this will usually be
+considered as the minimum size of the table, even if fewer rows are
+actually written to the table. Thus, if a table is initially created
+with NAXIS2 = 20, and CFITSIO only writes 10 rows of data before
+closing the table, then NAXIS2 will remain equal to 20. If however, 30
+rows of data are written to this table, then NAXIS2 will be increased
+from 20 to 30. The one exception to this automatic updating of the
+NAXIS2 keyword is if the application program directly modifies the
+value of NAXIS2 (up or down) itself just before closing the table. In this
+case, CFITSIO does not update NAXIS2 again, since it assumes that the
+application program must have had a good reason for changing the value
+directly. This is not recommended, however, and is only provided for
+backward compatibility with software that initially creates a table
+with a large number of rows, than decreases the NAXIS2 value to the
+actual smaller value just before closing the table.</P><H2 CLASS="section"><A NAME="toc19"></A><A NAME="htoc23">4.12</A>&#XA0;&#XA0;Local FITS Conventions supported by FITSIO</H2><P>CFITSIO supports several local FITS conventions which are not
+defined in the official NOST FITS standard and which are not
+necessarily recognized or supported by other FITS software packages.
+Programmers should be cautious about using these features, especially
+if the FITS files that are produced are expected to be processed by
+other software systems which do not use the CFITSIO interface.</P><H3 CLASS="subsection"><A NAME="htoc24">4.12.1</A>&#XA0;&#XA0;Support for Long String Keyword Values.</H3><P>The length of a standard FITS string keyword is limited to 68
+characters because it must fit entirely within a single FITS header
+keyword record. In some instances it is necessary to encode strings
+longer than this limit, so FITSIO supports a local convention in which
+the string value is continued over multiple keywords. This
+continuation convention uses an ampersand character at the end of each
+substring to indicate that it is continued on the next keyword, and the
+continuation keywords all have the name CONTINUE without an equal sign
+in column 9. The string value may be continued in this way over as many
+additional CONTINUE keywords as is required. The following lines
+illustrate this continuation convention which is used in the value of
+the STRKEY keyword:</P><PRE CLASS="verbatim">LONGSTRN= 'OGIP 1.0'           / The OGIP Long String Convention may be used.
+STRKEY  = 'This is a very long string keyword&amp;'  / Optional Comment
+CONTINUE  ' value that is continued over 3 keywords in the &amp;  '
+CONTINUE  'FITS header.' / This is another optional comment.
+</PRE><P>It is recommended that the LONGSTRN keyword, as shown
+here, always be included in any HDU that uses this longstring
+convention. A subroutine called FTPLSW
+has been provided in CFITSIO to write this keyword if it does not
+already exist.</P><P>This long string convention is supported by the following FITSIO
+subroutines that deal with string-valued keywords:</P><PRE CLASS="verbatim">      ftgkys - read a string keyword
+      ftpkls - write (append) a string keyword
+      ftikls - insert a string keyword
+      ftmkls - modify the value of an existing string keyword
+      ftukls - update an existing keyword, or write a new keyword
+      ftdkey - delete a keyword
+</PRE><P>These routines will transparently read, write, or delete a long string
+value in the FITS file, so programmers in general do not have to be
+concerned about the details of the convention that is used to encode
+the long string in the FITS header. When reading a long string, one
+must ensure that the character string parameter used in these
+subroutine calls has been declared long enough to hold the entire
+string, otherwise the returned string value will be truncated.</P><P>Note that the more commonly used FITSIO subroutine to write string
+valued keywords (FTPKYS) does NOT support this long string convention
+and only supports strings up to 68 characters in length. This has been
+done deliberately to prevent programs from inadvertently writing
+keywords using this non-standard convention without the explicit intent
+of the programmer or user. The FTPKLS subroutine must be called
+instead to write long strings. This routine can also be used to write
+ordinary string values less than 68 characters in length.</P><H3 CLASS="subsection"><A NAME="htoc25">4.12.2</A>&#XA0;&#XA0;Arrays of Fixed-Length Strings in Binary Tables</H3><P>CFITSIO supports 2 ways to specify that a character column in a binary
+table contains an array of fixed-length strings. The first way, which
+is officially supported by the FITS Standard document, uses the TDIMn keyword.
+For example, if TFORMn = &#X2019;60A&#X2019; and TDIMn = &#X2019;(12,5)&#X2019; then that
+column will be interpreted as containing an array of 5 strings, each 12
+characters long.</P><P>FITSIO also supports a
+local convention for the format of the TFORMn keyword value of the form
+&#X2019;rAw&#X2019; where &#X2019;r&#X2019; is an integer specifying the total width in characters
+of the column, and &#X2019;w&#X2019; is an integer specifying the (fixed) length of
+an individual unit string within the vector. For example, TFORM1 =
+&#X2019;120A10&#X2019; would indicate that the binary table column is 120 characters
+wide and consists of 12 10-character length strings. This convention
+is recognized by the FITSIO subroutines that read or write strings in
+binary tables. The Binary Table definition document specifies that
+other optional characters may follow the datatype code in the TFORM
+keyword, so this local convention is in compliance with the
+FITS standard, although other FITS readers are not required to
+recognize this convention.</P><P>The Binary Table definition document that was approved by the IAU in
+1994 contains an appendix describing an alternate convention for
+specifying arrays of fixed or variable length strings in a binary table
+character column (with the form &#X2019;rA:SSTRw/nnn)&#X2019;. This appendix was not
+officially voted on by the IAU and hence is still provisional. FITSIO
+does not currently support this proposal.</P><H3 CLASS="subsection"><A NAME="htoc26">4.12.3</A>&#XA0;&#XA0;Keyword Units Strings</H3><P>One deficiency of the current FITS Standard is that it does not define
+a specific convention for recording the physical units of a keyword
+value. The TUNITn keyword can be used to specify the physical units of
+the values in a table column, but there is no analogous convention for
+keyword values. The comment field of the keyword is often used for
+this purpose, but the units are usually not specified in a well defined
+format that FITS readers can easily recognize and extract.</P><P>To solve this deficiency, FITSIO uses a local convention in which the
+keyword units are enclosed in square brackets as the first token in the
+keyword comment field; more specifically, the opening square bracket
+immediately follows the slash &#X2019;/&#X2019; comment field delimiter and a single
+space character. The following examples illustrate keywords that use
+this convention:</P><PRE CLASS="verbatim">EXPOSURE=               1800.0 / [s] elapsed exposure time
+V_HELIO =                16.23 / [km s**(-1)] heliocentric velocity
+LAMBDA  =                5400. / [angstrom] central wavelength
+FLUX    = 4.9033487787637465E-30 / [J/cm**2/s] average flux
+</PRE><P>In general, the units named in the IAU(1988) Style Guide are
+recommended, with the main exception that the preferred unit for angle
+is &#X2019;deg&#X2019; for degrees.</P><P>The FTPUNT and FTGUNT subroutines in FITSIO write and read,
+respectively, the keyword unit strings in an existing keyword.</P><H3 CLASS="subsection"><A NAME="htoc27">4.12.4</A>&#XA0;&#XA0;HIERARCH Convention for Extended Keyword Names</H3><P>CFITSIO supports the HIERARCH keyword convention which allows keyword
+names that are longer then 8 characters and may contain the full range
+of printable ASCII text characters. This convention
+was developed at the European Southern Observatory (ESO) to support
+hierarchical FITS keyword such as:</P><PRE CLASS="verbatim">HIERARCH ESO INS FOCU POS = -0.00002500 / Focus position
+</PRE><P>Basically, this convention uses the FITS keyword &#X2019;HIERARCH&#X2019; to indicate
+that this convention is being used, then the actual keyword name
+(<TT>&#X2019;ESO INS FOCU POS&#X2019;</TT> in this example) begins in column 10 and can
+contain any printable ASCII text characters, including spaces. The
+equals sign marks the end of the keyword name and is followed by the
+usual value and comment fields just as in standard FITS keywords.
+Further details of this convention are described at
+http://arcdev.hq.eso.org/dicb/dicd/dic-1-1.4.html (search for
+HIERARCH).</P><P>This convention allows a much broader range of keyword names
+than is allowed by the FITS Standard. Here are more examples
+of such keywords:</P><PRE CLASS="verbatim">HIERARCH LongKeyword = 47.5 / Keyword has &gt; 8 characters, and mixed case
+HIERARCH XTE$TEMP = 98.6 / Keyword contains the '$' character
+HIERARCH Earth is a star = F / Keyword contains embedded spaces
+</PRE><P>CFITSIO will transparently read and write these keywords, so application
+programs do not in general need to know anything about the specific
+implementation details of the HIERARCH convention. In particular,
+application programs do not need to specify the &#X2018;HIERARCH&#X2019; part of the
+keyword name when reading or writing keywords (although it
+may be included if desired). When writing a keyword, CFITSIO first
+checks to see if the keyword name is legal as a standard FITS keyword
+(no more than 8 characters long and containing only letters, digits, or
+a minus sign or underscore). If so it writes it as a standard FITS
+keyword, otherwise it uses the hierarch convention to write the
+keyword. The maximum keyword name length is 67 characters, which
+leaves only 1 space for the value field. A more practical limit is
+about 40 characters, which leaves enough room for most keyword values.
+CFITSIO returns an error if there is not enough room for both the
+keyword name and the keyword value on the 80-character card, except for
+string-valued keywords which are simply truncated so that the closing
+quote character falls in column 80. In the current implementation,
+CFITSIO preserves the case of the letters when writing the keyword
+name, but it is case-insensitive when reading or searching for a
+keyword. The current implementation allows any ASCII text character
+(ASCII 32 to ASCII 126) in the keyword name except for the &#X2019;=&#X2019;
+character. A space is also required on either side of the equal sign.</P><H2 CLASS="section"><A NAME="toc20"></A><A NAME="htoc28">4.13</A>&#XA0;&#XA0;Optimizing Code for Maximum Processing Speed</H2><P>CFITSIO has been carefully designed to obtain the highest possible
+speed when reading and writing FITS files. In order to achieve the
+best performance, however, application programmers must be careful to
+call the CFITSIO routines appropriately and in an efficient sequence;
+inappropriate usage of CFITSIO routines can greatly slow down the
+execution speed of a program.</P><P>The maximum possible I/O speed of CFITSIO depends of course on the type
+of computer system that it is running on. As a rough guide, the
+current generation of workstations can achieve speeds of 2 &#X2013; 10 MB/s
+when reading or writing FITS images and similar, or slightly slower
+speeds with FITS binary tables. Reading of FITS files can occur at
+even higher rates (30MB/s or more) if the FITS file is still cached in
+system memory following a previous read or write operation on the same
+file. To more accurately predict the best performance that is possible
+on any particular system, a diagnostic program called &#X201C;speed.c&#X201D; is
+included with the CFITSIO distribution which can be run to
+approximately measure the maximum possible speed of writing and reading
+a test FITS file.</P><P>The following 2 sections provide some background on how CFITSIO
+internally manages the data I/O and describes some strategies that may
+be used to optimize the processing speed of software that uses
+CFITSIO.</P><H3 CLASS="subsection"><A NAME="htoc29">4.13.1</A>&#XA0;&#XA0;Background Information: How CFITSIO Manages Data I/O</H3><P>Many CFITSIO operations involve transferring only a small number of
+bytes to or from the FITS file (e.g, reading a keyword, or writing a
+row in a table); it would be very inefficient to physically read or
+write such small blocks of data directly in the FITS file on disk,
+therefore CFITSIO maintains a set of internal Input&#X2013;Output (IO)
+buffers in RAM memory that each contain one FITS block (2880 bytes) of
+data. Whenever CFITSIO needs to access data in the FITS file, it first
+transfers the FITS block containing those bytes into one of the IO
+buffers in memory. The next time CFITSIO needs to access bytes in the
+same block it can then go to the fast IO buffer rather than using a
+much slower system disk access routine. The number of available IO
+buffers is determined by the NIOBUF parameter (in fitsio2.h) and is
+currently set to 40.</P><P>Whenever CFITSIO reads or writes data it first checks to see if that
+block of the FITS file is already loaded into one of the IO buffers.
+If not, and if there is an empty IO buffer available, then it will load
+that block into the IO buffer (when reading a FITS file) or will
+initialize a new block (when writing to a FITS file). If all the IO
+buffers are already full, it must decide which one to reuse (generally
+the one that has been accessed least recently), and flush the contents
+back to disk if it has been modified before loading the new block.</P><P>The one major exception to the above process occurs whenever a large
+contiguous set of bytes are accessed, as might occur when reading or
+writing a FITS image. In this case CFITSIO bypasses the internal IO
+buffers and simply reads or writes the desired bytes directly in the
+disk file with a single call to a low-level file read or write
+routine. The minimum threshold for the number of bytes to read or
+write this way is set by the MINDIRECT parameter and is currently set
+to 3 FITS blocks = 8640 bytes. This is the most efficient way to read
+or write large chunks of data and can achieve IO transfer rates of
+5 &#X2013; 10MB/s or greater. Note that this fast direct IO process is not
+applicable when accessing columns of data in a FITS table because the
+bytes are generally not contiguous since they are interleaved by the
+other columns of data in the table. This explains why the speed for
+accessing FITS tables is generally slower than accessing
+FITS images.</P><P>Given this background information, the general strategy for efficiently
+accessing FITS files should now be apparent: when dealing with FITS
+images, read or write large chunks of data at a time so that the direct
+IO mechanism will be invoked; when accessing FITS headers or FITS
+tables, on the other hand, once a particular FITS block has been
+loading into one of the IO buffers, try to access all the needed
+information in that block before it gets flushed out of the IO buffer.
+It is important to avoid the situation where the same FITS block is
+being read then flushed from a IO buffer multiple times.</P><P>The following section gives more specific suggestions for optimizing
+the use of CFITSIO.</P><P>1. When dealing with a FITS primary array or IMAGE extension, it is
+more efficient to read or write large chunks of the image at a time
+(at least 3 FITS blocks = 8640 bytes) so that the direct IO mechanism
+will be used as described in the previous section. Smaller chunks of
+data are read or written via the IO buffers, which is somewhat less
+efficient because of the extra copy operation and additional
+bookkeeping steps that are required. In principle it is more efficient
+to read or write as big an array of image pixels at one time as
+possible, however, if the array becomes so large that the operating
+system cannot store it all in RAM, then the performance may be degraded
+because of the increased swapping of virtual memory to disk.</P><P>2. When dealing with FITS tables, the most important efficiency factor
+in the software design is to read or write the data in the FITS file in
+a single pass through the file. An example of poor program design
+would be to read a large, 3-column table by sequentially reading the
+entire first column, then going back to read the 2nd column, and
+finally the 3rd column; this obviously requires 3 passes through the
+file which could triple the execution time of an I/O limited program.
+For small tables this is not important, but when reading multi-megabyte
+sized tables these inefficiencies can become significant. The more
+efficient procedure in this case is to read or write only as many rows
+of the table as will fit into the available internal I/O buffers, then
+access all the necessary columns of data within that range of rows.
+Then after the program is completely finished with the data in those
+rows it can move on to the next range of rows that will fit in the
+buffers, continuing in this way until the entire file has been
+processed. By using this procedure of accessing all the columns of a
+table in parallel rather than sequentially, each block of the FITS file
+will only be read or written once.</P><P>The optimal number of rows to read or write at one time in a given
+table depends on the width of the table row, on the number of I/O
+buffers that have been allocated in FITSIO, and also on the number of
+other FITS files that are open at the same time (since one I/O buffer
+is always reserved for each open FITS file). Fortunately, a FITSIO
+routine is available that will return the optimal number of rows for a
+given table: call ftgrsz(unit, nrows, status). It is not critical to
+use exactly the value of nrows returned by this routine, as long as one
+does not exceed it. Using a very small value however can also lead to
+poor performance because of the overhead from the larger number of
+subroutine calls.</P><P>The optimal number of rows returned by ftgrsz is valid only as long as
+the application program is only reading or writing data in the
+specified table. Any other calls to access data in the table header
+would cause additional blocks of data to be
+loaded into the I/O buffers displacing data from the original table,
+and should be avoided during the critical period while the table is
+being read or written.</P><P>3. Use binary table extensions rather than ASCII table
+extensions for better efficiency when dealing with tabular data. The
+I/O to ASCII tables is slower because of the overhead in formatting or
+parsing the ASCII data fields, and because ASCII tables are about twice
+as large as binary tables with the same information content.</P><P>4. Design software so that it reads the FITS header keywords in the
+same order in which they occur in the file. When reading keywords,
+FITSIO searches forward starting from the position of the last keyword
+that was read. If it reaches the end of the header without finding the
+keyword, it then goes back to the start of the header and continues the
+search down to the position where it started. In practice, as long as
+the entire FITS header can fit at one time in the available internal I/O
+buffers, then the header keyword access will be very fast and it makes
+little difference which order they are accessed.</P><P>5. Avoid the use of scaling (by using the BSCALE and BZERO or TSCAL and
+TZERO keywords) in FITS files since the scaling operations add to the
+processing time needed to read or write the data. In some cases it may
+be more efficient to temporarily turn off the scaling (using ftpscl or
+fttscl) and then read or write the raw unscaled values in the FITS
+file.</P><P>6. Avoid using the &#X2019;implicit datatype conversion&#X2019; capability in
+FITSIO. For instance, when reading a FITS image with BITPIX = -32
+(32-bit floating point pixels), read the data into a single precision
+floating point data array in the program. Forcing FITSIO to convert
+the data to a different datatype can significantly slow the program.</P><P>7. Where feasible, design FITS binary tables using vector column
+elements so that the data are written as a contiguous set of bytes,
+rather than as single elements in multiple rows. For example, it is
+faster to access the data in a table that contains a single row
+and 2 columns with TFORM keywords equal to &#X2019;10000E&#X2019; and &#X2019;10000J&#X2019;, than
+it is to access the same amount of data in a table with 10000 rows
+which has columns with the TFORM keywords equal to &#X2019;1E&#X2019; and &#X2019;1J&#X2019;. In
+the former case the 10000 floating point values in the first column are
+all written in a contiguous block of the file which can be read or
+written quickly, whereas in the second case each floating point value
+in the first column is interleaved with the integer value in the second
+column of the same row so CFITSIO has to explicitly move to the
+position of each element to be read or written.</P><P>8. Avoid the use of variable length vector columns in binary tables,
+since any reading or writing of these data requires that CFITSIO first
+look up or compute the starting address of each row of data in the
+heap. In practice, this is probably not a significant efficiency issue.</P><P>9. When copying data from one FITS table to another, it is faster to
+transfer the raw bytes instead of reading then writing each column of
+the table. The FITSIO subroutines FTGTBS and FTPTBS (for ASCII
+tables), and FTGTBB and FTPTBB (for binary tables) will perform
+low-level reads or writes of any contiguous range of bytes in a table
+extension. These routines can be used to read or write a whole row (or
+multiple rows) of a table with a single subroutine call. These
+routines are fast because they bypass all the usual data scaling, error
+checking and machine dependent data conversion that is normally done by
+FITSIO, and they allow the program to write the data to the output file
+in exactly the same byte order. For these same reasons, use of these
+routines can be somewhat risky because no validation or machine
+dependent conversion is performed by these routines. In general these
+routines are only recommended for optimizing critical pieces of code
+and should only be used by programmers who thoroughly understand the
+internal byte structure of the FITS tables they are reading or
+writing.</P><P>10. Another strategy for improving the speed of writing a FITS table,
+similar to the previous one, is to directly construct the entire byte
+stream for a whole table row (or multiple rows) within the application
+program and then write it to the FITS file with
+ftptbb. This avoids all the overhead normally present
+in the column-oriented CFITSIO write routines. This technique should
+only be used for critical applications, because it makes the code more
+difficult to understand and maintain, and it makes the code more system
+dependent (e.g., do the bytes need to be swapped before writing to the
+FITS file?).</P><P>11. Finally, external factors such as the type of magnetic disk
+controller (SCSI or IDE), the size of the disk cache, the average seek
+speed of the disk, the amount of disk fragmentation, and the amount of
+RAM available on the system can all have a significant impact on
+overall I/O efficiency. For critical applications, a system
+administrator should review the proposed system hardware to identify any
+potential I/O bottlenecks.</P><P></P><HR>
+<A HREF="fitsio004.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio006.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

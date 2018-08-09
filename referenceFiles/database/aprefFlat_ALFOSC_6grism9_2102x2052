@@ -1,0 +1,28 @@
+# Tue 17:50:32 31-Jan-2006
+begin	aperture refFlat_ALFOSC_6grism9_2102x2052 1 796.6515 1023.
+	image	refFlat_ALFOSC_6grism9_2102x2052
+	aperture	1
+	beam	1
+	center	796.6515 1023.
+	low	-14.32395 -1022.
+	high	15.68627 1023.
+	background
+		xmin -14.42682
+		xmax INDEF
+		function chebyshev
+		order 1
+		sample INDEF:INDEF,INDEF:INDEF
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	6
+		2.
+		2.
+		120.
+		850.
+		-0.326325
+		0.4443132
+

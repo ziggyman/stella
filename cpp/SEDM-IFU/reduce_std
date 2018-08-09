@@ -1,0 +1,21 @@
+# $1: list of standard-star observations with centers and radii
+# $2: database filename
+# $3: list of exposure times for all files in $1
+# $4: list of air masses for all files in $1
+# $5: aperture-definition image without .fits file extension (xenon_60sr_bots)
+# $6: list of pixshifts for all files in $1 ('c' to calculate)
+# $7: output filename of pixshifts
+# $8: list of reference spectra of standard stars
+# $9: list of reduced standard stars (*/*EcDR_Obs-Sky_Sum_Flux_AirMassCorr.text) without the .list file extension
+# $10: list of raw standard observations in $1 without the .list file extension
+#replacestringinlistwith $10.list $10r.list '.fits' 'r.fits'
+#replacestringinlistwith $10.list $10r_bot.list '.fits' 'r_bot.fits'
+#replacestringinlistwith $10.list $10r_bots.list '.fits' 'r_bots.fits'
+#replacestringinlistwith $10.list $10r_bot_scatteredLight.list '.fits' 'r_bot_scatteredLight.fits'
+#imrotate @$10.list 90 $10r.list
+#subtractoverscanandtrim @$10r.list $10r_bot.list [0,2047,0,3] [0,2047,4,2047]
+#estimatescatter @$10r_bot.list @$10r_bot_scatteredLight.list 60 60 3.8
+#imarith @$10r_bot.list '-' @$10r_bot_scatteredLight.list @$10r_bots.list
+sedm_gaussextract_obs_sky @$1 $2 identified_coeffs.list 1.78 3.1 1 [1.0,1.7] [-1.5,1.5] 50. 3600. 9800. 15. 15323. 192 $3 AREA=[10,2038,510,1437] AP_DEF_IMAGE=$5.fits PIX_SHIFTS_IN=$6 PIX_SHIFTS_OUT=$7 ATMOS_EXTINCTION_IN=~/stella/atmospheric_extinction/KPNO_atmospheric_extinction_no_header.dat AIRMASSES_IN=$4 I_MAX_OFFSET=5
+replacestringinlistwith $9.list $9_throughput.list '.text' '_throughput.text' 
+sarith @$9.list '/' @$8 @$9_throughput.list

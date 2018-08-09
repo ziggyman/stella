@@ -1,0 +1,999 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+ <title>Nordic Optical Telescope</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <script type="text/javascript" src="/include/styleSwitch.js">
+   <!-- function setStyle() {void(0);} // -->
+ </script>
+ <link rel="icon" href="/g/notlogo.ico" type="image/x-icon">
+ <link rel="shortcut icon" href="/g/notlogo.ico" type="image/x-icon">
+ <link rel="stylesheet" type="text/css" href="/include/styleGen.css" >
+ <link rel="stylesheet" type="text/css" href="/include/styleFontMed.css" >
+ <link rel="alternate stylesheet" type="text/css" media="screen" title="smallfont" href="/include/styleFontSmall.css" >
+ <link rel="alternate stylesheet" type="text/css" media="screen" title="bigfont" href="/include/styleFontBig.css" >
+</head>
+
+<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" 
+      bgcolor="#ffffff" link="#0000ff" vlink="#0000ff" alink="#ff0000" onload="setStyle();">
+
+<a name="Top"></a> 
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%" style="height: 100%">
+
+<tr>
+<td bgcolor="#0080ff" valign="top" align="left" width="100%">
+&nbsp;<a class="nav" href="/">Nordic Optical Telescope</a>
+</td>
+
+<td bgcolor="#0080ff" valign="top" align="right" nowrap>
+<form method="post" action="/cgi-bin/htsearch">
+ <input type="hidden" name="config"   value="htdig">
+ <input type="hidden" name="restrict" value="">
+ <input type="hidden" name="exclude"  value="">
+ <input type="hidden" name="method"   value="and">
+ <input type="hidden" name="sort"     value="score">
+ <input type="hidden" name="format"   value="builtin-long">
+ <font color="#ffffff">Search:</font>
+ <input type="text" name="words" size="12" class="post" value="">
+</form>
+</td>
+
+<td bgcolor="#0080ff" valign="top" align="right" nowrap>
+<img src="/g/label_textsize.gif" alt="Text Size: " width="50" height="18">
+<a href="#" onclick="setActiveStyleSheet('smallfont', 1);return false;">
+	<img src="/g/icon_text_sm.gif" alt="Smaller Text " width="18" height="18" title="Smaller Text"></a>
+<a href="#" onclick="setActiveStyleSheet('', 1);return false;">
+	<img src="/g/icon_text_med.gif" alt="Normal Text " width="18" height="18" title="Normal Text"></a>
+<a href="#" onclick="setActiveStyleSheet('bigfont', 1);return false;">
+	<img src="/g/icon_text_lg.gif" alt="Larger Text " width="18" height="18" title="Larger Text"></a>&nbsp;
+</td>
+
+</tr>
+
+<tr>
+ <td colspan="3" VALIGN="TOP" ALIGN="LEFT" BGCOLOR="#FFFFFF" height="100%" width="100%" class="bodyline">
+ <table CELLPADDING="10" border="0" width="100%" height="100%" style="height: 100%">
+ <tr>
+  <td valign="top" width="100%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="/observing/cookbook/index_print.html">Printable Version</a>
+<hr>
+<!-- Updated by Anlaug Amanda Kaas: 16.03.2004 -->
+<!-- Updated by Anlaug Amanda Djupvik: 19.04.2004 -->
+<!-- Updated by Brian Krog: 22.10.2004 -->
+
+<script language="JavaScript"> document.title = "Observers Cookbook"; </script>
+
+<H1 align="center"><u>Observer's Cookbook</u></H1>
+Content of this page: <BR>
+<ul>
+<LI><A HREF="#startup">Observing Startup Procedure</A></li>
+<ol>
+<li><A HREF="#Object Catalogue">Object Catalogue</a> </li> 
+<LI><A HREF="#Software Startup">Software Startup Procedure</A></li>
+<LI><A HREF="#RPCaccess">RPC access code to TCS</A></li>
+<LI><a href="#Bias Frames">Obtaining Bias Frames</a>
+<li><A HREF="#TCS">Telescope Control System</A> </li>
+<LI><A HREF="#telescope">Telescope power and dome opening</A></li>
+<LI><A HREF="#rotator">Field rotator</A></li>
+<LI><A HREF="#CCD Probe">CCD Probe</A></li>
+<LI><A HREF="#Calibration frames">Calibration frames (skyflat and bias)</A></li>
+<LI><A HREF="#Guide Probe">Guide Probe</A></li>
+</ol>
+<LI><A HREF="#focusing">Focusing the Telescope</A></li>
+<LI><A HREF="#autoguiding">Autoguiding</A></li>
+<li><A HREF="#closedown">Closing Down Procedure</A></li>
+<LI><A HREF="#movingtargets">Tracking of moving targets</A></li>
+<LI><A HREF="#trouble">Before calling NOT staff (trouble shooting)</A></li>
+
+
+
+</ul>
+<BR>
+See also the following links:
+<ul>
+<li> <a href="/telescope/tcs/TCS-errors-alpha.html">
+     TCS error messages</a>
+<LI> <a href="../NOTobsLog.ps"> Paper observing log (postscript document)</a>
+<!-- <LI> <a href="../~loida/archive/">archive CD-ROMs</a> -->
+</ul>
+
+<hr>
+
+<A NAME="startup"></A><H1>Observing Startup Procedure</H1>
+
+
+<a name="Object Catalogue"></a><h2>Object Catalogue</h2>
+
+<p>
+Well in advance of performing the observations an object catalogue can 
+be made. Note that it is also possible to enter targets on-the-fly and
+create a catalogue directly on the TCS while observing.
+</p>
+<p>
+If you have submitted a catalogue by using our web interface <a 
+href="/cgi-bin/source-catalog.pl">NOT Source Catalogue Creation</a>, you
+can load this catalogue on the TCS by the keypad keystrokes: <b>Main, 
+Catalogue, Load Catalogue</b> and then typing 
+<i><b>/catalog/catname.cat</b></i>
+</p>
+<p>
+There is an online catalogue on the TCS which contains blank fields for
+twilight flats and focus stars. This one is loaded as above but 
+typing only <i><b>blanks</b></i>. Instead of using the keypads you can 
+type on the command line directly <b><i>lo blanks</i></b>.
+</p>
+
+<a name="Software Startup"></a><h2>Software Startup Procedure</h2>
+
+To start up the instrument control software, see the Software
+Startup Procedure for the relevant instrument:
+<ul>
+<li><a href="/instruments/alfosc/alfosc-start.html">ALFOSC</a></li> 
+<li><a href="/instruments/stancam/stancam-start.html">StanCam</a></li>
+<li><a href="/instruments/mosaic/mosca-start.html">MOSCA</a></li>
+</ul>
+
+or see the <a href="/instruments/notcam/guide/obs-step.html">NOTCam step-by-step guide</a>.
+
+<a name="RPCaccess"></a><h2>RPC access code on TCS</h2>
+
+Any instrument computer which needs access to the TCS, for instance to move 
+the telescope during slit aquisition or dithering, will ask you about the
+current <i>RPC access code</i> at start-up. See BIAS start-up. This code
+is updated every day (around lunch time). When you are asked to supply the
+RPC access code, do as follows on the TCS terminal:
+
+<ul>
+<li>Go to <b>Main Menu</b>.</li>
+<li>Press numerical key <b><i><span class="nobreak">8 "Status
+Pages"</span></i></b>.</li>
+<li>Select numerical key <b><i><span class="nobreak">1 "Page
+number"</span></i></b>.</li>
+<li>Then type <b><i>84 </i></b>  with the alpha-numeric keys to view
+page 84.</li>
+<li>Read off the code as the first line on this page.</li>
+</ul>
+
+<a name="Bias Frames"></a><h2>Obtaining Bias Frames</h2>
+<p>
+See the <a href="/instruments/alfosc/alfosc-bias-commands.html">BIAS
+command list</a> on how to obtain dark exposures of 0 seconds. For
+nicer FITS headers, set the image type, the object and the observer.
+</p>
+<div class="print"></div>
+<p>
+     Acquire at least two bias frames in the beginning of the night and 
+     again in the end of the night. With two bias frames and with two flat 
+     fields of the same level, gain and readout noise can be determined, 
+     e.g. by using the IRAF task <i>findgain</i>.
+</p>
+
+<A NAME="TCS"></A> <H2>Telescope Control System (TCS)</H2>
+
+    <OL>
+      <LI> Turn up the brightness of the TCS screen. 
+           (on right-hand side, below the screen)
+      <LI> Look at the top-left of the TCS screen. If item <B>ST</B> is 
+           incrementing, then the TCS is running, if not - then the TCS needs 
+           resetting (see the TCS Manual - in a binder in the control room)
+           <!-- <A HREF="/telescope/tcs/tcsmanual.ps"> 
+           TCS Manual Sect. 10.3</A>) -->. <br>
+           Type <B><I>refresh</I></B> if the screen looks strange .
+    </OL> 
+
+
+<A name="telescope"></A><H2>Telescope power-on and Dome Opening</H2>
+
+
+    <OL>
+      <LI> Check safety system in the computer room (See  <A 
+           HREF="/telescope/tcs/tcsmanual.ps"> TCS 
+           Manual Sect. 10.1</A> for procedure) by pressing first the left
+	   and then the right reset button by the red LED lamps and then 
+	   turning the left and the right keys. If you get a repeated clunking
+	   sound then the system has not reset, check the red lights above to
+	   see if a safety stop or other item is set.
+
+      <LI> Type <i><B>power-on</B></i> at TCS and confirm with <B>y</B> for
+           <B>YES</B>. Wait for the message <B>Telescope Power is ON</B>
+           before continuing. This takes about 1 minute.
+
+      <LI> At sunset, if weather conditions are OK (see 
+           wind/humidity/dust restrictions on the wall in the control room),
+           open upper hatch with mirror covers closed.<br>
+           Use keypad keystrokes: <B>Main, Start/Stop, Open
+           Upper Hatch</B>. This takes about 3.5 minutes. 
+
+      <LI>In dome (While upper hatch opens):
+
+      <UL>
+
+        <LI> open side ports (again, only if conditions are OK ). Do 
+             not use too much force, but use the handle for lifting the ports 
+             if needed <B>-you could damage the side ports!!</B>.
+        <LI> check that nothing is in the way of telescope motion
+             (6.5-90 degs altitude) 
+
+      </UL>
+
+      <LI> Open lower hatch  (again, only if weather
+           conditions are OK. In case you can open the upper hatch but not the lower hatch then the maximum zenith distance for observing is 55 degrees ). Use keypad keystrokes: <B>Main, Start/Stop, Open
+           Lower Hatch</B>. This takes about 2 minutes. <BR>Do not open lower 
+           hatch before upper hatch has completed opening.  
+      <LI> While lower hatch is opening, mirror covers can be opened as well. 
+           Use keypad keystrokes: <B>Main, Start/Stop, Open
+           Mirror Covers. </B>This takes about 50 sec. <br>
+
+           Please note that power for hatches and mirror covers is completely 
+           independent of the telescope power and electronics in Control room.
+    </OL>
+
+
+<A name="rotator"></A><H2>Field Rotator</H2>
+
+At the TCS terminal give the rotator setup commands as indicated in the 
+table below:<br><br>
+
+<CENTER>
+<table border=1 BGCOLOR="#CCFFFF" cellpadding=6 CELLSPACING=0>
+<tr>
+<th align="left">Instrument in use</th>
+<th align="left">TCS Command</th>
+<th align="left">Orientation of images</th>
+</tr>
+<TR>
+<td>ALFOSC</td>
+<TD><I><B>rot-auto<br>field +90</B></I></TD>
+<TD>North up and East to the left. <br> 
+    Slits are then oriented E-W (P.A. = +-90).</TD>
+</TR>
+<tr>
+<td>TurPol or StanCam</td>
+<TD><I><B>rot-auto<br>field 0</B></I></TD>
+<td><B><I> NB! </I></B>  North up and East to the right</TD>
+</TR>
+<TR>
+<td>NOTCam or MOSCA</td>
+<TD><I><B>rot-auto<br>field -90</B></I></TD>
+<TD>North up and East to the left (MOSCA). <br>
+<B><I> NB! </I></B> East up and North to the left (NOTCam).
+</TD>
+</TR>
+</table>
+</CENTER>
+<div class="print"></div>
+
+<p>
+Note that if you do spectroscopy only, setting the field will usually not 
+be useful as you probably would like to observe on 
+<a href="/instruments/alfosc/paralang.html"> the parallactic angle</A>, 
+in which case the field will be different for each target. To observe in 
+this mode, simply do: <BR>
+
+<ol>  
+<li><b><i>Define-Parallactic-Instrument-Angle XX</i></b> or just 
+    <b><i>d-p XX</i></b> at the start of your run (sticky command). 
+    <BR><BR>
+    <center>
+    <table border=1 BGCOLOR="#CCFFFF" cellpadding=6 CELLSPACING=0>
+    <tr>
+    <td align="center"><b><i>d-p 0</i></b> </td>
+    <td align="center">ALFOSC</td>
+    </tr>
+    <tr>
+    <td align="center"><b><i>d-p -90</i></b> </td>
+    <td align="center"> SOFIN and NOTCam</td>
+    </tr></table></center><BR>
+
+<li>For presetting the telescope use <b>Catalogue</b> function 
+    <b><i><span class="nobreak">7 "Preset w par ang"</span></i></b> instead 
+    of the usual <b><i><span class="nobreak">4 "Preset to this"</span></i></b>.
+</ol>
+
+Upon every preset the rotator position will be close to the value defined
+as above at start. Note that the rotator should be set to automatic mode 
+(command <b><i>rot-auto</i></b> on the TCS) in order to keep a constant 
+field orientation, such that it will gradually move away from zero. If you 
+want to know your current field angle, for instance
+to be able to compare an aquisition image with a finding chart, then type on
+the TCS <i><b>field</b></i> and then press the HELP key.
+
+<p>
+
+We refer to the different instrument pages for specific info on 
+spectroscopy with: 
+<A HREF="/instruments/alfosc/">ALFOSC</A>,
+<A HREF="/instruments/sofin/">SOFIN</A>, and
+<A HREF="/instruments/notcam/">NOTCam</A>.
+
+<p>
+
+<A name="CCD Probe"></A><H2>CCD Probe</H2>
+
+The CCD probe is used for the standby Camera (StanCam) only. 
+    <OL>
+      <LI> To use the StanCam, put the CCD probe in the <B>CCD</B> 
+           position with  <i><B>c-p-c</B></i>. 
+      <LI> When not using StanCam, put the CCD probe in the <B>park</B> 
+           position with  <i><B>c-p-p</B></i>. 
+    </OL>
+
+For the use of StanCam we refer to documentation on <A 
+HREF="/instruments/stancam/"> The StanCam Page</A>.
+
+
+<A name="Calibration frames"></A><H2>Calibration frames</H2>
+
+The type of calibration frames needed depend very much on your science
+goals and the instrument mode you are using. We recommend our documentation
+on the different instrument pages. Please, check the User Guides available 
+for: 
+           <A HREF="/instruments/alfosc">ALFOSC</A>, 
+           <A HREF="/instruments/stancam">Stancam</A>,
+           <A HREF="/instruments/notcam/">NOTCam</A>, 
+           <A HREF="/instruments/mosaic/">MOSCA</A>,
+           <A HREF="/instruments/turpol/">Turpol</A>, and
+           <A HREF="/instruments/sofin/">SOFIN</A>.
+Below is a short guide regarding bias frames and twilight flat fields for 
+optical imaging.
+<P>
+
+Flat field frames:
+    <OL>
+      <LI> Remember to set <B><i>tv-off</i></B> before making sky flatfields.
+      <LI> Load catalogue (<b>Main, Catalogue</b>) with empty fields by using 
+           the command <i><B>lo blanks</B></i>
+      <LI> Select an empty field with the keypads <I><B>5,6,8,9</B></I> and 
+           preset the telescope with the keypad <I><B>4</B></I>
+      <LI> With BIAS (see instrument user manuals for 
+           <A HREF="/instruments/alfosc">ALFOSC</A>, 
+           <A HREF="/instruments/stancam">Stancam</A>, and
+           <A HREF="/instruments/mosaic/">MOSCA</A>,
+           make flat fields in the desired filters.
+           It is recommended to: <BR> 
+           - rotate the field 90 degrees for each image. Use the commands
+           <B><I>field 0, field 90,,</I></B> etc.<br>
+           - make small offsets between the images, in order to be able
+           to get rid of stars (on the TCS set offset size with the command
+           <B><I>o-s 10 10</I></B> and then use arrow keys to make the actual
+           offsets while the CCD is reading out). It is recommended to be 
+           close to focus for each filter, and to use an offset size at least
+           10 times the size of the FWHM of the seeing disk in order to 
+           easily filter out the stars.
+    </OL>
+
+<P>
+      
+
+<A name="Guide Probe"></A><H2>Guide Probe</H2>
+
+    <OL>
+      <LI> Switch on the two Guide TV monitors above the TCS monitor.
+      <LI> When it is <B>dark</B> outside, type <B><i>tv-on</i></B> to power 
+           up the TV guide camera. <br>
+           Note: <i><B>tv-off</B></i> switches the TV camera off.<br>
+           Remember to set <B><i>tv-off</i></B> before taking dawn 
+           Sky flatfields.
+    </OL>
+    <P>
+    Hereafter the following is made automatically:
+    <UL>
+      <LI> TV-Focus follows the focal plane curvature when
+           the guideprobe is moved in X and Y. 
+      <LI> When presetting to an object, the guideprobe moves to a suitable
+           guidestar (See the section <A HREF="#autoguiding">Autoguiding</A>)
+           and chooses an "appropriate" TV filter based on its brightness. 
+           (This might need adjustment in the case of bad seeing or clouds.) 
+    </UL>
+
+
+
+<HR>
+
+<A name="focusing"></A><H1>Focusing the telescope</H1>
+
+The telescope focus depends on temperature and zenith distance. These 
+relations have been measured to a high accuracy and the corresponding 
+corrections are applied in real time by the TCS. (Note that you will 
+not see these corrections in the focus value displayed on the TCS. To
+avoid confusing the observer this one is kept constant.) The focus should 
+therefore remain stable during not only a night but a complete run. We 
+do, however, encourage observers to check the focus a couple of times 
+during the night. Below we describe how to set and monitor the focus 
+for our different instruments.
+
+    <OL>
+
+      <LI> Find a nearby field with focus stars in the <i>blanks</I> catalogue
+           (<i><B> lo blanks</B></i>).
+      <LI> Select focus field with the keypads <B><I>5,6,8,9</I></B> and 
+           preset telescope with the keypad <B><I>4</I></B>
+      <LI> With the image acquisition software BIAS (see instrument user 
+           manuals), make focus sequences and determine the best focus 
+           value or -offset
+      <LI> Determine focus offsets for the filters to be used, or use the
+           <a href="/instruments/filters/focusoffset.html">determined
+           filter offsets</a>.
+      <LI> In the TCS, enter the new focus with the command 
+           <i><B>foc-pos</B></i> or the focus offset
+           with the command <i><B>foc-del</B></i> 
+      <LI> To focus the Guide TV, first acquire a star on the TV:
+      <UL>
+
+        <LI> If no star is seen in the Guide TV, <i>open</i> Guide TV filter 
+           with the command <i><B>tv-fil o</B></i>. Other options instead of
+           <i><B>o</B></i> are: <i><B>c</B></i> (<i>closed</i>), 
+           <B><i>b</i></B> (<i>blue</i>), <B><i>y</i></B> (<i>yellow</i>), 
+           <B><i>r</i></B> (<i>red</i>) and <i><B>g</B></i> 
+           (<i>gray, a 5 mag neutral density filter.</i>) 
+        <LI> Is there still no star, move the Guide probe to center position 
+           with the command <i><B>g-p-c</B></i> to view the focus star itself.
+      </UL>
+      <LI> When a star is visible, focus the Guide TV with the 
+           keypad keystrokes: <B>Main, Guideprobe, Others, Tv Focus+/- </B>,
+           or command <B><i>tv-foc nnn</i></B>
+      <LI> Move the Guide Probe to park position with the command 
+           <B><i>g-p-p</i></B>
+           
+    </OL>
+
+<P><BR>
+<div class="print"></div>
+<CENTER>
+[an error occurred while processing this directive]
+</CENTER><BR>
+
+<p>
+
+
+
+
+<h2>Using ALFOSC</h2>
+
+<P>
+
+When focusing ALFOSC we use the 'focus pyramid', an optical device which 
+splits the light beam into four segments, each of them producing an image 
+of the star on the CCD. The distance between the four images is linearly 
+dependent on the focus of the telescope. By measuring the distance between 
+the four images of a star we directly get the correct focus of the telescope 
+- independently of seeing variations.
+
+<P>
+
+Follow the <a href="/instruments/alfosc/focus.html"> ALFOSC focus 
+procedure</a>. 
+
+<p>
+
+<table align="right" border=1 BGCOLOR="#CCFFFF" cellpadding=6 CELLSPACING=0>
+<tr>
+<th align="center">Filter name</th>
+<th align="center">NOT filter number</th>
+<th align="center">foc-del </th>
+</tr>
+<tr>
+<td align="center">Bessel U</td>
+<TD align="center">#7</TD>
+<td align="center">-70</TD>
+</TR>
+<TR>
+<td align="center">Bessel B</td>
+<TD align="center">#74</TD>
+<TD align="center">-85</TD>
+</TR>
+<TR>
+<td align="center">Bessel V</td>
+<TD align="center">#75</TD>
+<TD align="center">-10</TD>
+</TR>
+<TR>
+<td align="center">Bessel R</td>
+<TD align="center">#76</TD>
+<TD align="center">-80</TD>
+</TR>
+<TR>
+<td align="center">Interference i</td>
+<TD align="center">#12</TD>
+<TD align="center">-5</TD>
+</TR>
+</table>
+
+<p>
+
+The focus offsets (with respect to "no filter") for the 
+standard UBVRi broadband filters used in the ALFOSC filter wheel are 
+listed in the table to the right. For more filters, check the determined <a 
+href="/instruments/filters/focusoffset.html">filter focus offsets</a>.
+
+<P>
+
+<!--  or use the script 'pfocus' 
+by issuing the command 'run pfocus' to obtain an exposure (this sets suitable
+windowing of the CCD, exposure time etc). When you have the image on the
+screen, go into 'imexamine' mode, point to the top image in the quartet
+and press 'f'. This directly gives you the focus offset you should
+apply to the telescope. You can now set the correct telescope focus for this
+filter in two ways. 1) Either use the command 'focus-delta nnn' in the TCS,
+where 'nnn' is the desired focus offset (provided that 'focus-delta' was set
+to zero when you took the exposure). 2) Or add the focus offset to the current 'focus-position' value. Note that 'nnn' may be positive or negative. -->
+
+<P>
+
+When you have corrected the focus, it is appropriate to check it 3 times.
+The focus value you have found for "no filter" in the beam is the right
+focus to use for ALFOSC spectroscopic mode.
+
+<p>
+
+Note that the internal ALFOSC focus has default value 1877 and is found to
+be very stable. No need to change it (unless you use the spectro-polarimetry 
+mode).<br><br>
+
+<p>
+
+For <a href="/instruments/alfosc/polarimetry/index.html">ALFOSC polarimetry
+</A> the recommended focusing procedure is a bit different from above (see
+<A HREF="/instruments/alfosc/polarimetry/focusfapol.html">About focusing
+FAPOL</A>).
+For spectro-polarimetry the internal ALFOSC focus must be changed (to 900)
+in order to have the polarimetric slitlet in focus. Compared to normal ALFOSC 
+use a substantial focus offset is required by putting in the retarder plate 
+(either the half-wave or the quarter-wave, which have different thickness 
+and therefore different focus shifts) and the calcite plates in the focal 
+plane (aperture wheel). 
+
+
+<!--Run the 'pfocus' script and estimate the focus 3 times (should take less
+than 2 minutes). Take the average of these measurements and apply it. 
+The error of the measurement depends strongly on the conditions that 
+specific night. Notably local seeing introduces a lot of noise in the 
+measurement.-->
+
+<P>
+<div class="print"></div>
+
+<h2>Using StanCam</h2>
+
+A traditional focus sequence should be made exposing at different focus 
+values and stepping the telescope such that a number of focus measurements 
+can be read out on the same image. This is done in StanCam BIAS with the 
+command: <BR><BR>
+
+<b><i>focus [focus startvalue] [focus stepsize] [ttt]</i></b> <BR><BR>
+
+where you should enter a focus startvalue close to the default focus
+for StanCam (23080), a focus stepsize of around 50 during the first
+iteration, and an exposure time preferrably as long as 15 seconds to filter
+out possible rapid seeing variations.
+
+<p>
+
+When the command is finished and the image is read out you will find your
+focus star stepped along the CCD, the last measurement being offset 90
+degrees with respect to the others. Estimate the sharpness and roundness
+of the exposures with <i><b>imexam</b></i> and possibly iterate with a
+smaller focus stepsize around the best value.
+
+<h2>Using MOSCA</h2>
+
+The same procedure as for StanCam, but default focus for 
+<A HREF="http://geena.not.iac.es/instruments/mosaic/">MOSCA</A> is
+23250. 
+
+
+<h2>Using NOTCam</h2>
+
+Default telescope focus for 
+<A HREF="/instruments/notcam/">NOTCam</A> is 23500 for the K bands in 
+imaging mode with the WF camera (when the internal camera focus is set 
+to 6000). Check the <A HREF="/instruments/notcam/guide/observe.html#focusing">
+NOTCam User's Guide</A> under section <b>Focusing</b> for instructions
+regarding imaging mode focusing. 
+
+<p>
+<!--
+<center>
+<TABLE BORDER=1 BGCOLOR="#CCFFFF" CELLPADDING=6 CELLSPACING=0>
+<TR>
+<TH> <pre></pre></TH>
+<TH> WF Camera </TH>
+<TH> HR Camera </TH>
+<TH> <pre></pre></TH>
+</TR>
+<TR>
+<TD ALIGN="CENTER"> <pre> </pre> </TD>
+<TD align="CENTER"> 6000 </TD>
+<TD align="CENTER">  0 </TD>
+<TD align="CENTER"> Internal camera focus (fixed) </TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER"> Foc-pos </TD>
+<TD align="CENTER"> 23500 </TD>
+<TD align="CENTER"> 23600 </TD>
+<TD align="CENTER"> Telescope value for K,K',Ks (at T=7&deg;C) </TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">   foc-del </TD>
+<TD align="CENTER">   0 </TD>
+<TD align="CENTER">   0 </TD>
+<TD align="center">   K, K', Ks </TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">  foc-del  </TD>
+<TD align="CENTER">  -10 </TD>
+<TD align="CENTER">  -10 </TD>
+<TD align="center">   H  </TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">    foc-del </TD>
+<TD align="CENTER">  -60 </TD>
+<TD align="CENTER">  -60 </TD>
+<TD align="center">  J  </TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">  foc-del  </TD>
+<TD align="CENTER">  -65 </TD>
+<TD align="CENTER">  -65 </TD>
+<TD align="center">  Z  </TD>
+</TR>
+</TABLE>
+</center>
+<BR><BR>
+-->
+Check <A HREF="/instruments/notcam/spectroscopy/">NOTCam spectroscopy</A> 
+for focusing instructions in this mode.
+
+<p>
+
+<HR>
+
+<A name="autoguiding"></A><H1>Autoguiding</H1>
+
+It is advantageous to have the telescope `autoguide' on an optical 
+source close to your target object. By autoguiding we 
+mean let the telescope control software (TCS) monitor the position of 
+a reference star and correct the 'pointing' of the telescope quickly 
+to correct for drifts in tracking. Autoguiding will produce the best 
+image quality - especially away from zenith. <P> 
+
+At the NOT we have implemented a system whereby whenever the telescope 
+is positioned preset to an object, the TCS <I>automatically</I> selects 
+a suitable star from the HST guide star catalogue. The guide probe is 
+then automatically placed at the correct position to auto-guide on this 
+star. This saves considerable (and valuable) observing time over manual 
+searches for guide stars. When the telescope instrument rotator (field 
+angle) is manually changed (e.g. for slit rotation) the TCS will 
+automatically re-select a guide star for the new field angle. This
+means that retyping your current field angle on the TCS is a way to
+research for a guide star at current position (if you somehow lost it).
+
+<div class="print"></div>
+<P>
+
+Once a guide star has been selected the observer simply starts the
+autoguider. The TCS always selects the best (brightest) guide star
+available at the current position and displays it on the Guide Monitor. 
+To start autoguiding do the following:
+
+<OL>
+<LI> If the guide star looks very faint or you can't see it, check that 
+     TV filter is open or type on the TCS <i><b>tv-fil o</b></i>. 
+<LI> If still too faint then start TV integration with the command 
+     <i><B>int-fr n</B></i> where <i><B>n</B></I> is number of frames to 
+     integrate, say 2 - 5. A small window pops up with the integrated 
+     image. Place the Autoguider mouse pointer on the star and click the 
+     right button labelled <B>INT</B>. Follow the steps below as for normal 
+     autoguiding, but grab the star in that small window. To stop 
+     integration mode, type <i><B>int-fr 0</B></i>. Note that the guide
+     star should not be on the right edge of the screen because the 
+     <b>INT</b> box will not reach there.       
+<LI> Place the pointer accurately on the star by moving the Autoguider
+     mouse.
+<LI> Click the middle button labelled <B>STAR</B> to put the box onto
+     the star.
+<LI> Enter the command <i><B>a-g</B></i> to start autoguiding without
+     relaxation, or <i><B>rel-a</B></i> to start autoguiding with 
+     relaxation (the box is then moved to the star <B>without</B>
+     moving the telescope).
+<LI> On the TCS monitor the signal strength from the autoguider is shown
+     as a number. Anything between 1 and 100 is useful. If your signal is
+     above 100 then put in a filter (red, yellow, or grey) 
+     <i><b>tv-fil r</b></i>, <i><b>tv-fil y</b></i>,
+     or <i><b>tv-fil g</b></i>. If your signal is < 1 then guiding will
+     be lost and you should use integration mode.
+<LI> To stop autoguiding again, use  the command <B><i>a-s</i></B>
+</OL>
+     
+Note: make sure the small box is outside the star box -if needed,
+move it by clicking the button <B>SKY</B> (can be moved only while
+not autoguiding).
+This is the sky measurement box. You can change the star box size 
+depending on the seeing by typing <b><i>b-s xx</i></b>, where xx is 
+a number usually around 18-20.
+
+<p>
+
+<B>If you see no guide star</B>, then:
+    <OL>
+      <LI>Check that TV filter is open (<i><b>tv-fil o</b></i>).
+      <LI>Check guide camera focus (set it by the command 
+          <i><b>tv-foc xxx</b></i>).
+      <LI>Check the VT100 terminal to your upper left which displays
+          the magnitude of the latest acquired guide star. Depending 
+          on the seeing and possible clouds it could be that the best 
+          guide star in this field is too faint. If so, consider 
+          whether you could use another field angle.
+<!--  <LI>The last option is to search manually for guidestars with the
+          commands <i>x </i> and  <i>y </i>. Check maps below Guide TV 
+          to see that the probe is outside the vignetting field. --> 
+    </OL>
+<P>
+
+<B>If you lose the guide star after a telescope offset</B>, then: <BR><BR>
+
+       Give TCS command <b><i>field xx.x</i></b>, where xx.x is the current
+       field angle. This leads to no movement of the telescope, but a 
+       guidestar is re-acquired.
+<p>
+
+<HR>
+
+<A NAME="closedown"></A><H1> Closing Down Procedure </H1>
+
+    <OL>
+      <LI> BEFORE YOU MAKE FLATFIELDS, turn Guide TV off with  command
+           <B><I>tv-off</I></B>, then take your flats.
+      <LI> PUT THE TELESCOPE TO ZENITH. Use keypad sequence : <B>MAIN,
+              Start/Stop, Zenith Position</B>. This turns off the GUIDE TV and
+              parks the GUIDE probe.  Wait for "Rotator -90".
+      <LI> PARK THE BUILDING. Use keypad sequence : <B>MAIN,
+              Start/Stop, Park Building</B>. This process can take up to 8 min.
+              Building will stop at Az = 116, Alt = 90.
+      <LI> CLOSE THE MIRROR COVERS. Use keypad sequence : <B>MAIN,
+              Start/Stop, Close Mirror Covers</B>. This takes 42 sec.
+      <LI> CLOSE THE LOWER HATCH.  Use keypad sequence : <B>MAIN,
+              Start/Stop, Close Lower Hatch</B>. This takes about 3 min. <br>
+              If timeout occurs see TCS Manual p. 43.
+      <LI> CLOSE THE UPPER HATCH.  Use keypad sequence : <B>MAIN,
+              Start/Stop, Close Upper Hatch</B>. This takes about 5 min. <br>
+              If timeout occurs or hatch does not move, see TCS Manual p. 43.
+      <LI> CLOSE THE SIDE-PORTS. Go into dome and close the 4 side-ports.
+              Please, <I>do not use violence</I> when closing the side-ports.
+              If stuck, use the handle to lift the port, then close.
+      <LI> POWER DOWN THE TELESCOPE. After all of the above have been
+              completed, on TCS type <B><I>power-off</I></B> and wait until 
+              message <B>Telescope power is off</B> appears.
+      <LI> TURN DOWN THE TCS SCREEN BRIGHTNESS. Use the knob on the
+              right-hand side of the TCS monitor, near the power switch.
+      <LI> TURN OFF MONITORS. Turn off the two autoguider monitors and
+              dome TV camera monitor.
+      <LI> HAVE A LOOK IN THE DOME at hatches and telescope, to 
+              check for <B>any</B> faults that might have occurred.
+      <LI> COMPLETE THE WWW REPORT FORMS. Fill in and submit Internet
+              <A HREF="/cgi-bin/end-of-night.pl">NOT End-of-Night Report.
+              </A> Be sure to include any faults that occurred and submit 
+	      a <a href="http://www.not.iac.es/observing/forms/faultdb/index.php">fault report</a>, so we can fix them promptly! <br> If it is the last 
+              night of the observing run, also fill in and submit Internet
+              <A HREF="/cgi-bin/end-of-run.pl">NOT End-of-Run Report.</A>
+      <LI> LOCKUP THE DOME. Lock the outer dome door when you leave the
+              building
+      <LI> CLEAN UP THE KITCHEN/LOUNGE AREA!. In the service building, please 
+              wash up all dishes and cups you used during the night. Switch
+              off all lights when you leave.
+      <LI> LOCKUP THE SERVICE BUILDING. Lock the NOT service building 
+              outer door when you leave for the Residencia.
+    </OL>
+<P>
+<I><B>-Thank you for your co-operation.</B></I>
+
+
+<HR>
+
+<A NAME="movingtargets"></A><H1>Tracking of moving targets </H1>
+
+The NOT was not originally built for tracking of moving targets (planets, 
+comets, asteroids, satellites), but there are currently two ways of doing 
+this, depending on the speed of the object.
+
+<P>
+
+<H2> Slowly moving targets </H2>
+
+For objects moving rather slowly, i.e. less than about 1 arcmin during an
+exposure, the tracking is handled by moving the guide box on the autoguider 
+screen, while autoguiding, in order to compensate for the object motion.
+
+<P>
+
+<OL>
+<LI> Calculate your object's motion in RA and DEC rates in advance. 
+     NB! Rates are in arcseconds per hour! 
+<BR><BR>
+<LI> Preset to your object, and get a guide star (hopefully) on the guide 
+     monitor.
+<BR><BR>
+<div class="print"></div>
+<LI> Position the box in an appropriate place on the screen. Then move the 
+     <i>guide probe</i> to put the guide star in the box: first set the step 
+     size by <b>p-s-s &lt;1000&gt; &lt;1000&gt;</b>, then go to MAIN MENU - 
+     GUIDE PROBE - 
+     OTHERS, and use the X+,Y+,X-,Y- keys to move the probe. When the star 
+     is in the box,  start autoguiding with the TCS command <b>a-g</b>. 
+<BR><BR>
+<LI> Start then tracking of the moving object by the TCS command 
+     <b>Box-Motion-Start &lt;RA-rate&gt; &lt;DEC-rate&gt;</b> or in short
+     <b>ag-bo-on &lt;RA-rate&gt; &lt;DEC-rate&gt;</b>. If the box reaches 
+     the opposite edge of 
+     the monitor, it stops moving. You can try with a short box move with
+     much higher rate, to find out in which direction the box moves.
+<BR><BR>
+<LI> Take the exposure, and then stop tracking by <b>Box-Motion-Stop</b>
+       or in short <b>ag-bo-of</b>.
+</OL>
+
+<H2> Rapidly moving targets </H2>
+
+<P>
+
+For more rapidly moving targets, use the <b>set-rate</b> command to 
+continuously move the telescope from a pre-calculated change in position. 
+In this mode autoguiding is <I>not</I> used!
+<P>
+<OL>
+<LI> Preset to your object.
+<BR><BR>
+<LI> Set the rate of change by <b>set-rate &lt;RA-rate&gt; &lt;DEC-rate&gt; 
+     </b> (NB! Rate in arcsec per second!). The maximum rate is 1200 arcsec/s.
+<BR><BR>
+<LI> Make the exposure.
+<BR><BR>
+<LI> Reset by <b>set-rate 0 0 </b>.
+</OL>
+
+
+<H2>For experts only</H2>
+
+If the target has an unknown or rapidly changing motion, you might want to 
+adjust the rate of change in RA and DEC while tracking. Then, use the 
+telescope in <b>set-mode</b>, as opposed to the default <b>offset-mode</b>. 
+In <b>set-mode</b> the cursor keys (which in offset-mode are used to move 
+the telescope with a given offset step), are now used to <i>adjust the rate 
+of change</i> in RA and DEC, once set with <b>set-rate</b>. As in the above
+case, autoguiding is <I>not</I> used.
+
+<P>
+The step of the 
+adjustment is set with the command <b>set-step</b>, which can take values 
+from 0.0009 to 1200.0 arc seconds per second (NB! Note the units!). 
+The Up/Down keys adjusts the DEC set rate with +/- the set-step size,
+and the Left/Right keys adjust RA set rate with -/+ the set-step size.
+<P>
+
+<OL>
+<LI> Preset to your object.
+<BR><BR>
+<LI> Type in the TCS command <b> set-mode </b>
+<BR><BR>
+<LI> Guess the starting <b>set-rate &lt;RA rate&gt; &lt;DEC rate&gt; </b> 
+     values.
+<BR><BR>
+<LI> Set the size of adjustment by <b>set-step &lt;size&gt; </b> and use 
+     the cursor keys to adjust the speed.
+<BR><BR>
+<LI> Go back to <b>offset-mode</b> when finished tracking this object,
+or before presetting to another object.
+<BR><BR>
+</OL>
+
+NB! This mode is quite tricky to use correctly, and needs some practicing.
+
+<P>
+
+<!-- <H3> Examples of images taken in these modes </H3> <P> 
+
+To be written. -->
+
+<HR>
+
+<A NAME="trouble"></A><h1>Before calling NOT staff</h1>
+
+
+<b>If you have ...</b>
+<ul>
+<li><b>... no light on the CCD</b> -- check:
+<ul>
+<li>Dome open, mirror cover open
+<li>Lower hatch not obstructing at low altitude
+<li>Guide probe out of light path
+<li>CCD (StanCam) probe in park position
+<li>FASU shutter open
+<li>Correct filter in instrument
+<li>Correct telescope focus
+<ul>
+<li>Check all the above again.  If still no joy, <i>then</i> phone duty staff.
+</ul>
+</ul>
+<li><b>... wrong field on CCD</b> -- check:
+<ul>
+<li>Coordinates of field
+<li>Epoch of coordinates
+<li>No typos in entering coordinates in TCS
+<li>Field rotation is correct
+</ul>
+<li><b>... no guide star on guide probe screen</b> -- check:
+<ul>
+<li>Dome open, mirror cover open
+<li>Guide probe in correct position<br>
+(check field and rotator angle)
+<li>TV switched on
+<li>TV filter open
+<li>TV focus correct
+</ul>
+<li><b> ... lost tracking/guiding:</b>
+<ul>
+<li>How close to the zenith are you?<br>  
+(Good guiding and tracking is guaranteed only 5 degrees or more from zenith).
+</ul>
+</ul>
+
+<p>
+
+If you enocunter a fault or a problem with instrument, computers or telescope
+during the night, then always fill in a 
+<A HREF="/observing/forms/faultdb/insert.php">Fault Report</A>.
+
+<p>
+<hr>
+
+
+
+
+<!-- CONTENTS: END -->
+
+</td>
+</tr>
+
+<tr><td height="100%" valign="bottom">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td>
+ <span class="gensmall"><a href="#Top">Back to top</a></span>
+</td>
+<td align="right">
+ <span class="gensmall"><font color="#666666">
+ 
+ Last modified: 10-Nov-2004
+ </font>
+ </span>
+</td>
+</tr>
+</table>
+
+</td></tr>
+
+</table>
+
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+make delete
+make ../bin/writeaps
+chmod a+x ../bin/writeaps
+rm ~/bin/writeaps
+cp -p ../bin/writeaps ~/bin/
+rm ~/stella/bin/writeaps
+ln -s ~/bin/writeaps ~/stella/bin/

@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Basic Interface Routines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio005.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio007.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc30">Chapter&#XA0;5</A>&#XA0;&#XA0; Basic Interface Routines </H1><P>This section defines a basic set of subroutines that can be
+used to perform the most common types of read and write operations
+on FITS files. New users should start with these subroutines and
+then, as needed, explore the more advance routines described in
+the following chapter to perform more complex or specialized operations.</P><P>A right arrow symbol (&gt;) is used to separate the input parameters from
+the output parameters in the definition of each routine. This symbol
+is not actually part of the calling sequence. Note that
+the status parameter is both an input and an output parameter
+and must be initialized = 0 prior to calling the FITSIO subroutines.</P><P>Refer to Chapter 9 for the definition of all the parameters
+used by these interface routines.</P><H2 CLASS="section"><A NAME="toc21"></A><A NAME="htoc31">5.1</A>&#XA0;&#XA0;FITSIO Error Status Routines <A NAME="FTVERS"></A></H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Return the current version number of the fitsio library.
+The version number will be incremented with each new
+release of CFITSIO.
+</DD></DL><PRE CLASS="verbatim">        FTVERS( &gt; version)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Return the descriptive text string corresponding to a FITSIO error
+status code. The 30-character length string contains a brief
+description of the cause of the error.
+</DD></DL><PRE CLASS="verbatim">        FTGERR(status, &gt; errtext)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Return the top (oldest) 80-character error message from the
+internal FITSIO stack of error messages and shift any remaining
+messages on the stack up one level. Any FITSIO error will
+generate one or more messages on the stack. Call this routine
+repeatedly to get each message in sequence. The error stack is empty
+when a blank string is returned.
+</DD></DL><PRE CLASS="verbatim">        FTGMSG( &gt; errmsg)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description">The FTPMRK routine puts an invisible marker on the
+CFITSIO error stack. The FTCMRK routine can then be
+used to delete any more recent error messages on the stack, back to
+the position of the marker. This preserves any older error messages
+on the stack. FTCMSG simply clears the entire error message stack.
+These routines are called without any arguments.
+</DD></DL><PRE CLASS="verbatim">        FTPMRK
+        FTCMRK
+        FTCMSG
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Print out the error message corresponding to the input status
+value and all the error messages on the FITSIO stack to the specified
+file stream (stream can be either the string &#X2019;STDOUT&#X2019; or &#X2019;STDERR&#X2019;).
+If the input status value = 0 then this routine does nothing.
+</DD></DL><PRE CLASS="verbatim">       FTRPRT (stream, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Write an 80-character message to the FITSIO error stack. Application
+programs should not normally write to the stack, but there may be
+some situations where this is desirable.
+</DD></DL><PRE CLASS="verbatim">        FTPMSG(errmsg)
+</PRE><P></P><H2 CLASS="section"><A NAME="toc22"></A><A NAME="htoc32">5.2</A>&#XA0;&#XA0;File I/O Routines</H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Open an existing FITS file with readonly or readwrite access.
+This routine always opens the primary array (the first HDU) of
+the file, and does not move to a following extension, if one was
+specified as part of the filename. Use the FTNOPN routine to
+automatically move to the extension. This routine will also
+open IRAF images (.imh format files) and raw binary data arrays
+with READONLY access by first converting them on the fly into
+virtual FITS images. See the &#X2018;Extended File Name Syntax&#X2019; chapter
+for more details. The FTDKOPEN routine simply opens the specified
+file without trying to interpret the filename using the extended
+filename syntax.
+</DD></DL><PRE CLASS="verbatim">        FTOPEN(unit,filename,rwmode, &gt; blocksize,status)
+        FTDKOPEN(unit,filename,rwmode, &gt; blocksize,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description">Open an existing FITS file with readonly or readwrite access
+and move to a following extension, if one was specified as
+part of the filename. (e.g., &#X2019;filename.fits+2&#X2019; or
+&#X2019;filename.fits[2]&#X2019; will move to the 3rd HDU in the file).
+Note that this routine differs from FTOPEN in that it does not
+have the redundant blocksize argument.
+</DD></DL><PRE CLASS="verbatim">        FTNOPN(unit,filename,rwmode, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description">Open an existing FITS file with readonly or readwrite access
+and then move to the first HDU containing significant data, if a) an HDU
+name or number to open was not explicitly specified as part of the
+filename, and b) if the FITS file contains a null primary array (i.e.,
+NAXIS = 0). In this case, it will look for the first IMAGE HDU with
+NAXIS &gt; 0, or the first table that does not contain the strings &#X2018;GTI&#X2019;
+(Good Time Interval) or &#X2018;OBSTABLE&#X2019; in the EXTNAME keyword value. FTTOPN
+is similar, except it will move to the first significant table HDU
+(skipping over any image HDUs) in the file if a specific HDU name
+or number is not specified. FTIOPN will move to the first non-null
+image HDU, skipping over any tables.
+</DD></DL><PRE CLASS="verbatim">        FTDOPN(unit,filename,rwmode, &gt; status)
+        FTTOPN(unit,filename,rwmode, &gt; status)
+        FTIOPN(unit,filename,rwmode, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description">Open and initialize a new empty FITS file. A template file may also be
+specified to define the structure of the new file (see section 4.2.4).
+The FTDKINIT routine simply creates the specified
+file without trying to interpret the filename using the extended
+filename syntax.
+</DD></DL><PRE CLASS="verbatim">        FTINIT(unit,filename,blocksize, &gt; status)
+        FTDKINIT(unit,filename,blocksize, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description">Close a FITS file previously opened with ftopen or ftinit
+</DD></DL><PRE CLASS="verbatim">        FTCLOS(unit, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>6 </B></DT><DD CLASS="dd-description"> Move to a specified (absolute) HDU in the FITS file (nhdu = 1 for the
+FITS primary array)
+</DD></DL><PRE CLASS="verbatim">        FTMAHD(unit,nhdu, &gt; hdutype,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>7 </B></DT><DD CLASS="dd-description"> Create a primary array (if none already exists), or insert a
+new IMAGE extension immediately following the CHDU, or
+insert a new Primary Array at the beginning of the file. Any
+following extensions in the file will be shifted down to make room
+for the new extension. If the CHDU is the last HDU in the file
+then the new image extension will simply be appended to the end of
+the file. One can force a new primary array to be inserted at the
+beginning of the FITS file by setting status = -9 prior
+to calling the routine. In this case the existing primary array will be
+converted to an IMAGE extension. The new extension (or primary
+array) will become the CHDU. The FTIIMGLL routine is identical
+to the FTIIMG routine except that the 4th parameter (the length
+of each axis) is an array of 64-bit integers rather than an array
+of 32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTIIMG(unit,bitpix,naxis,naxes, &gt; status)
+        FTIIMGLL(unit,bitpix,naxis,naxesll, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>8 </B></DT><DD CLASS="dd-description"> Insert a new ASCII TABLE extension immediately following the CHDU.
+Any following extensions will be shifted down to make room for
+the new extension. If there are no other following extensions
+then the new table extension will simply be appended to the
+end of the file. The new extension will become the CHDU. The FTITABLL
+routine is identical
+to the FTITAB routine except that the 2nd and 3rd parameters (that give
+the size of the table) are 64-bit integers rather than
+32-bit integers.
+</DD></DL><PRE CLASS="verbatim">        FTITAB(unit,rowlen,nrows,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+        FTITABLL(unit,rowlenll,nrowsll,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>9 </B></DT><DD CLASS="dd-description"> Insert a new binary table extension immediately following the CHDU.
+Any following extensions will be shifted down to make room for
+the new extension. If there are no other following extensions
+then the new bintable extension will simply be appended to the
+end of the file. The new extension will become the CHDU. The FTIBINLL
+routine is identical
+to the FTIBIN routine except that the 2nd parameter (that gives
+the length of the table) is a 64-bit integer rather than
+a 32-bit integer.
+</DD></DL><PRE CLASS="verbatim">        FTIBIN(unit,nrows,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+        FTIBINLL(unit,nrowsll,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+
+</PRE><H2 CLASS="section"><A NAME="toc23"></A><A NAME="htoc33">5.3</A>&#XA0;&#XA0;Keyword I/O Routines</H2><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Put (append) an 80-character record into the CHU.
+</DD></DL><PRE CLASS="verbatim">        FTPREC(unit,card, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Put (append) a new keyword of the appropriate datatype into the CHU.
+The E and D versions of this routine have the added feature that
+if the &#X2019;decimals&#X2019; parameter is negative, then the &#X2019;G&#X2019; display
+format rather then the &#X2019;E&#X2019; format will be used when constructing
+the keyword value, taking the absolute value of &#X2019;decimals&#X2019; for the
+precision. This will suppress trailing zeros, and will use a
+fixed format rather than an exponential format,
+depending on the magnitude of the value.
+</DD></DL><PRE CLASS="verbatim">        FTPKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTPKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description">Get the nth 80-character header record from the CHU. The first keyword
+in the header is at key_no = 1; if key_no = 0 then this subroutine
+simple moves the internal pointer to the beginning of the header
+so that subsequent keyword operations will start at the top of
+the header; it also returns a blank card value in this case.
+</DD></DL><PRE CLASS="verbatim">        FTGREC(unit,key_no, &gt; card,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Get a keyword value (with the appropriate datatype) and comment from
+the CHU
+</DD></DL><PRE CLASS="verbatim">        FTGKY[EDJKLS](unit,keyword, &gt; keyval,comment,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Delete an existing keyword record.
+</DD></DL><PRE CLASS="verbatim">        FTDKEY(unit,keyword, &gt; status)
+</PRE><H2 CLASS="section"><A NAME="toc24"></A><A NAME="htoc34">5.4</A>&#XA0;&#XA0;Data I/O Routines</H2><P>The following routines read or write data values in the current HDU of
+the FITS file. Automatic datatype conversion
+will be attempted for numerical datatypes if the specified datatype is
+different from the actual datatype of the FITS array or table column.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description">Write elements into the primary data array or image extension.
+</DD></DL><PRE CLASS="verbatim">        FTPPR[BIJKED](unit,group,fpixel,nelements,values, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Read elements from the primary data array or image extension.
+Undefined array elements will be
+returned with a value = nullval, unless nullval = 0 in which case no
+checks for undefined pixels will be performed. The anyf parameter is
+set to true (= .true.) if any of the returned
+elements were undefined.
+</DD></DL><PRE CLASS="verbatim">        FTGPV[BIJKED](unit,group,fpixel,nelements,nullval, &gt; values,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Write elements into an ASCII or binary table column. The &#X2018;felem&#X2019;
+parameter applies only to vector columns in binary tables and is
+ignored when writing to ASCII tables.
+</DD></DL><PRE CLASS="verbatim">        FTPCL[SLBIJKEDCM](unit,colnum,frow,felem,nelements,values, &gt; status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Read elements from an ASCII or binary table column. Undefined
+array elements will be returned with a value = nullval, unless nullval = 0
+(or = &#X2019; &#X2019; for ftgcvs) in which case no checking for undefined values will
+be performed. The ANYF parameter is set to true if any of the returned
+elements are undefined.<P>Any column, regardless of it&#X2019;s intrinsic datatype, may be read as a
+string. It should be noted however that reading a numeric column
+as a string is 10 - 100 times slower than reading the same column
+as a number due to the large overhead in constructing the formatted
+strings. The display format of the returned strings will be
+determined by the TDISPn keyword, if it exists, otherwise by the
+datatype of the column. The length of the returned strings can be
+determined with the ftgcdw routine. The following TDISPn display
+formats are currently supported:</P><PRE CLASS="verbatim">    Iw.m   Integer
+    Ow.m   Octal integer
+    Zw.m   Hexadecimal integer
+    Fw.d   Fixed floating point
+    Ew.d   Exponential floating point
+    Dw.d   Exponential floating point
+    Gw.d   General; uses Fw.d if significance not lost, else Ew.d
+</PRE><P>where w is the width in characters of the displayed values, m is the minimum
+number of digits displayed, and d is the number of digits to the right of the
+decimal. The .m field is optional.
+</P></DD></DL><PRE CLASS="verbatim">        FTGCV[SBIJKEDCM](unit,colnum,frow,felem,nelements,nullval, &gt;
+                       values,anyf,status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>5 </B></DT><DD CLASS="dd-description"> Get the table column number and full name of the column whose name
+matches the input template string. See the &#X2018;Advanced Interface Routines&#X2019;
+chapter for a full description of this routine.
+</DD></DL><PRE CLASS="verbatim">        FTGCNN(unit,casesen,coltemplate, &gt; colname,colnum,status)
+</PRE><P>
+</P><HR>
+<A HREF="fitsio005.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio007.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

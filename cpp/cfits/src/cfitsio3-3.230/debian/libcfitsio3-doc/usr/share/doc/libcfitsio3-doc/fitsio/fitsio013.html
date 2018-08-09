@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>FITSIO Error Status Codes </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio012.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc92">Chapter&#XA0;12</A>&#XA0;&#XA0; FITSIO Error Status Codes </H1><PRE CLASS="verbatim">Status codes in the range -99 to -999  and 1 to 999 are reserved for future
+FITSIO use.
+
+  0  OK, no error
+101  input and output files are the same
+103  too many FITS files open at once; all internal buffers full
+104  error opening existing file
+105  error creating new FITS file; (does a file with this name already exist?)
+106  error writing record to FITS file
+107  end-of-file encountered while reading record from FITS file
+108  error reading record from file
+110  error closing FITS file
+111  internal array dimensions exceeded
+112  Cannot modify file with readonly access
+113  Could not allocate memory
+114  illegal logical unit number; must be between 1 - 199, inclusive
+115  NULL input pointer to routine
+116  error seeking position in file
+
+121  invalid URL prefix on file name
+122  tried to register too many IO drivers
+123  driver initialization failed
+124  matching driver is not registered
+125  failed to parse input file URL
+126  parse error in range list
+
+151  bad argument in shared memory driver
+152  null pointer passed as an argument
+153  no more free shared memory handles
+154  shared memory driver is not initialized
+155  IPC error returned by a system call
+156  no memory in shared memory driver
+157  resource deadlock would occur
+158  attempt to open/create lock file failed
+159  shared memory block cannot be resized at the moment
+
+
+201  header not empty; can't write required keywords
+202  specified keyword name was not found in the header
+203  specified header record number is out of bounds
+204  keyword value field is blank
+205  keyword value string is missing the closing quote character
+206  illegal indexed keyword name (e.g. 'TFORM1000')
+207  illegal character in keyword name or header record
+208  keyword does not have expected name. Keyword out of sequence?
+209  keyword does not have expected integer value
+210  could not find the required END header keyword
+211  illegal BITPIX keyword value
+212  illegal NAXIS keyword value
+213  illegal NAXISn keyword value: must be 0 or positive integer
+214  illegal PCOUNT keyword value
+215  illegal GCOUNT keyword value
+216  illegal TFIELDS keyword value
+217  negative ASCII or binary table width value (NAXIS1)
+218  negative number of rows in ASCII or binary table (NAXIS2)
+219  column name (TTYPE keyword) not found
+220  illegal SIMPLE keyword value
+221  could not find the required SIMPLE header keyword
+222  could not find the required BITPIX header keyword
+223  could not find the required NAXIS header keyword
+224  could not find all the required NAXISn keywords in the header
+225  could not find the required XTENSION header keyword
+226  the CHDU is not an ASCII table extension
+227  the CHDU is not a binary table extension
+228  could not find the required PCOUNT header keyword
+229  could not find the required GCOUNT header keyword
+230  could not find the required TFIELDS header keyword
+231  could not find all the required TBCOLn keywords in the header
+232  could not find all the required TFORMn keywords in the header
+233  the CHDU is not an IMAGE extension
+234  illegal TBCOL keyword value; out of range
+235  this operation only allowed for ASCII or BINARY table extension
+236  column is too wide to fit within the specified width of the ASCII table
+237  the specified column name template matched more than one column name
+241  binary table row width is not equal to the sum of the field widths
+251  unrecognizable type of FITS extension
+252  unrecognizable FITS record
+253  END keyword contains non-blank characters in columns 9-80
+254  Header fill area contains non-blank characters
+255  Data fill area contains non-blank on non-zero values
+261  unable to parse the TFORM keyword value string
+262  unrecognizable TFORM datatype code
+263  illegal TDIMn keyword value
+
+301  illegal HDU number; less than 1 or greater than internal buffer size
+302  column number out of range (1 - 999)
+304  attempt to move to negative file record number
+306  attempted to read or write a negative number of bytes in the FITS file
+307  illegal starting row number for table read or write operation
+308  illegal starting element number for table read or write operation
+309  attempted to read or write character string in non-character table column
+310  attempted to read or write logical value in non-logical table column
+311  illegal ASCII table TFORM format code for attempted operation
+312  illegal binary table TFORM format code for attempted operation
+314  value for undefined pixels has not been defined
+317  attempted to read or write descriptor in a non-descriptor field
+320  number of array dimensions out of range
+321  first pixel number is greater than the last pixel number
+322  attempt to set BSCALE or TSCALn scaling parameter = 0
+323  illegal axis length less than 1
+
+340 NOT_GROUP_TABLE 340   Grouping function error
+341  HDU_ALREADY_MEMBER
+342 MEMBER_NOT_FOUND
+343 GROUP_NOT_FOUND
+344 BAD_GROUP_ID
+345 TOO_MANY_HDUS_TRACKED
+346 HDU_ALREADY_TRACKED
+347 BAD_OPTION
+348 IDENTICAL_POINTERS
+349 BAD_GROUP_ATTACH
+350 BAD_GROUP_DETACH
+
+360 NGP_NO_MEMORY              malloc failed
+361 NGP_READ_ERR               read error from file
+362 NGP_NUL_PTR                null pointer passed as an argument.
+                                 Passing null pointer as a name of
+                                 template file raises this error
+363 NGP_EMPTY_CURLINE          line read seems to be empty (used
+                                 internally)
+364 NGP_UNREAD_QUEUE_FULL      cannot unread more then 1 line (or single
+                                 line twice)
+365 NGP_INC_NESTING            too deep include file nesting (infinite
+                                 loop, template includes itself ?)
+366 NGP_ERR_FOPEN              fopen() failed, cannot open template file
+367 NGP_EOF                    end of file encountered and not expected
+368 NGP_BAD_ARG                bad arguments passed. Usually means
+                                 internal parser error. Should not happen
+369 NGP_TOKEN_NOT_EXPECT       token not expected here
+
+401  error attempting to convert an integer to a formatted character string
+402  error attempting to convert a real value to a formatted character string
+403  cannot convert a quoted string keyword to an integer
+404  attempted to read a non-logical keyword value as a logical value
+405  cannot convert a quoted string keyword to a real value
+406  cannot convert a quoted string keyword to a double precision value
+407  error attempting to read character string as an integer
+408  error attempting to read character string as a real value
+409  error attempting to read character string as a double precision value
+410  bad keyword datatype code
+411  illegal number of decimal places while formatting floating point value
+412  numerical overflow during implicit datatype conversion
+413  error compressing image
+414  error uncompressing image
+420  error in date or time conversion
+
+431  syntax error in parser expression
+432  expression did not evaluate to desired type
+433  vector result too large to return in array
+434  data parser failed not sent an out column
+435  bad data encounter while parsing column
+436  parse error: output file not of proper type
+
+501  celestial angle too large for projection
+502  bad celestial coordinate or pixel value
+503  error in celestial coordinate calculation
+504  unsupported type of celestial projection
+505  required celestial coordinate keywords not found
+506  approximate wcs keyword values were returned
+</PRE><HR>
+<A HREF="fitsio012.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+</BODY>
+</HTML>

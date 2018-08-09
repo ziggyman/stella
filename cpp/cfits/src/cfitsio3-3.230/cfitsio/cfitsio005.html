@@ -1,0 +1,617 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>Programming Guidelines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio004.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio006.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc18">Chapter&#XA0;4</A>&#XA0;&#XA0; Programming Guidelines </H1><H2 CLASS="section"><A NAME="toc11"></A><A NAME="htoc19">4.1</A>&#XA0;&#XA0;CFITSIO Definitions</H2><P>Any program that uses the CFITSIO interface must include the fitsio.h
+header file with the statement</P><PRE CLASS="verbatim">  #include "fitsio.h"
+</PRE><P>This header file contains the prototypes for all the CFITSIO user
+interface routines as well as the definitions of various constants used
+in the interface. It also defines a C structure of type &#X2018;fitsfile&#X2019;
+that is used by CFITSIO to store the relevant parameters that define
+the format of a particular FITS file. Application programs must define
+a pointer to this structure for each FITS file that is to be opened.
+This structure is initialized (i.e., memory is allocated for the
+structure) when the FITS file is first opened or created with the
+fits_open_file or fits_create_file routines. This fitsfile pointer
+is then passed as the first argument to every other CFITSIO routine
+that operates on the FITS file. Application programs must not directly
+read or write elements in this fitsfile structure because the
+definition of the structure may change in future versions of CFITSIO.</P><P>A number of symbolic constants are also defined in fitsio.h for the
+convenience of application programmers. Use of these symbolic
+constants rather than the actual numeric value will help to make the
+source code more readable and easier for others to understand.</P><PRE CLASS="verbatim">String Lengths, for use when allocating character arrays:
+
+  #define FLEN_FILENAME 1025 /* max length of a filename                  */
+  #define FLEN_KEYWORD   72  /* max length of a keyword                   */
+  #define FLEN_CARD      81  /* max length of a FITS header card          */
+  #define FLEN_VALUE     71  /* max length of a keyword value string      */
+  #define FLEN_COMMENT   73  /* max length of a keyword comment string    */
+  #define FLEN_ERRMSG    81  /* max length of a CFITSIO error message     */
+  #define FLEN_STATUS    31  /* max length of a CFITSIO status text string */
+
+  Note that FLEN_KEYWORD is longer than the nominal 8-character keyword
+  name length because the HIERARCH convention supports longer keyword names.
+
+Access modes when opening a FITS file:
+
+  #define READONLY  0
+  #define READWRITE 1
+
+BITPIX data type code values for FITS images:
+
+  #define BYTE_IMG      8  /*  8-bit unsigned integers */
+  #define SHORT_IMG    16  /* 16-bit   signed integers */
+  #define LONG_IMG     32  /* 32-bit   signed integers */
+  #define LONGLONG_IMG 64  /* 64-bit   signed integers */
+  #define FLOAT_IMG   -32  /* 32-bit single precision floating point */
+  #define DOUBLE_IMG  -64  /* 64-bit double precision floating point */
+
+  The following 4 data type codes are also supported by CFITSIO:
+  #define SBYTE_IMG  10   /*  8-bit signed integers, equivalent to */
+                          /*  BITPIX = 8, BSCALE = 1, BZERO = -128 */
+  #define USHORT_IMG  20  /* 16-bit unsigned integers, equivalent to */
+                          /*  BITPIX = 16, BSCALE = 1, BZERO = 32768 */
+  #define ULONG_IMG   40  /* 32-bit unsigned integers, equivalent to */
+                          /*  BITPIX = 32, BSCALE = 1, BZERO = 2147483648 */
+
+Codes for the data type of binary table columns and/or for the
+data type of variables when reading or writing keywords or data:
+
+                              DATATYPE               TFORM CODE
+  #define TBIT          1  /*                            'X' */
+  #define TBYTE        11  /* 8-bit unsigned byte,       'B' */
+  #define TLOGICAL     14  /* logicals (int for keywords     */
+                           /*  and char for table cols   'L' */
+  #define TSTRING      16  /* ASCII string,              'A' */
+  #define TSHORT       21  /* signed short,              'I' */
+  #define TLONG        41  /* signed long,                   */
+  #define TLONGLONG    81  /* 64-bit long signed integer 'K' */
+  #define TFLOAT       42  /* single precision float,    'E' */
+  #define TDOUBLE      82  /* double precision float,    'D' */
+  #define TCOMPLEX     83  /* complex (pair of floats)   'C' */
+  #define TDBLCOMPLEX 163  /* double complex (2 doubles) 'M' */
+
+  The following data type codes are also supported by CFITSIO:
+  #define TINT         31  /* int                            */
+  #define TSBYTE       12  /* 8-bit signed byte,         'S' */
+  #define TUINT        30  /* unsigned int               'V' */
+  #define TUSHORT      20  /* unsigned short             'U'  */
+  #define TULONG       40  /* unsigned long                  */
+
+  The following data type code is only for use with fits\_get\_coltype
+  #define TINT32BIT    41  /* signed 32-bit int,         'J' */
+
+
+HDU type code values (value returned when moving to new HDU):
+
+  #define IMAGE_HDU  0  /* Primary Array or IMAGE HDU */
+  #define ASCII_TBL  1  /* ASCII  table HDU */
+  #define BINARY_TBL 2  /* Binary table HDU */
+  #define ANY_HDU   -1  /* matches any type of HDU */
+
+Column name and string matching case-sensitivity:
+
+  #define CASESEN   1   /* do case-sensitive string match */
+  #define CASEINSEN 0   /* do case-insensitive string match */
+
+Logical states (if TRUE and FALSE are not already defined):
+
+  #define TRUE 1
+  #define FALSE 0
+
+Values to represent undefined floating point numbers:
+
+  #define FLOATNULLVALUE  -9.11912E-36F
+  #define DOUBLENULLVALUE -9.1191291391491E-36
+
+Image compression algorithm definitions
+
+  #define RICE_1       11
+  #define GZIP_1       21
+  #define PLIO_1       31
+  #define HCOMPRESS_1  41
+</PRE><H2 CLASS="section"><A NAME="toc12"></A><A NAME="htoc20">4.2</A>&#XA0;&#XA0;Current Header Data Unit (CHDU)</H2><P>The concept of the Current Header and Data Unit, or CHDU, is
+fundamental to the use of the CFITSIO library. A simple FITS image may
+only contain a single Header and Data unit (HDU), but in general FITS
+files can contain multiple Header Data Units (also known as
+&#X2018;extensions&#X2019;), concatenated one after the other in the file. The user
+can specify which HDU should be initially opened at run time by giving
+the HDU name or number after the root file name. For example,
+&#X2019;myfile.fits[4]&#X2019; opens the 5th HDU in the file (note that the numbering
+starts with 0), and &#X2019;myfile.fits[EVENTS] opens the HDU with the name
+&#X2019;EVENTS&#X2019; (as defined by the EXTNAME or HDUNAME keywords). If no HDU is
+specified then CFITSIO opens the first HDU (the primary array) by
+default. The CFITSIO routines which read and write data only operate
+within the opened HDU, Other CFITSIO routines are provided to move to
+and open any other existing HDU within the FITS file or to append or
+insert new HDUs in the FITS file.</P><H2 CLASS="section"><A NAME="toc13"></A><A NAME="htoc21">4.3</A>&#XA0;&#XA0;Function Names and Variable Datatypes</H2><P>Most of the CFITSIO routines have both a short name as well as a
+longer descriptive name. The short name is only 5 or 6 characters long
+and is similar to the subroutine name in the Fortran-77 version of
+FITSIO. The longer name is more descriptive and it is recommended that
+it be used instead of the short name to more clearly document the
+source code.</P><P>Many of the CFITSIO routines come in families which differ only in the
+data type of the associated parameter(s). The data type of these
+routines is indicated by the suffix of the routine name. The short
+routine names have a 1 or 2 character suffix (e.g., &#X2019;j&#X2019; in &#X2019;ffpkyj&#X2019;)
+while the long routine names have a 4 character or longer suffix
+as shown in the following table:</P><PRE CLASS="verbatim">    Long      Short  Data
+    Names     Names  Type
+    -----     -----  ----
+    _bit        x    bit
+    _byt        b    unsigned byte
+    _sbyt       sb   signed byte
+    _sht        i    short integer
+    _lng        j    long integer
+    _lnglng     jj   8-byte LONGLONG integer (see note below)
+    _usht       ui   unsigned short integer
+    _ulng       uj   unsigned long integer
+    _uint       uk   unsigned int integer
+    _int        k    int integer
+    _flt        e    real exponential floating point (float)
+    _fixflt     f    real fixed-decimal format floating point (float)
+    _dbl        d    double precision real floating-point (double)
+    _fixdbl     g    double precision fixed-format floating point (double)
+    _cmp        c    complex reals (pairs of float values)
+    _fixcmp     fc   complex reals, fixed-format floating point
+    _dblcmp     m    double precision complex (pairs of double values)
+    _fixdblcmp  fm   double precision complex, fixed-format floating point
+    _log        l    logical (int)
+    _str        s    character string
+</PRE><P>The logical data type corresponds to &#X2018;int&#X2019; for logical keyword values,
+and &#X2018;byte&#X2019; for logical binary table columns. In other words, the value
+when writing a logical keyword must be stored in an &#X2018;int&#X2019; variable, and
+must be stored in a &#X2018;char&#X2019; array when reading or writing to &#X2018;L&#X2019; columns
+in a binary table. Implicit data type conversion is not supported for
+logical table columns, but is for keywords, so a logical keyword may be
+read and cast to any numerical data type; a returned value = 0
+indicates false, and any other value = true.</P><P>The &#X2018;int&#X2019; data type may be 2 bytes long on some old PC compilers,
+but otherwise it is nearly always 4 bytes long. Some 64-bit
+machines, like the Alpha/OSF, define the &#X2018;short&#X2019;, &#X2018;int&#X2019;,
+and &#X2018;long&#X2019; integer data types to be 2, 4, and 8 bytes long,
+respectively.</P><P>Because there is no universal C compiler standard for the name of the
+8-byte integer datatype, the fitsio.h include file typedef&#X2019;s
+&#X2019;LONGLONG&#X2019; to be equivalent to an
+appropriate 8-byte integer data type on each supported platform.
+For maximum software portability it is recommended that
+this LONGLONG datatype be used to define 8-byte integer variables
+rather than using the native data type name on a particular
+platform. On most
+32-bit Unix and Mac OS-X operating systems LONGLONG is equivalent to the
+intrinsic &#X2019;long long&#X2019; 8-byte integer datatype. On 64-bit systems (which currently
+includes Alpha OSF/1, 64-bit Sun Solaris, 64-bit SGI MIPS, and 64-bit
+Itanium and Opteron PC systems), LONGLONG is simply typedef&#X2019;ed to be
+equivalent to &#X2019;long&#X2019;. Microsoft Visual C++ Version 6.0 does not define
+a &#X2019;long long&#X2019; data type, so LONGLONG is typedef&#X2019;ed to be equivalent to
+the &#X2019;__int64&#X2019; data type on 32-bit windows systems when using Visual C++.</P><P>A related issue that affects the portability of software is how to print
+out the value of a &#X2019;LONGLONG&#X2019; variable with printf. Developers may
+find it convenient to use the following preprocessing statements
+in their C programs to handle this in a machine-portable manner:</P><PRE CLASS="verbatim">#if defined(_MSC_VER) /* Microsoft Visual C++ */
+          printf("%I64d", longlongvalue);
+ 
+#elif (USE_LL_SUFFIX == 1)
+          printf("%lld", longlongvalue);
+ 
+#else
+          printf("%ld", longlongvalue);
+#endif
+</PRE><P>Similarly, the name of the C utility routine that converts a character
+string of digits into a 8-byte integer value is platform dependent:</P><PRE CLASS="verbatim">#if defined(_MSC_VER) /* Microsoft Visual C++ */
+      /* VC++ 6.0 does not seem to have an 8-byte conversion routine */
+ 
+#elif (USE_LL_SUFFIX == 1)
+          longlongvalue = atoll(*string);
+ 
+#else
+          longlongvalue = atol(*string);
+#endif
+</PRE><P>When dealing with the FITS byte data type it is important to remember
+that the raw values (before any scaling by the BSCALE and BZERO, or
+TSCALn and TZEROn keyword values) in byte arrays (BITPIX = 8) or byte
+columns (TFORMn = &#X2019;B&#X2019;) are interpreted as unsigned bytes with values
+ranging from 0 to 255. Some C compilers define a &#X2019;char&#X2019; variable as
+signed, so it is important to explicitly declare a numeric char
+variable as &#X2019;unsigned char&#X2019; to avoid any ambiguity</P><P>One feature of the CFITSIO routines is that they can operate on a &#X2018;X&#X2019;
+(bit) column in a binary table as though it were a &#X2018;B&#X2019; (byte) column.
+For example a &#X2018;11X&#X2019; data type column can be interpreted the same as a
+&#X2018;2B&#X2019; column (i.e., 2 unsigned 8-bit bytes). In some instances, it can
+be more efficient to read and write whole bytes at a time, rather than
+reading or writing each individual bit.</P><P>The complex and double precision complex data types are not directly
+supported in ANSI C so these data types should be interpreted as pairs
+of float or double values, respectively, where the first value in each
+pair is the real part, and the second is the imaginary part.</P><H2 CLASS="section"><A NAME="toc14"></A><A NAME="htoc22">4.4</A>&#XA0;&#XA0;Support for Unsigned Integers and Signed Bytes</H2><P>Although FITS does not directly support unsigned integers as one of its
+fundamental data types, FITS can still be used to efficiently store
+unsigned integer data values in images and binary tables. The
+convention used in FITS files is to store the unsigned integers as
+signed integers with an associated offset (specified by the BZERO or
+TZEROn keyword). For example, to store unsigned 16-bit integer values
+in a FITS image the image would be defined as a signed 16-bit integer
+(with BITPIX keyword = SHORT_IMG = 16) with the keywords BSCALE = 1.0
+and BZERO = 32768. Thus the unsigned values of 0, 32768, and 65535,
+for example, are physically stored in the FITS image as -32768, 0, and
+32767, respectively; CFITSIO automatically adds the BZERO offset to
+these values when they are read. Similarly, in the case of unsigned
+32-bit integers the BITPIX keyword would be equal to LONG_IMG = 32 and
+BZERO would be equal to 2147483648 (i.e. 2 raised to the 31st power).</P><P>The CFITSIO interface routines will efficiently and transparently apply
+the appropriate offset in these cases so in general application
+programs do not need to be concerned with how the unsigned values are
+actually stored in the FITS file. As a convenience for users, CFITSIO
+has several predefined constants for the value of BITPIX (USHORT_IMG,
+ULONG_IMG) and for the TFORMn value in the case of binary tables (&#X2018;U&#X2019;
+and &#X2018;V&#X2019;) which programmers can use when creating FITS files containing
+unsigned integer values. The following code fragment illustrates how
+to write a FITS 1-D primary array of unsigned 16-bit integers:</P><PRE CLASS="verbatim">      unsigned short uarray[100];
+      int naxis, status;
+      long naxes[10], group, firstelem, nelements;
+       ...
+      status = 0;
+      naxis = 1;
+      naxes[0] = 100;
+      fits_create_img(fptr, USHORT_IMG, naxis, naxes, &amp;status);
+
+      firstelem = 1;
+      nelements = 100;
+      fits_write_img(fptr, TUSHORT, firstelem, nelements,
+                          uarray, &amp;status);
+       ...
+</PRE><P>In the above example, the 2nd parameter in fits_create_img tells
+CFITSIO to write the header keywords appropriate for an array of 16-bit
+unsigned integers (i.e., BITPIX = 16 and BZERO = 32768). Then the
+fits_write_img routine writes the array of unsigned short integers
+(uarray) into the primary array of the FITS file. Similarly, a 32-bit
+unsigned integer image may be created by setting the second parameter
+in fits_create_img equal to &#X2018;ULONG_IMG&#X2019; and by calling the
+fits_write_img routine with the second parameter = TULONG to write
+the array of unsigned long image pixel values.</P><P>An analogous set of routines are available for reading or writing unsigned
+integer values and signed byte values in a FITS binary table extension.
+When specifying the TFORMn keyword value which defines the format of a
+column, CFITSIO recognized 3 additional data type codes besides those
+already defined in the FITS standard: &#X2018;U&#X2019; meaning a 16-bit unsigned
+integer column, &#X2018;V&#X2019; for a 32-bit unsigned integer column, and &#X2019;S&#X2019;
+for a signed byte column. These non-standard data type codes are not
+actually written into the FITS file but instead are just used internally
+within CFITSIO. The following code fragment illustrates how to use
+these features:</P><PRE CLASS="verbatim">      unsigned short uarray[100];
+      unsigned int  varray[100];
+
+      int colnum, tfields, status;
+      long nrows, firstrow, firstelem, nelements, pcount;
+
+      char extname[] = "Test_table";           /* extension name */
+
+      /* define the name, data type, and physical units for the 2 columns */
+      char *ttype[] = { "Col_1", "Col_2", "Col_3" };
+      char *tform[] = { "1U",      "1V",    "1S"};  /* special CFITSIO codes */
+      char *tunit[] = { " ",        " ",    " " };
+       ...
+
+           /* write the header keywords */
+      status  = 0;
+      nrows   = 1;
+      tfields = 3
+      pcount  = 0;
+      fits_create_tbl(fptr, BINARY_TBL, nrows, tfields, ttype, tform,
+                tunit, extname, &amp;status);
+
+           /* write the unsigned shorts to the 1st column */
+      colnum    = 1;
+      firstrow  = 1;
+      firstelem = 1;
+      nelements = 100;
+      fits_write_col(fptr, TUSHORT, colnum, firstrow, firstelem,
+              nelements, uarray, &amp;status);
+
+           /* now write the unsigned longs to the 2nd column */
+      colnum    = 2;
+      fits_write_col(fptr, TUINT, colnum, firstrow, firstelem,
+              nelements, varray, &amp;status);
+       ...
+</PRE><P>Note that the non-standard TFORM values for the 3 columns, &#X2018;U&#X2019; and &#X2018;V&#X2019;,
+tell CFITSIO to write the keywords appropriate for unsigned 16-bit and
+unsigned 32-bit integers, respectively (i.e., TFORMn = &#X2019;1I&#X2019; and TZEROn
+= 32678 for unsigned 16-bit integers, and TFORMn = &#X2019;1J&#X2019; and TZEROn =
+2147483648 for unsigned 32-bit integers). The &#X2019;S&#X2019; TFORMn value tells
+CFITSIO to write the keywords appropriate for a signed 8-bit byte column
+with TFORMn = &#X2019;1B&#X2019; and TZEROn = -128. The calls to fits_write_col
+then write the arrays of unsigned integer values to the columns.</P><H2 CLASS="section"><A NAME="toc15"></A><A NAME="htoc23">4.5</A>&#XA0;&#XA0;Dealing with Character Strings</H2><P>The character string values in a FITS header or in an ASCII column in a
+FITS table extension are generally padded out with non-significant
+space characters (ASCII 32) to fill up the header record or the column
+width. When reading a FITS string value, the CFITSIO routines will
+strip off these non-significant trailing spaces and will return a
+null-terminated string value containing only the significant
+characters. Leading spaces in a FITS string are considered
+significant. If the string contains all blanks, then CFITSIO will
+return a single blank character, i.e, the first blank is considered to
+be significant, since it distinguishes the string from a null or
+undefined string, but the remaining trailing spaces are not
+significant.</P><P>Similarly, when writing string values to a FITS file the
+CFITSIO routines expect to get a null-terminated string as input;
+CFITSIO will pad the string with blanks if necessary when writing it
+to the FITS file.</P><P>When calling CFITSIO routines that return a character string it is
+vital that the size of the char array be large enough to hold the
+entire string of characters, otherwise CFITSIO will overwrite whatever
+memory locations follow the char array, possibly causing the program to
+execute incorrectly. This type of error can be difficult to debug, so
+programmers should always ensure that the char arrays are allocated
+enough space to hold the longest possible string, <B>including</B> the
+terminating NULL character. The fitsio.h file contains the following
+defined constants which programmers are strongly encouraged to use
+whenever they are allocating space for char arrays:</P><PRE CLASS="verbatim">#define FLEN_FILENAME 1025 /* max length of a filename */
+#define FLEN_KEYWORD   72  /* max length of a keyword  */
+#define FLEN_CARD      81  /* length of a FITS header card */
+#define FLEN_VALUE     71  /* max length of a keyword value string */
+#define FLEN_COMMENT   73  /* max length of a keyword comment string */
+#define FLEN_ERRMSG    81  /* max length of a CFITSIO error message */
+#define FLEN_STATUS    31  /* max length of a CFITSIO status text string */
+</PRE><P>For example, when declaring a char array to hold the value string
+of FITS keyword, use the following statement:</P><PRE CLASS="verbatim">    char value[FLEN_VALUE];
+</PRE><P>Note that FLEN_KEYWORD is longer than needed for the nominal 8-character
+keyword name because the HIERARCH convention supports longer keyword names.</P><H2 CLASS="section"><A NAME="toc16"></A><A NAME="htoc24">4.6</A>&#XA0;&#XA0;Implicit Data Type Conversion</H2><P>The CFITSIO routines that read and write numerical data can perform
+implicit data type conversion. This means that the data type of the
+variable or array in the program does not need to be the same as the
+data type of the value in the FITS file. Data type conversion is
+supported for numerical and string data types (if the string contains a
+valid number enclosed in quotes) when reading a FITS header keyword
+value and for numeric values when reading or writing values in the
+primary array or a table column. CFITSIO returns status =
+NUM_OVERFLOW if the converted data value exceeds the range of the
+output data type. Implicit data type conversion is not supported
+within binary tables for string, logical, complex, or double complex
+data types.</P><P>In addition, any table column may be read as if it contained string values.
+In the case of numeric columns the returned string will be formatted
+using the TDISPn display format if it exists.</P><H2 CLASS="section"><A NAME="toc17"></A><A NAME="htoc25">4.7</A>&#XA0;&#XA0;Data Scaling</H2><P>When reading numerical data values in the primary array or a
+table column, the values will be scaled automatically by the BSCALE and
+BZERO (or TSCALn and TZEROn) header values if they are
+present in the header. The scaled data that is returned to the reading
+program will have</P><PRE CLASS="verbatim">        output value = (FITS value) * BSCALE + BZERO
+</PRE><P>(a corresponding formula using TSCALn and TZEROn is used when reading
+from table columns). In the case of integer output values the floating
+point scaled value is truncated to an integer (not rounded to the
+nearest integer). The fits_set_bscale and fits_set_tscale routines
+(described in the &#X2018;Advanced&#X2019; chapter) may be used to override the
+scaling parameters defined in the header (e.g., to turn off the scaling
+so that the program can read the raw unscaled values from the FITS
+file).</P><P>When writing numerical data to the primary array or to a table column
+the data values will generally be automatically inversely scaled by the
+value of the BSCALE and BZERO (or TSCALn and TZEROn) keyword values if
+they they exist in the header. These keywords must have been written
+to the header before any data is written for them to have any immediate
+effect. One may also use the fits_set_bscale and fits_set_tscale
+routines to define or override the scaling keywords in the header
+(e.g., to turn off the scaling so that the program can write the raw
+unscaled values into the FITS file). If scaling is performed, the
+inverse scaled output value that is written into the FITS file will
+have</P><PRE CLASS="verbatim">         FITS value = ((input value) - BZERO) / BSCALE
+</PRE><P>(a corresponding formula using TSCALn and TZEROn is used when
+writing to table columns). Rounding to the nearest integer, rather
+than truncation, is performed when writing integer data types to the
+FITS file.</P><H2 CLASS="section"><A NAME="toc18"></A><A NAME="htoc26">4.8</A>&#XA0;&#XA0;Support for IEEE Special Values</H2><P>The ANSI/IEEE-754 floating-point number standard defines certain
+special values that are used to represent such quantities as
+Not-a-Number (NaN), denormalized, underflow, overflow, and infinity.
+(See the Appendix in the NOST FITS standard or the NOST FITS User&#X2019;s
+Guide for a list of these values). The CFITSIO routines that read
+floating point data in FITS files recognize these IEEE special values
+and by default interpret the overflow and infinity values as being
+equivalent to a NaN, and convert the underflow and denormalized values
+into zeros. In some cases programmers may want access to the raw IEEE
+values, without any modification by CFITSIO. This can be done by
+calling the fits_read_img or fits_read_col routines while
+specifying 0.0 as the value of the NULLVAL parameter. This will force
+CFITSIO to simply pass the IEEE values through to the application
+program without any modification. This is not fully supported on
+VAX/VMS machines, however, where there is no easy way to bypass the
+default interpretation of the IEEE special values.</P><H2 CLASS="section"><A NAME="toc19"></A><A NAME="htoc27">4.9</A>&#XA0;&#XA0;Error Status Values and the Error Message Stack</H2><P>Nearly all the CFITSIO routines return an error status value
+in 2 ways: as the value of the last parameter in the function call,
+and as the returned value of the function itself. This provides
+some flexibility in the way programmers can test if an error
+occurred, as illustrated in the following 2 code fragments:</P><PRE CLASS="verbatim">    if ( fits_write_record(fptr, card, &amp;status) )
+         printf(" Error occurred while writing keyword.");
+
+or,
+
+    fits_write_record(fptr, card, &amp;status);
+    if ( status )
+         printf(" Error occurred while writing keyword.");
+</PRE><P>A listing of all the CFITSIO status code values is given at the end of
+this document. Programmers are encouraged to use the symbolic
+mnemonics (defined in fitsio.h) rather than the actual integer status
+values to improve the readability of their code.</P><P>The CFITSIO library uses an &#X2018;inherited status&#X2019; convention for the
+status parameter which means that if a routine is called with a
+positive input value of the status parameter as input, then the routine
+will exit immediately without changing the value of the status
+parameter. Thus, if one passes the status value returned from each
+CFITSIO routine as input to the next CFITSIO routine, then whenever an
+error is detected all further CFITSIO processing will cease. This
+convention can simplify the error checking in application programs
+because it is not necessary to check the value of the status parameter
+after every single CFITSIO routine call. If a program contains a
+sequence of several CFITSIO calls, one can just check the status value
+after the last call. Since the returned status values are generally
+distinctive, it should be possible to determine which routine
+originally returned the error status.</P><P>CFITSIO also maintains an internal stack of error messages
+(80-character maximum length) which in many cases provide a more
+detailed explanation of the cause of the error than is provided by the
+error status number alone. It is recommended that the error message
+stack be printed out whenever a program detects a CFITSIO error. The
+function fits_report_error will print out the entire error message
+stack, or alternatively one may call fits_read_errmsg to get the
+error messages one at a time.</P><H2 CLASS="section"><A NAME="toc20"></A><A NAME="htoc28">4.10</A>&#XA0;&#XA0;Variable-Length Arrays in Binary Tables</H2><P>CFITSIO provides easy-to-use support for reading and writing data in
+variable length fields of a binary table. The variable length columns
+have TFORMn keyword values of the form &#X2018;1Pt(len)&#X2019; where &#X2018;t&#X2019; is the
+data type code (e.g., I, J, E, D, etc.) and &#X2018;len&#X2019; is an integer
+specifying the maximum length of the vector in the table. (CFITSIO also
+supports the experimental &#X2019;Q&#X2019; datatype, which is identical to the &#X2019;P&#X2019; type
+except that is supports is a 64-bit address space and hence much larger
+data structures). If the value
+of &#X2018;len&#X2019; is not specified when the table is created (e.g., if the TFORM
+keyword value is simply specified as &#X2019;1PE&#X2019; instead of &#X2019;1PE(400) ), then
+CFITSIO will automatically scan the table when it is closed to
+determine the maximum length of the vector and will append this value
+to the TFORMn value.</P><P>The same routines that read and write data in an ordinary fixed length
+binary table extension are also used for variable length fields,
+however, the routine parameters take on a slightly different
+interpretation as described below.</P><P>All the data in a variable length field is written into an area called
+the &#X2018;heap&#X2019; which follows the main fixed-length FITS binary table. The
+size of the heap, in bytes, is specified by the PCOUNT keyword in the
+FITS header. When creating a new binary table, the initial value of
+PCOUNT should usually be set to zero. CFITSIO will recompute the size
+of the heap as the data is written and will automatically update the
+PCOUNT keyword value when the table is closed. When writing variable
+length data to a table, CFITSIO will automatically extend the size
+of the heap area if necessary, so that any following HDUs do not
+get overwritten.</P><P>By default the heap data area starts immediately after the last row of
+the fixed-length table. This default starting location may be
+overridden by the THEAP keyword, but this is not recommended.
+If additional rows of data are added to the table, CFITSIO will
+automatically shift the the heap down to make room for the new
+rows, but it is obviously be more efficient to initially
+create the table with the necessary number of blank rows, so that
+the heap does not needed to be constantly moved.</P><P>When writing row of data to a variable length field the entire array of values for
+a given row of the table must be written with a single call to
+fits_write_col.
+The total length of the array is given by nelements
++ firstelem - 1. Additional elements cannot be appended to an existing
+vector at a later time since any attempt to do so will simply overwrite
+all the previously written data and the new data will be
+written to a new area of the heap. The fits_compress_heap routine
+is provided to compress the heap and recover any unused space.
+To avoid having to deal with this issue, it is recommended
+that rows in a variable length field should only be written once.
+An exception to
+this general rule occurs when setting elements of an array as
+undefined. It is allowed to first write a dummy value into the array with
+fits_write_col, and then call fits_write_col_nul to flag the
+desired elements as undefined. Note that the rows of a table,
+whether fixed or variable length, do not have to be written
+consecutively and may be written in any order.</P><P>When writing to a variable length ASCII character field (e.g., TFORM =
+&#X2019;1PA&#X2019;) only a single character string can be written. The &#X2018;firstelem&#X2019;
+and &#X2018;nelements&#X2019; parameter values in the fits_write_col routine are
+ignored and the number of characters to write is simply determined by
+the length of the input null-terminated character string.</P><P>The fits_write_descript routine is useful in situations where
+multiple rows of a variable length column have the identical array of
+values. One can simply write the array once for the first row, and
+then use fits_write_descript to write the same descriptor values into
+the other rows; all the rows will then point to the same storage
+location thus saving disk space.</P><P>When reading from a variable length array field one can only read as
+many elements as actually exist in that row of the table; reading does
+not automatically continue with the next row of the table as occurs
+when reading an ordinary fixed length table field. Attempts to read
+more than this will cause an error status to be returned. One can
+determine the number of elements in each row of a variable column with
+the fits_read_descript routine.</P><H2 CLASS="section"><A NAME="toc21"></A><A NAME="htoc29">4.11</A>&#XA0;&#XA0;Multiple Access to the Same FITS File</H2><P>CFITSIO supports simultaneous read and write access to multiple HDUs in
+the same FITS file. Thus, one can open the same FITS file twice within
+a single program and move to 2 different HDUs in the file, and then
+read and write data or keywords to the 2 extensions just as if one were
+accessing 2 completely separate FITS files. Since in general it is
+not possible to physically open the same file twice and then expect to
+be able to simultaneously (or in alternating succession) write to 2
+different locations in the file, CFITSIO recognizes when the file to be
+opened (in the call to fits_open_file) has already been opened and
+instead of actually opening the file again, just logically links the
+new file to the old file. (This only applies if the file is opened
+more than once within the same program, and does not prevent the same
+file from being simultaneously opened by more than one program). Then
+before CFITSIO reads or writes to either (logical) file, it makes sure
+that any modifications made to the other file have been completely
+flushed from the internal buffers to the file. Thus, in principle, one
+could open a file twice, in one case pointing to the first extension
+and in the other pointing to the 2nd extension and then write data to
+both extensions, in any order, without danger of corrupting the file,
+There may be some efficiency penalties in doing this however, since
+CFITSIO has to flush all the internal buffers related to one file
+before switching to the other, so it would still be prudent to
+minimize the number of times one switches back and forth between doing
+I/O to different HDUs in the same file.</P><H2 CLASS="section"><A NAME="toc22"></A><A NAME="htoc30">4.12</A>&#XA0;&#XA0;When the Final Size of the FITS HDU is Unknown</H2><P>It is not required to know the total size of a FITS data array or table
+before beginning to write the data to the FITS file. In the case of
+the primary array or an image extension, one should initially create
+the array with the size of the highest dimension (largest NAXISn
+keyword) set to a dummy value, such as 1. Then after all the data have
+been written and the true dimensions are known, then the NAXISn value
+should be updated using the fits_update_key routine before moving to
+another extension or closing the FITS file.</P><P>When writing to FITS tables, CFITSIO automatically keeps track of the
+highest row number that is written to, and will increase the size of
+the table if necessary. CFITSIO will also automatically insert space
+in the FITS file if necessary, to ensure that the data &#X2019;heap&#X2019;, if it
+exists, and/or any additional HDUs that follow the table do not get
+overwritten as new rows are written to the table.</P><P>As a general rule it is best to specify the initial number of rows = 0
+when the table is created, then let CFITSIO keep track of the number of
+rows that are actually written. The application program should not
+manually update the number of rows in the table (as given by the NAXIS2
+keyword) since CFITSIO does this automatically. If a table is
+initially created with more than zero rows, then this will usually be
+considered as the minimum size of the table, even if fewer rows are
+actually written to the table. Thus, if a table is initially created
+with NAXIS2 = 20, and CFITSIO only writes 10 rows of data before
+closing the table, then NAXIS2 will remain equal to 20. If however, 30
+rows of data are written to this table, then NAXIS2 will be increased
+from 20 to 30. The one exception to this automatic updating of the
+NAXIS2 keyword is if the application program directly modifies the
+value of NAXIS2 (up or down) itself just before closing the table. In this
+case, CFITSIO does not update NAXIS2 again, since it assumes that the
+application program must have had a good reason for changing the value
+directly. This is not recommended, however, and is only provided for
+backward compatibility with software that initially creates a table
+with a large number of rows, than decreases the NAXIS2 value to the
+actual smaller value just before closing the table.</P><H2 CLASS="section"><A NAME="toc23"></A><A NAME="htoc31">4.13</A>&#XA0;&#XA0;CFITSIO Size Limitations</H2><P>CFITSIO places very few restrictions on the size of FITS files that it
+reads or writes. There are a few limits, however, that may affect
+some extreme cases:</P><P>1. The maximum number of FITS files that may be simultaneously opened
+by CFITSIO is set by NMAXFILES as defined in fitsio2.h. It is currently
+set = 300 by default. CFITSIO will allocate about 80 * NMAXFILES bytes
+of memory for internal use. Note that the underlying C compiler or
+operating system, may have a smaller limit on the number of opened files.
+The C symbolic constant FOPEN_MAX is intended to define the maximum
+number of files that may open at once (including any other text or
+binary files that may be open, not just FITS files). On some systems it
+has been found that gcc supports a maximum of 255 opened files.</P><P>2. It used to be common for computer systems to only support disk files up
+to 2**31 bytes = 2.1 GB in size, but most systems now support larger files.
+CFITSIO can optionally read and write these so-called &#X2019;large files&#X2019; that
+are greater than 2.1 GB on
+platforms where they are supported, but this
+usually requires that special compiler option flags be specified to turn
+on this option. On linux and solaris systems the compiler flags are
+&#X2019;-D_LARGEFILE_SOURCE&#X2019; and &#X2018;-D_FILE_OFFSET_BITS=64&#X2019;. These flags
+may also work on other platforms but this has not been tested. Starting
+with version 3.0 of CFITSIO, the default Makefile that is distributed
+with CFITSIO will include these 2 compiler flags when building on Solaris
+and Linux PC systems. Users on other platforms will need to add these
+compiler flags manually if they want to support large files. In most
+cases it appears that it is not necessary to include these compiler
+flags when compiling application code that call the CFITSIO library
+routines.</P><P>When CFITSIO is built with large file support (e.g., on Solaris and
+Linux PC system by default) then it can read and write FITS data files
+on disk that have any of these conditions:</P><UL CLASS="itemize"><LI CLASS="li-itemize">
+FITS files larger than 2.1 GB in size
+</LI><LI CLASS="li-itemize">FITS images containing greater than 2.1 G pixels
+</LI><LI CLASS="li-itemize">FITS images that have one dimension with more than 2.1 G pixels
+(as given by one of the NAXISn keyword)
+</LI><LI CLASS="li-itemize">FITS tables containing more than 2.1E09 rows (given by the NAXIS2 keyword),
+or with rows that are more than 2.1 GB wide (given by the NAXIS1 keyword)
+</LI><LI CLASS="li-itemize">FITS binary tables with a variable-length array heap that is larger
+than 2.1 GB (given by the PCOUNT keyword)
+</LI></UL><P>The current maximum FITS file size supported by CFITSIO
+is about 6 terabytes (containing
+2**31 FITS blocks, each 2880 bytes in size). Currently, support for large
+files in CFITSIO has been tested on the Linux, Solaris, and IBM AIX
+operating systems.</P><P>Note that when writing application programs that are intended to support
+large files it is important to use 64-bit integer variables
+to store quantities such as the dimensions of images, or the number of
+rows in a table. These programs must also call the special versions
+of some of the CFITSIO routines that have been adapted to
+support 64-bit integers. The names of these routines end in
+&#X2019;ll&#X2019; (&#X2019;el&#X2019; &#X2019;el&#X2019;) to distinguish them from the 32-bit integer
+version (e.g., fits_get_num_rowsll).</P><HR>
+<A HREF="cfitsio004.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio006.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

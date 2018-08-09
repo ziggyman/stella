@@ -1,0 +1,18 @@
+--- cfitsio3-3.210.orig/buffers.c
++++ cfitsio3-3.210/buffers.c
+@@ -765,6 +765,14 @@
+     return(*status);
+ }
+ /*--------------------------------------------------------------------------*/
++int fits_get_num_files(void)
++/*
++  Returns the number of FITS files currently opened in CFITSIO
++*/
++{
++    return -1;
++}
++/*--------------------------------------------------------------------------*/
+ int ffgtbb(fitsfile *fptr,        /* I - FITS file pointer                 */
+            LONGLONG firstrow,         /* I - starting row (1 = first row)      */
+            LONGLONG firstchar,        /* I - starting byte in row (1=first)    */
+

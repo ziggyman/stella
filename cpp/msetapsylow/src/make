@@ -1,0 +1,7 @@
+make delete
+make ../bin/setapsylow
+chmod a+x ../bin/setapsylow
+rm ~/bin/setapsylow
+cp -p ../bin/setapsylow ~/bin/
+rm ~/stella/bin/setapsylow
+ln -s ~/bin/setapsylow ~/stella/bin/

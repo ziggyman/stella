@@ -1,0 +1,217 @@
+CCD8 (ALFOSC)
+
+ 
+
+ 
+Summary:
+Manufacturer
+   E2V Technologies
+ 
+  Device Type
+   CCD42-40 nimo back illuminated
+ 
+  Active pixels:
+    Horizontal   2048
+    Vertical   2048+4
+    Serial overscan   50 at each end + 50 artifical
+  Pixel size & plate scale  13.5µ, 0.19"/pixel
+  Readout noise, Amp A, high gain  5.4 e-/pixel (see  quality monitoring for latest measurement) 
+  Readout noise, Amp B, high gain
+   5.3e-/pixel (see  quality monitoring for latest measurement)
+ 
+  Conversion factor (high gain)  0.765 e-/ADU (see  quality monitoring for latest measurement) 
+  Nonlinearity  +/- 0.2%
+  Readout time  Full frame 90s,  see also table of readout times  
+ 
+
+   
+ 
+
+ 
+Detector home page
+Precommissioning Test Report (gzipped postscript)
+E2V Data Sheet
+ 
+
+The ALFOSC Page
+ The Andalucia Faint Object Spectrograph and Camera, ALFOSC, built at the Astronomical Observatory (AO) at the Niels Bohr Institute for Astronomy, Physics and Geophysics (NBIfAFG), is the property of the Instituto de Astrofisica de Andalucia (IAA), Granada, Spain. The NOTSA has an agreement with the IAA and AO for the loan of ALFOSC. 
+ All publications resulting from or containing ALFOSC data should acknowledge the Instituto de Astrofisico de Andalucia and the Astronomical Observatory, Niels Bohr Institute for Astronomy, Physics and Geophysics in a format described here. 
+ We at NOT are extremely grateful to the IAA and its Director Dr. Rafael Rodrigo, and the AO for the loan of this instrument and the collaboration it has established. 
+ 
+ ALFOSC and StanCam with FASU inbetween (foto R. Rekola)
+ALFOSC information
+Detectors:
+ 
+CCD#8.
+ Read out time (CCD#8)
+  Light leak 
+  Bias frame 
+  Flat field 
+ CCD#7. Retired 24 September 2003
+ 
+Imaging:
+ 
+Filters and focus offsets
+ Windowed fast photometry mode
+  Coronagraphic mask 
+  Photometric standards 
+ 
+
+ 
+Spectroscopy:
+ 
+Grisms
+ New grism #16
+ Slit sizes and formats
+ Second-order blocking filters
+ Multi-Object Spectroscopy (MOS) mode
+ Typical exposure times for the calibration lamps
+ Arc lamps and maps
+ 
+
+ 
+Polarimetry with ALFOSC
+FITS headers Information & known features, funnies and fixes 
+
+ 
+Count rates and S/N
+ 
+UBVRI zero-point monitoring(for CCD#7)
+ Spectroscopic countrates(for CCD#7)
+ Exposure time calculator(for CCD#7)
+ Plots of CCD#8 versus CCD#7
+ 
+
+ 
+Run preparation:
+ 
+ Create NOT TCS target catalogue (make sure to include your standards as well).
+  ING source visibility plot form
+  ALFOSC mosaic script creation: to create batch files for dithering.
+ Preparing for MOS mode (gzipped postscript)
+ MOS mask design tips 
+ 
+
+ 
+Crib sheets:
+ 
+Instrument control software Startup Procedure (revised, 05-03-07)
+ BIAS command list.
+ Focusing the telescope using the focus pyramid.
+ Placing your object on a slit.
+ Following the parallactic angle.
+ Aligning the slit with features in a field
+ New postprocessing: QuickLook reduction
+ 
+ 
+ 
+Software documentation 
+
+ 
+Instrument layout (81k gzipped postscript)
+ 
+Drawings
+NOT Newsletter Information (offline).
+ From Sept 1996, brief summary of ALFOSC at the NOT.
+ 
+ALFOSC homepage at Copenhagen 
+ Includes  installation report, CCD#6 QE curve, and grism curves. 
+Now obsolete: CCD#6 commissioning report. 
+ and a wash/clean report (180k, gzipped postscript) from Aug 1997. 
+Extract from DFOSC Users Manual (84k, gzipped postscript), and
+ efficiencies for DFOSC optics (.ps.gz).
+ DFOSC is the sister instrument to ALFOSC on the Danish 1.54-m at ESO, La Silla.
+ 
+ 
+ Possible spectroscopic upgrades: new (VPH) grisms, etc.  (presentation for STC meeting May 2004) 
+Acknowledging ALFOSC in publications 
+
+ 
+Staff (set-up) procedures (Staff only!)
+ 
+Current ALFOSC instrument configuration  
+  
+
+
+
+
+-----------------------------------------------------------------
+
+
+ALFOSC grism data
+Grism
+rules/mm
+blazea
+central
+dispersion
+resolutionb
+b
+[Â]
+[Â]
+[Â/pixel] 
+[Â]
+[Â]
+3   400  3900  4320    2.3    690  6.2   3200-6700 
+  4   300  4800  5800    3.0    710  8.1   3200-9100 
+  5   300  6500  7000    3.1    830  8.4   5000-10250 
+  6   600  3900  4020    1.5    980  4.1   3200-5550 
+  7   600  5300  5260    1.5   1300  4.1   3850-6850 
+  8   600  6500  7030    1.3   2000  3.5   5825-8350 
+  9 c   79  17 orders  0.4 @ 5000Â
+0.7 @ 7500Â  4500
+3900  1.1
+1.9  3300-11000 
+  10 e   150  3800  3870    6.5    210  18   3300-10550 
+  11 e   200  5200  5000    4.8    380  13   3900-9950 
+  12 e    75  7300  6930   13    190  36   5100-11000 
+  13 c f  316  5100  5250    0.5  3700  1.4   4800-5800 g 
+  13 c  316  4 orders   0.35 @ 4050Â
+0.5 @ 5250Â  4300
+3700  1.0
+1.4  3350-8660 h
+  14   600  4288  4630    1.4  1200  3.8   3275-6125 
+  15 f   300  5268  5470    3.1   650  8.4   3200-9125 
+  16   1000  4069  4250    0.77  1800  1.9   3500-5060 
+
+   
+Grism
+[Â]
+2nd order j
+Peak-to-peak fringe levels k
+3   3200-6700   U 20% noticeable >6100  no fringes in wav range 
+  4   3200-9100   U 20% noticeable >5900; B 5%  start 6700Â, 7% at 7500Â, 20-25% >8000Â 
+  5   5000-10250   B/V 20% noticeable >9700  start 6700Â, 8% at 7500Â, 18% at 8000Â, >30% >9000Â 
+  6   3200-5550   no 2nd-order light in wav range  no fringes in wav range 
+  7   3850-6850   U >10% noticeable >6200  no fringes in wav range 
+  8   5825-8350   no 2nd-order light in wav range  start 6500Â, 10% at 7500Â, >25% >8000Â 
+  10e  3300-10550  U 2.5% noticeable >6200; B 0.5%  start 7500Â, 6% at 8000Â, 13% at 9000Â, >25% >9500Â 
+  11e  3900-9950   14% at 4000Â noticeable >6900; B 4%   start 6800Â, 5% at 7500Â, 17% at 8500Â, 20-35% 9000-10000Â 
+  12e  5100-11000  V 20% noticeable >9900; R 9%  start 7500Â, 3-5% 8000-10000Â 
+  14    3275-6125   no 2nd-order light in wav range  no fringes in wav range 
+  15f   3200-9125   U 25% noticeable >6100; B 5%  start 6500Â, 9% at 7500Â, 19% at 8000Â, >25% >8500Â 
+
+   Click on the waveband to obtain an efficiency/transmission curve. 
+ Click here for  count rates. 
+ 
+ 
+Notes
+ a) Effective blaze wavelength, where measurements are available.
+ b) With a 0.5" slit. Note that CCD#7 suffers from charge smearing and that consequently 2-pixel resolution cannot always be achieved.
+ c) Echelle grism.
+ d) At 5000 Â
+ e) Grisms 10, 11 and 12 are cross-dispersers for grism 9. They can also be used as individual low-res grisms.
+ f) These grisms project the spectrum from red to blue on the chip.
+ g) This range is obtained with a special order sorter filter which is mounted in a square ALFOSC filterholder and located in its own drawer. The filter has NOT filter ID #124 (see the filter list).
+ h) This wavelength range has gaps and is obtained with grism #10 as cross-disperser (see below).
+ j) This column lists the UBVR peak flux of the 2nd order wrt that of the 1st. These were measured with U#7, B#74, V#75, and R#76. 
+ k) The peak-to-peak fringe levels were measured with CCD#7 (Loral). See  a comparison between CCD#7 and CCD#8.
+  
+Echelle mode
+ Grism 9+10: spacial order overlap bluer than 4250Â, for the standard 8 arcsec slit length. The total wavelength range sampled is 3300-10350Â; the wavelength range with proper inter-order spacing is 4250-10350Â.
+Cross-disp is flipped with respect to g9+11 and g9+12.
+ Grism 9+11: noticable 2nd order effects (2nd order of g11) redward from 7400Â.The total wavelength range sampled is 3900-10350Â.
+ Grism 9+12: Good throughput in the red, but not very useful. Cross-dispersion too low except for echelle orders 6,7,8 corresponding to 7500-11000Â. Redward from 10000Â there are very significant 2nd order effects (from g12). Note that the Loral chip fringes 40% peak-to-peak in echelle order 7 (around 9500Â).
+ Grism 13+10: Grism 13 is usualy used with an order sorting filter in 3rd order, but can also be used with a cross-disperser. Grism 13+10 give an alternative for Grism 9+10, as spacial overlap is not a problem for this combination. For medium-resolution spectroscopy bluer than 4250Â this option is preferred over Grism 9+10. The orders of Grism 13 are too long for the chip: the total wavelength coverage is 3350-3610 (5th order), 3720-4430, 4770-5830, 7020-8660 (2nd order). 
+Staff procedures
+ Grism status table 
+  Back to top

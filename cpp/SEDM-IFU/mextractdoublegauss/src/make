@@ -1,0 +1,7 @@
+make delete
+make ../bin/extractdoublegauss
+chmod a+x ../bin/extractdoublegauss
+rm ~/bin/extractdoublegauss
+cp -p ../bin/extractdoublegauss ~/bin/
+rm ~/stella/bin/extractdoublegauss
+ln -s ~/bin/extractdoublegauss ~/stella/bin/

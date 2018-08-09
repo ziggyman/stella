@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Summary of all FITSIO User-Interface Subroutines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio010.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio012.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc90">Chapter&#XA0;10</A>&#XA0;&#XA0; Summary of all FITSIO User-Interface Subroutines </H1><P>Error Status Routines page&#XA0;<A HREF="fitsio006.html#FTVERS">??</A></P><PRE CLASS="verbatim">        FTVERS( &gt; version)
+        FTGERR(status, &gt; errtext)
+        FTGMSG( &gt; errmsg)
+        FTRPRT (stream, &gt; status)
+        FTPMSG(errmsg)
+        FTPMRK
+        FTCMSG
+        FTCMRK
+</PRE><P>FITS File Open and Close Subroutines: page&#XA0;<A HREF="fitsio007.html#FTOPEN">??</A></P><PRE CLASS="verbatim">        FTOPEN(unit,filename,rwmode, &gt; blocksize,status)
+        FTDKOPEN(unit,filename,rwmode, &gt; blocksize,status)
+        FTNOPN(unit,filename,rwmode, &gt; status)
+        FTDOPN(unit,filename,rwmode, &gt; status)
+        FTTOPN(unit,filename,rwmode, &gt; status)
+        FTIOPN(unit,filename,rwmode, &gt; status)
+        FTREOPEN(unit, &gt; newunit, status)
+        FTINIT(unit,filename,blocksize, &gt; status)
+        FTDKINIT(unit,filename,blocksize, &gt; status)
+        FTTPLT(unit, filename, tplfilename, &gt; status)
+        FTFLUS(unit, &gt; status)
+        FTCLOS(unit, &gt; status)
+        FTDELT(unit, &gt; status)
+        FTGIOU( &gt; iounit, status)
+        FTFIOU(iounit, &gt; status)
+ CFITS2Unit(fitsfile *ptr)   (C routine)
+        CUnit2FITS(int unit)        (C routine)
+        FTEXTN(filename, &gt; nhdu, status)
+        FTFLNM(unit, &gt; filename, status)
+        FTFLMD(unit, &gt; iomode, status)
+        FFURLT(unit, &gt; urltype, status)
+        FTIURL(filename, &gt; filetype, infile, outfile, extspec, filter,
+               binspec, colspec, status)
+        FTRTNM(filename, &gt; rootname, status)
+        FTEXIST(filename, &gt; exist, status)
+</PRE><P>HDU-Level Operations: page&#XA0;<A HREF="fitsio007.html#FTMAHD">??</A></P><PRE CLASS="verbatim">        FTMAHD(unit,nhdu, &gt; hdutype,status)
+        FTMRHD(unit,nmove, &gt; hdutype,status)
+        FTGHDN(unit, &gt; nhdu)
+        FTMNHD(unit, hdutype, extname, extver, &gt; status)
+        FTGHDT(unit, &gt; hdutype, status)
+        FTTHDU(unit, &gt; hdunum, status)
+        FTCRHD(unit, &gt; status)
+        FTIIMG(unit,bitpix,naxis,naxes, &gt; status)
+        FTITAB(unit,rowlen,nrows,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+        FTIBIN(unit,nrows,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+        FTRSIM(unit,bitpix,naxis,naxes,status)
+        FTDHDU(unit, &gt; hdutype,status)
+        FTCPFL(iunit,ounit,previous, current, following, &gt; status)
+        FTCOPY(iunit,ounit,morekeys, &gt; status)
+        FTCPHD(inunit, outunit, &gt; status)
+        FTCPDT(iunit,ounit, &gt; status)
+</PRE><P>Subroutines to specify or modify the structure of the CHDU: page&#XA0;<A HREF="fitsio007.html#FTRDEF">??</A></P><PRE CLASS="verbatim">        FTRDEF(unit, &gt; status)  (DEPRECATED)
+        FTPDEF(unit,bitpix,naxis,naxes,pcount,gcount, &gt; status)  (DEPRECATED)
+        FTADEF(unit,rowlen,tfields,tbcol,tform,nrows &gt; status)  (DEPRECATED)
+        FTBDEF(unit,tfields,tform,varidat,nrows &gt; status)  (DEPRECATED)
+        FTDDEF(unit,bytlen, &gt; status)  (DEPRECATED)
+        FTPTHP(unit,theap, &gt; status)
+</PRE><P>Header Space and Position Subroutines: page&#XA0;<A HREF="fitsio007.html#FTHDEF">??</A></P><PRE CLASS="verbatim">        FTHDEF(unit,morekeys, &gt; status)
+        FTGHSP(iunit, &gt; keysexist,keysadd,status)
+        FTGHPS(iunit, &gt; keysexist,key_no,status)
+</PRE><P>Read or Write Standard Header Subroutines: page&#XA0;<A HREF="fitsio007.html#FTPHPR">??</A></P><PRE CLASS="verbatim">        FTPHPS(unit,bitpix,naxis,naxes, &gt; status)
+        FTPHPR(unit,simple,bitpix,naxis,naxes,pcount,gcount,extend, &gt; status)
+        FTGHPR(unit,maxdim, &gt; simple,bitpix,naxis,naxes,pcount,gcount,extend,
+               status)
+        FTPHTB(unit,rowlen,nrows,tfields,ttype,tbcol,tform,tunit,extname, &gt;
+               status)
+        FTGHTB(unit,maxdim, &gt; rowlen,nrows,tfields,ttype,tbcol,tform,tunit,
+               extname,status)
+        FTPHBN(unit,nrows,tfields,ttype,tform,tunit,extname,varidat &gt; status)
+        FTGHBN(unit,maxdim, &gt; nrows,tfields,ttype,tform,tunit,extname,varidat,
+               status)
+</PRE><P>Write Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTPREC">??</A></P><PRE CLASS="verbatim">        FTPREC(unit,card, &gt; status)
+        FTPCOM(unit,comment, &gt; status)
+        FTPHIS(unit,history, &gt; status)
+        FTPDAT(unit, &gt; status)
+        FTPKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTPKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+        FTPKLS(unit,keyword,keyval,comment, &gt; status)
+        FTPLSW(unit, &gt; status)
+        FTPKYU(unit,keyword,comment, &gt; status)
+        FTPKN[JKLS](unit,keyroot,startno,no_keys,keyvals,comments, &gt; status)
+        FTPKN[EDFG](unit,keyroot,startno,no_keys,keyvals,decimals,comments, &gt;
+                   status)
+        FTCPKYinunit, outunit, innum, outnum, keyroot, &gt; status)
+        FTPKYT(unit,keyword,intval,dblval,comment, &gt; status)
+        FTPKTP(unit, filename, &gt; status)
+        FTPUNT(unit,keyword,units, &gt; status)
+</PRE><P>Insert Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTIREC">??</A></P><PRE CLASS="verbatim">        FTIREC(unit,key_no,card, &gt; status)
+        FTIKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTIKLS(unit,keyword,keyval,comment, &gt; status)
+        FTIKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+        FTIKYU(unit,keyword,comment, &gt; status)
+</PRE><P>Read Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGREC">??</A></P><PRE CLASS="verbatim">        FTGREC(unit,key_no, &gt; card,status)
+        FTGKYN(unit,key_no, &gt; keyword,value,comment,status)
+        FTGCRD(unit,keyword, &gt; card,status)
+        FTGNXK(unit,inclist,ninc,exclist,nexc, &gt; card,status)
+        FTGKEY(unit,keyword, &gt; value,comment,status)
+        FTGKY[EDJKLS](unit,keyword, &gt; keyval,comment,status)
+        FTGKN[EDJKLS](unit,keyroot,startno,max_keys, &gt; keyvals,nfound,status)
+        FTGKYT(unit,keyword, &gt; intval,dblval,comment,status)
+        FTGUNT(unit,keyword, &gt; units,status)
+</PRE><P>Modify Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTMREC">??</A></P><PRE CLASS="verbatim">        FTMREC(unit,key_no,card, &gt; status)
+        FTMCRD(unit,keyword,card, &gt; status)
+        FTMNAM(unit,oldkey,keyword, &gt; status)
+        FTMCOM(unit,keyword,comment, &gt; status)
+        FTMKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTMKLS(unit,keyword,keyval,comment, &gt; status)
+        FTMKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+        FTMKYU(unit,keyword,comment, &gt; status)
+</PRE><P>Update Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTUCRD">??</A></P><PRE CLASS="verbatim">        FTUCRD(unit,keyword,card, &gt; status)
+        FTUKY[JKLS](unit,keyword,keyval,comment, &gt; status)
+        FTUKLS(unit,keyword,keyval,comment, &gt; status)
+        FTUKY[EDFG](unit,keyword,keyval,decimals,comment, &gt; status)
+        FTUKYU(unit,keyword,comment, &gt; status)
+</PRE><P>Delete Keyword Subroutines: page&#XA0;<A HREF="fitsio007.html#FTDREC">??</A></P><PRE CLASS="verbatim">        FTDREC(unit,key_no, &gt; status)
+        FTDKEY(unit,keyword, &gt; status)
+</PRE><P>Define Data Scaling Parameters and Undefined Pixel Flags: page&#XA0;<A HREF="fitsio007.html#FTPSCL">??</A></P><PRE CLASS="verbatim">        FTPSCL(unit,bscale,bzero, &gt; status)
+        FTTSCL(unit,colnum,tscal,tzero, &gt; status)
+        FTPNUL(unit,blank, &gt; status)
+        FTSNUL(unit,colnum,snull &gt; status)
+        FTTNUL(unit,colnum,tnull &gt; status)
+</PRE><P>FITS Primary Array or IMAGE Extension I/O Subroutines: page&#XA0;<A HREF="fitsio007.html#FTPPR">??</A></P><PRE CLASS="verbatim">        FTGIDT(unit, &gt; bitpix,status)
+        FTGIET(unit, &gt; bitpix,status)
+        FTGIDM(unit, &gt; naxis,status)
+        FTGISZ(unit, maxdim, &gt; naxes,status)
+        FTGIPR(unit, maxdim, &gt; bitpix,naxis,naxes,status)
+        FTPPR[BIJKED](unit,group,fpixel,nelements,values, &gt; status)
+        FTPPN[BIJKED](unit,group,fpixel,nelements,values,nullval &gt; status)
+        FTPPRU(unit,group,fpixel,nelements, &gt; status)
+        FTGPV[BIJKED](unit,group,fpixel,nelements,nullval, &gt; values,anyf,status)
+        FTGPF[BIJKED](unit,group,fpixel,nelements, &gt; values,flagvals,anyf,status)
+        FTPGP[BIJKED](unit,group,fparm,nparm,values, &gt; status)
+        FTGGP[BIJKED](unit,group,fparm,nparm, &gt; values,status)
+        FTP2D[BIJKED](unit,group,dim1,naxis1,naxis2,image, &gt; status)
+        FTP3D[BIJKED](unit,group,dim1,dim2,naxis1,naxis2,naxis3,cube, &gt; status)
+        FTG2D[BIJKED](unit,group,nullval,dim1,naxis1,naxis2, &gt; image,anyf,status)
+        FTG3D[BIJKED](unit,group,nullval,dim1,dim2,naxis1,naxis2,naxis3, &gt;
+                     cube,anyf,status)
+        FTPSS[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,array, &gt; status)
+        FTGSV[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,incs,nullval, &gt;
+                     array,anyf,status)
+        FTGSF[BIJKED](unit,group,naxis,naxes,fpixels,lpixels,incs, &gt;
+                     array,flagvals,anyf,status)
+</PRE><P>Table Column Information Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGCNO">??</A></P><PRE CLASS="verbatim">        FTGNRW(unit, &gt; nrows, status)
+        FTGNCL(unit, &gt; ncols, status)
+        FTGCNO(unit,casesen,coltemplate, &gt; colnum,status)
+        FTGCNN(unit,casesen,coltemplate, &gt; colnam,colnum,status)
+        FTGTCL(unit,colnum, &gt; datacode,repeat,width,status)
+        FTEQTY(unit,colnum, &gt; datacode,repeat,width,status)
+        FTGCDW(unit,colnum, &gt; dispwidth,status)
+        FTGACL(unit,colnum, &gt;
+               ttype,tbcol,tunit,tform,tscal,tzero,snull,tdisp,status)
+        FTGBCL(unit,colnum, &gt;
+               ttype,tunit,datatype,repeat,tscal,tzero,tnull,tdisp,status)
+        FTPTDM(unit,colnum,naxis,naxes, &gt; status)
+        FTGTDM(unit,colnum,maxdim, &gt; naxis,naxes,status)
+        FTDTDM(unit,tdimstr,colnum,maxdim, &gt; naxis,naxes, status)
+        FFGRSZ(unit, &gt; nrows,status)
+</PRE><P>Low-Level Table Access Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGTBS">??</A></P><PRE CLASS="verbatim">        FTGTBS(unit,frow,startchar,nchars, &gt; string,status)
+        FTPTBS(unit,frow,startchar,nchars,string, &gt; status)
+        FTGTBB(unit,frow,startchar,nchars, &gt; array,status)
+        FTPTBB(unit,frow,startchar,nchars,array, &gt; status)
+</PRE><P>Edit Rows or Columns page&#XA0;<A HREF="fitsio007.html#FTIROW">??</A></P><PRE CLASS="verbatim">        FTIROW(unit,frow,nrows, &gt; status)
+        FTDROW(unit,frow,nrows, &gt; status)
+        FTDRRG(unit,rowrange, &gt; status)
+        FTDRWS(unit,rowlist,nrows, &gt; status)
+        FTICOL(unit,colnum,ttype,tform, &gt; status)
+        FTICLS(unit,colnum,ncols,ttype,tform, &gt; status)
+        FTMVEC(unit,colnum,newveclen, &gt; status)
+        FTDCOL(unit,colnum, &gt; status)
+        FTCPCL(inunit,outunit,incolnum,outcolnum,createcol, &gt; status);
+</PRE><P>Read and Write Column Data Routines page&#XA0;<A HREF="fitsio007.html#FTPCLS">??</A></P><PRE CLASS="verbatim">        FTPCL[SLBIJKEDCM](unit,colnum,frow,felem,nelements,values, &gt; status)
+        FTPCN[BIJKED](unit,colnum,frow,felem,nelements,values,nullval &gt; status)
+        FTPCLX(unit,colnum,frow,fbit,nbit,lray, &gt; status)
+        FTPCLU(unit,colnum,frow,felem,nelements, &gt; status)
+        FTGCL(unit,colnum,frow,felem,nelements, &gt; values,status)
+        FTGCV[SBIJKEDCM](unit,colnum,frow,felem,nelements,nullval, &gt;
+                       values,anyf,status)
+        FTGCF[SLBIJKEDCM](unit,colnum,frow,felem,nelements, &gt;
+                         values,flagvals,anyf,status)
+        FTGSV[BIJKED](unit,colnum,naxis,naxes,fpixels,lpixels,incs,nullval, &gt;
+                     array,anyf,status)
+        FTGSF[BIJKED](unit,colnum,naxis,naxes,fpixels,lpixels,incs, &gt;
+                     array,flagvals,anyf,status)
+        FTGCX(unit,colnum,frow,fbit,nbit, &gt; lray,status)
+        FTGCX[IJD](unit,colnum,frow,nrows,fbit,nbit, &gt; array,status)
+        FTGDES(unit,colnum,rownum, &gt; nelements,offset,status)
+        FTPDES(unit,colnum,rownum,nelements,offset, &gt; status)
+</PRE><P>Row Selection and Calculator Routines: page&#XA0;<A HREF="fitsio007.html#FTFROW">??</A></P><PRE CLASS="verbatim">        FTFROW(unit,expr,firstrow, nrows, &gt; n_good_rows, row_status, status)
+        FTFFRW(unit, expr, &gt; rownum, status)
+        FTSROW(inunit, outunit, expr, &gt; status )
+        FTCROW(unit,datatype,expr,firstrow,nelements,nulval, &gt;
+             array,anynul,status)
+        FTCALC(inunit, expr, outunit, parName, parInfo, &gt; status)
+        FTCALC_RNG(inunit, expr, outunit, parName, parInfo,
+            nranges, firstrow, lastrow, &gt; status)
+        FTTEXP(unit, expr, &gt; datatype, nelem, naxis, naxes, status)
+</PRE><P>Celestial Coordinate System Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGICS">??</A></P><PRE CLASS="verbatim">        FTGICS(unit, &gt; xrval,yrval,xrpix,yrpix,xinc,yinc,rot,coordtype,status)
+        FTGTCS(unit,xcol,ycol, &gt;
+               xrval,yrval,xrpix,yrpix,xinc,yinc,rot,coordtype,status)
+        FTWLDP(xpix,ypix,xrval,yrval,xrpix,yrpix,xinc,yinc,rot,
+                          coordtype, &gt; xpos,ypos,status)
+        FTXYPX(xpos,ypos,xrval,yrval,xrpix,yrpix,xinc,yinc,rot,
+                          coordtype, &gt; xpix,ypix,status)
+</PRE><P>File Checksum Subroutines: page&#XA0;<A HREF="fitsio007.html#FTPCKS">??</A></P><PRE CLASS="verbatim">        FTPCKS(unit, &gt; status)
+        FTUCKS(unit, &gt; status)
+        FTVCKS(unit, &gt; dataok,hduok,status)
+        FTGCKS(unit, &gt; datasum,hdusum,status)
+        FTESUM(sum,complement, &gt; checksum)
+        FTDSUM(checksum,complement, &gt; sum)
+
+</PRE><P>Time and Date Utility Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGSDT">??</A></P><PRE CLASS="verbatim">        FTGSDT( &gt; day, month, year, status )
+        FTGSTM(&gt; datestr, timeref, status)
+        FTDT2S( year, month, day, &gt; datestr, status)
+        FTTM2S( year, month, day, hour, minute, second, decimals,
+                &gt; datestr, status)
+        FTS2DT(datestr, &gt; year, month, day, status)
+        FTS2TM(datestr, &gt; year, month, day, hour, minute, second, status)
+</PRE><P>General Utility Subroutines: page&#XA0;<A HREF="fitsio007.html#FTGHAD">??</A></P><PRE CLASS="verbatim">        FTGHAD(unit, &gt; curaddr,nextaddr)
+        FTUPCH(string)
+        FTCMPS(str_template,string,casesen, &gt; match,exact)
+        FTTKEY(keyword, &gt; status)
+        FTTREC(card, &gt; status)
+        FTNCHK(unit, &gt; status)
+        FTGKNM(unit, &gt; keyword, keylength, status)
+        FTPSVC(card, &gt; value,comment,status)
+        FTKEYN(keyroot,seq_no, &gt; keyword,status)
+        FTNKEY(seq_no,keyroot, &gt; keyword,status)
+        FTDTYP(value, &gt; dtype,status)
+        class = FTGKCL(card)
+        FTASFM(tform, &gt; datacode,width,decimals,status)
+        FTBNFM(tform, &gt; datacode,repeat,width,status)
+        FTGABC(tfields,tform,space, &gt; rowlen,tbcol,status)
+        FTGTHD(template, &gt; card,hdtype,status)
+        FTRWRG(rowlist, maxrows, maxranges, &gt; numranges, rangemin,
+               rangemax, status)
+</PRE><P>
+</P><HR>
+<A HREF="fitsio010.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio012.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

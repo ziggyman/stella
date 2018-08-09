@@ -1,0 +1,7 @@
+make delete
+make ../bin/findandtraceaps
+chmod a+x ../bin/findandtraceaps
+rm ~/bin/findandtraceaps
+cp -p ../bin/findandtraceaps ~/bin/
+rm ~/stella/bin/findandtraceaps
+ln -s ~/bin/findandtraceaps ~/stella/bin/

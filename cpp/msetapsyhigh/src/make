@@ -1,0 +1,7 @@
+make delete
+make ../bin/setapsyhigh
+chmod a+x ../bin/setapsyhigh
+rm ~/bin/setapsyhigh
+cp -p ../bin/setapsyhigh ~/bin/
+rm ~/stella/bin/setapsyhigh
+ln -s ~/bin/setapsyhigh ~/stella/bin/

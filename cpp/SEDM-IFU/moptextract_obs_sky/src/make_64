@@ -1,0 +1,5 @@
+g++ -s -O2 -fpermissive -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -lm -lcfitsio -static-libgcc -L. -o ../bin/optextract_obs_sky_64 ../../../cfits/src/CAny.cpp ../../../cfits/src/CString.cpp ../../../cfits/src/CFits.cpp MOptExtract_Obs_Sky.cpp ../../../cfits/src/kriging/geostat.cpp ../../../cfits/src/kriging/matrix_ex.cpp ../../../cfits/src/kriging/model_sph.cpp ../../../cfits/src/kriging/model_stable.cpp ../../../cfits/src/kriging/variogram.cpp ../../../cmpfit-1.2/mpfit.c ../../../cmpfit-1.2/MyFit.cpp
+chmod a+x ../bin/optextract_obs_sky_64
+cp -p ../bin/optextract_obs_sky_64 /home/azuri/stella/bin/
+rm /home/azuri/bin/sedm_optextract_obs_sky
+ln -s /home/azuri/stella/bin/optextract_obs_sky_64 /home/azuri/bin/sedm_optextract_obs_sky

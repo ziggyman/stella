@@ -1,0 +1,7 @@
+make delete
+make ../bin/gaussextract_obs_sky
+chmod a+x ../bin/gaussextract_obs_sky
+rm ~/bin/gaussextract_obs_sky
+cp -p ../bin/gaussextract_obs_sky ~/bin/
+rm ~/stella/bin/gaussextract_obs_sky
+ln -s ~/bin/gaussextract_obs_sky ~/stella/bin/

@@ -1,0 +1,5 @@
+gcc -O2 -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -L. -lm -lcfitsio -lblitz  -o ../bin/fitsnozero MFitsNoZero.c
+cp ../bin/fitsnozero ~/bin/
+rm ~/stella/bin/fitsnozero
+ln -s ~/bin/fitsnozero ~/stella/bin/fitsnozero
+

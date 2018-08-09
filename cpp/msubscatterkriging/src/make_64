@@ -1,0 +1,5 @@
+g++ -g -fpermissive -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -lm -lcfitsio -static-libgcc -L. -o ../bin/subscatterkriging_64 ../../cfits/src/CFits.cpp ../../cfits/src/CAny.cpp ../../cfits/src/CString.cpp ../../cfits/src/kriging/geostat.cpp ../../cfits/src/kriging/matrix_ex.cpp ../../cfits/src/kriging/model_sph.cpp ../../cfits/src/kriging/model_stable.cpp ../../cfits/src/kriging/variogram.cpp MSubScatterKriging.cpp ../../fit/GenUtil.cpp ../../fit/MyFitUtil.cpp ../../cmpfit-1.2/mpfit.c ../../cmpfit-1.2/MyFit.cpp
+chmod a+x ../bin/subscatterkriging_64
+cp ../bin/subscatterkriging_64 /home/azuri/stella/bin/
+rm /home/azuri/bin/subscatterkriging
+ln -s /home/azuri/stella/bin/subscatterkriging_64 /home/azuri/bin/subscatterkriging

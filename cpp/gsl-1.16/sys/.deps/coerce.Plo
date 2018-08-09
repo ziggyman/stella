@@ -1,0 +1,21 @@
+coerce.lo: coerce.c ../config.h \
+ /usr/local/lib/gcc/x86_64-apple-darwin14.0.0/5.0.0/include-fixed/math.h \
+ /usr/include/sys/cdefs.h /usr/include/sys/_symbol_aliasing.h \
+ /usr/include/sys/_posix_availability.h /usr/include/Availability.h \
+ /usr/include/AvailabilityInternal.h ../gsl/gsl_sys.h
+
+../config.h:
+
+/usr/local/lib/gcc/x86_64-apple-darwin14.0.0/5.0.0/include-fixed/math.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/sys/_symbol_aliasing.h:
+
+/usr/include/sys/_posix_availability.h:
+
+/usr/include/Availability.h:
+
+/usr/include/AvailabilityInternal.h:
+
+../gsl/gsl_sys.h:

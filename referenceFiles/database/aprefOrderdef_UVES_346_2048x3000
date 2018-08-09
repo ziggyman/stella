@@ -1,0 +1,990 @@
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 1 28.04457 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	1
+	beam	1
+	center	28.04457 1500.
+	low	-3.675281 -1499.
+	high	4.623742 1500.
+	background
+		xmin -10.
+		xmax 10.
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		8.513291
+		-62.53443
+		5.907302
+		2.233773
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 2 76.55559 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	2
+	beam	2
+	center	76.55559 1500.
+	low	-3.733468 -1499.
+	high	4.50777 1500.
+	background
+		xmin -20.31311
+		xmax 21.00133
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		6.646286
+		-67.73419
+		2.23312
+		-0.1231883
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 3 125.264 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	3
+	beam	3
+	center	125.264 1500.
+	low	-3.75061 -1499.
+	high	4.535124 1500.
+	background
+		xmin -20.15375
+		xmax 22.24575
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		7.123289
+		-67.92937
+		2.34798
+		0.1029817
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 4 175.3963 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	4
+	beam	4
+	center	175.3963 1500.
+	low	-3.724112 -1499.
+	high	4.43685 1500.
+	background
+		xmin -19.8698
+		xmax 21.4821
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		6.794842
+		-68.40028
+		2.237875
+		0.05650475
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 5 227.221 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	5
+	beam	5
+	center	227.221 1500.
+	low	-3.651367 -1499.
+	high	4.416794 1500.
+	background
+		xmin -21.35287
+		xmax 20.36453
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		5.503321
+		-68.817
+		2.14432
+		0.06754359
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 6 279.5967 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	6
+	beam	6
+	center	279.5967 1500.
+	low	-3.62552 -1499.
+	high	4.235993 1500.
+	background
+		xmin -23.00732
+		xmax 19.79526
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.386268
+		-69.20103
+		2.088973
+		0.1406674
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 7 331.6331 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	7
+	beam	7
+	center	331.6331 1500.
+	low	-3.62907 -1499.
+	high	4.210714 1500.
+	background
+		xmin -22.7536
+		xmax 19.3179
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.31987
+		-69.70284
+		1.937271
+		0.03694942
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 8 383.477 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	8
+	beam	8
+	center	383.477 1500.
+	low	-3.635097 -1499.
+	high	4.209871 1500.
+	background
+		xmin -21.88107
+		xmax 20.93292
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		5.219791
+		-70.0984
+		1.902319
+		0.06939176
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 9 437.2176 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	9
+	beam	9
+	center	437.2176 1500.
+	low	-3.592749 -1499.
+	high	4.198664 1500.
+	background
+		xmin -22.02765
+		xmax 20.10583
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.978952
+		-70.52863
+		1.846088
+		0.09098117
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 10 492.9848 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	10
+	beam	10
+	center	492.9848 1500.
+	low	-3.532869 -1499.
+	high	4.16861 1500.
+	background
+		xmin -23.56198
+		xmax 18.96982
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		3.459128
+		-71.04594
+		1.670903
+		0.021367
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 11 546.9317 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	11
+	beam	11
+	center	546.9317 1500.
+	low	-3.547749 -1499.
+	high	4.033801 1500.
+	background
+		xmin -21.90448
+		xmax 20.61517
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.602787
+		-71.42985
+		1.655288
+		0.07056154
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 12 605.3401 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	12
+	beam	12
+	center	605.3401 1500.
+	low	-3.524789 -1499.
+	high	3.977623 1500.
+	background
+		xmin -24.72107
+		xmax 17.79871
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		2.013452
+		-72.01058
+		1.390867
+		-0.07837872
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 13 657.7162 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	13
+	beam	13
+	center	657.7162 1500.
+	low	-3.364518 -1499.
+	high	3.894141 1500.
+	background
+		xmin -20.89142
+		xmax 22.41302
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		6.408542
+		-72.30509
+		1.549326
+		0.09798342
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 14 717.1934 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	14
+	beam	14
+	center	717.1934 1500.
+	low	-3.253821 -1499.
+	high	3.751349 1500.
+	background
+		xmin -21.81244
+		xmax 19.61487
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.407725
+		-72.86835
+		1.273571
+		-0.03365087
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 15 779.6843 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	15
+	beam	15
+	center	779.6843 1500.
+	low	-3.343602 -1499.
+	high	3.791756 1500.
+	background
+		xmin -25.96411
+		xmax 16.75659
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		0.2466508
+		-73.45255
+		1.010679
+		-0.1600091
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 16 832.4998 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	16
+	beam	16
+	center	832.4998 1500.
+	low	-3.317404 -1499.
+	high	3.657794 1500.
+	background
+		xmin -19.55072
+		xmax 22.73889
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		6.7883
+		-73.67724
+		1.269355
+		0.1218019
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 17 893.5663 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	17
+	beam	17
+	center	893.5663 1500.
+	low	-3.071666 -1499.
+	high	3.567712 1500.
+	background
+		xmin -20.70941
+		xmax 21.58008
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		5.826544
+		-74.25401
+		1.020347
+		0.006908238
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 18 955.6603 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	18
+	beam	18
+	center	955.6603 1500.
+	low	-2.965491 -1499.
+	high	3.51646 1500.
+	background
+		xmin -21.08105
+		xmax 20.34625
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.769503
+		-74.75685
+		0.9121388
+		-0.004983983
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 19 1017.493 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	19
+	beam	19
+	center	1017.493 1500.
+	low	-2.997454 -1499.
+	high	3.467406 1500.
+	background
+		xmin -20.79663
+		xmax 20.74103
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.902637
+		-75.26994
+		0.7562858
+		-0.02595945
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 20 1085.001 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	20
+	beam	20
+	center	1085.001 1500.
+	low	-2.969163 -1499.
+	high	3.390595 1500.
+	background
+		xmin -25.44934
+		xmax 16.52966
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		0.2537055
+		-75.86471
+		0.4603736
+		-0.1658988
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 21 1144.801 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	21
+	beam	21
+	center	1144.801 1500.
+	low	-2.914699 -1499.
+	high	3.292194 1500.
+	background
+		xmin -21.58374
+		xmax 20.83728
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.387435
+		-76.18963
+		0.5913832
+		0.033056
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 22 1209.963 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	22
+	beam	22
+	center	1209.963 1500.
+	low	-2.848687 -1499.
+	high	3.144683 1500.
+	background
+		xmin -21.79004
+		xmax 20.63098
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.048102
+		-76.74213
+		0.4116655
+		-0.01523238
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 23 1278.743 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	23
+	beam	23
+	center	1278.743 1500.
+	low	-2.924765 -1499.
+	high	3.229013 1500.
+	background
+		xmin -24.67322
+		xmax 17.7478
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		1.056942
+		-77.29307
+		0.1991351
+		-0.1243634
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 24 1342.242 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	24
+	beam	24
+	center	1342.242 1500.
+	low	-2.968365 -1499.
+	high	3.264883 1500.
+	background
+		xmin -21.36304
+		xmax 21.33704
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		4.452899
+		-77.7364
+		0.2176171
+		-0.01450661
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 25 1414.919 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	25
+	beam	25
+	center	1414.919 1500.
+	low	-2.963735 -1499.
+	high	3.2669 1500.
+	background
+		xmin -25.56519
+		xmax 16.2168
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		-0.4007134
+		-78.38194
+		-0.09723719
+		-0.1987365
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 26 1477.293 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	26
+	beam	26
+	center	1477.293 1500.
+	low	-2.947539 -1499.
+	high	3.274398 1500.
+	background
+		xmin -19.11255
+		xmax 22.66943
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		6.257319
+		-78.76954
+		0.0250417
+		0.003948436
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 27 1551.8 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	27
+	beam	27
+	center	1551.8 1500.
+	low	-2.851636 -1499.
+	high	3.225098 1500.
+	background
+		xmin -23.58923
+		xmax 19.5697
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		1.754102
+		-79.34126
+		-0.1979127
+		-0.07486478
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 28 1625.27 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	28
+	beam	28
+	center	1625.27 1500.
+	low	-2.82083 -1499.
+	high	3.102216 1500.
+	background
+		xmin -26.15002
+		xmax 17.4679
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		-0.6223854
+		-79.91467
+		-0.426646
+		-0.1239649
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 29 1694.522 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	29
+	beam	29
+	center	1694.522 1500.
+	low	-2.98819 -1499.
+	high	3.282119 1500.
+	background
+		xmin -22.90198
+		xmax 20.05603
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		2.405036
+		-80.39993
+		-0.4380383
+		-0.06646139
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 30 1768.302 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	30
+	beam	30
+	center	1768.302 1500.
+	low	-2.917513 -1499.
+	high	3.263467 1500.
+	background
+		xmin -23.14233
+		xmax 19.79968
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		2.038702
+		-80.94641
+		-0.5898646
+		-0.03415409
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 31 1845.783 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	31
+	beam	31
+	center	1845.783 1500.
+	low	-3.068067 -1499.
+	high	3.403416 1500.
+	background
+		xmin -25.59875
+		xmax 17.35925
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		-0.8888268
+		-81.50664
+		-0.8269983
+		-0.07132747
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 32 1916.941 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	32
+	beam	32
+	center	1916.941 1500.
+	low	-3.010022 -1499.
+	high	3.37219 1500.
+	background
+		xmin -20.68994
+		xmax 21.75903
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		3.767963
+		-81.92873
+		-0.8830079
+		0.1364933
+
+# Tue 02:38:55 03-Aug-2004
+begin	aperture refOrderdef_UVES_346_2048x3000 33 1998.76 1500.
+	image	refOrderdef_UVES_346_2048x3000
+	aperture	33
+	beam	33
+	center	1998.76 1500.
+	low	-3.041729 -1499.
+	high	3.449265 1500.
+	background
+		xmin -24.92163
+		xmax 17.52734
+		function spline3
+		order 1
+		sample -10:-6,6:10 
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	8
+		2.
+		4.
+		1.
+		3000.
+		-0.5268494
+		-83.94815
+		0.1695525
+		-0.8846918
+

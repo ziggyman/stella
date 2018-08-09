@@ -1,0 +1,7 @@
+make delete
+make ../bin/imrotate
+chmod a+x ../bin/imrotate
+rm ~/bin/imrotate
+cp -p ../bin/imrotate ~/bin/
+rm ~/stella/bin/imrotate
+ln -s ~/bin/imrotate ~/stella/bin/

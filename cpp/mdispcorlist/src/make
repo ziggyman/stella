@@ -1,0 +1,7 @@
+make delete
+make ../bin/dispcorlist
+chmod a+x ../bin/dispcorlist
+rm ~/bin/dispcorlist
+cp -p ../bin/dispcorlist ~/bin/
+rm ~/stella/bin/dispcorlist
+ln -s ~/bin/dispcorlist ~/stella/bin/

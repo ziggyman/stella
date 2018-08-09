@@ -1,0 +1,6 @@
+g++ -s -O2 -fpermissive -lm -lgsl -lgslcblas -lmgl -I/usr/local/include -lm -lcfitsio -static-libgcc -L. -o ../bin/preparecollapsedimage_no_scatter_64 ../../../cfits/src/CAny.cpp ../../../cfits/src/CString.cpp ../../../cfits/src/CFits.cpp MPrepareCollapsedImageNoScatter.cpp ../../../cfits/src/kriging/geostat.cpp ../../../cfits/src/kriging/matrix_ex.cpp ../../../cfits/src/kriging/model_sph.cpp ../../../cfits/src/kriging/model_stable.cpp ../../../cfits/src/kriging/variogram.cpp ../../../cmpfit-1.2/mpfit.c ../../../cmpfit-1.2/MyFit.cpp
+chmod a+x ../bin/preparecollapsedimage_no_scatter_64
+cp ../bin/preparecollapsedimage_no_scatter_64 /home/azuri/stella/bin/
+rm /home/azuri/bin/preparecollapsedimage_no_scatter
+ln -s /home/azuri/stella/bin/preparecollapsedimage_no_scatter_64 /home/azuri/bin/preparecollapsedimage_no_scatter
+

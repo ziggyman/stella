@@ -1,0 +1,7 @@
+make delete
+make ../bin/extendaps
+chmod a+x ../bin/extendaps
+rm ~/bin/extendaps
+cp -p ../bin/extendaps ~/bin/
+rm ~/stella/bin/extendaps
+ln -s ~/bin/extendaps ~/stella/bin/

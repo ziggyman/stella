@@ -1,0 +1,8 @@
+Author of MathGL:
+
+Alexey Balakin <balakin@appl.sci-nnov.ru>
+
+Some extensions was written by:
+Dmitriy Kulagin	- autoconf/automake script
+Mikhail Barg	- Pascal/Delphi interface
+Sergey Plis	- Forth interface

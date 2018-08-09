@@ -1,0 +1,25 @@
+Version 3.2
+Move the stella directory to your home path.
+edit loginuser.cl:
+  set scripts to ~/stella/ and imdir to <image_directory>
+mv <iraf-dir>/loginuser.cl <iraf-dir>/loginuser.cl.bak
+ln -s ~/stella/loginuser.cl <iraf-dir>/loginuser.cl
+add ~/stella/bin to your $PATH variable:
+in ~/.bashrc add the following line to the end of the file:
+export PATH=~/stella/bin:$PATH
+
+Please note that most parameter files are not up to date and some parameters might be missing. 
+However, each IRAF task will tell you if a parameter could not be found in the parameter file.
+The master task is stall.cl, which encapsulates all tasks needed to reduce a standard spectrum.
+Note that the STELLA pipeline was developed for spectra going up/down, not left/right. You can 
+use the C++ programs imrotate or imtranspose to rotate/transpose spectra if needed.
+Please also note that, before using the IRAF programs, you must create the reference files 
+manually.
+
+To install the external libraries like cfitsio, blitz++, gsl, and mathgl, and compile the C++ 
+files please refere to the README file in the cpp directory.
+
+For more detailed installation and setup instructions please have a look at
+
+http://ooo.aip.de/stella/fileadmin/PublicDocuments/STELLA-pipeline/
+

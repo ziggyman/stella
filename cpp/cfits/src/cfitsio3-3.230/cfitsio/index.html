@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>/home/azuri/entwicklung/stella/ses-pipeline/c/cfits/src/cfitsio3-3.230/cfitsio/cfitsio</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+</HEAD>
+<BODY >
+<!--HEVEA command line is: /usr/bin/hevea -fix -o /home/azuri/entwicklung/stella/ses-pipeline/c/cfits/src/cfitsio3-3.230/cfitsio/cfitsio cfitsio.tex -->
+<!--HACHA command line is: /usr/bin/hacha cfitsio -->
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+
+</P><DIV CLASS="center">
+<FONT SIZE=7><B>CFITSIO User&#X2019;s Reference Guide</B></FONT><BR>
+</DIV><P>
+<BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5><B>An Interface to FITS Format Files</B></FONT><BR>
+</DIV><DIV CLASS="center">
+<FONT SIZE=5><B>for C Programmers</B></FONT><BR>
+</DIV><P>
+<BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5>Version 3.0<BR>
+</FONT>
+</DIV><P>
+<BR>
+<BR>
+2.5cm
+</P><DIV CLASS="center">
+HEASARC<BR>
+Code 662<BR>
+Goddard Space Flight Center<BR>
+Greenbelt, MD 20771<BR>
+USA
+</DIV><P><BR>
+<BR>
+</P><DIV CLASS="center">
+<FONT SIZE=5>April 2009<BR>
+</FONT>
+</DIV><UL>
+<LI><A HREF="cfitsio001.html">Contents</A>
+</LI><LI><A HREF="cfitsio002.html">Introduction </A>
+<UL>
+<LI><A HREF="cfitsio002.html#toc1">A Brief Overview</A>
+</LI><LI><A HREF="cfitsio002.html#toc2">Sources of FITS Software and Information</A>
+</LI><LI><A HREF="cfitsio002.html#toc3">Acknowledgments</A>
+</LI><LI><A HREF="cfitsio002.html#toc4">Legal Stuff</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio003.html">Creating the CFITSIO Library </A>
+<UL>
+<LI><A HREF="cfitsio003.html#toc5">Building the Library</A>
+</LI><LI><A HREF="cfitsio003.html#toc6">Testing the Library</A>
+</LI><LI><A HREF="cfitsio003.html#toc7">Linking Programs with CFITSIO</A>
+</LI><LI><A HREF="cfitsio003.html#toc8">Using CFITSIO in Multi-threaded Environments</A>
+</LI><LI><A HREF="cfitsio003.html#toc9">Getting Started with CFITSIO</A>
+</LI><LI><A HREF="cfitsio003.html#toc10">Example Program</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio004.html">A FITS Primer </A>
+</LI><LI><A HREF="cfitsio005.html">Programming Guidelines </A>
+<UL>
+<LI><A HREF="cfitsio005.html#toc11">CFITSIO Definitions</A>
+</LI><LI><A HREF="cfitsio005.html#toc12">Current Header Data Unit (CHDU)</A>
+</LI><LI><A HREF="cfitsio005.html#toc13">Function Names and Variable Datatypes</A>
+</LI><LI><A HREF="cfitsio005.html#toc14">Support for Unsigned Integers and Signed Bytes</A>
+</LI><LI><A HREF="cfitsio005.html#toc15">Dealing with Character Strings</A>
+</LI><LI><A HREF="cfitsio005.html#toc16">Implicit Data Type Conversion</A>
+</LI><LI><A HREF="cfitsio005.html#toc17">Data Scaling</A>
+</LI><LI><A HREF="cfitsio005.html#toc18">Support for IEEE Special Values</A>
+</LI><LI><A HREF="cfitsio005.html#toc19">Error Status Values and the Error Message Stack</A>
+</LI><LI><A HREF="cfitsio005.html#toc20">Variable-Length Arrays in Binary Tables</A>
+</LI><LI><A HREF="cfitsio005.html#toc21">Multiple Access to the Same FITS File</A>
+</LI><LI><A HREF="cfitsio005.html#toc22">When the Final Size of the FITS HDU is Unknown</A>
+</LI><LI><A HREF="cfitsio005.html#toc23">CFITSIO Size Limitations</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio006.html">Basic CFITSIO Interface Routines </A>
+<UL>
+<LI><A HREF="cfitsio006.html#toc24">CFITSIO Error Status Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc25">FITS File Access Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc26">HDU Access Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc27">Header Keyword Read/Write Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc28">Primary Array or IMAGE Extension I/O Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc29">Image Compression</A>
+</LI><LI><A HREF="cfitsio006.html#toc30">ASCII and Binary Table Routines</A>
+</LI><LI><A HREF="cfitsio006.html#toc31">Utility Routines</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio007.html">The CFITSIO Iterator Function </A>
+<UL>
+<LI><A HREF="cfitsio007.html#toc32">The Iterator Work Function</A>
+</LI><LI><A HREF="cfitsio007.html#toc33">The Iterator Driver Function</A>
+</LI><LI><A HREF="cfitsio007.html#toc34">Guidelines for Using the Iterator Function</A>
+</LI><LI><A HREF="cfitsio007.html#toc35">Complete List of Iterator Routines</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio008.html">World Coordinate System Routines </A>
+<UL>
+<LI><A HREF="cfitsio008.html#toc36">Self-contained WCS Routines</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio009.html">Hierarchical Grouping Routines </A>
+<UL>
+<LI><A HREF="cfitsio009.html#toc37">Grouping Table Routines</A>
+</LI><LI><A HREF="cfitsio009.html#toc38">Group Member Routines</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio010.html">Specialized CFITSIO Interface Routines </A>
+<UL>
+<LI><A HREF="cfitsio010.html#toc39">FITS File Access Routines</A>
+</LI><LI><A HREF="cfitsio010.html#toc40">HDU Access Routines</A>
+</LI><LI><A HREF="cfitsio010.html#toc41">Specialized Header Keyword Routines</A>
+</LI><LI><A HREF="cfitsio010.html#toc42">Define Data Scaling and Undefined Pixel Parameters</A>
+</LI><LI><A HREF="cfitsio010.html#toc43">Specialized FITS Primary Array or IMAGE Extension I/O Routines</A>
+</LI><LI><A HREF="cfitsio010.html#toc44">Specialized FITS ASCII and Binary Table Routines</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio011.html">Extended File Name Syntax </A>
+<UL>
+<LI><A HREF="cfitsio011.html#toc45">Overview</A>
+</LI><LI><A HREF="cfitsio011.html#toc46">Filetype</A>
+</LI><LI><A HREF="cfitsio011.html#toc47">Base Filename</A>
+</LI><LI><A HREF="cfitsio011.html#toc48">Output File Name when Opening an Existing File</A>
+</LI><LI><A HREF="cfitsio011.html#toc49">Template File Name when Creating a New File</A>
+</LI><LI><A HREF="cfitsio011.html#toc50">Image Tile-Compression Specification</A>
+</LI><LI><A HREF="cfitsio011.html#toc51">HDU Location Specification</A>
+</LI><LI><A HREF="cfitsio011.html#toc52">Image Section</A>
+</LI><LI><A HREF="cfitsio011.html#toc53">Image Transform Filters</A>
+</LI><LI><A HREF="cfitsio011.html#toc54">Column and Keyword Filtering Specification</A>
+</LI><LI><A HREF="cfitsio011.html#toc55">Row Filtering Specification</A>
+</LI><LI><A HREF="cfitsio011.html#toc56">Binning or Histogramming Specification</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio012.html">Template Files </A>
+<UL>
+<LI><A HREF="cfitsio012.html#toc57">Detailed Template Line Format</A>
+</LI><LI><A HREF="cfitsio012.html#toc58">Auto-indexing of Keywords</A>
+</LI><LI><A HREF="cfitsio012.html#toc59">Template Parser Directives</A>
+</LI><LI><A HREF="cfitsio012.html#toc60">Formal Template Syntax</A>
+</LI><LI><A HREF="cfitsio012.html#toc61">Errors</A>
+</LI><LI><A HREF="cfitsio012.html#toc62">Examples</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio013.html">Local FITS Conventions </A>
+<UL>
+<LI><A HREF="cfitsio013.html#toc63">64-Bit Long Integers</A>
+</LI><LI><A HREF="cfitsio013.html#toc64">Long String Keyword Values.</A>
+</LI><LI><A HREF="cfitsio013.html#toc65">Arrays of Fixed-Length Strings in Binary Tables</A>
+</LI><LI><A HREF="cfitsio013.html#toc66">Keyword Units Strings</A>
+</LI><LI><A HREF="cfitsio013.html#toc67">HIERARCH Convention for Extended Keyword Names</A>
+</LI><LI><A HREF="cfitsio013.html#toc68">Tile-Compressed Image Format</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio014.html">Optimizing Programs </A>
+<UL>
+<LI><A HREF="cfitsio014.html#toc69">How CFITSIO Manages Data I/O</A>
+</LI><LI><A HREF="cfitsio014.html#toc70">Optimization Strategies</A>
+</LI></UL>
+</LI><LI><A HREF="cfitsio015.html">Index of Routines </A>
+</LI><LI><A HREF="cfitsio016.html">Parameter Definitions </A>
+</LI><LI><A HREF="cfitsio017.html">CFITSIO Error Status Codes </A>
+</LI></UL>
+<!--FOOTER-->
+<HR SIZE=2><BLOCKQUOTE CLASS="quote"><EM>This document was translated from L<sup>A</sup>T<sub>E</sub>X by
+</EM><A HREF="http://hevea.inria.fr/index.html"><EM>H</EM><EM><FONT SIZE=2><sup>E</sup></FONT></EM><EM>V</EM><EM><FONT SIZE=2><sup>E</sup></FONT></EM><EM>A</EM></A><EM>.</EM></BLOCKQUOTE></BODY>
+</HTML>

@@ -1,0 +1,21 @@
+Package: libcfitsio3-dbg
+Source: cfitsio3
+Version: 3.230-2
+Architecture: i386
+Maintainer: Aurelien Jarno <aurel32@debian.org>
+Installed-Size: 1812
+Depends: libcfitsio3 (= 3.230-2)
+Section: debug
+Priority: extra
+Description: library for I/O with FITS format data files (debugging symbols)
+ FITS (Flexible Image Transport System) is a data format most used in
+ astronomy. cfitsio is a library of ANSI C routines for reading and
+ writing FITS format data files.  A set of Fortran-callable wrapper
+ routines are also included for the convenience of Fortran
+ programmers.
+ .
+ This package contains unstripped shared libraries. it is provided
+ primarily to provide a backtrace with names in a debugger, this makes
+ it somewhat easier to interpret core dumps. The libraries are installed
+ in /usr/lib/debug and can be used by placing that directory in
+ LD_LIBRARY_PATH.

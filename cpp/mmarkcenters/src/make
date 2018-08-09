@@ -1,0 +1,7 @@
+make delete
+make ../bin/markcenters
+chmod a+x ../bin/markcenters
+rm ~/bin/markcenters
+cp -p ../bin/markcenters ~/bin/
+rm ~/stella/bin/markcenters
+ln -s ~/bin/markcenters ~/stella/bin/

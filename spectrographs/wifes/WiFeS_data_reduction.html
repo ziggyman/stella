@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html class="client-firefox client-firefox-3 client-gecko client-linux" dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<meta charset="UTF-8">
+<title>WiFeS data reduction - Siding Spring Observatory Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0">
+<link rel="shortcut icon" href="http://msowww.anu.edu.au/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://msowww.anu.edu.au/observing/ssowiki/opensearch_desc.php" title="Siding Spring Observatory Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://msowww.anu.edu.au/observing/ssowiki/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="Siding Spring Observatory Wiki Atom feed" href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="WiFeS_data_reduction_files/load.css">
+<link rel="stylesheet" href="WiFeS_data_reduction_files/main.css" media="screen">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/observing/ssowiki/skins/monobook/IE50Fixes.css?301" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/observing/ssowiki/skins/monobook/IE55Fixes.css?301" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/observing/ssowiki/skins/monobook/IE60Fixes.css?301" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/observing/ssowiki/skins/monobook/IE70Fixes.css?301" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="">
+</head><body class="mediawiki ltr ns-0 ns-subject page-WiFeS_data_reduction skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">WiFeS data reduction</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From Siding Spring Observatory Wiki</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p><br>
+</p>
+<h2> <span class="mw-headline" id="WiFeS_IRAF_package"> WiFeS IRAF package </span></h2>
+<p><b>PLEASE NOTE: The WiFeS IRAF package is NOT being officially 
+developed, updated or supported by RSAA. There are a number of users who
+ are using it and have been making their own improvements. Some of these
+ users can be contacted by emailing the WiFeS users mailing list: <a href="mailto:wifes-users@mso.anu.edu.au" class="external text" rel="nofollow">wifes-users@mso.anu.edu.au</a>,
+ which is used for sharing information and problems regarding WiFeS use,
+ data and data reduction. Please send requests to join or leave this 
+mailing list to <a href="mailto:sysman@mso.anu.edu.au" class="external text" rel="nofollow">sysman@mso.anu.edu.au</a>. There is an email archive for the WiFeS users' list <a href="http://www.mso.anu.edu.au/hypermail/wifes-users/" class="external text" rel="nofollow">here</a>. </b>
+</p><p>The WiFeS data reduction package is an external IRAF package, which is based on and utilises the Gemini Observatory’s  <a href="http://www.gemini.edu/sciops/data-and-results/processing-software" class="external text" rel="nofollow">Gemini IRAF package</a>. 
+</p><p>To use the WiFeS package, then, you need a recent IRAF 
+installation (the package has been tested with version 2.14.1), and the 
+Gemini package (wifes has been tested with versions 1.9 and 1.10), which
+ has its own prerequisites, as described on the Gemini Observatory web 
+pages. Note that unlike the latest version of the Gemini package, the 
+WiFeS package is not PyRAF-friendly.
+</p><p>A version of the WiFeS IRAF package is available here: <a href="http://www.mso.anu.edu.au/%7Ecfarage/ftp/wifes_package/" class="external text" rel="nofollow">WiFeS package files</a>
+The file <a href="http://www.mso.anu.edu.au/%7Ecfarage/ftp/wifes_package/wifes.tar.gz" class="external text" rel="nofollow">wifes.tar.gz</a>
+ (~360MB; updated Feb 2011) contains the IRAF package scripts and data 
+files that are installed in the same way as a typical external IRAF 
+package. The README file in this package (and found on the ftp page) has
+ instructions for installing and updating the scripts.
+</p><p>PLEASE NOTE the following known limitations:
+</p>
+<ul><li> The atmospheric refraction correction routines in this version of the package do not work on some systems (e.g. Mac). 
+</li><li> The scripts have not been fully tested with data obtained with
+ the 'stellar'/'half-frame' readout mode, or the fast readout mode for 
+the red camera where the full frame is readout using only two 
+amplifiers. Check the results and output carefully when reducing data in
+ these formats.
+</li></ul>
+<p>A draft data reduction manual exists, but it does not incorporate 
+recent changes in the version of the package available above. In 
+particular, it does not include descriptions of the several methods that
+ have been added to attempt to remove the bias level and shape from 
+WiFeS data and care must be taken to make sure that 
+However, it describes how to install the WiFeS IRAF package and contains
+ basic information about the processing tasks and how to use the WiFeS 
+scripts:
+<a href="http://www.mso.anu.edu.au/%7Ecfarage/ftp/wifes_package/WiFeS_data_reduction.pdf" class="external text" rel="nofollow">Draft user's manual</a>.
+</p><p>An example set of (very old) calibration files (e.g. for 
+quick-look reduction) is also provided as a separate tar file for 
+download (~1GB): <a href="http://www.mso.anu.edu.au/%7Ecfarage/ftp/wifes_package/wifes_cal.tar.gz" class="external text" rel="nofollow">wifes_cal.tar.gz</a>.
+When extracted, the move the calibration files into the '/cal' directory inside the top 'wifes/' directory of the package tree
+</p>
+<h2> <span class="mw-headline" id="Wavelength_calibration_data"> Wavelength calibration data </span></h2>
+<p>The available arc lamp line lists are found in the data/ directory of
+ the WiFeS IRAF package. References solutions are provided in package 
+(cal/ directory inside the package) for some combinations of arc lamp 
+and instrument configuration (grating and dichroic settings). There are 
+also a number of reference data provided in cal/linelists, including 
+plots of spectra with labelled arc lines. Some examples are provided 
+below.
+</p><p>CuAr arc:
+</p>
+<ul><li> R3000/RT560: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:R3000_CuAr_spectrum.pdf" title="File:R3000 CuAr spectrum.pdf">File:R3000 CuAr spectrum.pdf</a>
+</li><li> B3000/RT560: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:B3000_CuAr_spectrum.pdf" title="File:B3000 CuAr spectrum.pdf">File:B3000 CuAr spectrum.pdf</a>
+</li></ul>
+<p>The NeAr lamp in the WiFeS calibration unit was replaced in August 
+2009 with a new lamp that now contains some Fe emission lines in 
+addition to Ne and Ar. Here is a line list kindly identified and 
+provided by Mike Bessell: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:FeArNe.txt" title="File:FeArNe.txt">File:FeArNe.txt</a>.
+ The data reduction package includes reference solutions for this lamp 
+with the standard combinations of grating and dichroic (as of 
+31-10-2009).
+</p><p>(Fe)NeAr arc:
+</p>
+<ul><li> U7000/RT480: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:U7000_FeNeAr_spectrum.pdf" title="File:U7000 FeNeAr spectrum.pdf">File:U7000 FeNeAr spectrum.pdf</a>
+</li><li> B7000/RT615: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:B7000_FeNeAr_spectrum.pdf" title="File:B7000 FeNeAr spectrum.pdf">File:B7000 FeNeAr spectrum.pdf</a>
+</li><li> R7000/RT480: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:R7000_FeNeAr_spectrum.pdf" title="File:R7000 FeNeAr spectrum.pdf">File:R7000 FeNeAr spectrum.pdf</a>
+</li><li> I7000/RT615: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:I7000_FeNeAr_spectrum.pdf" title="File:I7000 FeNeAr spectrum.pdf">File:I7000 FeNeAr spectrum.pdf</a>
+</li></ul>
+<p><br>
+Fe-Ar Line List: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:WiFeS-Fe-Ar-lines.txt" title="File:WiFeS-Fe-Ar-lines.txt">File:WiFeS-Fe-Ar-lines.txt</a>
+</p><p>Sky spectrum, R3000 grating: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:R3000_sky_spectrum.pdf" title="File:R3000 sky spectrum.pdf">File:R3000 sky spectrum.pdf</a>;  sky line list: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:R3000_sky_linelist.txt" title="File:R3000 sky linelist.txt">File:R3000 sky linelist.txt</a>
+</p><p>OH night sky lines List: <a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/File:WiFeS-OH-lines.txt" title="File:WiFeS-OH-lines.txt">File:WiFeS-OH-lines.txt</a>
+</p><p><br>
+</p>
+<hr>
+<p>In the first instance, refer to the WiFeS observer's manual, which is available for download as a .pdf. 
+For any other relevant comments you would like to be included, please add them here. (Mike Dopita)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 7/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:1566-0!*!0!!*!2!edit=0 and timestamp 20111220031128 -->
+<div class="printfooter">
+Retrieved from "<a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/WiFeS_data_reduction">http://msowww.anu.edu.au/observing/ssowiki/index.php/WiFeS_data_reduction</a>"</div>
+		<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:Categories" title="Special:Categories">Category</a>: <span dir="ltr"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Category:WiFeS" title="Category:WiFeS">WiFeS</a></span></div></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/WiFeS_data_reduction" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=Talk:WiFeS_data_reduction&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=WiFeS_data_reduction&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=WiFeS_data_reduction&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=Special:UserLogin&amp;returnto=WiFeS_data_reduction" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(&quot;/observing/ssowiki/images/logo.png&quot;);" href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-recentchanges"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-2.3m">
+		<h5>2.3m</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-WiFeS"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/2.3m_WiFeS">WiFeS</a></li>
+				<li id="n-Imager"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/2.3m_Imager">Imager</a></li>
+				<li id="n-Echelle"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/2.3m_Echelle">Echelle</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Archive">
+		<h5>Archive</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-DBS"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/2.3m_DBS">DBS</a></li>
+				<li id="n-CASPIR"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/2.3m_CASPIR">CASPIR</a></li>
+				<li id="n-WFI"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/40inch_WFI">WFI</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/observing/ssowiki/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" title="Search Siding Spring Observatory Wiki" accesskey="f" name="search" type="search">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:WhatLinksHere/WiFeS_data_reduction" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:RecentChangesLinked/WiFeS_data_reduction" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=WiFeS_data_reduction&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php?title=WiFeS_data_reduction&amp;oldid=2604" title="Permanent link to this revision of the page">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="WiFeS_data_reduction_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 28 April 2011, at 00:11.</li>
+		<li id="viewcount">This page has been accessed 2,213 times.</li>
+		<li id="privacy"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Siding_Spring_Observatory_Wiki:Privacy_policy" title="Siding Spring Observatory Wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Siding_Spring_Observatory_Wiki:About" title="Siding Spring Observatory Wiki:About">About Siding Spring Observatory Wiki</a></li>
+		<li id="disclaimer"><a href="http://msowww.anu.edu.au/observing/ssowiki/index.php/Siding_Spring_Observatory_Wiki:General_disclaimer" title="Siding Spring Observatory Wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+
+<script src="WiFeS_data_reduction_files/load_002.php"></script><script src="WiFeS_data_reduction_files/load.php"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "WiFeS_data_reduction", "wgTitle": "WiFeS data reduction", "wgAction": "view", "wgArticleId": 1566, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 2604, "wgCategories": ["WiFeS"], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script><script type="text/javascript" src="WiFeS_data_reduction_files/load_003.php"></script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script><!-- Served in 0.435 secs. --></body></html>

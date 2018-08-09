@@ -1,0 +1,7 @@
+make delete
+make ../bin/extract
+chmod a+x ../bin/extract
+rm ~/bin/extract
+cp -p ../bin/extract ~/bin/
+rm ~/stella/bin/extract
+ln -s ~/bin/extract ~/stella/bin/

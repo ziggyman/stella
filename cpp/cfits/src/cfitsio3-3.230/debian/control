@@ -1,0 +1,77 @@
+Source: cfitsio3
+Section: devel
+Priority: optional
+Maintainer: Aurelien Jarno <aurel32@debian.org>
+Build-Depends: debhelper (>= 5), quilt, hevea, texlive, gfortran
+Standards-Version: 3.8.3
+
+Package: libcfitsio3-dev
+Section: libdevel
+Architecture: any
+Provides: cfitsio-dev
+Conflicts: cfitsio-dev
+Replaces: cfitsio-dev
+Depends: libcfitsio3 (= ${binary:Version}), ${misc:Depends}
+Description: static library for I/O with FITS format data files
+ FITS (Flexible Image Transport System) is a data format most used in
+ astronomy. cfitsio is a library of ANSI C routines for reading and
+ writing FITS format data files.  A set of Fortran-callable wrapper
+ routines are also included for the convenience of Fortran
+ programmers.
+ .
+ This package contains what you need for compiling sources that
+ use this library in your own code. It also contains example source 
+ files that demonstrate the use of cfitsio.
+
+Package: libcfitsio3-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: libcfitsio3 (= ${binary:Version}), ${misc:Depends}
+Description: library for I/O with FITS format data files (debugging symbols)
+ FITS (Flexible Image Transport System) is a data format most used in
+ astronomy. cfitsio is a library of ANSI C routines for reading and
+ writing FITS format data files.  A set of Fortran-callable wrapper
+ routines are also included for the convenience of Fortran
+ programmers.
+ .
+ This package contains unstripped shared libraries. it is provided
+ primarily to provide a backtrace with names in a debugger, this makes
+ it somewhat easier to interpret core dumps. The libraries are installed
+ in /usr/lib/debug and can be used by placing that directory in
+ LD_LIBRARY_PATH.
+
+Package: libcfitsio3
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: cfitsio3
+Conflicts: cfitsio3
+Replaces: cfitsio3
+Description: shared library for I/O with FITS format data files
+ FITS (Flexible Image Transport System) is a data format most used in
+ astronomy. cfitsio is a library of ANSI C routines for reading and
+ writing FITS format data files.  A set of Fortran-callable wrapper
+ routines are also included for the convenience of Fortran
+ programmers.
+ .
+ This package contains what you need to run programs that use this
+ library.
+
+Package: libcfitsio3-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Suggests: libcfitsio-dev
+Provides: cfitsio-doc
+Conflicts: cfitsio-doc
+Replaces: cfitsio-doc
+Description: documentation for cfitsio
+ FITS (Flexible Image Transport System) is a data format most used in
+ astronomy. cfitsio is a library of ANSI C routines for reading and
+ writing FITS format data files.  A set of Fortran-callable wrapper
+ routines are also included for the convenience of Fortran
+ programmers.
+ .
+ This package contains the CFITSIO User's Guide and QuickStart Guide
+ in html, postscript and text formats, and contains documentation on
+ how to use the library in your programs.

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="cfitsio.css">
+<TITLE>World Coordinate System Routines </TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfitsio007.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio009.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc57">Chapter&#XA0;7</A>&#XA0;&#XA0; World Coordinate System Routines </H1><P>The FITS community has adopted a set of keyword conventions that define
+the transformations needed to convert between pixel locations in an
+image and the corresponding celestial coordinates on the sky, or more
+generally, that define world coordinates that are to be associated with
+any pixel location in an n-dimensional FITS array. CFITSIO is distributed
+with a a few self-contained World Coordinate System (WCS) routines,
+however, these routines DO NOT support all the latest WCS conventions,
+so it is STRONGLY RECOMMENDED that software developers use a more robust
+external WCS library. Several recommended libraries are:</P><PRE CLASS="verbatim">  WCSLIB -  supported by Mark Calabretta
+  WCSTools - supported by Doug Mink
+  AST library - developed by the U.K. Starlink project
+</PRE><P>More information about the WCS keyword conventions and links to all of
+these WCS libraries can be found on the FITS Support Office web site at
+http://fits.gsfc.nasa.gov under the WCS link.</P><P>The functions provided in these external WCS libraries will need
+access to the WCS keywords contained in the FITS file headers.
+One convenient way to pass this information to the external library is
+to use the fits_hdr2str routine in CFITSIO (defined below) to copy the
+header keywords into one long string, and then pass this string to an
+interface routine in the external library that will extract
+the necessary WCS information (e.g., the &#X2019;wcspih&#X2019; routine in the WCSLIB
+library and the &#X2019;astFitsChan&#X2019; and &#X2019;astPutCards&#X2019; functions in the AST
+library).</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Concatenate the header keywords in the CHDU into a single long
+string of characters. Each 80-character fixed-length keyword
+record is appended to the output character string, in order, with
+no intervening separator or terminating characters. The last header
+record is terminated with a NULL character. This routine allocates
+memory for the returned character array, so the calling program must
+free the memory when finished.<P>Selected keywords may be excluded from the returned character string.
+If the second parameter (nocomments) is TRUE (nonzero) then any
+COMMENT, HISTORY, or blank keywords in the header will not be copied
+to the output string.</P><P>The &#X2019;exclist&#X2019; parameter may be used to supply a list of keywords
+that are to be excluded from the output character string. Wild card
+characters (*, ?, and #) may be used in the excluded keyword names.
+If no additional keywords are to be excluded, then set nexc = 0 and
+specify NULL for the the **header parameter. <A NAME="hdr2str"></A>
+</P></DD></DL><PRE CLASS="verbatim">  int fits_hdr2str
+      (fitsfile *fptr, int nocomments, char **exclist, int nexc,
+      &gt; char **header, int *nkeys, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> The following CFITSIO routine is specifically designed for use
+in conjunction with the WCSLIB library. It is not expected that
+applications programmers will call this routine directly, but it
+is documented here for completeness. This routine extracts arrays
+from a binary table that contain WCS information using the -TAB table
+lookup convention. See the documentation provided with the WCSLIB
+library for more information. <A NAME="wcstab"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_wcstab
+       (fitsfile *fptr, int nwtb, wtbarr *wtb, int *status);
+</PRE><H2 CLASS="section"><A NAME="toc36"></A><A NAME="htoc58">7.1</A>&#XA0;&#XA0; Self-contained WCS Routines</H2><P>The following routines DO NOT support the more recent WCS conventions
+that have been approved as part of the FITS standard. Consequently,
+the following routines ARE NOW DEPRECATED. It is STRONGLY RECOMMENDED
+that software developers not use these routines, and instead use an
+external WCS library, as described in the previous section.</P><P>These routines are included mainly for backward compatibility with
+existing software. They support the following standard map
+projections: -SIN, -TAN, -ARC, -NCP, -GLS, -MER, and -AIT (these are the
+legal values for the coordtype parameter). These routines are based
+on similar functions in Classic AIPS. All the angular quantities are
+given in units of degrees.</P><DL CLASS="description"><DT CLASS="dt-description">
+<B>1 </B></DT><DD CLASS="dd-description"> Get the values of the basic set of standard FITS celestial coordinate
+system keywords from the header of a FITS image (i.e., the primary
+array or an IMAGE extension). These values may then be passed to
+the fits_pix_to_world and fits_world_to_pix routines that
+perform the coordinate transformations. If any or all of the WCS
+keywords are not present, then default values will be returned. If
+the first coordinate axis is the declination-like coordinate, then
+this routine will swap them so that the longitudinal-like coordinate
+is returned as the first axis.<P>If the file uses the newer &#X2019;CDj_i&#X2019; WCS transformation matrix
+keywords instead of old style &#X2019;CDELTn&#X2019; and &#X2019;CROTA2&#X2019; keywords, then
+this routine will calculate and return the values of the equivalent
+old-style keywords. Note that the conversion from the new-style
+keywords to the old-style values is sometimes only an
+approximation, so if the approximation is larger than an internally
+defined threshold level, then CFITSIO will still return the
+approximate WCS keyword values, but will also return with status =
+APPROX_WCS_KEY, to warn the calling program that approximations
+have been made. It is then up to the calling program to decide
+whether the approximations are sufficiently accurate for the
+particular application, or whether more precise WCS transformations
+must be performed using new-style WCS keywords directly. <A NAME="ffgics"></A>
+</P></DD></DL><PRE CLASS="verbatim">  int fits_read_img_coord / ffgics
+      (fitsfile *fptr, &gt; double *xrefval, double *yrefval,
+       double *xrefpix, double *yrefpix, double *xinc, double *yinc,
+       double *rot, char *coordtype, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>2 </B></DT><DD CLASS="dd-description"> Get the values of the standard FITS celestial coordinate system
+keywords from the header of a FITS table where the X and Y (or RA
+and DEC) coordinates are stored in 2 separate columns of the table
+(as in the Event List table format that is often used by high energy
+astrophysics missions). These values may then be passed to the
+fits_pix_to_world and fits_world_to_pix routines that perform
+the coordinate transformations. <A NAME="ffgtcs"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_read_tbl_coord / ffgtcs
+      (fitsfile *fptr, int xcol, int ycol, &gt; double *xrefval,
+       double *yrefval, double *xrefpix, double *yrefpix, double *xinc,
+       double *yinc, double *rot, char *coordtype, int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>3 </B></DT><DD CLASS="dd-description"> Calculate the celestial coordinate corresponding to the input
+X and Y pixel location in the image. <A NAME="ffwldp"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_pix_to_world / ffwldp
+      (double xpix, double ypix, double xrefval, double yrefval,
+       double xrefpix, double yrefpix, double xinc, double yinc,
+       double rot, char *coordtype, &gt; double *xpos, double *ypos,
+       int *status)
+</PRE><DL CLASS="description"><DT CLASS="dt-description">
+<B>4 </B></DT><DD CLASS="dd-description"> Calculate the X and Y pixel location corresponding to the input
+celestial coordinate in the image. <A NAME="ffxypx"></A>
+</DD></DL><PRE CLASS="verbatim">  int fits_world_to_pix / ffxypx
+      (double xpos, double ypos, double xrefval, double yrefval,
+       double xrefpix, double yrefpix, double xinc, double yinc,
+       double rot, char *coordtype, &gt; double *xpix, double *ypix,
+       int *status)
+</PRE><HR>
+<A HREF="cfitsio007.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfitsio009.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

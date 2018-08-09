@@ -1,0 +1,7 @@
+make delete
+make ../bin/makeprofile
+chmod a+x ../bin/makeprofile
+rm ~/bin/makeprofile
+cp -p ../bin/makeprofile ~/bin/
+rm ~/stella/bin/makeprofile
+ln -s ~/bin/makeprofile ~/stella/bin/

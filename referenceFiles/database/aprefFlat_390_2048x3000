@@ -1,0 +1,1131 @@
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 1 18.58815 1500.
+	image	refFlat_390_2048x3000
+	aperture	1
+	beam	1
+	center	18.58815 1500.
+	low	-17.12304 -1499.
+	high	16.34859 1500.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		2.946646
+		-48.31697
+		4.773739
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 2 55.76962 1500.
+	image	refFlat_390_2048x3000
+	aperture	2
+	beam	2
+	center	55.76962 1500.
+	low	-16.44468 -1499.
+	high	16.97147 1500.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		1.591784
+		-51.82532
+		1.818665
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 3 94.35631 1500.
+	image	refFlat_390_2048x3000
+	aperture	3
+	beam	3
+	center	94.35631 1500.
+	low	-16.62581 -1499.
+	high	16.66452 1500.
+	background
+		xmin -10.
+		xmax 10.
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		1.350817
+		-52.48871
+		1.805887
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 4 133.8326 1500.
+	image	refFlat_390_2048x3000
+	aperture	4
+	beam	4
+	center	133.8326 1500.
+	low	-20.67291 -1499.
+	high	12.52423 1500.
+	background
+		xmin -17.13436
+		xmax 15.80139
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		0.7040924
+		-52.65905
+		1.506415
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 5 175.0345 1500.
+	image	refFlat_390_2048x3000
+	aperture	5
+	beam	5
+	center	175.0345 1500.
+	low	-18.96506 -1499.
+	high	14.21324 1500.
+	background
+		xmin -17.13436
+		xmax 15.80139
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-1.062577
+		-53.03132
+		1.429099
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 6 215.0884 1500.
+	image	refFlat_390_2048x3000
+	aperture	6
+	beam	6
+	center	215.0884 1500.
+	low	-18.19004 -1499.
+	high	14.91718 1500.
+	background
+		xmin -17.13436
+		xmax 15.80139
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.9891271
+		-53.25314
+		1.321527
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 7 255.0535 1500.
+	image	refFlat_390_2048x3000
+	aperture	7
+	beam	7
+	center	255.0535 1500.
+	low	-17.9734 -1499.
+	high	15.0736 1500.
+	background
+		xmin -17.13436
+		xmax 15.80139
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.3103934
+		-53.82745
+		0.8749903
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 8 296.7197 1500.
+	image	refFlat_390_2048x3000
+	aperture	8
+	beam	8
+	center	296.7197 1500.
+	low	-17.75206 -1499.
+	high	15.26924 1500.
+	background
+		xmin -17.13436
+		xmax 15.80139
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.6026427
+		-54.06948
+		0.7792527
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 9 338.1485 1500.
+	image	refFlat_390_2048x3000
+	aperture	9
+	beam	9
+	center	338.1485 1500.
+	low	-17.51244 -1499.
+	high	15.45718 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.08497199
+		-54.45658
+		0.6237499
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 10 380.8174 1500.
+	image	refFlat_390_2048x3000
+	aperture	10
+	beam	10
+	center	380.8174 1500.
+	low	-17.19887 -1499.
+	high	15.74056 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.1013446
+		-54.80761
+		0.5906156
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 11 423.8905 1500.
+	image	refFlat_390_2048x3000
+	aperture	11
+	beam	11
+	center	423.8905 1500.
+	low	-17.09138 -1499.
+	high	15.79261 1500.
+	background
+		xmin -17.03238
+		xmax 15.87913
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		0.09119202
+		-55.28953
+		0.3360763
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 12 468.0799 1500.
+	image	refFlat_390_2048x3000
+	aperture	12
+	beam	12
+	center	468.0799 1500.
+	low	-16.99105 -1499.
+	high	15.89915 1500.
+	background
+		xmin -17.03238
+		xmax 15.87913
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.07552197
+		-55.6173
+		0.2433061
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 13 512.6848 1500.
+	image	refFlat_390_2048x3000
+	aperture	13
+	beam	13
+	center	512.6848 1500.
+	low	-16.90655 -1499.
+	high	15.96326 1500.
+	background
+		xmin -17.03238
+		xmax 15.87913
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		0.03278251
+		-55.94216
+		0.1658259
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 14 558.1046 1500.
+	image	refFlat_390_2048x3000
+	aperture	14
+	beam	14
+	center	558.1046 1500.
+	low	-16.834 -1499.
+	high	15.99983 1500.
+	background
+		xmin -17.03238
+		xmax 15.87913
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		0.05833774
+		-56.30365
+		0.1384251
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 15 604.3506 1500.
+	image	refFlat_390_2048x3000
+	aperture	15
+	beam	15
+	center	604.3506 1500.
+	low	-16.81192 -1499.
+	high	16.00694 1500.
+	background
+		xmin -17.03238
+		xmax 15.87913
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.01563388
+		-56.65732
+		0.04958272
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 16 651.2679 1500.
+	image	refFlat_390_2048x3000
+	aperture	16
+	beam	16
+	center	651.2679 1500.
+	low	-16.81408 -1499.
+	high	16.01629 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.02226509
+		-57.04533
+		-0.0420196
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 17 698.9319 1500.
+	image	refFlat_390_2048x3000
+	aperture	17
+	beam	17
+	center	698.9319 1500.
+	low	-16.76519 -1499.
+	high	15.99107 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.02887837
+		-57.39462
+		-0.0564606
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 18 747.4543 1500.
+	image	refFlat_390_2048x3000
+	aperture	18
+	beam	18
+	center	747.4543 1500.
+	low	-16.78347 -1499.
+	high	16.01958 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.1184493
+		-57.81705
+		-0.2180672
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 19 796.7802 1500.
+	image	refFlat_390_2048x3000
+	aperture	19
+	beam	19
+	center	796.7802 1500.
+	low	-16.73256 -1499.
+	high	16.00437 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.2095356
+		-58.24048
+		-0.3141577
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 20 846.8977 1500.
+	image	refFlat_390_2048x3000
+	aperture	20
+	beam	20
+	center	846.8977 1500.
+	low	-16.7227 -1499.
+	high	15.99176 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.2772221
+		-58.64582
+		-0.3847061
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 21 897.8568 1500.
+	image	refFlat_390_2048x3000
+	aperture	21
+	beam	21
+	center	897.8568 1500.
+	low	-16.69935 -1499.
+	high	15.99223 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.3313707
+		-59.03419
+		-0.5249005
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 22 949.6494 1500.
+	image	refFlat_390_2048x3000
+	aperture	22
+	beam	22
+	center	949.6494 1500.
+	low	-16.71819 -1499.
+	high	15.98202 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.359383
+		-59.42695
+		-0.5548095
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 23 1002.268 1500.
+	image	refFlat_390_2048x3000
+	aperture	23
+	beam	23
+	center	1002.268 1500.
+	low	-16.71764 -1499.
+	high	15.9984 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.3594718
+		-59.86749
+		-0.6467614
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 24 1055.905 1500.
+	image	refFlat_390_2048x3000
+	aperture	24
+	beam	24
+	center	1055.905 1500.
+	low	-16.67058 -1499.
+	high	15.97691 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.4719115
+		-60.26789
+		-0.8133686
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 25 1110.368 1500.
+	image	refFlat_390_2048x3000
+	aperture	25
+	beam	25
+	center	1110.368 1500.
+	low	-16.68323 -1499.
+	high	16.00015 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.5174873
+		-60.66217
+		-0.8899179
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 26 1165.749 1500.
+	image	refFlat_390_2048x3000
+	aperture	26
+	beam	26
+	center	1165.749 1500.
+	low	-16.6438 -1499.
+	high	15.97379 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.5502839
+		-61.08522
+		-0.9524817
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 27 1222.132 1500.
+	image	refFlat_390_2048x3000
+	aperture	27
+	beam	27
+	center	1222.132 1500.
+	low	-16.64186 -1499.
+	high	15.98998 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.6233011
+		-61.52906
+		-1.083636
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 28 1279.481 1500.
+	image	refFlat_390_2048x3000
+	aperture	28
+	beam	28
+	center	1279.481 1500.
+	low	-16.64287 -1499.
+	high	15.99361 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.6861725
+		-61.97397
+		-1.164136
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 29 1337.797 1500.
+	image	refFlat_390_2048x3000
+	aperture	29
+	beam	29
+	center	1337.797 1500.
+	low	-16.6061 -1499.
+	high	15.95848 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.6901614
+		-62.42862
+		-1.28184
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 30 1397.19 1500.
+	image	refFlat_390_2048x3000
+	aperture	30
+	beam	30
+	center	1397.19 1500.
+	low	-16.62132 -1499.
+	high	15.96698 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.7258469
+		-62.88167
+		-1.418273
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 31 1457.622 1500.
+	image	refFlat_390_2048x3000
+	aperture	31
+	beam	31
+	center	1457.622 1500.
+	low	-16.60475 -1499.
+	high	15.94568 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.7668432
+		-63.31043
+		-1.576483
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 32 1519.132 1500.
+	image	refFlat_390_2048x3000
+	aperture	32
+	beam	32
+	center	1519.132 1500.
+	low	-16.59307 -1499.
+	high	15.95372 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.857623
+		-63.73689
+		-1.647177
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 33 1581.727 1500.
+	image	refFlat_390_2048x3000
+	aperture	33
+	beam	33
+	center	1581.727 1500.
+	low	-16.57748 -1499.
+	high	15.92146 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.8950891
+		-64.27568
+		-1.776349
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 34 1645.482 1500.
+	image	refFlat_390_2048x3000
+	aperture	34
+	beam	34
+	center	1645.482 1500.
+	low	-16.61893 -1499.
+	high	15.9002 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.8654563
+		-64.79051
+		-1.894089
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 35 1710.402 1500.
+	image	refFlat_390_2048x3000
+	aperture	35
+	beam	35
+	center	1710.402 1500.
+	low	-16.65691 -1499.
+	high	15.84923 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.8003772
+		-65.22935
+		-2.102283
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 36 1776.487 1500.
+	image	refFlat_390_2048x3000
+	aperture	36
+	beam	36
+	center	1776.487 1500.
+	low	-16.66266 -1499.
+	high	15.8287 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.8611566
+		-65.45721
+		-2.275416
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 37 1843.71 1500.
+	image	refFlat_390_2048x3000
+	aperture	37
+	beam	37
+	center	1843.71 1500.
+	low	-16.59394 -1499.
+	high	15.83038 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-1.023351
+		-65.94253
+		-2.211833
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 38 1912.257 1500.
+	image	refFlat_390_2048x3000
+	aperture	38
+	beam	38
+	center	1912.257 1500.
+	low	-16.63112 -1499.
+	high	15.79405 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-1.116244
+		-66.6217
+		-2.494048
+
+# Sun 21:22:57 30-Mar-2003
+begin	aperture refFlat_390_2048x3000 39 1982.154 1500.
+	image	refFlat_390_2048x3000
+	aperture	39
+	beam	39
+	center	1982.154 1500.
+	low	-16.64537 -1499.
+	high	15.72821 1500.
+	background
+		xmin -18.3134
+		xmax 14.74589
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 2
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	1
+	curve	7
+		2.
+		3.
+		1.
+		3000.
+		-0.98439
+		-67.28795
+		-2.651245
+

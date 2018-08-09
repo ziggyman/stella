@@ -1,0 +1,7 @@
+make delete
+make ../bin/shiftaps
+chmod a+x ../bin/shiftaps
+rm ~/bin/shiftaps
+cp -p ../bin/shiftaps ~/bin/
+rm ~/stella/bin/shiftaps
+ln -s ~/bin/shiftaps ~/stella/bin/

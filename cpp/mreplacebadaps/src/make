@@ -1,0 +1,7 @@
+make delete
+make ../bin/replacebadaps
+chmod a+x ../bin/replacebadaps
+rm ~/bin/replacebadaps
+cp -p ../bin/replacebadaps ~/bin/
+rm ~/stella/bin/replacebadaps
+ln -s ~/bin/replacebadaps ~/stella/bin/

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<META name="GENERATOR" content="hevea 1.10">
+<LINK rel="stylesheet" type="text/css" href="fitsio.css">
+<TITLE>Template Files </TITLE>
+</HEAD>
+<BODY >
+<A HREF="fitsio009.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio011.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+<HR>
+<H1 CLASS="chapter"><A NAME="htoc83">Chapter&#XA0;9</A>&#XA0;&#XA0;Template Files </H1><P>When a new FITS file is created with a call to fits_create_file, the
+name of a template file may be supplied in parentheses immediately
+following the name of the new file to be created. This template is
+used to define the structure of one or more HDUs in the new file. The
+template file may be another FITS file, in which case the newly created
+file will have exactly the same keywords in each HDU as in the template
+FITS file, but all the data units will be filled with zeros. The
+template file may also be an ASCII text file, where each line (in
+general) describes one FITS keyword record. The format of the ASCII
+template file is described in the following sections.</P><H2 CLASS="section"><A NAME="toc49"></A><A NAME="htoc84">9.1</A>&#XA0;&#XA0;Detailed Template Line Format</H2><P>The format of each ASCII template line closely follows the format of a
+FITS keyword record:</P><PRE CLASS="verbatim">  KEYWORD = KEYVALUE / COMMENT
+</PRE><P>except that free format may be used (e.g., the equals sign may appear
+at any position in the line) and TAB characters are allowed and are
+treated the same as space characters. The KEYVALUE and COMMENT fields
+are optional. The equals sign character is also optional, but it is
+recommended that it be included for clarity. Any template line that
+begins with the pound &#X2019;#&#X2019; character is ignored by the template parser
+and may be use to insert comments into the template file itself.</P><P>The KEYWORD name field is limited to 8 characters in length and only
+the letters A-Z, digits 0-9, and the hyphen and underscore characters
+may be used, without any embedded spaces. Lowercase letters in the
+template keyword name will be converted to uppercase. Leading spaces
+in the template line preceding the keyword name are generally ignored,
+except if the first 8 characters of a template line are all blank, then
+the entire line is treated as a FITS comment keyword (with a blank
+keyword name) and is copied verbatim into the FITS header.</P><P>The KEYVALUE field may have any allowed FITS data type: character
+string, logical, integer, real, complex integer, or complex real. The
+character string values need not be enclosed in single quote characters
+unless they are necessary to distinguish the string from a different
+data type (e.g. 2.0 is a real but &#X2019;2.0&#X2019; is a string). The keyword has
+an undefined (null) value if the template record only contains blanks
+following the "=" or between the "=" and the "/" comment field
+delimiter.</P><P>String keyword values longer than 68 characters (the maximum length
+that will fit in a single FITS keyword record) are permitted using the
+CFITSIO long string convention. They can either be specified as a
+single long line in the template, or by using multiple lines where the
+continuing lines contain the &#X2019;CONTINUE&#X2019; keyword, as in this example:</P><PRE CLASS="verbatim">  LONGKEY = 'This is a long string value that is contin&amp;'
+  CONTINUE  'ued over 2 records' / comment field goes here
+</PRE><P>The format of template lines with CONTINUE keyword is very strict: 3
+spaces must follow CONTINUE and the rest of the line is copied verbatim
+to the FITS file.</P><P>The start of the optional COMMENT field must be preceded by "/", which
+is used to separate it from the keyword value field. Exceptions are if
+the KEYWORD name field contains COMMENT, HISTORY, CONTINUE, or if the
+first 8 characters of the template line are blanks.</P><P>More than one Header-Data Unit (HDU) may be defined in the template
+file. The start of an HDU definition is denoted with a SIMPLE or
+XTENSION template line:</P><P>1) SIMPLE begins a Primary HDU definition. SIMPLE may only appear as
+the first keyword in the template file. If the template file begins
+with XTENSION instead of SIMPLE, then a default empty Primary HDU is
+created, and the template is then assumed to define the keywords
+starting with the first extension following the Primary HDU.</P><P>2) XTENSION marks the beginning of a new extension HDU definition. The
+previous HDU will be closed at this point and processing of the next
+extension begins.</P><H2 CLASS="section"><A NAME="toc50"></A><A NAME="htoc85">9.2</A>&#XA0;&#XA0;Auto-indexing of Keywords</H2><P>If a template keyword name ends with a "#" character, it is said to be
+&#X2019;auto-indexed&#X2019;. Each "#" character will be replaced by the current
+integer index value, which gets reset = 1 at the start of each new HDU
+in the file (or 7 in the special case of a GROUP definition). The
+FIRST indexed keyword in each template HDU definition is used as the
+&#X2019;incrementor&#X2019;; each subsequent occurrence of this SAME keyword will
+cause the index value to be incremented. This behavior can be rather
+subtle, as illustrated in the following examples in which the TTYPE
+keyword is the incrementor in both cases:</P><PRE CLASS="verbatim">  TTYPE# = TIME
+  TFORM# = 1D
+  TTYPE# = RATE
+  TFORM# = 1E
+</PRE><P>will create TTYPE1, TFORM1, TTYPE2, and TFORM2 keywords. But if the
+template looks like,</P><PRE CLASS="verbatim">  TTYPE# = TIME
+  TTYPE# = RATE
+  TFORM# = 1D
+  TFORM# = 1E
+</PRE><P>this results in a FITS files with TTYPE1, TTYPE2, TFORM2, and TFORM2,
+which is probably not what was intended!</P><H2 CLASS="section"><A NAME="toc51"></A><A NAME="htoc86">9.3</A>&#XA0;&#XA0;Template Parser Directives</H2><P>In addition to the template lines which define individual keywords, the
+template parser recognizes 3 special directives which are each preceded
+by the backslash character: <CODE> \include, \group</CODE>, and <CODE> \end</CODE>.</P><P>The &#X2019;include&#X2019; directive must be followed by a filename. It forces the
+parser to temporarily stop reading the current template file and begin
+reading the include file. Once the parser reaches the end of the
+include file it continues parsing the current template file. Include
+files can be nested, and HDU definitions can span multiple template
+files.</P><P>The start of a GROUP definition is denoted with the &#X2019;group&#X2019; directive,
+and the end of a GROUP definition is denoted with the &#X2019;end&#X2019; directive.
+Each GROUP contains 0 or more member blocks (HDUs or GROUPs). Member
+blocks of type GROUP can contain their own member blocks. The GROUP
+definition itself occupies one FITS file HDU of special type (GROUP
+HDU), so if a template specifies 1 group with 1 member HDU like:</P><PRE CLASS="verbatim">\group
+grpdescr = 'demo'
+xtension bintable
+# this bintable has 0 cols, 0 rows
+\end
+</PRE><P>then the parser creates a FITS file with 3 HDUs :</P><PRE CLASS="verbatim">1) dummy PHDU
+2) GROUP HDU (has 1 member, which is bintable in HDU number 3)
+3) bintable (member of GROUP in HDU number 2)
+</PRE><P>Technically speaking, the GROUP HDU is a BINTABLE with 6 columns. Applications
+can define additional columns in a GROUP HDU using TFORMn and TTYPEn
+(where n is 7, 8, ....) keywords or their auto-indexing equivalents.</P><P>For a more complicated example of a template file using the group directives,
+look at the sample.tpl file that is included in the CFITSIO distribution.</P><H2 CLASS="section"><A NAME="toc52"></A><A NAME="htoc87">9.4</A>&#XA0;&#XA0;Formal Template Syntax</H2><P>The template syntax can formally be defined as follows:</P><PRE CLASS="verbatim">    TEMPLATE = BLOCK [ BLOCK ... ]
+
+       BLOCK = { HDU | GROUP }
+
+       GROUP = \GROUP [ BLOCK ... ] \END
+
+         HDU = XTENSION [ LINE ... ] { XTENSION | \GROUP | \END | EOF }
+
+        LINE = [ KEYWORD [ = ] ] [ VALUE ] [ / COMMENT ]
+
+    X ...     - X can be present 1 or more times
+    { X | Y } - X or Y
+    [ X ]     - X is optional
+</PRE><P>At the topmost level, the template defines 1 or more template blocks. Blocks
+can be either HDU (Header Data Unit) or a GROUP. For each block the parser
+creates 1 (or more for GROUPs) FITS file HDUs.</P><H2 CLASS="section"><A NAME="toc53"></A><A NAME="htoc88">9.5</A>&#XA0;&#XA0;Errors</H2><P>In general the fits_execute_template() function tries to be as atomic
+as possible, so either everything is done or nothing is done. If an
+error occurs during parsing of the template, fits_execute_template()
+will (try to) delete the top level BLOCK (with all its children if any)
+in which the error occurred, then it will stop reading the template file
+and it will return with an error.</P><H2 CLASS="section"><A NAME="toc54"></A><A NAME="htoc89">9.6</A>&#XA0;&#XA0;Examples</H2><P>1. This template file will create a 200 x 300 pixel image, with 4-byte
+integer pixel values, in the primary HDU:</P><PRE CLASS="verbatim">  SIMPLE = T
+  BITPIX = 32
+  NAXIS = 2     / number of dimensions
+  NAXIS1 = 100  / length of first axis
+  NAXIS2 = 200  / length of second axis
+  OBJECT = NGC 253 / name of observed object
+</PRE><P>The allowed values of BITPIX are 8, 16, 32, -32, or -64,
+representing, respectively, 8-bit integer, 16-bit integer, 32-bit
+integer, 32-bit floating point, or 64 bit floating point pixels.</P><P>2. To create a FITS table, the template first needs to include
+XTENSION = TABLE or BINTABLE to define whether it is an ASCII or binary
+table, and NAXIS2 to define the number of rows in the table. Two
+template lines are then needed to define the name (TTYPEn) and FITS data
+format (TFORMn) of the columns, as in this example:</P><PRE CLASS="verbatim">  xtension = bintable
+  naxis2 = 40
+  ttype# = Name
+  tform# = 10a
+  ttype# = Npoints
+  tform# = j
+  ttype# = Rate
+  tunit# = counts/s
+  tform# = e
+</PRE><P>The above example defines a null primary array followed by a 40-row
+binary table extension with 3 columns called &#X2019;Name&#X2019;, &#X2019;Npoints&#X2019;, and
+&#X2019;Rate&#X2019;, with data formats of &#X2019;10A&#X2019; (ASCII character string), &#X2019;1J&#X2019;
+(integer) and &#X2019;1E&#X2019; (floating point), respectively. Note that the other
+required FITS keywords (BITPIX, NAXIS, NAXIS1, PCOUNT, GCOUNT, TFIELDS,
+and END) do not need to be explicitly defined in the template because
+their values can be inferred from the other keywords in the template.
+This example also illustrates that the templates are generally
+case-insensitive (the keyword names and TFORMn values are converted to
+upper-case in the FITS file) and that string keyword values generally
+do not need to be enclosed in quotes.</P><P>
+</P><HR>
+<A HREF="fitsio009.html"><IMG SRC="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC="contents_motif.gif" ALT="Up"></A>
+<A HREF="fitsio011.html"><IMG SRC="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

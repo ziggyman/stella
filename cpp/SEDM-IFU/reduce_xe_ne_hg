@@ -1,0 +1,15 @@
+# $1: wavelength-calibration image
+# $2: database filename
+# pre: create one image containing xe60+ne40+hg300
+cp ~/stella/linelists/SEDMIFU_s_wlen_pix_255long_14lines.dat .
+cp ~/stella/linelists/refWave_SEDMIFU_s_wlen_pix_255long.fits .
+imrotate $1.fits 90 $1r.fits
+subtractoverscanandtrim $1r.fits $1r_bot.fits [0,2047,0,3] [0,2047,4,2047]
+estimatescatter $1r_bot.fits $1r_bot_scatteredLight.fits 80 80 3.8
+imarith $1r_bot.fits '-' $1r_bot_scatteredLight.fits $1r_bots.fits
+extractsum $1r_bots.fits $2 $1r_botsEcSum_-2_1.fits 1.78 AREA=[20,2028,251,1789]
+writeaps $1r_bots.fits $1r_botsEcSum_-2_1.fits $2 $1r_bots/$1r_botsEcSum
+ls $1r_bots/$1r_botsEcSum* > to_identify.list
+replacestringinlistwith to_identify.list identified_D_text.list '.fits' 'D.fits'
+replacestringinlistwith to_identify.list identified_coeffs.list '.fits' 'coeffs.dat'
+identifylist to_identify.list refWave_SEDMIFU_s_wlen_pix_255long.fits identified_D_text.list identified_coeffs.list SEDMIFU_s_wlen_pix_255long_14lines.dat 10 50 60 10 55 7 3 3 2 1.8 5
