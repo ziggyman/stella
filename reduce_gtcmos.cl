@@ -2,7 +2,15 @@ procedure reduce_gtcmos(indirs)
 
 string indirs     = "@dirs.list"    {prompt="list of directories to reduce"}
 string home       = "/iraf/iraf/extern/gtcmos/inputs/" {prompt="directory where tn_ext_curve.dat is stored"}
-string delold     = "yes"           {prompt="delete old ouput files?", enum="yes|no"}
+bool delold       = yes             {prompt="delete old ouput files?"}
+bool dobias       = yes             {prompt="reduce bias images?"}
+bool doflat       = yes             {prompt="reduce flat images?"}
+bool doarc        = yes             {prompt="reduce arc images?"}
+bool doobj        = yes             {prompt="reduce object images?"}
+bool dostd        = yes             {prompt="reduce standard images?"}
+bool dosens       = yes             {prompt="fit sensitivity function?"}
+bool docalib      = yes             {prompt="flux calibrate objects images?"}
+
 string *dirlist
 string *redlist
 string *obslist
@@ -15,11 +23,15 @@ begin
 #  gtcmos
 
     file   infile,redfile,obsfile,stdsfile,stdtblsfile,stdfile
-    string in,stdstarname,stdtblgood,stddir,stdav,tmpstr
+    string in,stdstarname,stdtblgood,stddir,stdav,tmpstr,obj_av,obj_av_lacos_out,obj_av_cosmics_out
     string dir,red,reddir,obs,goodobs,grism,std,goodstds,goodstdsfound,stdtbl,stdtbls,standardtable
     int lambdamin,lambdamax,arrsize,iarr,lammin,lammax,lammintmp,lammaxtmp,i
+    real gain, rdnoise
 
-    if (delold == "yes"){
+    gain = 0.95
+    rdnoise = 4.5
+
+    if (delold == yes){
 #        !rm logfile.log
         !rm tmp*
         !rm */tmp*
@@ -62,28 +74,28 @@ begin
     dir = ""
     while (fscan (dirlist, in) != EOF){
         print("in = <"//in//">")
+        if (substr(in,strlen(in),strlen(in)) == ":"){
+            if (substr(in,1,1) != "#"){
+                dir = substr(in,1,strlen(in)-1)
+            }
+            else{
+                dir = substr(in,2,strlen(in)-1)
+            }
+            print("dir = <"//dir//">")
+        }
         if (substr(in,1,1) != "#"){
             if (substr(in,strlen(in),strlen(in)) == ":"){
-                dir = substr(in,1,strlen(in)-1)
                 print("dir = <"//dir//">")
             }
             else if (strlen(in) > 2){
                 red = in
-#                !ls > ls.list
-#
-#                redfile = mktemp ("tmp")
-#                sections("@ls.list", option="root", > redfile)
-#                redlist = redfile
-#                while (fscan (redlist, red) != EOF){
-#                    print("red = <"//red//">")
-#                    if (red != "ls.list"){
-#                        print("starting reduction")
+                print("starting reduction")
                 reddir = osfn(dir//red)
                 print("dir for reduction = <"//reddir//">")
                 chdir(reddir)
-                
+
                 # --- delete old results
-                if (delold == "yes"){
+                if (delold == yes){
                     !rm *.fits
                     !rm tmp*
                     !rm *.dat
@@ -95,29 +107,36 @@ begin
                     !rm *.list
                     !rm *.lis
                     !rm *.log
+                    !rm *.std
                 }
 
                 # --- reduce arcs
-                omstart("arc")
-                omstart("arc", mos+)
-                omcomb("gtcarc*_arc_*.fits", fileout="gtc_arc_sum", imtype="arc")
-#                apextract.dispaxis=2
-                hedit("gtc_arc_sum", fields="DISPAXIS", value="2", add+, del-, ver-, update+)
-                omidentify("gtc_arc_sum", "DEFAULT")
-                omreidentify("identify.rms")
-
-                # --- reduce biases
-                omstart("bias", mos+)
-                omcomb("gtc*_bias_*.fits", fileout="gtc_bias_av", imtype="bias")
-
-                # --- reduce flats
-                omstart("flat", mos+)
-                omcomb("gtc*_flat_*.fits", fileout="gtc_flat_av", imtype="flat")
-                omflat("gtc_flat_av", outfile="gtc_master_flat", flatcor="longslit", illcorr="none")
-
-                # --- reduce objects
-                omstart("object", mos+, biasim="gtc_bias_av")
-                !ls gtc*object_*.fits > objects.list
+                if (doarc == yes){
+                    omstart("arc")
+                    omstart("arc", mos+, fixpix+)
+                    omcomb("gtcarc*_arc_*.fits", fileout="gtc_arc_sum", imtype="arc")
+    #                apextract.dispaxis=2
+                    hedit("gtc_arc_sum", fields="DISPAXIS", value="2", add+, del-, ver-, update+)
+                    omidentify("gtc_arc_sum", "DEFAULT")
+                    omreidentify("identify.rms")
+                }
+                if (dobias == yes){
+                    # --- reduce biases
+                    omstart("bias", mos+, fixpix+)
+                    omcomb("gtc*_bias_*.fits", fileout="gtc_bias_av", imtype="bias")
+                }
+                if (doflat == yes){
+                    # --- reduce flats
+                    omstart("flat", mos+, fixpix+)
+                    omcomb("gtc*_flat_*.fits", fileout="gtc_flat_av", imtype="flat")
+                    omflat("gtc_flat_av", outfile="gtc_master_flat", flatcor="longslit", illcorr="none")
+                }
+                if (doobj == yes){
+                    # --- reduce objects
+                    !rm gtc*object*.fits
+                    omstart("object", mos+, biasim="gtc_bias_av", fixpix+)
+                }
+                !ls gtcobjobjbo_object_*.fits > objects.list
                 obsfile = mktemp ("tmp")
                 sections("@objects.list", option="root", > obsfile)
                 obslist = obsfile
@@ -127,6 +146,12 @@ begin
                     imgets(obs,"GRISM")
                     grism = imgets.value
                     print("grism = <"//grism//">")
+                    if (grism == "0"){
+                        hedit(obs, fields="GRISM", value="R1000B", add+, del-, ver-, update+)
+                        imgets(obs,"GRISM")
+                        grism = imgets.value
+                        print("updated grism = <"//grism//">")
+                    }
                     if (grism != "OPEN"){
                         print("obs = <"//obs//">")
                         if (goodobs != ""){
@@ -139,14 +164,31 @@ begin
                     }
                 }
                 print("goodobs = <"//goodobs//">")
-                omcomb(goodobs, fileout="gtc_object_av")
-                omreduce("gtc_object_av", filarc="gtc_arc_sum", filflat="gtc_master_flat", checksky+, lamsky = 5577.838)
-                omskysub("gtc_object_av_wl_flt")
+                obj_av = "gtc_object_av"
+                obj_av_lacos_out = "gtc_object_av_x"
+                obj_av_cosmics_out = "gtc_object_av_cosmics"
+
+                if (doobj == yes){
+                    omcomb(goodobs, fileout=obj_av)
+
+                    if (defpac("stsdas") == no) {
+                        print ("Loading images package")
+                        stsdas
+                    }
+                    lacos_sp(input=obj_av//".fits", output=obj_av_lacos_out//".fits", outmask=obj_av_cosmics_out//".fits", gain=gain, readn=rdnoise, xorder=9, yorder=3, sigclip=4.5, sigfrac=0.5, objlim=1., niter=4)
+                    #bye
+                    omreduce(obj_av_lacos_out, filarc="gtc_arc_sum", filflat="gtc_master_flat", checksky+, lamsky = 5577.838)
+                    omskysub(obj_av_lacos_out//"_wl_flt")
+                }
 
                 # --- reduce standards
-                omstart("stds", mos-)
-                omstart("stds", mos+, biasim="gtc_bias_av")
-                !ls gtc*stds_*.fits > stds.list
+                if (dostd == yes){
+                    !rm database/apgtcstd*
+                    omstart("stds", mos-)
+                    omstart("stds", mos+, biasim="gtc_bias_av", fixpix+)
+                }
+                !rm *.std
+                !ls gtc*stds_???.fits > stds.list
                 stdsfile = mktemp ("tmp")
                 sections("@stds.list", option="root", > stdsfile)
                 stdslist = stdsfile
@@ -172,17 +214,17 @@ begin
                         }
                         goodstds = goodstds//std
                         print("goodstds = <"//goodstds//">")
+                        if (dostd == yes){
+                            hedit(std, fields="DISPAXIS", value="2", add+, del-, ver-, update+)
 
-                        hedit(std, fields="DISPAXIS", value="2", add+, del-, ver-, update+)
+                            omreduce(std, filarc="gtc_arc_sum", filflat="gtc_master_flat")
 
-                        omreduce(std, filarc="gtc_arc_sum", filflat="gtc_master_flat")
-
-                        apall(std//"_wl_flt", nfind=1, interac-, extras+, resi-, lower=-20, upper=20, b_sampl="-50:-40,40:50", t_funct="legendre", t_order=5, backgro="median")
-                        omskysub(std//"_wl_flt")
-
+                            apall(std//"_wl_flt", nfind=1, interac-, extras+, resi-, lower=-20, upper=20, b_sampl="-50:-40,40:50", t_funct="legendre", t_order=5, backgro="median")
+                            omskysub(std//"_wl_flt")
+                        }
                         imgets(std,"OBJECT")
                         stdstarname=imgets.value
-                        stdstarname=substr(stdstarname,7,strlen(stdstarname))
+                        stdstarname=substr(stdstarname,stridx("_",stdstarname)+1,strlen(stdstarname))
                         stdstarname=strlwr(stdstarname)
                         if (stridx("-",stdstarname) > 0){
                             tmpstr = ""
@@ -263,7 +305,9 @@ begin
                         stdav = substr(std,1,strldx("_",std)-1)//"_flux"
                         print("stdav = <"//stdav//">")
                         if (stddir != ""){
-                            standard(std//"_wl_flt.ms", stdav//".std", extinct="gtcinputs$tn_ext_curve.dat", caldir=stddir, star_nam=stdstarname, answer="NO!",interact-)
+#                            if (dostd == yes){
+                                standard(std//"_wl_flt.ms", stdav//".std", extinct="gtcinputs$tn_ext_curve.dat", caldir=stddir, star_nam=stdstarname, answer="NO!",interact-)
+#                            }
                             if (goodstdsfound != ""){
                                 goodstdsfound = goodstdsfound//","
                             }
@@ -273,35 +317,24 @@ begin
                         }
                     }
                 }
-
-                sensfunc(stdav//".std", stdav//"_sens", extinct="gtcinputs$tn_ext_curve.dat", inter-)
-
+                if (dosens == yes){
+                    !rm gtcstdobdts_stds_flux_sens.fits
+                    sensfunc(stdav//".std", stdav//"_sens", extinct="gtcinputs$tn_ext_curve.dat", inter+)
+                }
                 print("goodstds = <"//goodstds//">")
                 print("goodstdsfound = <"//goodstdsfound//">")
                 if (goodstdsfound == ""){
                     print("ERROR: no good standards found in standards directories")
                 }
-#                    print("goodobs = <"//goodobs//">")
-#                    while(strlen(goodobs) > 0){
-#                        if (stridx(",",goodobs)>0){
-#                            obs = substr(goodobs,1,stridx(",",goodobs)-1)
-#                            goodobs = substr(goodobs,stridx(",",goodobs)+1,strlen(goodobs))
-#                        } else{
-#                            obs = goodobs
-#                        }
-                print("calibrating object")
-                calibrate("gtc_object_av_wl_flt", "gtc_object_av_wl_flt_cal", extinct+, flux+, extinction=home//"tn_ext_curve.dat", sensiti=stdav//"_sens")
-                print("calibrating object finished")
-#                        calibrate(gtc12b_p1abc_ccd1tbf_wl.ms gtc12b_p1abc_ccd1tbf_wl.ms_cal extinct+ flux+ extinction=home$tn_ext_curve.dat sensiti=sens_gtc12b_p1GD140_ccd2tbf.std
-#                    }
-    #        }
-#                break
-    #    }
-    #    redlist = ""
-    #    delete (redfile, ver-, >& "dev$null")
+                if (docalib == yes){
+                    print("calibrating object")
+                    !rm gtc_object_av_x_wl_flt_cal.fits
+                    calibrate(obj_av_lacos_out//"_wl_flt", obj_av_lacos_out//"_wl_flt_cal", extinct+, flux+, extinction=home//"tn_ext_curve.dat", sensiti=stdav//"_sens")
+                    print("calibrating object finished")
+    #                        calibrate(gtc12b_p1abc_ccd1tbf_wl.ms gtc12b_p1abc_ccd1tbf_wl.ms_cal extinct+ flux+ extinction=home$tn_ext_curve.dat sensiti=sens_gtc12b_p1GD140_ccd2tbf.std
+                }
             }
         }
-#        break
     }
 
 # --- clean up
